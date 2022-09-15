@@ -394,7 +394,7 @@ export default function BrokerLogin(props) {
 
                                                         {/* 6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq */}
                                                         <ReCAPTCHA
-                                                            sitekey="6Lc8HPAhAAAAAIBxTXqsqAly0VNWzJSgYRmr8C-I"
+                                                            sitekey="6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq"
                                                             onChange={onChange}
                                                         />
                                                     </li>

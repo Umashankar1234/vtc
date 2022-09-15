@@ -108,16 +108,16 @@ export default function BrokerAgensts(props) {
   const [logoimageid, setLogoImageId] = useState("");
   const [logoImageName, setLogoImageName] = useState("");
   const [inputErrors, setinputErrors] = useState({
-    fname: "",
-    lname: "",
-    email: "",
-    username: "",
-    company: "",
-    country: "",
-    state: "",
-    city: "",
-    zip: "",
-    office_ph: "",
+    fname: "blank",
+    lname: "blank",
+    email: "blank",
+    username: "blank",
+    company: "blank",
+    country: "blank",
+    state: "blank",
+    city: "blank",
+    zip: "blank",
+    office_ph: "blank",
     fname_error: "",
     lname_error: "",
     username_error: "",
@@ -131,52 +131,52 @@ export default function BrokerAgensts(props) {
   });
   const regex =
     /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-  // function validateinp() {
-  //   agentData.fname == "" || !agentData.fname
-  //     ? setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         fname: "error",
-  //         fname_error: "First name cannot be blank",
-  //       }))
-  //     : setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         fname: "",
-  //         fname_error: "",
-  //       }));
-  //   agentData.lname == "" || !agentData.lname
-  //     ? setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         lname: "error",
-  //         lname_error: "Last name cannot be blank",
-  //       }))
-  //     : setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         lname: "",
-  //         lname_error: "",
-  //       }));
-  //   agentData.email == "" || !agentData.email
-  //     ? setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         email: "error",
-  //         email_error: "E-Mail Id cannot be blank",
-  //       }))
-  //     : setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         email: "",
-  //         email_error: "",
-  //       }));
-  //   agentData.username == "" || !agentData.username
-  //     ? setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         username: "error",
-  //         username_error: "E-Mail Confirmation does not match",
-  //       }))
-  //     : setinputErrors((prevState) => ({
-  //         ...prevState,
-  //         username: "",
-  //         username_error: "",
-  //       }));
-  // }
+  function validateinp() {
+    agentData.fname == "" || !agentData.fname
+      ? setinputErrors((prevState) => ({
+          ...prevState,
+          fname: "error",
+          fname_error: "First name cannot be blank",
+        }))
+      : setinputErrors((prevState) => ({
+          ...prevState,
+          fname: "",
+          fname_error: "",
+        }));
+    agentData.lname == "" || !agentData.lname
+      ? setinputErrors((prevState) => ({
+          ...prevState,
+          lname: "error",
+          lname_error: "Last name cannot be blank",
+        }))
+      : setinputErrors((prevState) => ({
+          ...prevState,
+          lname: "",
+          lname_error: "",
+        }));
+    agentData.email == "" || !agentData.email
+      ? setinputErrors((prevState) => ({
+          ...prevState,
+          email: "error",
+          email_error: "E-Mail Id cannot be blank",
+        }))
+      : setinputErrors((prevState) => ({
+          ...prevState,
+          email: "",
+          email_error: "",
+        }));
+    agentData.username == "" || !agentData.username
+      ? setinputErrors((prevState) => ({
+          ...prevState,
+          username: "error",
+          username_error: "E-Mail Confirmation does not match",
+        }))
+      : setinputErrors((prevState) => ({
+          ...prevState,
+          username: "",
+          username_error: "",
+        }));
+  }
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -984,7 +984,11 @@ export default function BrokerAgensts(props) {
                             </label>
                             <input
                               type="text"
-                              class="form-control"
+                              className={
+                                inputErrors.lname == "error"
+                                  ? "form-control inperror"
+                                  : "form-control"
+                              }
                               name="lname"
                               placeholder="Last Name  "
                               value={agentInfoData.lname}
@@ -1016,7 +1020,11 @@ export default function BrokerAgensts(props) {
                             </label>
                             <input
                               type="text"
-                              class="form-control"
+                              className={
+                                inputErrors.username == "error"
+                                  ? "form-control inperror"
+                                  : "form-control"
+                              }
                               name="username"
                               placeholder="User Name   "
                               value={agentInfoData.username}
@@ -1046,7 +1054,7 @@ export default function BrokerAgensts(props) {
                             <input
                               type="email"
                               className={
-                                inputErrors.email !== ""
+                                inputErrors.email == "error"
                                   ? "form-control inperror"
                                   : "form-control"
                               }
@@ -1396,7 +1404,11 @@ export default function BrokerAgensts(props) {
                           </label>
                           <input
                             type="text"
-                            class="form-control"
+                            className={
+                              inputErrors.company == "error"
+                                ? "form-control inperror"
+                                : "form-control"
+                            }
                             onChange={handleCompanyInputChange}
                             name="company"
                             value={companyInfo.company}
@@ -1428,7 +1440,11 @@ export default function BrokerAgensts(props) {
                             Country <span style={{ color: "#ffa12d" }}>*</span>
                           </label>
                           <select
-                            className="form-control formbox1select"
+                          className={
+                            inputErrors.country == "error"
+                              ? "form-control formbox1select inperror"
+                              : "form-control formbox1select"
+                          }
                             onChange={handleCompanyInputChange}
                             name="countryid"
                             value={companyInfo.countryid}
@@ -1464,7 +1480,11 @@ export default function BrokerAgensts(props) {
                             State <span style={{ color: "#ffa12d" }}>*</span>
                           </label>
                           <select
-                            className="form-control formbox1select"
+                          className={
+                            inputErrors.state == "error"
+                              ? "form-control formbox1select inperror"
+                              : "form-control formbox1select"
+                          }
                             onChange={handleCompanyInputChange}
                             name="stateid"
                             value={companyInfo.stateid}
@@ -1500,7 +1520,11 @@ export default function BrokerAgensts(props) {
                           </label>
                           <input
                             type="text"
-                            class="form-control"
+                            className={
+                              inputErrors.city == "error"
+                                ? "form-control inperror"
+                                : "form-control"
+                            }
                             onChange={handleCompanyInputChange}
                             name="city"
                             value={companyInfo.city}

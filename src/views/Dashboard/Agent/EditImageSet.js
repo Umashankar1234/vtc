@@ -1768,7 +1768,7 @@ export default function EditImageSet(props) {
                                 style={{ height: divHeight + "px" }}
                             >
                                 {dragImages.map((res, index) => (
-                                    <GridItem key={res.imageid}>
+                                    <GridItem className="top" key={res.imageid}>
                                         <div onClick={() => {
                                             setImageId(res.imageid);
                                             setImageUrl(res.file_url);
@@ -1780,7 +1780,7 @@ export default function EditImageSet(props) {
                                                 <div class="row">
                                                     <div class="col-lg-5 col-md-5">
                                                         <div class="select_img_set_box_img">
-                                                            <img src={res.file_url} style={{ height: "110px" }} alt="" />
+                                                            <img draggable="false" src={res.file_url} style={{ height: "110px" }} alt="" />
                                                             {res.image_type === "panoramas" ? (
                                                                 <img src={res.flag_img} style={{ position: "absolute", width: "90px", right: "5px", top: "5px", border: "none", boxShadow: "none" }} alt="" />
                                                             ) : (

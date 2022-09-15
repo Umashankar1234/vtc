@@ -1478,15 +1478,27 @@ export default function BrokerSetting(props) {
                                     </label>
                                     <input
                                       type={
-                                        companyInfoData.showPasswordOne
+                                        companyInfoData.showPassword
                                           ? "text"
                                           : "password"
                                       }
                                       class="form-control"
                                       onChange={handleCompanyInputChange}
                                       name="cnfpassword"
+                                      onMouseDown={(e)=>console.log(e.target.type)}
                                       value={companyInfoData.cnfpassword}
                                     />
+                                    <IconButton
+                                    className={classes.btn_pwd}
+                                    onClick={handleClickShowPassword}
+                                    onMouseDown={handleMouseDownPassword}
+                                  >
+                                    {companyInfoData.showPasswordOne ? (
+                                      <Visibility />
+                                    ) : (
+                                      <VisibilityOff />
+                                    )}
+                                  </IconButton>
                                   </div>
                                 </div>
                                 <div class="row">

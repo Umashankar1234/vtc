@@ -336,7 +336,7 @@ export default function AgentSetting(props) {
   const [headerImageId, setHeaderImageId] = useState("");
   const [offeredBannerImg, setOfferedBannerImg] = useState("");
   const [sync, setSync] = useState(true);
-  const [defaultBanner, setDefaultBanner] = useState("");
+  const [defaultBanner, setDefaultBanner] = useState("https://www.virtualtourcafe.com/alpha/static/media/default-banner.87685114.jpg");
   const [allBanners, setAllBanners] = useState([]);
   const [allThemes, setAllThemes] = useState({});
   const [maxWidth, setMaxWidth] = React.useState("md");
@@ -511,8 +511,9 @@ export default function AgentSetting(props) {
           setDefaultlogo(res.data[0].response.companylogo);
           setLogoImageId(res.data[0].response.logoimageid);
           setCustomLogo("");
-          setDefaultBanner(res.data[0].response.companybanner);
-          setOfferedBannerImg("");
+          // setDefaultBanner(res.data[0].response.companybanner);
+          console.log('tt',res.data[0].response);
+          setOfferedBannerImg(res.data[0].response.companybanner);
         }
       });
     }
@@ -1750,7 +1751,6 @@ export default function AgentSetting(props) {
     handleLogoGetData(data);
   };
   const handleImageChange = (event) => {
-  
     setCompanyPictures({
       ...companyPictures,
       logoImageName: event.target.files,
@@ -2163,6 +2163,7 @@ export default function AgentSetting(props) {
         setOpen(false);
       });
   };
+  console.log(offeredBannerImg);
   return (
     <div>
       <AgentHeader />
@@ -3039,6 +3040,7 @@ export default function AgentSetting(props) {
                                     <img
                                       src={defaultBanner}
                                       alt=""
+                                      className="one"
                                       style={{
                                         marginBottom: "10px",
                                         width: "100%",
