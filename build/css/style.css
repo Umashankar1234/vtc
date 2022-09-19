@@ -329,7 +329,7 @@ header {
 }
 .head_sec_menu_main ul li {
     display: inline-block;
-    padding: 0 13px;
+    padding: 0 12px;
     position: relative;
     transition: .5s ease-in-out;
 }
@@ -5741,7 +5741,7 @@ to {
 }
 }@media only screen and (min-width:1301px) and (max-width:1430px) {
     .head_sec_menu_main ul li {
-    padding: 0 13px;
+    padding: 0 10px;
 }
 .banner_cont {
     margin: 40px 0 0;
@@ -5765,7 +5765,7 @@ to {
     padding: 35px;
 }
 .head_sec_menu_main ul li a, .service_provide_left_tab ul li a {
-    font-size: 16px;
+    font-size: 15px;
 }
 .recent_projects_tabs_img_conts {
     left: -300%}
@@ -5774,7 +5774,7 @@ to {
 }
 }@media only screen and (min-width:1200px) and (max-width:1300px) {
     .head_sec_menu_main ul li {
-    padding: 0 18px;
+    padding: 0 10px;
 }
 .our_mission_sec_blue h3 {
     font-size: 33px;
@@ -6076,7 +6076,7 @@ a.booknowbtn {
     padding: 10px;
 }
 .hm_logo img {
-    width: 90px;
+    width: 180px;
 }
 header {
     position: relative;
@@ -6490,7 +6490,7 @@ h4 {
     padding: 10px;
 }
 .hm_logo img {
-    width: 90px;
+    width: 180px;
 }
 header {
     position: relative;
@@ -7375,7 +7375,7 @@ h4 {
     padding: 10px;
 }
 .have_need_sec_left_img img, .hm_logo img {
-    width: 70px;
+    width: 180px;
 }
 header {
     background: #333;

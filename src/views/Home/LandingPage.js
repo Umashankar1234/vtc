@@ -27,12 +27,14 @@ import { APIURL, APIPath } from "../../CommonMethods/Fetch";
 import { postRecord } from "../../CommonMethods/Save";
 import { AuthContext } from "../../CommonMethods/Authentication";
 import Footer1 from "../../components/Footer/Footer1";
+import './Landingpage.css'
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetUserData = APIURL() + "user-details";
 const APIHomeData = APIURL() + "homecontent";
 const APIPartnerData = APIURL() + "company-logoList";
 const APIGetBrokerDetails = APIURL() + "get-BrokerDetails";
 const APIVisitorOption = APIURL() + "visitor-opt-newsletter";
+
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -576,18 +578,18 @@ export default function LandingPage() {
                                 <div class="col-lg-12 col-md-12">
                                     <div class="head_sec_menu">
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2">
+                                            <div class="col-lg-3 col-md-3">
                                                 <div class="vtc_logo">
                                                     {Object.keys(data).length > 0 ? (
                                                         <Link to={APIPath()}>
-                                                            <img src={logo} alt="Logo" title="Logo" />
+                                                            <img className="uma" src={logo} alt="Logo" title="Logo" />
                                                         </Link>
                                                     ) : (
                                                         <Skeleton variant="text" width={150} height={100} style={{ background: "#bbbbbb" }} />
                                                     )}
                                                 </div>
                                             </div>
-                                            <div class="col-lg-10 col-md-10">
+                                            <div class="col-lg-9 col-md-9">
                                                 <div class="head_sec_menu_main" >
                                                     <ul>
                                                         <li class="active">
