@@ -9,14 +9,14 @@ export default function HeaderMenu() {
                 <div class="col-lg-12 col-md-12">
                     <div class="head_sec_menu">
                         <div class="row">
-                            <div class="col-lg-2 col-md-2">
+                            <div class="col-lg-3 col-md-3">
                                 <div class="vtc_logo">
                                     <Link to={APIPath()}>
                                         <img src={Logo} alt="Logo" title="Logo" />
                                     </Link>
                                 </div>
                             </div>
-                            <div class="col-lg-10 col-md-10">
+                            <div class="col-lg-9 col-md-9">
                                 <div class="head_sec_menu_main">
                                     <ul>
                                         <li>

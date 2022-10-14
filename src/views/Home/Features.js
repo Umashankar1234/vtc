@@ -301,7 +301,7 @@ export default function Features() {
                                                 </ul>
                                             ) :
                                                 (<ul>
-                                                    <li><Link to={APIPath() + "appointment"} class="login_btn"><i class="fal fa-book"></i>BookUs</Link></li>
+                                                    <li><Link to={APIPath() + "appointment"} class="login_btn"><i class="fal fa-book"></i>Schedule Your Appointment</Link></li>
                                                     <li><Link to={APIPath() + "login"} class="login_btn"><i class="far fa-lock-alt"></i>Login</Link></li>
                                                     <li><Link to={APIPath() + "agent"} class="register_btn"><i class="fas fa-edit"></i>Register</Link></li>
                                                 </ul>)
@@ -318,14 +318,14 @@ export default function Features() {
                                 <div class="col-lg-12 col-md-12">
                                     <div class="head_sec_menu">
                                         <div class="row">
-                                            <div class="col-lg-2 col-md-2">
+                                            <div class="col-lg-3 col-md-3">
                                                 <div class="vtc_logo">
                                                     <Link to={APIPath()}>
                                                         <img src={Logo} alt="Logo" title="Logo" />
                                                     </Link>
                                                 </div>
                                             </div>
-                                            <div class="col-lg-10 col-md-10">
+                                            <div class="col-lg-9 col-md-9">
                                                 <div class="head_sec_menu_main">
                                                     <ul>
                                                         <li>

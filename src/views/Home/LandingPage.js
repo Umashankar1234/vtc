@@ -558,7 +558,7 @@ export default function LandingPage() {
                                                 </ul>
                                             ) :
                                                 (<ul>
-                                                    <li><Link to={APIPath() + "appointment"} class="login_btn"><i class="fal fa-book"></i>BookUs</Link></li>
+                                                    <li><Link to={APIPath() + "appointment"} class="login_btn"><i class="fal fa-book"></i>Schedule Your Appointment</Link></li>
                                                     <li><Link to={APIPath() + "login"} class="login_btn"><i class="far fa-lock-alt"></i>Login</Link></li>
                                                     <li><Link to={APIPath() + "agent"} class="register_btn"><i class="fas fa-edit"></i>Register</Link></li>
                                                 </ul>)
@@ -667,7 +667,7 @@ export default function LandingPage() {
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 mx-auto text-center contact_book_btn">
-                                    <a href="#service" class="down_btn bounce"><i class="fas fa-chevron-down"></i></a>
+                                    <a href="#pro" class="down_btn bounce"><i class="fas fa-chevron-down"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -677,7 +677,7 @@ export default function LandingPage() {
             <div class="bg_shape" style={{ backgroundImage: "url('https://www.virtualtourcafe.com/alpha/static/media/hm-bg-shape.270712f6.webp')" }}>
                 <hr class="spacer40px"></hr>
                 {Object.keys(homeData).length > 0 ? (
-                    <section class="professional_photos">
+                    <section class="professional_photos" id="pro">
                         <div class="professional_photos_left wow fadeInLeft" data-wow-duration="1.4s">
 
                             {/* <img src={imagecheck1} alt=""/> */}

@@ -122,13 +122,13 @@ export default function StepOne(props) {
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="text1">Broker Office Zip Code</label>
+                            <label for="text1">Broker Office ZIP Code </label>
                             <input type="text" onChange={handlePhoneChange} name="broker_zipcode" value={basicInfo.broker_zipcode} class="form-control" maxLength={6} />
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="text1">Listing Zipcode*</label>
+                            <label for="text1">Listing ZIP Code *</label>
                             <input type="text" onChange={handlePhoneChange} name="zip" value={basicInfo.zip} class="form-control" required maxLength={6} onBlur={checkZip} />
                         </div>
                     </div>
@@ -237,7 +237,7 @@ export default function StepOne(props) {
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="text1">Zipcode*</label>
+                            <label for="text1">ZIP Code*</label>
                             <input type="text" onChange={handlePhoneChange} name="zip" value={basicInfo.zip} class="form-control" required maxLength={6} />
                         </div>
                     </div>
