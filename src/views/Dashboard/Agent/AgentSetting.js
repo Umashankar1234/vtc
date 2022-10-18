@@ -496,7 +496,6 @@ export default function AgentSetting(props) {
       setting_type: type,
     };
     postRecord(APIRemoveSocialAuth, obj).then((res) => {
-      console.log(res);
     });
   };
   useEffect(() => {
@@ -512,7 +511,6 @@ export default function AgentSetting(props) {
           setLogoImageId(res.data[0].response.logoimageid);
           setCustomLogo("");
           // setDefaultBanner(res.data[0].response.companybanner);
-          console.log('tt',res.data[0].response);
           setOfferedBannerImg(res.data[0].response.companybanner);
         }
       });
@@ -525,7 +523,6 @@ export default function AgentSetting(props) {
         agentId: JSON.parse(context.state.user).agentId,
       };
       postRecord(APIGetOfferedBanners, obj).then((res) => {
-        console.log(res.data[0].response);
         if (res.data[0].response.status === "success") {
           setAllBanners(res.data[0].response.flyerdetails);
           setHeaderImageId(res.data[0].response.headerimageid);
@@ -553,7 +550,6 @@ export default function AgentSetting(props) {
         agent_id: JSON.parse(context.state.user).agentId,
       };
       postRecord(APIGetPaymentDetails, obj).then((res) => {
-        // console.log(res.data[0]);
         if (res.data[0].response.status === "success") {
           setPaymentData(res.data[0].response.data);
         }
@@ -1143,14 +1139,12 @@ export default function AgentSetting(props) {
     imageData.authenticate_key = "abcd123XYZ";
     imageData.agent_id = JSON.parse(context.state.user).agentId;
     imageData.img = "photo.jpg";
-    // console.log(imageData)
     postRecord(APIDeleteAgentImage, imageData)
       .then((res) => {
-        // console.log(res);
+        console.log('here'+res.data[0].response.status);
         if (res.data[0].response.status === "success") {
-          // console.log(res.data[0].response.data.profile_image);
           setImageData("");
-          setAgentImage(res.data[0].response.data.profile_image);
+          // setAgentImage(res.data[0].response.data.profile_image);
           setMessage(res.data[0].response.message);
           setOpenSuccess(true);
         } else {
@@ -1166,7 +1160,6 @@ export default function AgentSetting(props) {
       });
   };
   const forImage = (element) => {
-    // console.log(element.target.files)
     setImageData({
       ...imageData,
       ["agentphotouploadfile"]: element.target.files,
@@ -1225,7 +1218,6 @@ export default function AgentSetting(props) {
     companyPictures.agent_id = JSON.parse(context.state.user).agentId;
     companyPictures.bannerImageId = headerImageId;
     companyPictures.logoImageId = logoimageid;
-    console.log(companyPictures);
     const formData = new FormData();
     for (let i in companyPictures) {
       if (i === "logoImageName") {
@@ -1904,7 +1896,7 @@ export default function AgentSetting(props) {
 
   const onLogout = useCallback(() => {}, []);
   const authenticate = (response) => {
-    console.log(response);
+    // console.log(response);
     // Api call to server so we can validate the token
   };
   const authHandler = (err, data) => {
@@ -2075,8 +2067,6 @@ export default function AgentSetting(props) {
       });
   };
   const savePinterestAuth = (data) => {
-    console.log("hii");
-    console.log(data);
     var arr = [];
     const obj1 = {
       setting_name: "expires_in",
@@ -2101,7 +2091,6 @@ export default function AgentSetting(props) {
     };
     postRecord(APISavefacebookAuth, obj)
       .then((res) => {
-        console.log(res);
         if (res.data[0].response.status === "success") {
           setMessage("Authorized Successfully");
           setOpenSuccess(true);
@@ -2147,7 +2136,6 @@ export default function AgentSetting(props) {
     };
     postRecord(APISavefacebookAuth, obj)
       .then((res) => {
-        console.log(res);
         if (res.data[0].response.status === "success") {
           setMessage("Authorized Successfully");
           setOpenSuccess(true);
@@ -2163,7 +2151,6 @@ export default function AgentSetting(props) {
         setOpen(false);
       });
   };
-  console.log(offeredBannerImg);
   return (
     <div>
       <AgentHeader />

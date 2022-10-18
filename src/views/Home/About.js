@@ -682,7 +682,7 @@ export default function About() {
                                 )}
                             </div>
                             {Object.keys(homeData).length > 0 ? (
-                                <div
+                                <div 
                                     dangerouslySetInnerHTML={{
                                         __html:
                                             homeData.our_partners.description

@@ -369,7 +369,7 @@ export default function AgentDashboard(props) {
             };
             postRecord(APIGetUserData, objusr)
                 .then(res => {
-                    console.log(res);
+                    // console.log(res);
                     if (res.data[0].response.status === "success") {
                         setCurrentUser(res.data[0].response.data.agent_profile);
                     }
@@ -537,7 +537,7 @@ export default function AgentDashboard(props) {
             .post(APIURL() + `agent-profile-upload-image`, formData, {})
             .then(res => {
                 if (res.data[0].response.status === "success") {
-                    setMessage("Uploaded Sucessfullt.....");
+                    setMessage("Uploaded Sucessfully.....");
                     setOpenSuccess(true);
                     setOpenProfileModal(false);
                     setSync(true);

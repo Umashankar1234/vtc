@@ -177,6 +177,7 @@ export default function CheckoutTab(props) {
             values.street_address = basicInfo.address;
             values.city = basicInfo.city;
             values.zipcode = basicInfo.zip;
+            values.notes = basicInfo.notes;
             values.combocategories = JSON.parse(localStorage.getItem("Combo_Package"));
             values.categories = JSON.parse(localStorage.getItem("Carte_Package"));
             values.packageid = JSON.parse(localStorage.getItem("Sub_Package"));
@@ -242,6 +243,7 @@ export default function CheckoutTab(props) {
         values.street_address = basicInfo.address;
         values.city = basicInfo.city;
         values.zipcode = basicInfo.zip;
+        values.notes = basicInfo.notes;
         values.combocategories = JSON.parse(localStorage.getItem("Combo_Package")).filter((item, i, ar) => ar.indexOf(item) === i);
         values.categories = JSON.parse(localStorage.getItem("Carte_Package")).filter((item, i, ar) => ar.indexOf(item) === i);
         values.packageid = JSON.parse(localStorage.getItem("Sub_Package")).filter((item, i, ar) => ar.indexOf(item) === i);

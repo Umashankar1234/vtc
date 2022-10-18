@@ -454,9 +454,11 @@ export default function Pricing() {
                                                                             {res.body.map(priceData => (<tr>
                                                                                 <td width="25%" align="left" class="package-name">
                                                                                     {priceData.title}</td>
-                                                                                <td width="60%" align="left" class="package-info">
-                                                                                    homes up to 2,000sf, includes up to 30 HDR
-                                                                                    Images</td>
+                                                                                <td width="60%" align="left" class="package-info" ><div dangerouslySetInnerHTML={{
+                                                                                    __html:
+                                                                                    priceData.description
+                                                                                }}></div>
+                                                                                    </td>
                                                                                 <td width="15%" align="right" class="price">
                                                                                     <sup>$</sup>{priceData.price}</td>
                                                                             </tr>))}
