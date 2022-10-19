@@ -577,16 +577,7 @@ export default function Pricing() {
                                                     <div class="featured-content">
                                                         <i class="fas fa-briefcase"></i>
                                                         <h2>TERMS OF SERVICE</h2>
-                                                        <p>We have a dedicated support team to provide same-day response.
-                                                            <br />
-                                                            Text, call us, or email us:<br />
-                                                            (877) 744-8285 or (925) 609-2408<br />
-                                                            support@virtualtourcafe.com
-                                                            <br />
-                                                            <br />
-                                                            Our business hours are<br />
-                                                            Sunday-Saturday 9-6PM.
-                                                        </p>
+                                                        <p>                                                    </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -595,15 +586,7 @@ export default function Pricing() {
                                                     <div class="featured-content">
                                                         <i class="fas fa-file-certificate"></i>
                                                         <h2>LICENSING</h2>
-                                                        <p>We have a dedicated support team to provide same-day response.
-                                                            <br />
-                                                            Text, call us, or email us:<br />
-                                                            (877) 744-8285 or (925) 609-2408<br />
-                                                            support@virtualtourcafe.com
-                                                            <br />
-                                                            <br />
-                                                            Our business hours are<br />
-                                                            Sunday-Saturday 9-6PM.
+                                                        <p>
                                                         </p>
                                                     </div>
                                                 </div>
@@ -655,15 +638,7 @@ export default function Pricing() {
                                                     <Skeleton variant="text" width={550} height={200} style={{ background: "#bbbbbb", margin: "0 auto" }} />
                                                 )}
                                             </div>
-                                            <div class="features_sec_left new_features">
-                                                <ul>
-                                                    <li>Professional Trained and Insured Photographers!</li>
-                                                    <li>VIP Concierge Photo Processing!!</li>
-                                                    <li>Premium Property Website/Virtual Tour, Video and e-Flyer</li>
-                                                    <li>Branded and Unbranded Tour Links</li>
-                                                    <li>24-Hour or Less Turn-Around (Before 10am Next Day)</li>
-                                                </ul>
-                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-md-5">
