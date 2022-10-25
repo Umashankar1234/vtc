@@ -2972,7 +2972,6 @@ export default function AgentSetting(props) {
                                         alt=""
                                         style={{
                                           marginBottom: "10px",
-                                          width: "150px",
                                           height: "100px",
                                         }}
                                       />
@@ -2982,7 +2981,6 @@ export default function AgentSetting(props) {
                                         alt=""
                                         style={{
                                           marginBottom: "10px",
-                                          width: "150px",
                                           height: "100px",
                                         }}
                                       />

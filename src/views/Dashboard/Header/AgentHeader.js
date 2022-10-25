@@ -343,6 +343,8 @@ export default function AgentHeader(props) {
                                     ) : (
                                         ""
                                     )}
+                                    
+                                    <Link to={APIPath() + "appointment"} style={{ cursor: "pointer", marginRight: "10px" }} class="subscribe_btn"><i class="fal fa-book"></i>Schedule Your Appointment</Link>
                                     <a style={{ cursor: "pointer" }} onClick={() => { setOpenSubModal(true) }} class="subscribe_btn"><i class="far fa-file-alt"></i>Subscribe</a>
                                 </div>
                             </div>

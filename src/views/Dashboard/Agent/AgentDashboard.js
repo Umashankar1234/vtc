@@ -1842,11 +1842,11 @@ export default function AgentDashboard(props) {
                                         <div class="vtc_agent_profile_right">
                                             {Object.keys(currentUser).length > 0 ? (
                                                 <React.Fragment>
-                                                    <img src={currentUser.company_details.companylogo} alt="" title="" style={{ height: "140px", width: "250px", cursor: "pointer" }} onClick={handleCompanyIamge} />
+                                                    <img src={currentUser.company_details.companylogo} alt="" title="" style={{ height: "140px", cursor: "pointer" }} onClick={handleCompanyIamge} />
                                                     {/* <CameraAltIcon onClick={() => { setOpenCompanyModal(true) }} style={{ marginTop: "-66px", background: "#e8e6e6", cursor: "pointer" }} /> */}
                                                 </React.Fragment>
                                             ) : (
-                                                <Skeleton variant="text" width={250} height={70} />
+                                                <Skeleton variant="text"  height={70} />
                                             )}
                                             <div class="right_prof_cont">
                                                 <h5>

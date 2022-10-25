@@ -160,16 +160,18 @@ export default function AgentEzFlashCard(props) {
     const orderAndDownload = (id, flash_data) => {
         //VideoFlashDownload(flash_data.flash_data);
         const obj = { authenticate_key: "abcd123XYZ", agentId: JSON.parse(context.state.user).agentId, tourid: tourId, designid: id, orderid: "0", updateval: "0" };
-        postRecord(APICreateSubscribeFlashVideo, obj)
-            .then(res => {
-                // if (res.data[0].response.status === "success") {
-                //     setDownloadVideo(res.data[0].response.data.file)
-                //     setPermissionAllow(res.data[0].response.data.permissionAllow)
-                //      setDesignId(res.data[0].response.data.designid)
-                //     setSync(false);
-                // }
-                // setSync(true);
-            })
+        localStorage.setItem('order_download_data',JSON.stringify(obj));
+        // postRecord(APICreateSubscribeFlashVideo, obj)
+        //     .then(res => {
+        //         if (res.data[0].response.status === "success") {
+        //             console.log(res.data[0].response);
+        //             setDownloadVideo(res.data[0].response.data.file)
+        //             localStorage.setItem("file_link", res.data[0].response.data.file);
+        //             setSync(false);
+        //         }
+        //         setSync(true);
+                
+        //     })
     }
     function toDataURL(url, callback) {
         var xhr = new XMLHttpRequest();
@@ -208,7 +210,7 @@ export default function AgentEzFlashCard(props) {
         }
         if (data.btn === 2) {
             return (
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '-90px' }} id='toggleHide' ><Button class='need_pic save_btn' style={{ width: '100%', margin: '10px', borderStyle: 'none', zIndex: '500' }} onClick={() => orderAndDownload(data.id, data)}  >Order &amp; Download</Button></div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '-90px' }} id='toggleHide' ><Button class='need_pic save_btn' style={{ width: '100%', margin: '10px', borderStyle: 'none', zIndex: '500' }} ><Link onClick={() => orderAndDownload(data.id, data)} to={APIPath() + "payment-page"}>Order &amp; Download</Link></Button></div>
             );
         }
         if (data.btn === 3) {

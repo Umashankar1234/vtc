@@ -79,6 +79,7 @@ import AgentOrderDetails from "./views/Dashboard/Agent/AgentOrderDetails";
 import MyOfficeGallery from "./views/Dashboard/Broker/MyOfficeGallery";
 import MyOfficeNonBrandedGallery from "./views/Dashboard/Broker/MyOfficeNonBrandedGallery";
 import TwitterAuth from "./views/Dashboard/Agent/TwitterAuth";
+import PaymentPage from "./components/Payment/PaymentPage";
 var hist = createBrowserHistory();
 export default function AppRoutes() {
     return (
@@ -113,6 +114,7 @@ export default function AppRoutes() {
                 <PrivateRoute path={APIPath() + "agent-dashboard/:type?"} component={AgentDashboard} />
                 <PrivateRoute path={APIPath() + "broker-dashboard"} component={BrokerDashboard} />
                 <PrivateRoute path={APIPath() + "broker-reports"} component={BrokerReports} />
+                <PrivateRoute path={APIPath() + "payment-page"} component={PaymentPage} />
                 <PrivateRoute path={APIPath() + "broker-support"} component={BrokerSupport} />
                 <PrivateRoute path={APIPath() + "broker-preferred-vendor"} component={BrokerPrefferedVendor} />
                 <PrivateRoute path={APIPath() + "broker-agent/:brokerid?"} component={BrokerAgents} />

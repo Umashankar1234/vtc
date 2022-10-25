@@ -161,6 +161,7 @@ export default function BrokerAgensts(props) {
                 authenticate_key: "abcd123XYZ",
                 brokerid: JSON.parse(context.state.user).user_id
             };
+            console.log(objusr);
             // postRecord("https://cors-anywhere.herokuapp.com/http://139.59.28.82/vtc/api/agent-List", objusr)
             postRecord(APIGetAgenetData, objusr)
                 .then(res => {

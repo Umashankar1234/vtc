@@ -562,7 +562,7 @@ export default function BrokerDashboard() {
                       ) : (
                         <Skeleton
                           variant="text"
-                          width={150}
+                          
                           height={20}
                           style={{ background: "#bbbbbb" }}
                         />

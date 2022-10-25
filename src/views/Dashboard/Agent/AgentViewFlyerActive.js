@@ -91,42 +91,42 @@ export default function AgentViewFlyerActive(props) {
     return (
         <>
             <div class="container">
-                {allData && allData.flyerId === "flyer01" ? (
+                {allData && allData.flyerId === 0 ? (
                     <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer02" ? (
+                {allData && allData.flyerId === 1 ? (
                     <FlyerTheme2 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer03" ? (
+                {allData && allData.flyerId === 2 ? (
                     <FlyerTheme3 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer04" ? (
+                {allData && allData.flyerId === 3 ? (
                     <FlyerTheme4 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer05" ? (
+                {allData && allData.flyerId === 4 ? (
                     <FlyerTheme5 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer06" ? (
+                {allData && allData.flyerId === 5 ? (
                     <FlyerTheme6 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer07" ? (
+                {allData && allData.flyerId === 6 ? (
                     <FlyerTheme7 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
                 )}
-                {allData && allData.flyerId === "flyer08" ? (
+                {allData && allData.flyerId === 7 ? (
                     <FlyerTheme8 tourData={tourData} allData={allData} link={link} />
                 ) : (
                     ""
