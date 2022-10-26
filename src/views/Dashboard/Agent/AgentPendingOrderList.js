@@ -62,6 +62,7 @@ export default function AgentPendingOrderList(props) {
     localStorage.removeItem("Misc_Package");
     localStorage.removeItem("Property_Info");
     localStorage.removeItem("Basic_Info");
+
     const objusr = { authenticate_key: "abcd123XYZ", agent_id: JSON.parse(context.state.user).agentId, orderid: id };
     postRecord(APIGetOrderDetails, objusr)
       .then(res => {

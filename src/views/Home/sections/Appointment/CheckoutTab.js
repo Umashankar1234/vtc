@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory,useNavigate } from "react-router-dom";
 import projimg from "../../../../images/proj.jpg";
 import Button from "@material-ui/core/Button";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -45,6 +45,7 @@ export default function CheckoutTab(props) {
   const classes = useStyles();
   const { setAppointment, setCheckoutTab, setPackageTab, setMiscPackageTab } =
     props;
+
   const context = useContext(AuthContext);
   const [allData, setAllData] = useState({});
   const [miscData, setMiscData] = useState({});
@@ -248,6 +249,7 @@ export default function CheckoutTab(props) {
     }
   };
   const saveForLater = () => {
+    localStorage.setItem("checkout",'yes');
     const values = {};
     values.authenticate_key = "abcd123XYZ";
     values.agent_id = JSON.parse(context.state.user).agentId;
@@ -578,7 +580,6 @@ export default function CheckoutTab(props) {
               }) => {
                 return (
                   <form onSubmit={handleSubmit}>
-                    
                     <div>
                       <Field
                         style={{ display: "none" }}

@@ -10925,6 +10925,47 @@ h1 span.inner p {
   color: #fff !important;
 }
 
+.cartpage-box-wh{background: #fff;-webkit-box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .04);box-shadow: 0 10px 20px 0 rgba(0, 0, 0, .04);padding: 30px;}
+.product-cart-table img{ width: 100px;}
+.product-cart-table td{ text-align: left; font-size: 16px;}
+.product-cart-table thead th{ font-size: 18px;background: #ffa12d;color: #fff;border: none;}
+.cartpage-box-wh h4{ font-size: 20px;background: #2d3e50;padding: 10px;font-weight: 500;color: #fff; text-align: center; margin: 0}
+.cartpage-box-wh h4 span{ font-size: 16px; display: block; font-weight: normal;}
+.cart-right-body{ position: relative; padding: 15px;}
+.cart-right-order span{ display: inline-block; background: #fff; border-radius: 25px; font-weight: 600; color: #ffa12d; font-size:18px; padding: 10px 15px;}
+.cart-right-order{  margin-top: 20px;display: flex; align-items: center; justify-content: space-between;background: #f4f4f4;color: #333; padding: 15px; font-weight: 500;}
+.apply-coupon {display: -webkit-box;display: -ms-flexbox;display: flex;}
+.apply-coupon input {height: 51px;border-radius: 10px 0 0 10px;width: 100%;
+background-image: url(../images/coupon.png);background-position: 20px center;background-repeat: no-repeat;    border: 1px solid #ececec;padding-left: 50px;}
+.apply-coupon button {height: 51px;border-radius: 0 10px 10px 0;background-color: #253D4E; color: #fff;}
+.final-order-submit {  text-align: center;  margin-top: 20px;}
+.cash_on_sec_new_new{position: relative;width: 100%;padding-left: 0px;display: flex; align-items: center;margin: 0 0 20px 0;border-bottom: 1px solid #eaeaea;
+	padding-bottom: 20px;}
+.contain_sec_new {display: block;position: relative;padding-left: 0px;margin-bottom: 0px;  cursor: pointer;font-size: 22px;-webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;}
+.contain_sec_new input {position: absolute;opacity: 0;cursor: pointer;}
+.checkmark {position: absolute;top: 0px;left: 0;height: 20px;width: 20px;background-color: #F6F6F6;
+  border-radius: 50%;border: 1px solid #979797;}
+.contain_sec_new:hover input ~ .checkmark {background-color: #F6F6F6;}
+.contain_sec_new input:checked ~ .checkmark {background-color: #5383BD;}
+.checkmark:after {content: "";position: absolute;display: none;}
+.contain_sec_new input:checked ~ .checkmark:after {display: block;}
+.contain_sec_new .checkmark:after {top: 5px;left: 5px;width: 8px; height: 8px;border-radius: 50%;
+  background: #fff;}
+.cash_on_sec_cont_new_new{position: relative;margin-left: 30px;}
+.cash_on_sec_cont_new_new p{ margin: 0px; font-size: 12px;}
+.cash_on_sec_cont_new_new h6{margin: 0 0 0px 0;color: #333;font-size: 14px;font-weight: 600; color: #333;}
+.contain_sec_new input:checked ~ .cash_on_sec_cont_new_new h6{color: #1e317a;}
+.new_device{position: relative;display: flex;}
+.install_form_textarea{border: none;background: #fff;color: #B8B8B8;font-size: 12px;font-weight: 600;width: 100%;padding: 13px 25px;height:120px;border-radius: 4px;position: relative; resize:none;}
+.note_para{position: relative;margin: 0;color: #BD2934;font-size: 12px;font-weight: 600;
+  letter-spacing: 0;line-height: 17px;}
+.new_arrival_sec.solar-system{ padding-bottom:150px;}
+.cash_on_sec_new_new i {position: absolute;right: 0;top: 0;color: #f00;}
+
+.cart-right-body .panel-body.paymentmethod_form label {color: #1c2437;font-weight: 500;display: block;margin-bottom: 5px;}
+.cart-right-body .panel-body.paymentmethod_form {padding: 20px;background: #f7f7f7; margin-bottom: 20px;}
+
+
 /* .accordion {
   background-color: #eee;
   color: #444;

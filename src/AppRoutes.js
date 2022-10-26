@@ -79,7 +79,8 @@ import AgentOrderDetails from "./views/Dashboard/Agent/AgentOrderDetails";
 import MyOfficeGallery from "./views/Dashboard/Broker/MyOfficeGallery";
 import MyOfficeNonBrandedGallery from "./views/Dashboard/Broker/MyOfficeNonBrandedGallery";
 import TwitterAuth from "./views/Dashboard/Agent/TwitterAuth";
-import PaymentPage from "./components/Payment/PaymentPage";
+// import PaymentPage from "./Home/sections/PaymentPage";
+import PaymentPage from "./views/Home/sections/Appointment/PaymentPage";
 var hist = createBrowserHistory();
 export default function AppRoutes() {
     return (
