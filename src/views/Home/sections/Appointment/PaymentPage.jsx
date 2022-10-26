@@ -68,12 +68,13 @@ export default function CheckoutTab(props) {
   var order_download_data = JSON.parse(
     localStorage.getItem("order_download_data")
   );
+  console.log(order_download_data);
   var data = "";
   flashcardData.forEach((element) => {
     if (element.id == order_download_data.designid) data = element;
   });
 
-  console.log(data);
+  console.log('data:'+data);
 
   // console.log(order_download_data);
   let history = useHistory();
@@ -103,97 +104,97 @@ export default function CheckoutTab(props) {
     }
     setOpenError(false);
   };
-  const handlechange = (event) => {
-    const { name, value } = event.target;
-    setCardDetails({ ...cardDetails, [name]: value.replace(/[^a-z ]/gi, "") });
-  };
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setCardDetails({ ...cardDetails, [name]: value });
-  };
-  const handlePhoneChange = (event) => {
-    const { name, value } = event.target;
-    setCardDetails({ ...cardDetails, [name]: value.replace(/\D/g, "") });
-  };
-  useEffect(() => {
-    window.scrollTo(0, 400);
-  }, []);
-  useEffect(() => {
-    let unique_carte = JSON.parse(localStorage.getItem("Carte_Package")).filter(
-      (item, i, ar) => ar.indexOf(item) === i
-    );
-    const obj = {
-      authenticate_key: "abcd123XYZ",
-      combopackages: JSON.parse(localStorage.getItem("Combo_Package")),
-      category_list: unique_carte,
-    };
-    postRecord(APIGetOrderPackages, obj).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setAllData(res.data[0].response.data);
-        // res.data[0].response.data.package.forEach(res => {
-        //     setPackages([...packages, res.package_details])
-        // })
-      }
-    });
-  }, []);
-  useEffect(() => {
-    const obj = { authenticate_key: "abcd123XYZ" };
-    postRecord(APIGetMiscPackages, obj).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setMiscData(res.data[0].response.data.miscellaneous);
-      }
-    });
-  }, []);
+  // const handlechange = (event) => {
+  //   const { name, value } = event.target;
+  //   setCardDetails({ ...cardDetails, [name]: value.replace(/[^a-z ]/gi, "") });
+  // };
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setCardDetails({ ...cardDetails, [name]: value });
+  // };
+  // const handlePhoneChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setCardDetails({ ...cardDetails, [name]: value.replace(/\D/g, "") });
+  // };
+  // useEffect(() => {
+  //   window.scrollTo(0, 400);
+  // }, []);
+  // useEffect(() => {
+  //   let unique_carte = JSON.parse(localStorage.getItem("Carte_Package")).filter(
+  //     (item, i, ar) => ar.indexOf(item) === i
+  //   );
+  //   const obj = {
+  //     authenticate_key: "abcd123XYZ",
+  //     combopackages: JSON.parse(localStorage.getItem("Combo_Package")),
+  //     category_list: unique_carte,
+  //   };
+  //   postRecord(APIGetOrderPackages, obj).then((res) => {
+  //     if (res.data[0].response.status === "success") {
+  //       setAllData(res.data[0].response.data);
+  //       // res.data[0].response.data.package.forEach(res => {
+  //       //     setPackages([...packages, res.package_details])
+  //       // })
+  //     }
+  //   });
+  // }, []);
+  // useEffect(() => {
+  //   const obj = { authenticate_key: "abcd123XYZ" };
+  //   postRecord(APIGetMiscPackages, obj).then((res) => {
+  //     if (res.data[0].response.status === "success") {
+  //       setMiscData(res.data[0].response.data.miscellaneous);
+  //     }
+  //   });
+  // }, []);
   // console.log(allData);
   // console.log(packages);
-  useEffect(() => {
-    var price = 0;
-    if (Object.keys(allData).length > 0) {
-      allData.package.forEach((element) => {
-        element.package_details.forEach((res) => {
-          JSON.parse(localStorage.getItem("Sub_Package")).forEach((sd) => {
-            if (res.id === sd) {
-              price += res.price;
-            }
-          });
-        });
-      });
-    }
-    if (Object.keys(miscData).length > 0) {
-      miscData.miscellaneous_details.forEach((element) => {
-        JSON.parse(localStorage.getItem("Misc_Package")).forEach((res) => {
-          if (element.id === res) {
-            price += element.price;
-          }
-        });
-      });
-    }
-    setPrice(price);
-  }, [allData, miscData]);
-  function insert(str, index, value) {
-    return str.substr(0, index) + value + str.substr(index);
-  }
-  function GetCardType(number) {
-    var re = {
-      electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
-      maestro:
-        /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
-      dankort: /^(5019)\d+$/,
-      interpayment: /^(636)\d+$/,
-      unionpay: /^(62|88)\d+$/,
-      visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
-      mastercard: /^5[1-5][0-9]{14}$/,
-      amex: /^3[47][0-9]{13}$/,
-      diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
-      discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
-      jcb: /^(?:2131|1800|35\d{3})\d{11}$/,
-    };
-    for (var key in re) {
-      if (re[key].test(number)) {
-        return key;
-      }
-    }
-  }
+  // useEffect(() => {
+  //   var price = 0;
+  //   if (Object.keys(allData).length > 0) {
+  //     allData.package.forEach((element) => {
+  //       element.package_details.forEach((res) => {
+  //         JSON.parse(localStorage.getItem("Sub_Package")).forEach((sd) => {
+  //           if (res.id === sd) {
+  //             price += res.price;
+  //           }
+  //         });
+  //       });
+  //     });
+  //   }
+  //   if (Object.keys(miscData).length > 0) {
+  //     miscData.miscellaneous_details.forEach((element) => {
+  //       JSON.parse(localStorage.getItem("Misc_Package")).forEach((res) => {
+  //         if (element.id === res) {
+  //           price += element.price;
+  //         }
+  //       });
+  //     });
+  //   }
+  //   setPrice(price);
+  // }, [allData, miscData]);
+  // function insert(str, index, value) {
+  //   return str.substr(0, index) + value + str.substr(index);
+  // }
+  // function GetCardType(number) {
+  //   var re = {
+  //     electron: /^(4026|417500|4405|4508|4844|4913|4917)\d+$/,
+  //     maestro:
+  //       /^(5018|5020|5038|5612|5893|6304|6759|6761|6762|6763|0604|6390)\d+$/,
+  //     dankort: /^(5019)\d+$/,
+  //     interpayment: /^(636)\d+$/,
+  //     unionpay: /^(62|88)\d+$/,
+  //     visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+  //     mastercard: /^5[1-5][0-9]{14}$/,
+  //     amex: /^3[47][0-9]{13}$/,
+  //     diners: /^3(?:0[0-5]|[68][0-9])[0-9]{11}$/,
+  //     discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+  //     jcb: /^(?:2131|1800|35\d{3})\d{11}$/,
+  //   };
+  //   for (var key in re) {
+  //     if (re[key].test(number)) {
+  //       return key;
+  //     }
+  //   }
+  // }
   const onSubmit = async (values) => {
     if (values.number === undefined) {
       setMessage("Please enter card number");

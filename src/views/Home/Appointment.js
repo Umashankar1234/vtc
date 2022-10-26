@@ -40,11 +40,14 @@ export default function Appointment(props) {
   const [checkoutTab, setCheckoutTab] = useState(false);
   const [allPackages, setAllPackages] = useState([]);
   const [currentBroker, setCurrentBroker] = useState({});
-//   if (localStorage.getItem("checkout") === "yes") {
-//     setFinalPreviewtab(true);
-//     setAppointment(false);
-//     localStorage.removeItem("checkout");
-//   } else setAppointment(true);
+  //
+  useEffect(() => {
+    if (localStorage.getItem("checkout") === "yes") {
+      setFinalPreviewtab(true);
+      setAppointment(false);
+      localStorage.removeItem("checkout");
+    } else setAppointment(true);
+  }, []);
 
   useEffect(() => {
     const obj = { authenticate_key: "abcd123XYZ" };
