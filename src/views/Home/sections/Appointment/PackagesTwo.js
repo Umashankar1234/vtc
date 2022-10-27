@@ -7,6 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { APIURL } from "../../../../CommonMethods/Fetch";
 import { postRecord } from "../../../../CommonMethods/Save";
+import defaultimage from "../../../../images/package-default-image.png";
 const APIGetOrderPackages = APIURL() + "get-order-package";
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -96,11 +97,12 @@ export default function PackagesTwo(props) {
         setMiscPackageTab(true);
         }
     }
+    console.log(allData);
     return (
         <div class="appointment_page_right">
             <div class="row">
                 <div class="col-md-12">
-                    <h3>Packages</h3>
+                    <h3>Packagesss</h3>
                     <div class="step_progress">
                         <span>Step 2/4</span>
                         <div class="progress" style={{ height: "20px" }}>
@@ -183,23 +185,21 @@ export default function PackagesTwo(props) {
                             )}
                             {Object.keys(allData).length > 0 ? (
                                 allData.combo_package.map(res => (
-                                    <div>
-                                        {allData.combo_package.package_details !== undefined &&
-                                            <div class="col-md-12 appointment-steps">
-                                                <h4>{res.title}</h4>
-                                            </div>
-                                        }
+                                    <React.Fragment>
+                                        <div class="col-md-12 appointment-steps">
+                                            <h4>{res.title}</h4>
+                                        </div>
                                         <div class="package-box-appointment">
                                             <div class="row">
-                                                {allData.combo_package.package_details !== undefined && allData.combo_package.package_details.map(sd => (
+                                                {res.package_details.map(sd => (
                                                     <div class="col-md-6">
                                                         <div class="package-box-description">
                                                             <div class="package-box-appointment1">
                                                                 <span class="pricetag"> $ {sd.price}</span>
-                                                                <img style={{ height: "150px", objectFit: "cover", width: "100%" }} src={sd.image} alt="" />
+                                                                <img style={{ height: "150px", objectFit: "cover", width: "100%" }} src={sd.image !=''?sd.image:defaultimage} alt="" />
                                                                 <h4>{sd.title}</h4>
                                                             </div>
-                                                            <div style={{ minHeight: "70px" }} class="package-box-appointment1-content">
+                                                            <div class="package-box-appointment1-content">
                                                                 <div
                                                                     dangerouslySetInnerHTML={{
                                                                         __html:
@@ -208,14 +208,14 @@ export default function PackagesTwo(props) {
                                                                 >
                                                                 </div>
                                                             </div>
-                                                            {checkComboId(sd.id) === true ? (
+                                                            {checkId(sd.id) === true ? (
                                                                 <Button
                                                                     style={{ marginTop: "20px" }}
                                                                     variant="contained"
                                                                     color="secondary"
                                                                     endIcon={<HighlightOffIcon />}
                                                                     onClick={() => {
-                                                                        removeComboSubPackages(sd.id);
+                                                                        removeSubPackages(sd.id);
                                                                     }}
                                                                 >
                                                                     Remove
@@ -227,7 +227,7 @@ export default function PackagesTwo(props) {
                                                                     color="primary"
                                                                     endIcon={<AddIcon />}
                                                                     onClick={() => {
-                                                                        addComboSubPackages(sd.id);
+                                                                        addSubPackages(sd.id);
                                                                     }}
                                                                 >
                                                                     Add
@@ -239,7 +239,8 @@ export default function PackagesTwo(props) {
                                                 ))}
                                             </div>
                                         </div>
-                                    </div>
+
+                                    </React.Fragment>
                                 ))
                             ) : (
                                 <div class="">

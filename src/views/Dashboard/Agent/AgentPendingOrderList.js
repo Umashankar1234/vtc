@@ -55,6 +55,7 @@ export default function AgentPendingOrderList(props) {
     history.push(APIPath() + "pending-order-details/" + id);
   }
   const completeOrder = (id) => {
+    localStorage.setItem("checkout",'yes');
     localStorage.removeItem("Combo_Package");
     localStorage.removeItem("Carte_Package");
     localStorage.removeItem("Sub_Package");
