@@ -48,6 +48,13 @@ export default function Appointment(props) {
       localStorage.removeItem("checkout");
     } else setAppointment(true);
   }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem("package_id") === "yes") {
+  //     setFinalPreviewtab(true);
+  //     setAppointment(false);
+  //     localStorage.removeItem("checkout");
+  //   } else setAppointment(true);
+  // }, []);
 
   useEffect(() => {
     const obj = { authenticate_key: "abcd123XYZ" };
