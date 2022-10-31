@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
 import { postRecord } from "../../../../CommonMethods/Save";
@@ -8,7 +8,7 @@ function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
 export default function StepOne(props) {
-  const { setAppointment, setPackageTab } = props;
+  const { setAppointment, setPackageTab, setSecondPackageTab } = props;
   const initialBasicInfoState = {
     broker_id: "",
     address: "",
@@ -68,8 +68,14 @@ export default function StepOne(props) {
       postRecord(APICheckZip, obj).then((res) => {
         if (res.data[0].response.status === "success") {
           localStorage.setItem("Basic_Info", JSON.stringify(basicInfo));
-          setPackageTab(true);
-          setAppointment(false);
+          if (localStorage.getItem("package_id")) {
+            setAppointment(false);
+            setSecondPackageTab(true);
+            localStorage.removeItem('package_id')
+          } else {
+            setPackageTab(true);
+            setAppointment(false);
+          }
         } else {
           setMessage(res.data[0].response.message);
           setOpenError(true);
@@ -99,7 +105,7 @@ export default function StepOne(props) {
     // localStorage.removeItem("Property_Info");
     localStorage.removeItem("Basic_Info");
     // window.location.reload();
-  };
+  };  
   return (
     <div class="appointment_page_right">
       <div class="row">

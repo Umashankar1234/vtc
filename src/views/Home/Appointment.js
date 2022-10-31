@@ -589,6 +589,7 @@ export default function Appointment(props) {
                 <StepOne
                   setAppointment={setAppointment}
                   setPackageTab={setPackageTab}
+                  setSecondPackageTab={setSecondPackageTab}
                 />
               ) : (
                 ""

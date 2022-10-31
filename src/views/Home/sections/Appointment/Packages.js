@@ -288,6 +288,7 @@ export default function Packages(props) {
       return geeks != value;
     });
   }
+  console.log('uma',cartePackageData);
   const saveDataToLocalStorage = () => {
     if (cartePackageData.length === 0 && signaturePackageData.length === 0) {
       setMessage("Please select any package");
