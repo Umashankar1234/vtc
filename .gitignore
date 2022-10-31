@@ -5,6 +5,7 @@ You should customize this list as applicable to your project.
 # Node artifact files
 node_modules/
 dist/
+build/
 
 # Compiled Java class files
 *.class

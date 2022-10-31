@@ -141,13 +141,6 @@ export default function Pricing() {
     history.push(APIPath() + "appointment");
   };
   console.log(pricingData.standard_package);
-  const [cartePackageData, setCartePackageData] = useState(
-    JSON.parse(localStorage.getItem("Carte_Package")) === null
-      ? []
-      : JSON.parse(localStorage.getItem("Carte_Package")).filter(
-          (item, i, ar) => ar.indexOf(item) === i
-        )
-  );
   return (
     <div>
       <section class="home_page">
@@ -671,10 +664,22 @@ export default function Pricing() {
                                     <Link
                                       class="booknowbtn"
                                       to={APIPath() + "appointment"}
-                                      onClick={()=>{localStorage.setItem('package_id',res.id);
-                                      var a=[];
-                                      a.push(res.id);
-                                      localStorage.setItem('Carte_Package',JSON.stringify(a))}}
+                                      onClick={() => {
+                                        localStorage.setItem(
+                                          "package_id",
+                                          res.id
+                                        );
+                                        var a = [];
+                                        localStorage.setItem(
+                                          "Combo_Package",
+                                          JSON.stringify(a)
+                                        );
+                                        a.push(res.id);
+                                        localStorage.setItem(
+                                          "Carte_Package",
+                                          JSON.stringify(a)
+                                        );
+                                      }}
                                     >
                                       Order{" "}
                                       <i
