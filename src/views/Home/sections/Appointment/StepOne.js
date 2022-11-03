@@ -307,7 +307,7 @@ export default function StepOne(props) {
           <div class="col-md-12">
             <div class="form-group">
               <label>
-                How will our photographer gain access to the property?
+                How will our photographer gain access to the property?*
               </label>
               <input
                 type="text"

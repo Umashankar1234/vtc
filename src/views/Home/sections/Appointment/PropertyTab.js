@@ -192,7 +192,7 @@ export default function PropertyTab(props) {
                                     }}
                                 />
                                 <div>
-                                    <select class="form-control" name="first_time" id="first_time" value={data.first_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }}  >
+                                    <select class="form-control formbox1select" name="first_time" id="first_time" value={data.first_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }}  >
 
                                         <option value="">Slect Time</option>
 
@@ -234,7 +234,7 @@ export default function PropertyTab(props) {
                                     }}
                                 />
                                 <div>
-                                    <select class="form-control" name="second_time" id="second_time" value={data.second_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }} >
+                                    <select class="form-control formbox1select" name="second_time" id="second_time" value={data.second_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }} >
 
                                         <option value="">Slect Time</option>
 
@@ -277,7 +277,7 @@ export default function PropertyTab(props) {
                                     }}
                                 />
                                 <div>
-                                    <select class="form-control" name="third_time" id="third_time" value={data.third_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }} >
+                                    <select class="form-control formbox1select" name="third_time" id="third_time" value={data.third_time} onChange={selectHandleChange} style={{ width: "250px", marginTop: "16px" }} >
 
                                         <option value="">Slect Time</option>
 
