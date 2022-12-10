@@ -1,15 +1,19 @@
 import React, { useState, useEffect, useContext } from "react";
 import $ from "jquery";
-import ReactPaginate from 'react-paginate';
+import ReactPaginate from "react-paginate";
 import { Link, useHistory } from "react-router-dom";
 import banner from "../../../images/vtc-banner.jpg";
 import Footer from "../../../components/Footer/AgentFooter";
 import AgentHeader from "../Header/AgentHeader";
+import Backdrop from "@material-ui/core/Backdrop";
+import { makeStyles } from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 const APIGetPendingOrderList = APIURL() + "pending-orders-list";
 const APIGetOrderDetails = APIURL() + "pending-orders-details";
+const ApiDeleteProduct = APIURL() + "delete-pending-order";
 export default function AgentPendingOrderList(props) {
   let history = useHistory();
   const context = useContext(AuthContext);
@@ -23,6 +27,13 @@ export default function AgentPendingOrderList(props) {
   const [pageCount, setPageCount] = useState(0);
   const [offset, setOffset] = useState(0);
   const [allData, setAllData] = useState([]);
+  const useStyles = makeStyles((theme) => ({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 9999,
+      color: "#fff",
+    },
+  }));
+  const classes = useStyles();
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -32,30 +43,55 @@ export default function AgentPendingOrderList(props) {
       $(".gee_hamburger").hide();
       $(".gee_cross").show();
     });
-  }
+  };
   const HideMenu = () => {
     $(".gee_menu").slideToggle("slow", function () {
       $(".gee_cross").hide();
       $(".gee_hamburger").show();
     });
-  }
+  };
+
   useEffect(() => {
     if (context.state.user) {
-      const objusr = { authenticate_key: "abcd123XYZ", agent_id: JSON.parse(context.state.user).agentId };
-      postRecord(APIGetPendingOrderList, objusr)
-        .then(res => {
-          if (res.data[0].response.status === "success") {
-            setPendingOrderList(res.data[0].response.data.pending_list);
-            setPropertyInfo(res.data[0].response.data.orderdetails);
-          }
-        });
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        agent_id: JSON.parse(context.state.user).agentId,
+      };
+      setOpen(true);
+      postRecord(APIGetPendingOrderList, objusr).then((res) => {
+        setOpen(false);
+        if (res.data[0].response.status === "success") {
+          setPendingOrderList(res.data[0].response.data.pending_list);
+          setPropertyInfo(res.data[0].response.data.orderdetails);
+        }
+      });
     }
   }, [context.state.user]);
   const handleDetails = (id) => {
     history.push(APIPath() + "pending-order-details/" + id);
-  }
+  };
+  console.log(pendingorderList);
+  const deleteOrder = (id) => {
+    const objusr = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user).agentId,
+      orderid: id,
+    };
+    setOpen(true);
+    postRecord(ApiDeleteProduct, objusr).then((res) => {
+      setOpen(false);
+      if (res.data[0].response.status === "success") {
+        setPendingOrderList(current =>
+          current.filter(employee => {
+            // 👇️ remove object that has id equal to 2
+            return employee.id !== id;
+          }),
+        );
+      }
+    });
+  };
   const completeOrder = (id) => {
-    localStorage.setItem("checkout",'yes');
+    localStorage.setItem("checkout", "yes");
     localStorage.removeItem("Combo_Package");
     localStorage.removeItem("Carte_Package");
     localStorage.removeItem("Sub_Package");
@@ -64,36 +100,46 @@ export default function AgentPendingOrderList(props) {
     localStorage.removeItem("Property_Info");
     localStorage.removeItem("Basic_Info");
 
-    const objusr = { authenticate_key: "abcd123XYZ", agent_id: JSON.parse(context.state.user).agentId, orderid: id };
-    postRecord(APIGetOrderDetails, objusr)
-      .then(res => {
-        console.log(res.data[0].response);
-        if (res.data[0].response.status === "success") {
-          if (res.data[0].response.data.miscellaneouspackage && res.data[0].response.data.miscellaneouspackage.length > 0) {
-            res.data[0].response.data.miscellaneouspackage.map(res => {
-              setMiscPackages(prevArray => [...prevArray, res.id]);
-            })
-          }
-          if (res.data[0].response.data.packagedetails && res.data[0].response.data.packagedetails.length > 0) {
-            res.data[0].response.data.packagedetails.map(res => {
-              setPackages(prevArray => [...prevArray, res.id]);
-              setCartePackages(prevArray => [...prevArray, res.cat_id]);
-            })
-          }
-
-          // setAllOrders(res.data[0].response.data);
-          setPropertyInfo(res.data[0].response.data.orderdetails);
-          const obj = {
-            city: res.data[0].response.data.orderdetails.city,
-            zip: res.data[0].response.data.orderdetails.zipcode,
-            state: res.data[0].response.data.orderdetails.state,
-            squre_feet: res.data[0].response.data.orderdetails.square_footage,
-          }
-          setBasicInfo(obj);
-          history.push(APIPath() + "appointment/?order");
+    const objusr = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user).agentId,
+      orderid: id,
+    };
+    postRecord(APIGetOrderDetails, objusr).then((res) => {
+      console.log(res.data[0].response);
+      if (res.data[0].response.status === "success") {
+        if (
+          res.data[0].response.data.miscellaneouspackage &&
+          res.data[0].response.data.miscellaneouspackage.length > 0
+        ) {
+          res.data[0].response.data.miscellaneouspackage.map((res) => {
+            setMiscPackages((prevArray) => [...prevArray, res.id]);
+          });
         }
-      });
-  }
+        if (
+          res.data[0].response.data.packagedetails &&
+          res.data[0].response.data.packagedetails.length > 0
+        ) {
+          res.data[0].response.data.packagedetails.map((res) => {
+            setPackages((prevArray) => [...prevArray, res.id]);
+            setCartePackages((prevArray) => [...prevArray, res.cat_id]);
+          });
+        }
+
+        // setAllOrders(res.data[0].response.data);
+        setPropertyInfo(res.data[0].response.data.orderdetails);
+        const obj = {
+          city: res.data[0].response.data.orderdetails.city,
+          zip: res.data[0].response.data.orderdetails.zipcode,
+          state: res.data[0].response.data.orderdetails.state,
+          squre_feet: res.data[0].response.data.orderdetails.square_footage,
+          notes: res.data[0].response.data.orderdetails.notes,
+        };
+        setBasicInfo(obj);
+        history.push(APIPath() + "appointment/?order");
+      }
+    });
+  };
   useEffect(() => {
     if (packages) {
       localStorage.setItem("Sub_Package", JSON.stringify(packages));
@@ -124,16 +170,21 @@ export default function AgentPendingOrderList(props) {
     // setTotalData(slice);
     // setAllData(slice);
     // setPageCount(Math.ceil(imagesetList.length / postPerPage));
-  }
+  };
   const handlePageClick = (event) => {
     // setOffset(selectedPage + 6);
     const newOffset = (event.selected * postPerPage) % pendingorderList.length;
     setOffset(newOffset);
-  }
+  };
+  const [open, setOpen] = useState(false);
+
   return (
     <div>
       <AgentHeader path={props.location.pathname} />
-      <section class="vtc_agent_banner" style={{ backgroundImage: "url(" + banner + ")" }}>
+      <section
+        class="vtc_agent_banner"
+        style={{ backgroundImage: "url(" + banner + ")" }}
+      >
         <div class="vtc_top_menu">
           <div class="container-fluid">
             <div class="row">
@@ -144,7 +195,9 @@ export default function AgentPendingOrderList(props) {
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
                     <li>
-                      <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
+                      <Link to={APIPath() + "agent-image-sets"}>
+                        Image Sets
+                      </Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
@@ -159,18 +212,26 @@ export default function AgentPendingOrderList(props) {
                       <Link to={APIPath() + "agent-setting"}>Settings</Link>
                     </li>
                     <li>
-                      <Link to={APIPath() + "agent-preferred-vendor"}>Preferred Vendors</Link>
+                      <Link to={APIPath() + "agent-preferred-vendor"}>
+                        Preferred Vendors
+                      </Link>
                     </li>
                     <li>
-                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">Xpressdocs</a>
+                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">
+                        Xpressdocs
+                      </a>
                     </li>
                     <li class="">
                       <Link to={APIPath() + "agent-support"}>Support</Link>
                     </li>
                   </ul>
                   <div class="gee_mobile">
-                    <button onClick={() => ShowMenu()} class="gee_hamburger">&#9776;</button>
-                    <button onClick={() => HideMenu()} class="gee_cross">&#735;</button>
+                    <button onClick={() => ShowMenu()} class="gee_hamburger">
+                      &#9776;
+                    </button>
+                    <button onClick={() => HideMenu()} class="gee_cross">
+                      &#735;
+                    </button>
                   </div>
                 </div>
                 <div class="gee_menu">
@@ -179,7 +240,9 @@ export default function AgentPendingOrderList(props) {
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
                     <li>
-                      <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
+                      <Link to={APIPath() + "agent-image-sets"}>
+                        Image Sets
+                      </Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
@@ -194,10 +257,14 @@ export default function AgentPendingOrderList(props) {
                       <Link to={APIPath() + "agent-setting"}>Settings</Link>
                     </li>
                     <li>
-                      <Link to={APIPath() + "agent-preferred-vendor"}>Preferred Vendors</Link>
+                      <Link to={APIPath() + "agent-preferred-vendor"}>
+                        Preferred Vendors
+                      </Link>
                     </li>
                     <li>
-                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">Xpressdocs</a>
+                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">
+                        Xpressdocs
+                      </a>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-support"}>Support</Link>
@@ -229,23 +296,44 @@ export default function AgentPendingOrderList(props) {
                   </thead>
                   <tbody>
                     {allData.length > 0 ? (
-                      allData.map(res => (
+                      allData.map((res) => (
                         <tr>
-                          <td style={{ textAlign: "center" }}>{res.street_address}</td>
+                          <td style={{ textAlign: "center" }}>
+                            {res.street_address}
+                          </td>
                           <td style={{ textAlign: "center" }}>{res.city}</td>
                           <td style={{ textAlign: "center" }}>{res.zipcode}</td>
                           <td style={{ textAlign: "center" }}>{res.state}</td>
                           <td style={{ textAlign: "center" }}>
-                            <a style={{ marginRight: "20px" }} onClick={() => handleDetails(res.id)} class="btn btn-warning" title="View Details">Order Details</a>
-                            <a title="View Details" class="btn btn-warning" onClick={() => completeOrder(res.id)}>Complete Order</a>
+                            <a
+                              style={{ marginRight: "20px" }}
+                              onClick={() => handleDetails(res.id)}
+                              class="btn btn-warning"
+                              title="View Details"
+                            >
+                              Order Details
+                            </a>
+                            <a
+                              style={{ marginRight: "20px" }}
+                              title="View Details"
+                              class="btn btn-warning"
+                              onClick={() => completeOrder(res.id)}
+                            >
+                              Complete Order
+                            </a>
+                            <a
+                              title="Delete Product"
+                              class="btn btn-danger"
+                              onClick={() => deleteOrder(res.id)}
+                            >
+                              Delete Order
+                            </a>
                           </td>
                         </tr>
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="7">
-                          No Orders Found ..
-                        </td>
+                        <td colSpan="7">No Orders Found ..</td>
                       </tr>
                     )}
                   </tbody>
@@ -264,21 +352,24 @@ export default function AgentPendingOrderList(props) {
                 ageRangeDisplayed={3}
                 onPageChange={handlePageClick}
                 containerClassName="pagination justify-content-center"
-                pageClassName='page-item'
-                pageLinkClassName='page-link'
-                previousClassName='page-item'
-                previousLinkClassName='page-link'
-                nextClassName='page-item'
-                nextLinkClassName='page-link'
-                breakClassName='page-item'
-                breakLinkClassName='page-link'
-                activeClassName='active'
+                pageClassName="page-item"
+                pageLinkClassName="page-link"
+                previousClassName="page-item"
+                previousLinkClassName="page-link"
+                nextClassName="page-item"
+                nextLinkClassName="page-link"
+                breakClassName="page-item"
+                breakLinkClassName="page-link"
+                activeClassName="active"
               />
             </div>
           </div>
         </div>
       </section>
       <Footer />
+      <Backdrop className={classes.backdrop} open={open}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>
-  )
+  );
 }

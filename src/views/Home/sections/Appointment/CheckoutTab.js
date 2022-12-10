@@ -160,6 +160,9 @@ export default function CheckoutTab(props) {
       }
     }
   }
+  console.log("====================================");
+  console.log("basicInfo", basicInfo);
+  console.log("====================================");
   const onSubmit = async (values) => {
     if (values.number === undefined) {
       setMessage("Please enter card number");
@@ -176,6 +179,7 @@ export default function CheckoutTab(props) {
     } else {
       setOpenModal(false);
       setOpen(true);
+
       var date = values.expiry;
       var parts = date.split("/");
       values.authenticate_key = "abcd123XYZ";
@@ -221,6 +225,7 @@ export default function CheckoutTab(props) {
       values.second_time = propertyInfo.second_time;
       values.third_time = propertyInfo.third_time;
       values.brokerid = basicInfo.broker_id;
+      values.notes = basicInfo.notes;
       postRecord(APISaveAppointment, values)
         .then((res) => {
           setOpen(false);
@@ -234,7 +239,7 @@ export default function CheckoutTab(props) {
             localStorage.removeItem("Misc_Package");
             localStorage.removeItem("Property_Info");
             localStorage.removeItem("Basic_Info");
-            window.location.href = APIPath() + "agent-order-list";
+            // window.location.href = APIPath() + "agent-order-list";
             // history.push(APIPath() + "agent-order-list");
           } else {
             setMessage(res.data[0].response.message);
@@ -265,9 +270,10 @@ export default function CheckoutTab(props) {
     values.packageid = JSON.parse(localStorage.getItem("Sub_Package")).filter(
       (item, i, ar) => ar.indexOf(item) === i
     );
-    values.combopackageid = JSON.parse(
-      localStorage.getItem("Combo_Sub_Package")
-    ).filter((item, i, ar) => ar.indexOf(item) === i);
+    if (localStorage.getItem("Combo_Sub_Package") != null)
+      values.combopackageid = JSON.parse(
+        localStorage.getItem("Combo_Sub_Package")
+      ).filter((item, i, ar) => ar.indexOf(item) === i);
     values.miscellaneousids = JSON.parse(
       localStorage.getItem("Misc_Package")
     ).filter((item, i, ar) => ar.indexOf(item) === i);
@@ -303,7 +309,6 @@ export default function CheckoutTab(props) {
         localStorage.removeItem("Combo_Sub_Package");
         localStorage.removeItem("Misc_Package");
         localStorage.removeItem("Property_Info");
-        localStorage.removeItem("Basic_Info");
         history.push(APIPath() + "agent-pending-order-list");
       } else {
         setMessage(res.data[0].response.message);

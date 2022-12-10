@@ -77,11 +77,12 @@ export default function FinalPreview(props) {
       return geeks != value;
     });
   }
+  console.log(allData);
   return (
     <div class="appointment_page_right">
       <div class="row">
         <div class="col-md-12">
-          <h3>Review Order</h3>
+          <h3>Review Orders</h3>
           <div class="step_progress">
             <div class="progress" style={{ height: "20px" }}>
               <div
@@ -104,6 +105,99 @@ export default function FinalPreview(props) {
                 <div class="">
                   {Object.keys(allData).length > 0 ? (
                     allData.package.map((res) => (
+                      <div>
+                        <div class="col-md-12 appointment-steps">
+                          <h4>{res.title}</h4>
+                        </div>
+                        <div class="package-box-appointment">
+                          <div class="row">
+                            {res.package_details &&
+                              res.package_details.map(
+                                (sd) =>
+                                  JSON.parse(
+                                    localStorage.getItem("Sub_Package")
+                                  ).length > 0 &&
+                                  JSON.parse(
+                                    localStorage.getItem("Sub_Package")
+                                  ).map((pkg) =>
+                                    sd.id === pkg ? (
+                                      <div class="col-md-6">
+                                        <div class="package-box-description">
+                                          <div class="package-box-appointment1">
+                                            <span class="pricetag">
+                                              {" "}
+                                              $ {sd.price}
+                                            </span>
+                                            {/* <span class="delete-package"><a onClick={()=>removeSubPackages(sd.id)}><i class="fas fa-trash-alt"></i></a></span> */}
+                                            <img
+                                              style={{
+                                                height: "200px",
+                                                width: "100%",
+                                                objectFit: "cover",
+                                              }}
+                                              src={sd.image}
+                                            />
+                                            <h4>{sd.title}</h4>
+                                          </div>
+                                          <div class="package-box-appointment1-content">
+                                            <div
+                                              // eslint-disable-next-line react/no-danger
+                                              dangerouslySetInnerHTML={{
+                                                __html: sd.description,
+                                              }}
+                                            ></div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    ) : (
+                                      ""
+                                    )
+                                  )
+                              )}
+                          </div>
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <div class="">
+                      <Skeleton
+                        variant="text"
+                        width={200}
+                        height={250}
+                        style={{ background: "#bbbbbb", width: "100%" }}
+                      />
+                      <Skeleton
+                        variant="text"
+                        width={400}
+                        height={50}
+                        style={{ background: "#bbbbbb", marginTop: "-34px" }}
+                      />
+                      <Skeleton
+                        variant="text"
+                        width={600}
+                        height={25}
+                        style={{ background: "#bbbbbb" }}
+                      />
+                      <Skeleton
+                        variant="text"
+                        width={160}
+                        height={80}
+                        style={{ background: "#bbbbbb" }}
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="package_sec">
+              <div class="package-box-appointment">
+                <div class="">
+                  {Object.keys(allData).length > 0 ? (
+                    allData.combo_package.map((res) => (
                       <div>
                         <div class="col-md-12 appointment-steps">
                           <h4>{res.title}</h4>
@@ -362,7 +456,7 @@ export default function FinalPreview(props) {
               </tr>
               <tr>
                 <td width="30%">
-                  <b>Appointment Information :</b>
+                  <b>Property Access Information :</b>
                 </td>
                 <td colspan="3">{basicInfo.notes}</td>
               </tr>

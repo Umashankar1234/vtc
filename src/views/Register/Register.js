@@ -75,6 +75,12 @@ export default function Register(props) {
     confirm_pwd: "",
     user_type: "1",
   };
+  const initialuserlogin = {
+    authenticate_key: "abcd123XYZ",    
+    username: "",
+    password: "",
+    user_type: "1",
+  };
   const initialForgotmailState = {
     authenticate_key: "abcd123XYZ",
     email: "",
@@ -82,6 +88,7 @@ export default function Register(props) {
   let history = useHistory();
   const { dispatch } = useContext(AuthContext);
   const [user, setUser] = useState(initialUserState);
+  const [userlogin, setUserlogin] = useState(initialuserlogin);
   const [openWarning, setOpenWarning] = useState(false);
   const [openError, setOpenError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -112,7 +119,6 @@ export default function Register(props) {
   }, []);
   useEffect(() => {
     setTimeout(() => {
-        console.log('working');
       setUser(initialUserState);
     }, 5000);
   }, []);
@@ -150,6 +156,10 @@ export default function Register(props) {
   //             }
   //         })
   // }, [])
+  const handlechangeLogin = (event) => {
+    const { name, value } = event.target;
+    setUserlogin({ ...userlogin, [name]: value });
+  };
   const handlechange = (event) => {
     const { name, value } = event.target;
     setUser({ ...user, [name]: value.replace(/[^a-z ]/gi, "") });
@@ -260,7 +270,7 @@ export default function Register(props) {
       setOpenError(true);
     } else {
       setOpen(true);
-      postRecord(APILogin, user)
+      postRecord(APILogin, userlogin)
         .then((res) => {
           if (res.data[0].response.status === "success") {
             return {
@@ -321,7 +331,7 @@ export default function Register(props) {
     var key = event.keyCode;
     return (key >= 65 && key <= 90) || key == 8;
   }
-  console.log(user);
+  console.log(userlogin);
 
   return (
     <div>
@@ -627,11 +637,12 @@ export default function Register(props) {
                             <i class="icon far fa-envelope"></i>
                             <input
                               type="text"
-                              onChange={handleInputchange}
+                              onChange={handlechangeLogin}
                               name="username"
-                              value={user.username}
+                              value={userlogin.username}
                               id="input-text2"
                               spellcheck="false"
+                              required
                             />
                             <span class="placeholder">Username or email</span>
                           </div>
@@ -640,9 +651,9 @@ export default function Register(props) {
                             <input
                               type={user.showPassword ? "text" : "password"}
                               id="input-text"
-                              onChange={handleInputchange}
+                              onChange={handlechangeLogin}
                               name="password"
-                              value={user.password}
+                              value={userlogin.password}
                               spellcheck="false"
                             />
                             <span class="placeholder">Password</span>
@@ -664,7 +675,7 @@ export default function Register(props) {
 
                         {/* 6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq */}
                         <ReCAPTCHA
-                          sitekey="6LfOR3kgAAAAAN7f4zcHQQTUrXNpbDMc6vUA0Ka_"
+                          sitekey="6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq"
                           onChange={onChange}
                         />
                         <div class="login_reg_page_left_forget">

@@ -300,6 +300,10 @@ img {
 .rotate_link ul {
  display:block
 }
+.dash_logo_sec_right ul li .active{
+  background: #ffa12d;
+  color: #fff;
+}
 .dash_logo_sec_right ul li {
  display:inline-block;
  margin:0 0 0 15px

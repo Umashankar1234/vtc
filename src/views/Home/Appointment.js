@@ -600,6 +600,7 @@ export default function Appointment(props) {
                   setPackageTab={setPackageTab}
                   setSecondPackageTab={setSecondPackageTab}
                   allPackages={allPackages}
+                  setMiscPackageTab={setMiscPackageTab}
                 />
               ) : (
                 ""

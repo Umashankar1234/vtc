@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/alpha/static/css/main.243c4391.chunk.css",
-    "main.js": "/alpha/static/js/main.982bf1b1.chunk.js",
-    "main.js.map": "/alpha/static/js/main.982bf1b1.chunk.js.map",
-    "runtime-main.js": "/alpha/static/js/runtime-main.b8832f70.js",
-    "runtime-main.js.map": "/alpha/static/js/runtime-main.b8832f70.js.map",
+    "main.js": "/alpha/static/js/main.27699097.chunk.js",
+    "main.js.map": "/alpha/static/js/main.27699097.chunk.js.map",
+    "runtime-main.js": "/alpha/static/js/runtime-main.1cc5b2e8.js",
+    "runtime-main.js.map": "/alpha/static/js/runtime-main.1cc5b2e8.js.map",
     "static/css/2.d3737d6a.chunk.css": "/alpha/static/css/2.d3737d6a.chunk.css",
-    "static/js/2.80706c7f.chunk.js": "/alpha/static/js/2.80706c7f.chunk.js",
-    "static/js/2.80706c7f.chunk.js.map": "/alpha/static/js/2.80706c7f.chunk.js.map",
-    "static/js/3.7cf0263e.chunk.js": "/alpha/static/js/3.7cf0263e.chunk.js",
-    "static/js/3.7cf0263e.chunk.js.map": "/alpha/static/js/3.7cf0263e.chunk.js.map",
+    "static/js/2.b388ba25.chunk.js": "/alpha/static/js/2.b388ba25.chunk.js",
+    "static/js/2.b388ba25.chunk.js.map": "/alpha/static/js/2.b388ba25.chunk.js.map",
+    "static/js/3.c34ad501.chunk.js": "/alpha/static/js/3.c34ad501.chunk.js",
+    "static/js/3.c34ad501.chunk.js.map": "/alpha/static/js/3.c34ad501.chunk.js.map",
     "index.html": "/alpha/index.html",
     "static/css/2.d3737d6a.chunk.css.map": "/alpha/static/css/2.d3737d6a.chunk.css.map",
     "static/css/main.243c4391.chunk.css.map": "/alpha/static/css/main.243c4391.chunk.css.map",
-    "static/js/2.80706c7f.chunk.js.LICENSE.txt": "/alpha/static/js/2.80706c7f.chunk.js.LICENSE.txt",
-    "static/js/3.7cf0263e.chunk.js.LICENSE.txt": "/alpha/static/js/3.7cf0263e.chunk.js.LICENSE.txt",
+    "static/js/2.b388ba25.chunk.js.LICENSE.txt": "/alpha/static/js/2.b388ba25.chunk.js.LICENSE.txt",
+    "static/js/3.c34ad501.chunk.js.LICENSE.txt": "/alpha/static/js/3.c34ad501.chunk.js.LICENSE.txt",
     "static/media/43.4b0949c7.svg": "/alpha/static/media/43.4b0949c7.svg",
     "static/media/Alain Pinel Realtors.8acbc60a.jpg": "/alpha/static/media/Alain Pinel Realtors.8acbc60a.jpg",
     "static/media/BannerHeader.11beab2b.jpg": "/alpha/static/media/BannerHeader.11beab2b.jpg",
@@ -119,10 +119,10 @@
     "static/media/wallpaper.9a0dfd4d.jpg": "/alpha/static/media/wallpaper.9a0dfd4d.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.b8832f70.js",
+    "static/js/runtime-main.1cc5b2e8.js",
     "static/css/2.d3737d6a.chunk.css",
-    "static/js/2.80706c7f.chunk.js",
+    "static/js/2.b388ba25.chunk.js",
     "static/css/main.243c4391.chunk.css",
-    "static/js/main.982bf1b1.chunk.js"
+    "static/js/main.27699097.chunk.js"
   ]
 }
