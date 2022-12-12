@@ -161,6 +161,7 @@ export default function EditImageSet(props) {
     const [documentPwdData, setDocumentPwdData] = useState([]);
     const [totalDivs, setTotalDivs] = useState([]);
     const [fileName, setFilename] = useState("");
+    const [sort, setSort] = useState(0);
     useEffect(() => {
         $(".gee_cross").hide();
         $(".gee_menu").hide();
@@ -480,6 +481,7 @@ export default function EditImageSet(props) {
             });
     }
     const handleOrderChange = (event) => {
+        setSort(event.target.value);
         const obj = { authenticate_key: "abcd123XYZ", agent_id: JSON.parse(context.state.user).agentId, tourid: imageset_id, sortyBy: event.target.value };
         postRecord(APIChangeOrder, obj)
             .then(res => {
@@ -1710,7 +1712,7 @@ export default function EditImageSet(props) {
                             <div class="action_sec_right">
                                 <ul>
                                     <li style={{ margin: 0 }}><span>order By</span>
-                                        <select onChange={handleOrderChange} value={Object.keys(currentImagesetData).length > 0 && currentImagesetData.image_set_services.virtualtourservice}>
+                                        <select onChange={handleOrderChange} value={sort}>
                                             <option>Select Order</option>
                                             <option value="1">Alphabetically (ASC)</option>
                                             <option value="2">Alphabetically (DESC)</option>

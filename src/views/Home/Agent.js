@@ -507,6 +507,7 @@ export default function Agent() {
             setCvvErrorText("");
             setMonthErrorText("");
             setYearErrorText("");
+            setopenSubscribModal(false);
           } else {
             setOpen(false);
             setMessage(res.data[0].response.message);

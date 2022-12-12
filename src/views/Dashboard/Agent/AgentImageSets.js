@@ -596,13 +596,13 @@ export default function AgentImageSets() {
     });
   };
 
-  const handleStatusChange = (event) => {
+  const handleStatusChange = (e,id) => {
     let Tour = document.getElementById("statusId");
     const obj = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
-      tourid: Tour.value,
-      opt: event.target.value,
+      tourid: id,
+      opt: e.target.value,
     };
     postRecord(APIChangeStatus, obj)
       .then((res) => {
@@ -1758,7 +1758,7 @@ export default function AgentImageSets() {
                                       id="statusId"
                                     />
                                     <select
-                                      onChange={handleStatusChange}
+                                      onChange={(e)=>handleStatusChange(e,res.id)}
                                       value={res.categoryid}
                                     >
                                       <option value="">Select</option>

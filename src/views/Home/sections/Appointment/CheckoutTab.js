@@ -239,7 +239,7 @@ export default function CheckoutTab(props) {
             localStorage.removeItem("Misc_Package");
             localStorage.removeItem("Property_Info");
             localStorage.removeItem("Basic_Info");
-            // window.location.href = APIPath() + "agent-order-list";
+            window.location.href = APIPath() + "agent-order-list";
             // history.push(APIPath() + "agent-order-list");
           } else {
             setMessage(res.data[0].response.message);
