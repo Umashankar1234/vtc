@@ -383,13 +383,13 @@ export default function AgentTourList(props) {
       ],
     });
   };
-  const handleStatusChange = (event) => {
-    let Tour = document.getElementById("statusId");
+  const handleStatusChange = (event,id) => {
+    // let Tour = document.getElementById("statusId");
 
     const obj = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
-      tourid: Tour.value,
+      tourid: id,
       opt: event.target.value,
     };
     postRecord(APIChangeStatus, obj)
@@ -1066,7 +1066,7 @@ export default function AgentTourList(props) {
                                       id="statusId"
                                     />
                                     <select
-                                      onChange={handleStatusChange}
+                                      onChange={(event)=>handleStatusChange(event,res.id)}
                                       value={res.categoryid}
                                     >
                                       <option value="">Select</option>

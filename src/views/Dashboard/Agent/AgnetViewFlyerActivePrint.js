@@ -61,6 +61,7 @@ export default function AgentViewFlyerActivePrint(props) {
       $(".gee_hamburger").show();
     });
   }
+  console.log('I am Here');
   return (
     <>
       <AgentHeader />

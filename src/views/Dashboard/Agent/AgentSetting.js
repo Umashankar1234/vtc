@@ -1035,9 +1035,9 @@ export default function AgentSetting(props) {
   };
   const handleCheckboxChange = (event) => {
     if (event.target.checked === true) {
-      setVideoData({ ...videoData, ["videoshowprice"]: "1" });
+      setVideoData({ ...videoData, ["videoshowprice"]: 1 });
     } else {
-      setVideoData({ ...videoData, ["videoshowprice"]: "0" });
+      setVideoData({ ...videoData, ["videoshowprice"]: 0 });
     }
   };
   const updateUserProfile = (data) => {
