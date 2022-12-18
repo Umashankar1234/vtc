@@ -474,12 +474,15 @@ export default function BrokerAgensts(props) {
   };
   const saveAgentInfromation = () => {
     if (
-      inputErrors.fname !== "" ||
-      inputErrors.lname !== "" ||
-      inputErrors.email !== "" ||
-      inputErrors.username !== ""
-    )
+      agentInfoData.fname === "" ||
+      agentInfoData.lname === "" ||
+      agentInfoData.email === "" ||
+      agentInfoData.username === ""
+    ) {
+      setMessage("Please fill all the mandatory fields");
+      setOpenError(true);
       return;
+    }
     agentInfoData.authenticate_key = "abcd123XYZ";
     agentInfoData.agent_id = agentId;
     setOpen(true);
@@ -528,16 +531,22 @@ export default function BrokerAgensts(props) {
     const { name, value } = event.target;
     setCompanyInfo({ ...companyInfo, [name]: value });
   };
+  console.log("inputErrors", inputErrors);
+  console.log("companyInfo", companyInfo);
   const saveCompanyInfo = () => {
     if (
-      inputErrors.company !== "" ||
-      inputErrors.state !== "" ||
-      inputErrors.zip !== "" ||
-      inputErrors.office_ph !== "" ||
-      inputErrors.city !== "" ||
-      inputErrors.country !== ""
-    )
+      companyInfo.company === "" ||
+      companyInfo.state === "" ||
+      companyInfo.zip === "" ||
+      companyInfo.office_ph === "" ||
+      companyInfo.city === "" ||
+      companyInfo.country === ""
+    ) {
+      setMessage("Please fill all the details");
+      setOpenError(true);
       return;
+    }
+    setOpen(true);
     companyInfo.authenticate_key = "abcd123XYZ";
     companyInfo.agent_id = agentId;
     postRecord(APIUpdateAgentCompanyInformation, companyInfo)
@@ -1440,11 +1449,11 @@ export default function BrokerAgensts(props) {
                             Country <span style={{ color: "#ffa12d" }}>*</span>
                           </label>
                           <select
-                          className={
-                            inputErrors.country == "error"
-                              ? "form-control formbox1select inperror"
-                              : "form-control formbox1select"
-                          }
+                            className={
+                              inputErrors.country == "error"
+                                ? "form-control formbox1select inperror"
+                                : "form-control formbox1select"
+                            }
                             onChange={handleCompanyInputChange}
                             name="countryid"
                             value={companyInfo.countryid}
@@ -1480,11 +1489,11 @@ export default function BrokerAgensts(props) {
                             State <span style={{ color: "#ffa12d" }}>*</span>
                           </label>
                           <select
-                          className={
-                            inputErrors.state == "error"
-                              ? "form-control formbox1select inperror"
-                              : "form-control formbox1select"
-                          }
+                            className={
+                              inputErrors.state == "error"
+                                ? "form-control formbox1select inperror"
+                                : "form-control formbox1select"
+                            }
                             onChange={handleCompanyInputChange}
                             name="stateid"
                             value={companyInfo.stateid}
