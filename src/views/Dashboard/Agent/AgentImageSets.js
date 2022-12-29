@@ -30,6 +30,8 @@ import ReactPaginate from "react-paginate";
 import noimage from "../../../images/no0img.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import { object } from "prop-types";
+import OwlCarousel from "react-owl-carousel";
+
 const APIGetUserData = APIURL() + "user-details";
 const APIGetCountries = APIURL() + "get-countries";
 const APIGetStates = APIURL() + "get-states";
@@ -446,7 +448,9 @@ export default function AgentImageSets() {
           setSync(false);
         })
         .catch((err) => {
-          setMessage("Some of the Images are Corrupt Please Check and Upload Again...");
+          setMessage(
+            "Some of the Images are Corrupt Please Check and Upload Again..."
+          );
           setOpenError(true);
           setOpen(false);
         });
@@ -596,7 +600,7 @@ export default function AgentImageSets() {
     });
   };
 
-  const handleStatusChange = (e,id) => {
+  const handleStatusChange = (e, id) => {
     let Tour = document.getElementById("statusId");
     const obj = {
       authenticate_key: "abcd123XYZ",
@@ -1296,6 +1300,44 @@ export default function AgentImageSets() {
         setOpen(false);
       });
   };
+  const options = {
+    lazyLoad: true,
+    loop: false,
+    margin: 0,
+    responsiveClass: true,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
+    autoplay: false,
+    autoplayTimeout: 3500,
+    autoplayHoverPause: false,
+    autoHeight: true,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 1000,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left sp'></i>",
+      "<i class='fa fa-angle-right sp'></i>",
+    ],
+    dots: false,
+    responsive: {
+      0: {
+        items: 6,
+      },
+
+      600: {
+        items: 6,
+      },
+
+      1024: {
+        items: 6,
+      },
+
+      1366: {
+        items: 6,
+      },
+    },
+  };
   return (
     <div>
       <AgentHeader />
@@ -1500,162 +1542,118 @@ export default function AgentImageSets() {
               </div>
             </div>
           )}
-          {allData.length > 0 && (
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                <div class="tab-content">
-                  <div
-                    class="tab-pane active"
-                    id="Action"
-                    role="tabpanel"
-                    style={{ width: "100%", overflow: "auto" }}
-                  >
-                    <div class="property_info_cont agent_img_sets" id="demo">
-                      <section class="snap-scrolling-example">
-                        <div class="horizontal-images tabscroll-windows">
-                          <ul class="list_sec" role="">
-                            <li class="">
-                              <a
-                                onClick={() => {
-                                  setOpenModal(true);
-                                }}
-                              >
-                                <span>
-                                  <i class="far fa-image"></i>
-                                </span>
-                                Create ImageSet
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleEditModal}>
-                                <span>
-                                  <i class="fas fa-pen"></i>
-                                </span>
-                                Edit ImageSet
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleDuplicate}>
-                                <span>
-                                  <i class="far fa-clone"></i>
-                                </span>
-                                Duplicate ImageSet
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleDeleteModal}>
-                                <span>
-                                  <i class="fas fa-trash-alt"></i>
-                                </span>
-                                Delete ImageSet
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleServiceLink}>
-                                <span>
-                                  <i class="fas fa-link"></i>
-                                </span>
-                                Service Links
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleOtherLink}>
-                                <span>
-                                  <i class="fas fa-external-link-alt"></i>
-                                </span>
-                                Other Links
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleTraffic}>
-                                <span>
-                                  <i class="far fa-file-chart-pie"></i>
-                                </span>
-                                Traffic Reports
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </section>
-                    </div>
-                  </div>
-                  <div class="tab-pane" id="Distribute" role="tabpanel">
-                    <div class="property_info_cont agent_img_sets" id="demo">
-                      <section class="snap-scrolling-example">
-                        <div class="horizontal-images tabscroll-windows">
-                          <ul class="list_sec" role="">
-                            <li class="">
-                              <a onClick={handleDistributeTour}>
-                                <span>
-                                  <i class="fad fa-chart-network"></i>
-                                </span>
-                                Distribute Tour
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handlePostModal}>
-                                <span>
-                                  <i class="fas fa-paste"></i>
-                                </span>{" "}
-                                Post to Craigslist
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleVideoPromo}>
-                                <span>
-                                  <i class="fas fa-video"></i>
-                                </span>
-                                Video Promotion{" "}
-                              </a>
-                            </li>
-                            <li class="">
-                              <a onClick={handleVideoPromo}>
-                                <span>
-                                  <i class="fas fa-photo-video"></i>
-                                </span>
-                                Distribute Video
-                              </a>
-                            </li>
-                            <li class="">
-                              <a
-                                href="#"
-                                data-toggle="modal"
-                                data-target="#Property"
-                              >
-                                <span>
-                                  <i class="fas fa-home"></i>
-                                </span>{" "}
-                                Single Property Domain
-                              </a>
-                            </li>
-                            <li class="">
-                              {/* <a href="#"><span><i class="fas fa-user-tie"></i></span>Domain Manager</a> */}
-                              <a
-                                href={`#${craigeListOpen}`}
-                                data-toggle="modal"
-                                onClick={() => DomainManger()}
-                              >
-                                <span>
-                                  <i class="fas fa-user-tie"></i>
-                                </span>{" "}
-                                Domain Manager
-                              </a>
-                              <input
-                                type="hidden"
-                                id="DomainMangerID"
-                                value=""
-                              />
-                            </li>
-                          </ul>
-                        </div>
-                      </section>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
 
+        {allData.length > 0 &&
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="Action" role="tabpanel" style={{ width: "100%", overflow: "auto" }}>
+                            <div class="property_info_cont agent_img_sets" id="demo">
+                                <section class="snap-scrolling-example">
+                                    <div class="horizontal-images tabscroll-windows">
+                                    <OwlCarousel margin={10} {...options} id="home_slide1">
+                                    <div className="asdf">
+                                      <a
+                                        onClick={() => {
+                                          setOpenModal(true);
+                                        }}
+                                      >
+                                        <span>
+                                          <i class="far fa-image"></i>
+                                        </span>
+                                        Create ImageSet
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleEditModal}>
+                                        <span>
+                                          <i class="fas fa-pen"></i>
+                                        </span>
+                                        Edit ImageSet
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleDuplicate}>
+                                        <span>
+                                          <i class="far fa-clone"></i>
+                                        </span>
+                                        Duplicate ImageSet
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleDeleteModal}>
+                                        <span>
+                                          <i class="fas fa-trash-alt"></i>
+                                        </span>
+                                        Delete ImageSet
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleServiceLink}>
+                                        <span>
+                                          <i class="fas fa-link"></i>
+                                        </span>
+                                        Service Links
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleOtherLink}>
+                                        <span>
+                                          <i class="fas fa-external-link-alt"></i>
+                                        </span>
+                                        Other Links
+                                      </a>
+                                    </div>
+                                    <div className="asdf">
+                                      <a onClick={handleTraffic}>
+                                        <span>
+                                          <i class="far fa-file-chart-pie"></i>
+                                        </span>
+                                        Traffic Reports
+                                      </a>
+                                    </div>
+                                  </OwlCarousel>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="Distribute" role="tabpanel">
+                            <div class="property_info_cont agent_img_sets" id="demo">
+                                <section class="snap-scrolling-example">
+                                    <div class="horizontal-images tabscroll-windows">
+                                        <ul class="list_sec" role="">
+                                            <li class="">
+                                                <a onClick={handleDistributeTour}>
+                                                    <span><i class="fad fa-chart-network"></i></span>
+                                                    Distribute Tour
+                                                </a>
+                                            </li>
+                                            <li class="">
+                                                <a onClick={handlePostModal}><span><i class="fas fa-paste"></i></span> Post to Craigslist</a>
+                                            </li>
+                                            <li class="">
+                                                <a onClick={handleVideoPromo}><span><i class="fas fa-video"></i></span>Video Promotion </a>
+                                            </li>
+                                            <li class="">
+                                                <a onClick={handleVideoPromo}><span><i class="fas fa-photo-video"></i></span>Distribute Video</a>
+                                            </li>
+                                            <li class="">
+                                                <a href="#" data-toggle="modal" data-target="#Property"><span><i class="fas fa-home"></i></span> Single Property Domain</a>
+                                            </li>
+                                            <li class="">
+                                                {/* <a href="#"><span><i class="fas fa-user-tie"></i></span>Domain Manager</a> */}
+                                                <a href={`#${craigeListOpen}`} data-toggle="modal" onClick={() => DomainManger()}><span><i class="fas fa-user-tie"></i></span> Domain Manager</a>
+                                                <input type='hidden' id="DomainMangerID" value="" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
@@ -1758,7 +1756,9 @@ export default function AgentImageSets() {
                                       id="statusId"
                                     />
                                     <select
-                                      onChange={(e)=>handleStatusChange(e,res.id)}
+                                      onChange={(e) =>
+                                        handleStatusChange(e, res.id)
+                                      }
                                       value={res.categoryid}
                                     >
                                       <option value="">Select</option>

@@ -11,10 +11,9 @@ h6 {
   color: #212d3e;
   font-family: "Work Sans", sans-serif;
 }
-.abc{
+.abc {
   margin-top: 16px;
 }
-
 
 body,
 html {
@@ -176,6 +175,12 @@ a {
   -ms-transition: 0.5s;
   transition: 0.5s;
   border: none;
+}
+#home_slide1 .owl-next,
+#home_slide1 .owl-prev {
+  top: 50%;
+  opacity: 0;
+  transition: 0.4s ease-in-out;
 }
 #home_slide .owl-next,
 #home_slide .owl-prev {
@@ -716,6 +721,13 @@ div.input-block input:focus + span.placeholder {
   background: #0d1333;
   color: #fff;
 }
+#home_slide1 .owl-next .sp:hover,
+#home_slide1 .owl-prev .sp:hover,
+.have_pics:hover i,
+.let_start_new:hover i,
+.lrn_more:hover i {
+  color: #ffa124;
+}
 #home_slide .owl-next .sp:hover,
 #home_slide .owl-prev .sp:hover,
 .have_pics:hover i,
@@ -736,7 +748,15 @@ div.input-block input:focus + span.placeholder {
   font-weight: 500;
   transition: 0.5s ease-in-out;
 }
-#home_slide .owl-prev {
+#home_slide1 .owl-prev {
+  position: absolute;
+  left: 10px;
+}
+#home_slide1 .owl-next {
+  position: absolute;
+  right: 5px;
+}
+#home_slide1 .owl-prev {
   position: absolute;
   left: 10px;
 }
@@ -746,6 +766,26 @@ div.input-block input:focus + span.placeholder {
 }
 #home_slide .owl-next span,
 #home_slide .owl-prev span {
+  font-size: 200px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  width: 50px;
+  height: 50px;
+  line-height: 60px;
+  color: #fff;
+  text-align: center;
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+#home_slide1 .owl-next span,
+#home_slide1 .owl-prev span {
   font-size: 200px;
   top: 0;
   bottom: 0;
@@ -783,6 +823,36 @@ div.input-block input:focus + span.placeholder {
   text-align: center;
   opacity: 1;
   transition: 0.5s ease-in-out;
+}
+#home_slide1 .owl-next .sp,
+#home_slide1 .owl-prev .sp {
+  font-size: 44px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  z-index: 1;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+  -ms-flex-pack: center;
+  width: 40px;
+  height: 0px;
+  color: #ffa12d;
+  text-align: center;
+  opacity: 1;
+  transition: 0.5s ease-in-out;
+}
+#home_slide1:hover .owl-next,
+#home_slide1:hover .owl-prev,
+#testimonial_slide .owl-item.active,
+.home_page:hover #home_slide1 .owl-next,
+.home_page:hover #home_slide1 .owl-prev,
+.instructor-item .member-description .social-style-two a:hover,
+.instructor-item:hover .ratting,
+.instructor-item:hover .social-style-two,
+.op {
+  opacity: 1;
 }
 #home_slide:hover .owl-next,
 #home_slide:hover .owl-prev,
@@ -7768,6 +7838,11 @@ a.booknowbtn {
   header {
     position: relative;
   }
+  #home_slide1 .owl-next .sp,
+  #home_slide1 .owl-prev .sp,
+  h1 {
+    font-size: 40px;
+  }
   #home_slide .owl-next .sp,
   #home_slide .owl-prev .sp,
   h1 {
@@ -8183,6 +8258,16 @@ a.booknowbtn {
   .head_cont_left ul li a {
     font-size: 12px;
   }
+  #home_slide1 .owl-prev {
+    top: 35%;
+    position: absolute;
+    left: 10px;
+  }
+  #home_slide1 .owl-next {
+    top: 35%;
+    position: absolute;
+    right: -25px;
+  }
   #home_slide .owl-prev {
     top: 35%;
     position: absolute;
@@ -8192,6 +8277,10 @@ a.booknowbtn {
     top: 35%;
     position: absolute;
     right: -25px;
+  }
+  #home_slide1 .owl-next span,
+  #home_slide1 .owl-prev span {
+    font-size: 100px;
   }
   #home_slide .owl-next span,
   #home_slide .owl-prev span {
@@ -11269,24 +11358,42 @@ h1 span.inner p {
 }
 .test_accorodion {
   background: #005295 !important  ;
-
 }
 .MuiButtonBase-root a {
   color: #fff !important;
   font-weight: 500 !important;
-
 }
-.test2
-{
+.test2 {
   background: #ffa12d !important  ;
 }
-.package-box-appointment{
+.package-box-appointment {
   margin-bottom: 20px;
 }
-.test2 .MuiIconButton-label .MuiSvgIcon-root{
+.test2 .MuiIconButton-label .MuiSvgIcon-root {
   color: white !important;
 }
-.test2 .Mui-expanded{
+.test2 .Mui-expanded {
   margin: 0px !important;
 }
 
+#home_slide1 .asdf a {
+  font-size: 16px;
+  color: #fff;
+  padding: 13px 8px;
+  text-align: center;
+  background: #2d3e50;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  min-height: 96px;
+  align-items: center;
+  justify-content: center;
+}
+#home_slide1 .asdf a:hover {
+  background: #ffa12d!important;
+  color: #fff!important;
+}
+
+.asdf {
+  margin: 2px;
+}

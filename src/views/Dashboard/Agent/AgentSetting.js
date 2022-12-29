@@ -72,6 +72,7 @@ import thumbpics1 from "../../../images/thumbpics1.jpg";
 import thumbpics2 from "../../../images/thumbpics2.jpg";
 import thumbpics3 from "../../../images/thumbpics3.jpg";
 import thumbpics4 from "../../../images/thumbpics4.jpg";
+import OwlCarousel from "react-owl-carousel";
 
 import { Link, useHistory } from "react-router-dom";
 import Footer from "../../../components/Footer/AgentFooter";
@@ -2151,6 +2152,44 @@ export default function AgentSetting(props) {
         setOpen(false);
       });
   };
+  const options = {
+    lazyLoad: true,
+    loop: true,
+    margin: 0,
+    responsiveClass: true,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
+    autoplay: false,
+    autoplayTimeout: 3500,
+    autoplayHoverPause: false,
+    autoHeight: true,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 1000,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left sp'></i>",
+      "<i class='fa fa-angle-right sp'></i>",
+    ],
+    dots: false,
+    responsive: {
+      0: {
+        items: 6,
+      },
+
+      600: {
+        items: 6,
+      },
+
+      1024: {
+        items: 6,
+      },
+
+      1366: {
+        items: 6,
+      },
+    },
+  };
   return (
     <div>
       <AgentHeader />
@@ -2273,218 +2312,219 @@ export default function AgentSetting(props) {
               <div class="property_info_cont" id="demo">
                 <section class="snap-scrolling-example">
                   <div class="horizontal-images tab_main tabscroll-windows">
-                    <ul class="nav nav-tabs list_sec" role="tablist1">
-                      <li class="nav-item">
-                        <a
-                          id="profile"
-                          data-toggle="tab"
-                          href="#Images"
-                          role="tab1"
-                          class={companyTab ? "nav-link" : "nav-link active"}
-                        >
-                          <span>
-                            <i class="fas fa-user"></i>
-                          </span>
-                          Agent Profile
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          id="comp"
-                          data-toggle="tab"
-                          href="#Description"
-                          role="tab1"
-                          class={companyTab ? "nav-link active" : "nav-link"}
-                        >
-                          <span>
-                            <i class="fas fa-info-circle"></i>
-                          </span>
-                          Company Information{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Email"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-mail-bulk"></i>
-                          </span>
-                          Default Email/phone Options
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Preferences"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fab fa-angellist"></i>
-                          </span>
-                          Preferences{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Video"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-video"></i>
-                          </span>
-                          Video Options{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Tour"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-directions"></i>
-                          </span>{" "}
-                          Tour Options{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Flyer"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-book-open"></i>
-                          </span>{" "}
-                          Flyer Options{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Traffic"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-paste"></i>
-                          </span>{" "}
-                          Traffic Reports{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Slide"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fab fa-slideshare"></i>
-                          </span>{" "}
-                          Slide Show Defaults{" "}
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Panorama"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-vr-cardboard"></i>
-                          </span>{" "}
-                          Panorama Defaults
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Theme"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-sliders-h"></i>
-                          </span>{" "}
-                          Themes Defaults
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Bg_Music"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-music"></i>
-                          </span>
-                          Background Music Defaults
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Payments"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="far fa-credit-card"></i>
-                          </span>{" "}
-                          Payment Profiles
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#Social"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fa fa-angellist"></i>
-                          </span>
-                          Setup Social Networking
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          href="#Youtube"
-                          class="nav-link"
-                          data-toggle="tab"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fab fa-youtube"></i>
-                          </span>{" "}
-                          Youtube Channel
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a
-                          class="nav-link"
-                          data-toggle="tab"
-                          href="#News"
-                          role="tab1"
-                        >
-                          <span>
-                            <i class="fas fa-envelope-open-text"></i>
-                          </span>{" "}
-                          Add Newsletter Form
-                        </a>
-                      </li>
-                    </ul>
+                  <OwlCarousel margin={10} {...options} id="home_slide1">
+                  <div className="asdf">
+                    <a
+                      id="profile"
+                      data-toggle="tab"
+                      href="#Images"
+                      role="tab1"
+                      class={companyTab ? "nav-link" : "nav-link active"}
+                    >
+                      <span>
+                        <i class="fas fa-user"></i>
+                      </span>
+                      Agent Profile
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      id="comp"
+                      data-toggle="tab"
+                      href="#Description"
+                      role="tab1"
+                      class={companyTab ? "nav-link active" : "nav-link"}
+                    >
+                      <span>
+                        <i class="fas fa-info-circle"></i>
+                      </span>
+                      Company Information{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Email"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-mail-bulk"></i>
+                      </span>
+                      Default Email/phone Options
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Preferences"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fab fa-angellist"></i>
+                      </span>
+                      Preferences{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Video"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-video"></i>
+                      </span>
+                      Video Options{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Tour"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-directions"></i>
+                      </span>{" "}
+                      Tour Options{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Flyer"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-book-open"></i>
+                      </span>{" "}
+                      Flyer Options{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Traffic"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-paste"></i>
+                      </span>{" "}
+                      Traffic Reports{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Slide"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fab fa-slideshare"></i>
+                      </span>{" "}
+                      Slide Show Defaults{" "}
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Panorama"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-vr-cardboard"></i>
+                      </span>{" "}
+                      Panorama Defaults
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Theme"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-sliders-h"></i>
+                      </span>{" "}
+                      Themes Defaults
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Bg_Music"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-music"></i>
+                      </span>
+                      Background Music Defaults
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Payments"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="far fa-credit-card"></i>
+                      </span>{" "}
+                      Payment Profiles
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Social"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fa fa-angellist"></i>
+                      </span>
+                      Setup Social Networking
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      href="#Youtube"
+                      class="nav-link"
+                      data-toggle="tab"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fab fa-youtube"></i>
+                      </span>{" "}
+                      Youtube Channel
+                    </a>
+                  </div>
+                  <div className="asdf">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#News"
+                      role="tab1"
+                    >
+                      <span>
+                        <i class="fas fa-envelope-open-text"></i>
+                      </span>{" "}
+                      Add Newsletter Form
+                    </a>
+                  </div>
+                </OwlCarousel>
+                    
                   </div>
                   <div class="tab-content">
                     <div

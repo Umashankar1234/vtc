@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/alpha/static/css/main.cb2925b3.chunk.css",
-    "main.js": "/alpha/static/js/main.bec8861d.chunk.js",
-    "main.js.map": "/alpha/static/js/main.bec8861d.chunk.js.map",
-    "runtime-main.js": "/alpha/static/js/runtime-main.9f87b2c4.js",
-    "runtime-main.js.map": "/alpha/static/js/runtime-main.9f87b2c4.js.map",
+    "main.css": "/alpha/static/css/main.243c4391.chunk.css",
+    "main.js": "/alpha/static/js/main.f9a2f544.chunk.js",
+    "main.js.map": "/alpha/static/js/main.f9a2f544.chunk.js.map",
+    "runtime-main.js": "/alpha/static/js/runtime-main.877491cc.js",
+    "runtime-main.js.map": "/alpha/static/js/runtime-main.877491cc.js.map",
     "static/css/2.a6be7dfb.chunk.css": "/alpha/static/css/2.a6be7dfb.chunk.css",
-    "static/js/2.e448da94.chunk.js": "/alpha/static/js/2.e448da94.chunk.js",
-    "static/js/2.e448da94.chunk.js.map": "/alpha/static/js/2.e448da94.chunk.js.map",
-    "static/js/3.6f824f70.chunk.js": "/alpha/static/js/3.6f824f70.chunk.js",
-    "static/js/3.6f824f70.chunk.js.map": "/alpha/static/js/3.6f824f70.chunk.js.map",
+    "static/js/2.b98046df.chunk.js": "/alpha/static/js/2.b98046df.chunk.js",
+    "static/js/2.b98046df.chunk.js.map": "/alpha/static/js/2.b98046df.chunk.js.map",
+    "static/js/3.42866505.chunk.js": "/alpha/static/js/3.42866505.chunk.js",
+    "static/js/3.42866505.chunk.js.map": "/alpha/static/js/3.42866505.chunk.js.map",
     "index.html": "/alpha/index.html",
     "static/css/2.a6be7dfb.chunk.css.map": "/alpha/static/css/2.a6be7dfb.chunk.css.map",
-    "static/css/main.cb2925b3.chunk.css.map": "/alpha/static/css/main.cb2925b3.chunk.css.map",
-    "static/js/2.e448da94.chunk.js.LICENSE.txt": "/alpha/static/js/2.e448da94.chunk.js.LICENSE.txt",
-    "static/js/3.6f824f70.chunk.js.LICENSE.txt": "/alpha/static/js/3.6f824f70.chunk.js.LICENSE.txt",
-    "static/media/43.eb94161f.svg": "/alpha/static/media/43.eb94161f.svg",
+    "static/css/main.243c4391.chunk.css.map": "/alpha/static/css/main.243c4391.chunk.css.map",
+    "static/js/2.b98046df.chunk.js.LICENSE.txt": "/alpha/static/js/2.b98046df.chunk.js.LICENSE.txt",
+    "static/js/3.42866505.chunk.js.LICENSE.txt": "/alpha/static/js/3.42866505.chunk.js.LICENSE.txt",
+    "static/media/43.4b0949c7.svg": "/alpha/static/media/43.4b0949c7.svg",
     "static/media/Alain Pinel Realtors.8acbc60a.jpg": "/alpha/static/media/Alain Pinel Realtors.8acbc60a.jpg",
     "static/media/BannerHeader.11beab2b.jpg": "/alpha/static/media/BannerHeader.11beab2b.jpg",
     "static/media/BerkshireHathaway.c65c1727.jpg": "/alpha/static/media/BerkshireHathaway.c65c1727.jpg",
@@ -74,7 +74,7 @@
     "static/media/photo-3.81adb56b.jpg": "/alpha/static/media/photo-3.81adb56b.jpg",
     "static/media/photo-5.8f8d6c14.jpg": "/alpha/static/media/photo-5.8f8d6c14.jpg",
     "static/media/photo.ad5154f0.jpg": "/alpha/static/media/photo.ad5154f0.jpg",
-    "static/media/pinterest.4a45bfd0.svg": "/alpha/static/media/pinterest.4a45bfd0.svg",
+    "static/media/pinterest.c5551256.svg": "/alpha/static/media/pinterest.c5551256.svg",
     "static/media/poster1.782d5533.jpg": "/alpha/static/media/poster1.782d5533.jpg",
     "static/media/poster2.13e78dd2.jpg": "/alpha/static/media/poster2.13e78dd2.jpg",
     "static/media/preferedvendor_1.494b455c.png": "/alpha/static/media/preferedvendor_1.494b455c.png",
@@ -119,10 +119,10 @@
     "static/media/wallpaper.9a0dfd4d.jpg": "/alpha/static/media/wallpaper.9a0dfd4d.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.9f87b2c4.js",
+    "static/js/runtime-main.877491cc.js",
     "static/css/2.a6be7dfb.chunk.css",
-    "static/js/2.e448da94.chunk.js",
-    "static/css/main.cb2925b3.chunk.css",
-    "static/js/main.bec8861d.chunk.js"
+    "static/js/2.b98046df.chunk.js",
+    "static/css/main.243c4391.chunk.css",
+    "static/js/main.f9a2f544.chunk.js"
   ]
 }
