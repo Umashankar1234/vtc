@@ -88,7 +88,7 @@ export default function AgentEditVideo(props) {
   const [id, setId] = useState("");
   const [openVideoPromoModal, setOpenVideoPromoModal] = useState(false);
   const [videoPromoData, setVideoPromoData] = useState({});
-  const [offset, setOffset] = useState(1);
+  const [offset, setOffset] = useState(0);
   const [postPerPage] = useState(6);
   const [pageCount, setPageCount] = useState(0);
   const [allData, setAllData] = useState([]);
@@ -788,6 +788,7 @@ export default function AgentEditVideo(props) {
       setDragImages(allData);
     }
   }, [allData]);
+  console.log("dragImages",dragImages);
 
   const handleOnDragEnd = async (result) => {
     if (!result.destination) return;
@@ -956,6 +957,7 @@ export default function AgentEditVideo(props) {
       },
     },
   };
+console.log("currentTourData",currentTourData);
   return (
     <div>
       <AgentHeader />
