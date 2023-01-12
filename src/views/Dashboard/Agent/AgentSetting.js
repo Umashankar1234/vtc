@@ -2154,7 +2154,7 @@ export default function AgentSetting(props) {
   };
   const options = {
     lazyLoad: true,
-    loop: true,
+    loop: false,
     margin: 0,
     responsiveClass: true,
     animateOut: "fadeOut",

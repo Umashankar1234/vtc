@@ -509,7 +509,12 @@ export default function EditImageSet(props) {
   };
   const handleCaptionChange = (event, data) => {
     const { name, value } = event.target;
-    const arr = [];
+    if(value === ""){
+      setMessage("Caption cannot be blank");
+      setOpenError(true);
+    }
+    else{
+      const arr = [];
     dragImages.forEach((res) => {
       if (data.imageid === res.imageid) {
         res.caption = value;
@@ -517,6 +522,8 @@ export default function EditImageSet(props) {
       arr.push(res);
     });
     setDragImages(arr);
+    }
+    
   };
   const handleCheck = (event) => {
     setOtherLink({ ...otherLink, ["check"]: event });
@@ -1726,7 +1733,7 @@ export default function EditImageSet(props) {
   }
   const options = {
     lazyLoad: true,
-    loop: true,
+    loop: false,
     margin: 0,
     responsiveClass: true,
     animateOut: "fadeOut",
@@ -2152,7 +2159,7 @@ export default function EditImageSet(props) {
                     <div
                       onClick={() => {
                         setImageId(res.imageid);
-                        setImageUrl(res.file_url);
+                        setImageUrl(res.original_file_url?res.original_file_url:res.file_url);
                         setBaseUrl(res.file_url);
                         setVideoUrl(res.video_url);
                         handleImageId(res);

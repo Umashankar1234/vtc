@@ -39,6 +39,8 @@ import CsvFiledownloader from "../../../components/CsvfileDownload/CsvFiledownlo
 import { makeStyles } from "@material-ui/core/styles";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
+import OwlCarousel from "react-owl-carousel";
+
 const APIGetUserData = APIURL() + "user-details";
 const APIGetImagesetData = APIURL() + "get-edit-imageset-list";
 const APIChangeService = APIURL() + "change-tour-service";
@@ -1167,6 +1169,44 @@ export default function AgentEditTour(props) {
         setOpen(false);
       });
   }
+  const options = {
+    lazyLoad: true,
+    loop: false,
+    margin: 0,
+    responsiveClass: true,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
+    autoplay: false,
+    autoplayTimeout: 3500,
+    autoplayHoverPause: false,
+    autoHeight: true,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 1000,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left sp'></i>",
+      "<i class='fa fa-angle-right sp'></i>",
+    ],
+    dots: false,
+    responsive: {
+      0: {
+        items: 6,
+      },
+
+      600: {
+        items: 6,
+      },
+
+      1024: {
+        items: 6,
+      },
+
+      1366: {
+        items: 6,
+      },
+    },
+  };
   return (
     <div>
       <AgentHeader />
@@ -1302,16 +1342,16 @@ export default function AgentEditTour(props) {
                   <div class="property_info_cont agent_img_sets" id="demo">
                     <section class="snap-scrolling-example">
                       <div class="horizontal-images tab_main tabscroll-windows">
-                        <ul class="list_sec" role="">
-                          <li class="">
+                      <OwlCarousel margin={10} {...options} id="home_slide1">                          
+                          <div className="asdf">
                             <a class="" onClick={handleEditImageset}>
                               <span>
                                 <i class="far fa-image"></i>
                               </span>
                               Go to related ImageSet
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -1322,8 +1362,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Send to friend
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => {
                                 handleEditTheme();
@@ -1334,8 +1374,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Themes{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => {
                                 handleViewModal();
@@ -1346,8 +1386,8 @@ export default function AgentEditTour(props) {
                               </span>
                               View Flyer
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => {
                                 printFlyerModal();
@@ -1358,8 +1398,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Print Flyer
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href={`#${craigeListOpen}`}
                               data-toggle="modal"
@@ -1370,8 +1410,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Post To Craigslist
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -1382,8 +1422,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Property Information{" "}
                             </a>
-                          </li>
-                        </ul>
+                          </div>
+                        </OwlCarousel>                       
                       </div>
                     </section>
                   </div>

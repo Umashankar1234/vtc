@@ -148,7 +148,31 @@ export default function AgentEzFlashCard(props) {
   };
   const createSubscribeFlashVideo = (id, flash_data, is_dwnld) => {
     if (is_dwnld === "0") {
-      VideoFlashDownload(flash_data.flash_data);
+      // VideoFlashDownload(flash_data);
+      const obj1 = {
+        authenticate_key: "abcd123XYZ",
+        agentId: JSON.parse(context.state.user).agentId,
+        tourid: tourId,
+        designid: id,
+        orderid: "0",
+        updateval: "0",
+      };
+      postRecord(APICreateSubscribeFlashVideo, obj1).then((res) => {
+        console.log(res);
+        if (res.status === 201) {
+            // setDownloadVideo(res.data.file)
+            var link = document.createElement("a");
+            link.href = res.data.file;
+            link.setAttribute("download", "video.mp4");
+            link.setAttribute("target", "_blank");
+            document.body.appendChild(link);
+            link.click();
+            setSync(false);
+        }
+        setSync(true);
+      });
+      
+      
     }
     const obj = {
       authenticate_key: "abcd123XYZ",
@@ -159,13 +183,14 @@ export default function AgentEzFlashCard(props) {
       updateval: "0",
     };
     postRecord(APICreateSubscribeFlashVideo, obj).then((res) => {
-      // if (res.data[0].response.status === "success") {
-      //     setDownloadVideo(res.data[0].response.data.file)
-      //     setPermissionAllow(res.data[0].response.data.permissionAllow)
-      //      setDesignId(res.data[0].response.data.designid)
-      //     setSync(false);
-      // }
-      // setSync(true);
+      console.log(res);
+      if (res.status === 201) {
+          setDownloadVideo(res.data.file)
+          // setPermissionAllow(res.data[0].response.data.permissionAllow)
+          //  setDesignId(res.data[0].response.data.designid)
+          setSync(false);
+      }
+      setSync(true);
     });
   };
   const orderAndDownload = (id, flash_data) => {
@@ -204,10 +229,11 @@ export default function AgentEzFlashCard(props) {
     xhr.responseType = "blob";
     xhr.send();
   }
-  const VideoFlashDownload = (videoDownload) => {
+  const VideoFlashDownload = (videoDownload) => {  
     toDataURL(videoDownload, function (dataUrl) {
       var link = document.createElement("a");
       link.href = dataUrl;
+      console.log(dataUrl);
       link.setAttribute("download", "video.mp4");
       document.body.appendChild(link);
       link.click();
@@ -237,7 +263,7 @@ export default function AgentEzFlashCard(props) {
             }}
             onClick={() => createSubscribeFlashVideo(data.id, data, "0")}
           >
-            Download &amp; Update
+            Download &amp; Updates
           </Button>
         </div>
       );

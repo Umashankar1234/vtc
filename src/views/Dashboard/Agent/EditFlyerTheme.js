@@ -749,6 +749,7 @@ export default function EditFlyerTheme(props) {
             ]
         });
     }
+    console.log("themeData",themeData);
     const saveSelectFlyerTheme = () => {
         setOpen(true);
         themeData.authenticate_key = "abcd123XYZ";
@@ -1207,7 +1208,7 @@ export default function EditFlyerTheme(props) {
                                             )}
                                         </div>
                                     </div>
-                                    <div class="row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "200px" }}>
+                                    <div class="row" style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                         <div class="col-md-4">
                                             {activeSelect === true ? (
                                                 <>

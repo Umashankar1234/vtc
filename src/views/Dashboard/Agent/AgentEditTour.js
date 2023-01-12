@@ -52,6 +52,8 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import ReactPaginate from "react-paginate";
+import OwlCarousel from "react-owl-carousel";
+
 const APIGetUserData = APIURL() + "user-details";
 const APIGetAmenities = APIURL() + "get-amenities";
 const APIGetProperty = APIURL() + "edit-property";
@@ -2598,6 +2600,44 @@ export default function AgentEditTour(props) {
     // tourList.imageArr = {};
     setDragImages(arr);
   };
+  const options = {
+    lazyLoad: true,
+    loop: false,
+    margin: 0,
+    responsiveClass: true,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
+    autoplay: false,
+    autoplayTimeout: 3500,
+    autoplayHoverPause: false,
+    autoHeight: true,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 1000,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left sp'></i>",
+      "<i class='fa fa-angle-right sp'></i>",
+    ],
+    dots: false,
+    responsive: {
+      0: {
+        items: 6,
+      },
+
+      600: {
+        items: 6,
+      },
+
+      1024: {
+        items: 6,
+      },
+
+      1366: {
+        items: 6,
+      },
+    },
+  };
   return (
     <div>
       <AgentHeader />
@@ -2824,8 +2864,8 @@ export default function AgentEditTour(props) {
                   <div class="property_info_cont agent_img_sets" id="demo">
                     <section class="snap-scrolling-example">
                       <div class="horizontal-images tabscroll-windows">
-                        <ul class="list_sec" role="">
-                          <li class="">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
                             <a
                               class=""
                               href="#"
@@ -2837,8 +2877,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Menu Options
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -2849,16 +2889,16 @@ export default function AgentEditTour(props) {
                               </span>{" "}
                               Background Music
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={() => setOpenNarrationModal(true)}>
                               <span>
                                 <i class="fas fa-torii-gate"></i>
                               </span>
                               Tour Narration{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -2869,16 +2909,16 @@ export default function AgentEditTour(props) {
                               </span>
                               Property Information{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={() => setOpenAmenityModal(true)}>
                               <span>
                                 <i class="fas fa-sticky-note"></i>
                               </span>{" "}
                               Amenities
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -2889,8 +2929,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Open House Announcements
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -2901,8 +2941,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Add Newsletter Form
                             </a>
-                          </li>
-                        </ul>
+                          </div>
+                        </OwlCarousel>
                       </div>
                     </section>
                   </div>
@@ -2916,8 +2956,8 @@ export default function AgentEditTour(props) {
                   <div class="property_info_cont agent_img_sets" id="demo">
                     <section class="snap-scrolling-example">
                       <div class="horizontal-images tabscroll-windows">
-                        <ul class="list_sec" role="">
-                          <li class="">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
                             <a
                               class=""
                               href="#"
@@ -2929,16 +2969,16 @@ export default function AgentEditTour(props) {
                               </span>
                               Themes
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={() => setOpenCompanyBanner(true)}>
                               <span>
                                 <i class="fas fa-building"></i>
                               </span>{" "}
                               Company Banner
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               href="#"
                               data-toggle="modal"
@@ -2949,43 +2989,40 @@ export default function AgentEditTour(props) {
                               </span>
                               Co-listing agent{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={() => handleFloorPlan()}>
                               <span>
                                 <i class="fas fa-ruler-horizontal"></i>
                               </span>
                               Floor Plans
                             </a>
-                          </li>
-                          {/* <li class="">
-                                                        <a onClick={() => setOpenFloorModal(true)}><span><i class="fas fa-ruler-horizontal"></i></span>Floor Plans</a>
-                                                    </li> */}
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={handleEditFloor}>
                               <span>
                                 <i class="fas fa-wifi"></i>
                               </span>
                               Floor-plan Hot-spot
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={handlePanorama}>
                               <span>
                                 <i class="fas fa-photo-video"></i>
                               </span>
                               Panoramas
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={() => handleSlideShow()}>
                               <span>
                                 <i class="fas fa-sliders-h"></i>
                               </span>
                               Slide-Show Editor
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => {
                                 setOpenYoutubeModal(true);
@@ -2996,8 +3033,8 @@ export default function AgentEditTour(props) {
                               </span>
                               Additional YouTube Links
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => {
                                 setOpenWalkThroughModal(true);
@@ -3008,8 +3045,8 @@ export default function AgentEditTour(props) {
                               </span>
                               3D Walkthrough Home Tour
                             </a>
-                          </li>
-                        </ul>
+                          </div>
+                        </OwlCarousel>
                       </div>
                     </section>
                   </div>
@@ -5037,9 +5074,9 @@ export default function AgentEditTour(props) {
                                 </td>
                                 <td style={{ textAlign: "center" }}>
                                   <CopyToClipboard
-                                    text={distributeData.BrandedTourLink}                                    
+                                    text={distributeData.BrandedTourLink}
                                   >
-                                  <button class="next_btn">Copy</button>
+                                    <button class="next_btn">Copy</button>
                                   </CopyToClipboard>
                                 </td>
                               </tr>
@@ -5067,10 +5104,10 @@ export default function AgentEditTour(props) {
                                 <td style={{ textAlign: "center" }}>
                                   {" "}
                                   <CopyToClipboard
-                                  text={distributeData.n_BrandedTourLink}                                    
-                                >
-                                <button class="next_btn">Copy</button>
-                                </CopyToClipboard>
+                                    text={distributeData.n_BrandedTourLink}
+                                  >
+                                    <button class="next_btn">Copy</button>
+                                  </CopyToClipboard>
                                 </td>
                               </tr>
                             </tbody>

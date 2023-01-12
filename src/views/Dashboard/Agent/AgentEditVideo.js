@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
+import OwlCarousel from "react-owl-carousel";
 import {
   GridContextProvider,
   GridDropZone,
@@ -917,6 +918,44 @@ export default function AgentEditVideo(props) {
     });
     setDragImages(arr);
   };
+  const options = {
+    lazyLoad: true,
+    loop: false,
+    margin: 0,
+    responsiveClass: true,
+    animateOut: "fadeOut",
+    animateIn: "fadeIn",
+    autoplay: false,
+    autoplayTimeout: 3500,
+    autoplayHoverPause: false,
+    autoHeight: true,
+    mouseDrag: true,
+    touchDrag: true,
+    smartSpeed: 1000,
+    nav: true,
+    navText: [
+      "<i class='fa fa-angle-left sp'></i>",
+      "<i class='fa fa-angle-right sp'></i>",
+    ],
+    dots: false,
+    responsive: {
+      0: {
+        items: 6,
+      },
+
+      600: {
+        items: 6,
+      },
+
+      1024: {
+        items: 6,
+      },
+
+      1366: {
+        items: 6,
+      },
+    },
+  };
   return (
     <div>
       <AgentHeader />
@@ -1052,48 +1091,48 @@ export default function AgentEditVideo(props) {
                   <div class="property_info_cont agent_img_sets" id="demo">
                     <section class="snap-scrolling-example">
                       <div class="horizontal-images tabscroll-windows">
-                        <ul class="list_sec" role="">
-                          <li class="">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
                             <a onClick={handleVideoPromo}>
                               <span>
                                 <i class="fas fa-photo-video"></i>
                               </span>
                               Distribute Video
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={handleVideoPromo}>
                               <span>
                                 <i class="fas fa-video"></i>
                               </span>
                               Video Promotion{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={handlePreviewVideo}>
                               <span>
                                 <i class="fas fa-magic"></i>
                               </span>
                               Preview Video Frame{" "}
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={handlePreviewImage}>
                               <span>
                                 <i class="fas fa-eye"></i>
                               </span>
                               Preview Image Frame
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a onClick={downloadImage}>
                               <span>
                                 <i class="fas fa-print"></i>
                               </span>
                               Download Video
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => BackToTourImage()}
                               data-toggle="modal"
@@ -1104,8 +1143,8 @@ export default function AgentEditVideo(props) {
                               </span>
                               Back to Tour Images
                             </a>
-                          </li>
-                          <li class="">
+                          </div>
+                          <div className="asdf">
                             <a
                               onClick={() => GoToRelatedImageset()}
                               data-toggle="modal"
@@ -1116,8 +1155,8 @@ export default function AgentEditVideo(props) {
                               </span>
                               Go to related ImageSet
                             </a>
-                          </li>
-                        </ul>
+                          </div>
+                        </OwlCarousel>
                       </div>
                     </section>
                   </div>
