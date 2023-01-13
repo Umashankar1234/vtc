@@ -510,7 +510,7 @@ export default function Login(props) {
 
                             {/* 6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq */}
                             <ReCAPTCHA
-                              sitekey="6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq"
+                              sitekey="6LfOR3kgAAAAAN7f4zcHQQTUrXNpbDMc6vUA0Ka_"
                               onChange={onChange}
                             />
                           </li>
