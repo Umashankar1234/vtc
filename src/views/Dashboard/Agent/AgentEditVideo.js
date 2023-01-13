@@ -645,31 +645,26 @@ export default function AgentEditVideo(props) {
       });
   };
   const handleVideoPromo = () => {
-    if (imageId === "") {
-      setMessage("Please select one imageset");
-      setOpenError(true);
-    } else {
-      setOpenVideoPromoModal(true);
-      const obj = {
-        authenticate_key: "abcd123XYZ",
-        agent_id: JSON.parse(context.state.user).agentId,
-        tourId: tour_id,
-      };
-      postRecord(APIVideoPromotion, obj)
-        .then((res) => {
-          if (res.data[0].response.status === "success") {
-            setVideoPromoData(res.data[0].response.data);
-          } else {
-            setMessage(res.data[0].response.message);
-            setOpenError(true);
-          }
-        })
-        .catch((err) => {
-          setMessage("Something Went Wrong. Please try again later...");
+    setOpenVideoPromoModal(true);
+    const obj = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user).agentId,
+      tourId: tour_id,
+    };
+    postRecord(APIVideoPromotion, obj)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setVideoPromoData(res.data[0].response.data);
+        } else {
+          setMessage(res.data[0].response.message);
           setOpenError(true);
-          setOpen(false);
-        });
-    }
+        }
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
   };
   const handlePodcastChange = (checked) => {
     setVideoPromoData({
@@ -788,7 +783,7 @@ export default function AgentEditVideo(props) {
       setDragImages(allData);
     }
   }, [allData]);
-  console.log("dragImages",dragImages);
+  console.log("dragImages", dragImages);
 
   const handleOnDragEnd = async (result) => {
     if (!result.destination) return;
@@ -957,7 +952,7 @@ export default function AgentEditVideo(props) {
       },
     },
   };
-console.log("currentTourData",currentTourData);
+  console.log("currentTourData", currentTourData);
   return (
     <div>
       <AgentHeader />
