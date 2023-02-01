@@ -88,6 +88,7 @@ export default function AppRoutes() {
             <Switch>
                 <PrivateRoute path={APIPath() + "my-non-brand-gallery/:agentId"} component={MyOfficeNonBrandedGallery} />
                 <PrivateRoute path={APIPath() + "my-office-gallery/:agentId"} component={MyOfficeGallery} />
+                <Route path={APIPath() + "order-details/:orderid/:agentId"} component={AgentAdminLogin} />
                 <PrivateRoute path={APIPath() + "order-details/:orderid"} component={AgentOrderDetails} />
                 <PrivateRoute path={APIPath() + "pending-order-details/:orderid"} component={AgentPendingOrderDetails} />
                 <PrivateRoute path={APIPath() + "edit-flyer-theme/:flyerid?"} component={EditFlyerTheme} />

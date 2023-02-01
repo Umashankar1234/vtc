@@ -327,31 +327,26 @@ export default function AgentEditVideo(props) {
     setOpenError(false);
   };
   const handlePreviewVideo = () => {
-    if (imageId === "") {
-      setMessage("Please select one Video");
-      setOpenError(true);
-    } else {
-      setSync(true);
-      setSync(false);
-      setOpenPreviewVideoModal(true);
-      const obj = {
-        authenticate_key: "abcd123XYZ",
-        agentId: JSON.parse(context.state.user).agentId,
-        tourId: tour_id,
-        videoId: imageId,
-      };
-      postRecord(APIPreviewVideo, obj)
-        .then((res) => {
-          if (res.data[0].response.status === "success") {
-            setVideoUrl(res.data[0].response.data.filePath);
-          }
-        })
-        .catch((err) => {
-          setMessage("Something Went Wrong. Please try again later...");
-          setOpenError(true);
-          setOpen(false);
-        });
-    }
+    setSync(true);
+    setSync(false);
+    setOpenPreviewVideoModal(true);
+    const obj = {
+      authenticate_key: "abcd123XYZ",
+      agentId: JSON.parse(context.state.user).agentId,
+      tourId: tour_id,
+      videoId: imageId,
+    };
+    postRecord(APIPreviewVideo, obj)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setVideoUrl(res.data[0].response.data.filePath);
+        }
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
   };
   const handleBlurChange = (value) => {
     setBlurValue(value);
