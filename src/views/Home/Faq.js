@@ -10,6 +10,7 @@ import { APIPath, APIURL } from "../../CommonMethods/Fetch";
 import { postRecord } from "../../CommonMethods/Save";
 import { AuthContext } from "../../CommonMethods/Authentication";
 import Footer1 from "../../components/Footer/Footer1";
+import Title from "../../CommonMethods/Title";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetFaqData = APIURL() + "faqCatagoryWise";
 const APIGetUserData = APIURL() + "user-details";
@@ -89,6 +90,7 @@ export default function Faq() {
     }
     return (
         <React.Fragment>
+        <Title title="FAQ"/>
             <section class="home_page">
                 <div class="mobile_on mobile_slide">
                     <div class="mob_head">

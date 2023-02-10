@@ -24,6 +24,7 @@ import { APIURL, APIPath } from "../../CommonMethods/Fetch";
 import { AuthContext } from "../../CommonMethods/Authentication";
 import { postRecord } from "../../CommonMethods/Save";
 import Footer1 from "../../components/Footer/Footer1";
+import Title from "../../CommonMethods/Title";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetBrokerData = APIURL() + "brokercontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -105,6 +106,7 @@ export default function Broker() {
   };
   return (
     <div>
+      <Title title="Broker"/>
       <section class="home_page">
         <div class="mobile_on mobile_slide">
           <div class="mob_head">

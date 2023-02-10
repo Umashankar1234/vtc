@@ -804,6 +804,10 @@ div.input-block input:focus + span.placeholder {
   opacity: 1;
   transition: 0.5s ease-in-out;
 }
+#home_slide .owl-prev {
+  position: absolute;
+  left: 10px;
+}
 #home_slide .owl-next .sp,
 #home_slide .owl-prev .sp {
   font-size: 100px;

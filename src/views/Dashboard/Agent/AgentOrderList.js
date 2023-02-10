@@ -11,6 +11,7 @@ import { postRecord } from "../../../CommonMethods/Save";
 import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from "@material-ui/core/CircularProgress";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetOrderList = APIURL() + "orders-list";
 export default function AgentOrderList(props) {
@@ -103,6 +104,7 @@ export default function AgentOrderList(props) {
 
   return (
     <div>
+    <Title title="Agent Order List"/>
       <AgentHeader path={props.location.pathname} />
       <section
         class="vtc_agent_banner"

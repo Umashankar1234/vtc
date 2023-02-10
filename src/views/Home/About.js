@@ -20,6 +20,7 @@ import icon3 from "../../images/icon3.png";
 import RectangleImage from "../../images/rectangle-dots.png"
 import ImageCircle from"../../images/circle-dots.png";
 import ProcessCircle from "../../images/process-circle2.png";
+import Title from "../../CommonMethods/Title";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetAboutData = APIURL() + "aboutcontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -168,6 +169,7 @@ export default function About() {
     }
     return (
         <div>
+        <Title title="About"/>
             <section class="home_page">
                 <div class="mobile_on mobile_slide">
                     <div class="mob_head">

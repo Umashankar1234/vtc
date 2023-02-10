@@ -28,6 +28,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import { HTML5_FMT } from "moment";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetDashboardData = APIURL() + "agent-dashboard";
 const APIVerifyAccount = APIURL() + "resend-verification-mail";
@@ -708,6 +709,7 @@ export default function AgentDashboard(props) {
 
   return (
     <div>
+    <Title title="Agent Dashboard"/>
       <AgentHeader user={AgentType} />
       <section
         class="vtc_agent_banner"

@@ -52,6 +52,7 @@ import EmailIcon from "@material-ui/icons/Email";
 import PhoneIcon from "@material-ui/icons/Phone";
 import HomeIcon from "@material-ui/icons/Home";
 import Switch from "react-switch";
+import Title from "../../CommonMethods/Title";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetAgentData = APIURL() + "agentcontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -809,6 +810,7 @@ export default function Agent() {
   };
   return (
     <div>
+      <Title title="Agent"/>
       <section class="home_page">
         <div class="mobile_on mobile_slide">
           <div class="mob_head">

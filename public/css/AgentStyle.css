@@ -6734,7 +6734,7 @@ input[type="text"]:disabled {background: #dddddd;}
 
   border: 3px solid #ccc;
 
-}
+}.react-tel-input .special-label {  display: block;  top: -23px !important;  left: -4px!important;  margin-bottom: 5px!important;  color: #5e5e5e!important;  font-weight: 500!important;}
 
 
 

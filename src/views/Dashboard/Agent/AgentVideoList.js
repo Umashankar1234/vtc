@@ -15,6 +15,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import ReactPaginate from "react-paginate";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetImagesetList = APIURL() + "get-imagesetlist";
 const APIChangeService = APIURL() + "change-tour-service";
@@ -496,6 +497,7 @@ export default function AgentFlashVideo() {
 
   return (
     <div>
+    <Title title="Agent Video List"/>
       <AgentHeader />
       <section
         class="vtc_agent_banner"

@@ -31,6 +31,7 @@ import noimage from "../../../images/no0img.jpg";
 import { makeStyles } from "@material-ui/core/styles";
 import { object } from "prop-types";
 import OwlCarousel from "react-owl-carousel";
+import Title from "../../../CommonMethods/Title";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetCountries = APIURL() + "get-countries";
@@ -1340,6 +1341,7 @@ export default function AgentImageSets() {
   };
   return (
     <div>
+    <Title title="Agent Image Sets"/>
       <AgentHeader />
       <section
         class="vtc_agent_banner"

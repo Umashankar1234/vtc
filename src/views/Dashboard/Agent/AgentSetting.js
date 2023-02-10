@@ -81,6 +81,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import Skeleton from "@material-ui/lab/Skeleton";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIAgentProfile = APIURL() + "agent-personal-information";
 const APIAgentMycafe = APIURL() + "update-agent-mycafe";
@@ -337,7 +338,9 @@ export default function AgentSetting(props) {
   const [headerImageId, setHeaderImageId] = useState("");
   const [offeredBannerImg, setOfferedBannerImg] = useState("");
   const [sync, setSync] = useState(true);
-  const [defaultBanner, setDefaultBanner] = useState("https://www.virtualtourcafe.com/alpha/static/media/default-banner.87685114.jpg");
+  const [defaultBanner, setDefaultBanner] = useState(
+    "https://www.virtualtourcafe.com/alpha/static/media/default-banner.87685114.jpg"
+  );
   const [allBanners, setAllBanners] = useState([]);
   const [allThemes, setAllThemes] = useState({});
   const [maxWidth, setMaxWidth] = React.useState("md");
@@ -496,8 +499,7 @@ export default function AgentSetting(props) {
       agentId: JSON.parse(context.state.user).agentId,
       setting_type: type,
     };
-    postRecord(APIRemoveSocialAuth, obj).then((res) => {
-    });
+    postRecord(APIRemoveSocialAuth, obj).then((res) => {});
   };
   useEffect(() => {
     if (context.state.user) {
@@ -1142,7 +1144,7 @@ export default function AgentSetting(props) {
     imageData.img = "photo.jpg";
     postRecord(APIDeleteAgentImage, imageData)
       .then((res) => {
-        console.log('here'+res.data[0].response.status);
+        console.log("here" + res.data[0].response.status);
         if (res.data[0].response.status === "success") {
           setImageData("");
           // setAgentImage(res.data[0].response.data.profile_image);
@@ -2192,6 +2194,7 @@ export default function AgentSetting(props) {
   };
   return (
     <div>
+      <Title title="Agent Setting" />
       <AgentHeader />
       <section
         class="vtc_agent_banner"
@@ -2312,219 +2315,218 @@ export default function AgentSetting(props) {
               <div class="property_info_cont" id="demo">
                 <section class="snap-scrolling-example">
                   <div class="horizontal-images tab_main tabscroll-windows">
-                  <OwlCarousel margin={10} {...options} id="home_slide1">
-                  <div className="asdf">
-                    <a
-                      id="profile"
-                      data-toggle="tab"
-                      href="#Images"
-                      role="tab1"
-                      class={companyTab ? "nav-link" : "nav-link active"}
-                    >
-                      <span>
-                        <i class="fas fa-user"></i>
-                      </span>
-                      Agent Profile
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      id="comp"
-                      data-toggle="tab"
-                      href="#Description"
-                      role="tab1"
-                      class={companyTab ? "nav-link active" : "nav-link"}
-                    >
-                      <span>
-                        <i class="fas fa-info-circle"></i>
-                      </span>
-                      Company Information{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Email"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-mail-bulk"></i>
-                      </span>
-                      Default Email/phone Options
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Preferences"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fab fa-angellist"></i>
-                      </span>
-                      Preferences{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Video"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-video"></i>
-                      </span>
-                      Video Options{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Tour"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-directions"></i>
-                      </span>{" "}
-                      Tour Options{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Flyer"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-book-open"></i>
-                      </span>{" "}
-                      Flyer Options{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Traffic"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-paste"></i>
-                      </span>{" "}
-                      Traffic Reports{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Slide"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fab fa-slideshare"></i>
-                      </span>{" "}
-                      Slide Show Defaults{" "}
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Panorama"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-vr-cardboard"></i>
-                      </span>{" "}
-                      Panorama Defaults
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Theme"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-sliders-h"></i>
-                      </span>{" "}
-                      Themes Defaults
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Bg_Music"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-music"></i>
-                      </span>
-                      Background Music Defaults
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Payments"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="far fa-credit-card"></i>
-                      </span>{" "}
-                      Payment Profiles
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Social"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fa fa-angellist"></i>
-                      </span>
-                      Setup Social Networking
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      href="#Youtube"
-                      class="nav-link"
-                      data-toggle="tab"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fab fa-youtube"></i>
-                      </span>{" "}
-                      Youtube Channel
-                    </a>
-                  </div>
-                  <div className="asdf">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#News"
-                      role="tab1"
-                    >
-                      <span>
-                        <i class="fas fa-envelope-open-text"></i>
-                      </span>{" "}
-                      Add Newsletter Form
-                    </a>
-                  </div>
-                </OwlCarousel>
-                    
+                    <OwlCarousel margin={10} {...options} id="home_slide1">
+                      <div className="asdf">
+                        <a
+                          id="profile"
+                          data-toggle="tab"
+                          href="#Images"
+                          role="tab1"
+                          class={companyTab ? "nav-link" : "nav-link active"}
+                        >
+                          <span>
+                            <i class="fas fa-user"></i>
+                          </span>
+                          Agent Profile
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          id="comp"
+                          data-toggle="tab"
+                          href="#Description"
+                          role="tab1"
+                          class={companyTab ? "nav-link active" : "nav-link"}
+                        >
+                          <span>
+                            <i class="fas fa-info-circle"></i>
+                          </span>
+                          Company Information{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Email"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-mail-bulk"></i>
+                          </span>
+                          Default Email/phone Options
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Preferences"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fab fa-angellist"></i>
+                          </span>
+                          Preferences{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Video"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-video"></i>
+                          </span>
+                          Video Options{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Tour"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-directions"></i>
+                          </span>{" "}
+                          Tour Options{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Flyer"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-book-open"></i>
+                          </span>{" "}
+                          Flyer Options{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Traffic"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-paste"></i>
+                          </span>{" "}
+                          Traffic Reports{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Slide"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fab fa-slideshare"></i>
+                          </span>{" "}
+                          Slide Show Defaults{" "}
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Panorama"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-vr-cardboard"></i>
+                          </span>{" "}
+                          Panorama Defaults
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Theme"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-sliders-h"></i>
+                          </span>{" "}
+                          Themes Defaults
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Bg_Music"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-music"></i>
+                          </span>
+                          Background Music Defaults
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Payments"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="far fa-credit-card"></i>
+                          </span>{" "}
+                          Payment Profiles
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#Social"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fa fa-angellist"></i>
+                          </span>
+                          Setup Social Networking
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          href="#Youtube"
+                          class="nav-link"
+                          data-toggle="tab"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fab fa-youtube"></i>
+                          </span>{" "}
+                          Youtube Channel
+                        </a>
+                      </div>
+                      <div className="asdf">
+                        <a
+                          class="nav-link"
+                          data-toggle="tab"
+                          href="#News"
+                          role="tab1"
+                        >
+                          <span>
+                            <i class="fas fa-envelope-open-text"></i>
+                          </span>{" "}
+                          Add Newsletter Form
+                        </a>
+                      </div>
+                    </OwlCarousel>
                   </div>
                   <div class="tab-content">
                     <div

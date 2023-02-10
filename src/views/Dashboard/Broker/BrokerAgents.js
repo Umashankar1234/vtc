@@ -25,6 +25,7 @@ import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import { Button } from "@material-ui/core";
 import ReactPaginate from "react-paginate";
+import Title from "../../../CommonMethods/Title";
 const APIGetDashboardData = APIURL() + "agent-dashboard";
 const APIBrokerDashBoard = APIURL() + "get-mycafe";
 const APISaveAgentCreate = APIURL() + "agent-create";
@@ -425,6 +426,7 @@ export default function BrokerAgensts(props) {
   };
   return (
     <div>
+    <Title title="Broker Agents"/>
       {/* <AgentHeader /> */}
       <BrokerHeader />
       <section

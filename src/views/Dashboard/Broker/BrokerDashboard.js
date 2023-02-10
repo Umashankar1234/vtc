@@ -21,6 +21,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
+import Title from "../../../CommonMethods/Title";
 const APIGetDashboardData = APIURL() + "agent-dashboard";
 const APIBrokerDashBoard = APIURL() + "get-mycafe";
 const APISaveAgentCreate = APIURL() + "agent-create";
@@ -268,6 +269,7 @@ export default function BrokerDashboard() {
   };
   return (
     <div>
+    <Title title="Broker Dashboard"/>
       {/* <AgentHeader /> */}
       <BrokerHeader />
       <section

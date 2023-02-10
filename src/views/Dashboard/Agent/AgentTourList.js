@@ -20,6 +20,7 @@ import { postRecord } from "../../../CommonMethods/Save";
 import ReactPaginate from "react-paginate";
 import { makeStyles } from "@material-ui/core/styles";
 import { event } from "jquery";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetImagesetList = APIURL() + "get-imagesetlist";
 const APIChangeService = APIURL() + "change-tour-service";
@@ -602,6 +603,7 @@ export default function AgentTourList(props) {
   };
   return (
     <div>
+    <Title title="Agent Tour List"/>
       <AgentHeader />
       <section
         class="vtc_agent_banner"

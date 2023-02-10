@@ -11,6 +11,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
+import Title from "../../../CommonMethods/Title";
 const APIGetPendingOrderList = APIURL() + "pending-orders-list";
 const APIGetOrderDetails = APIURL() + "pending-orders-details";
 const ApiDeleteProduct = APIURL() + "delete-pending-order";
@@ -180,6 +181,7 @@ export default function AgentPendingOrderList(props) {
 
   return (
     <div>
+    <Title title="Agent Pending Order List"/>
       <AgentHeader path={props.location.pathname} />
       <section
         class="vtc_agent_banner"

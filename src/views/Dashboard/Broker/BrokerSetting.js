@@ -60,6 +60,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import { Button } from "@material-ui/core";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APISaveCompanyInfo = APIURL() + "save-Company-Info";
 const APIGetCountryList = APIURL() + "get-CountryList";
@@ -790,6 +791,7 @@ export default function BrokerSetting(props) {
   };
   return (
     <div>
+    <Title title="Broker Setting"/>
       <BrokerHeader />
       <section
         class="vtc_agent_banner"

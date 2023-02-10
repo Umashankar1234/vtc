@@ -19,6 +19,7 @@ import DialogContent from '@material-ui/core/DialogContent';
 import CancelIcon from '@material-ui/icons/Cancel';
 import video from "../../images/video.mp4";
 import Footer1 from "../../components/Footer/Footer1";
+import Title from "../../CommonMethods/Title";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetFeatureData = APIURL() + "featurecontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -116,6 +117,7 @@ export default function Features() {
     }
     return (
         <div>
+        <Title title="Features"/>
             <section class="home_page">
                 <div class="mobile_on mobile_slide">
                     <div class="mob_head">

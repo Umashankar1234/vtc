@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 export default function AgentSupport() {
@@ -61,6 +62,7 @@ export default function AgentSupport() {
     }, []);
     return (
         <div>
+        <Title title="Agent Support"/>
             <AgentHeader />
             <section class="vtc_agent_banner" style={{ backgroundImage: "url(" + banner + ")" }}>
                 <div class="vtc_top_menu">

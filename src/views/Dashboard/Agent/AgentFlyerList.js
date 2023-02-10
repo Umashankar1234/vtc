@@ -24,6 +24,7 @@ import opencraigslisactive_icon from "../../../images/opencraigslisactive_icon.p
 import fontawesomelogo from "../../../images/fontawesomelogo.png";
 import craigslisflyeractive_icon from "../../../images/craigslisflyeractive_icon.png";
 import ReactPaginate from "react-paginate";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetImagesetList = APIURL() + "get-imagesetlist";
 const APIDeleteImageset = APIURL() + "delete-imageset";
@@ -649,6 +650,7 @@ export default function AgentFlyerList(props) {
   };
   return (
     <div>
+    <Title title="Agent Flyer List"/>
       <AgentHeader />
       <section
         class="vtc_agent_banner"

@@ -25,6 +25,7 @@ import { useHistory } from "react-router-dom";
 import { APIURL, APIPath } from "../../CommonMethods/Fetch";
 import { postRecord, putRecord } from "../../CommonMethods/Save";
 import Footer1 from "../../components/Footer/Footer1";
+import Title from "../../CommonMethods/Title";
 const APILogin = APIURL() + "agent-login";
 const APIForgotPwd = APIURL() + "forgotpassword";
 function Alert(props) {
@@ -181,6 +182,7 @@ export default function Login(props) {
     }
     return (
         <div>
+        <Title title="Login"/>
             <section class="home_page">
                 {/* <div class="mobile_on mobile_slide">
                     <div class="mob_head">

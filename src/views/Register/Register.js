@@ -675,7 +675,7 @@ export default function Register(props) {
 
                         {/* 6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq */}
                         <ReCAPTCHA
-                          sitekey="6LfOR3kgAAAAAN7f4zcHQQTUrXNpbDMc6vUA0Ka_"
+                          sitekey="6LfHSiwgAAAAAAHtot668mAzqqmXqcre4wXdHbf-"
                           onChange={onChange}
                         />
                         <div class="login_reg_page_left_forget">

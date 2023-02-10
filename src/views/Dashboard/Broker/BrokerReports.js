@@ -31,6 +31,7 @@ import { postRecord } from "../../../CommonMethods/Save";
 import { CSVLink } from "react-csv";
 import vtclogo from "../../../images/vtc-logo2.png";
 import ReactPaginate from "react-paginate";
+import Title from "../../../CommonMethods/Title";
 const APIGetUserData = APIURL() + "user-details";
 const APISaveCompanyInfo = APIURL() + "save-Company-Info";
 const APIGetCountryList = APIURL() + "get-CountryList";
@@ -416,6 +417,7 @@ export default function BrokerReports() {
   };
   return (
     <div>
+    <Title title="Broker Reports"/>
       <BrokerHeader />
       <section
         class="vtc_agent_banner"
