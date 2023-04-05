@@ -87,6 +87,7 @@ export default function EditImageSet(props) {
   const classes = useStyles();
   const context = useContext(AuthContext);
   const [maxWidth, setMaxWidth] = React.useState("lg");
+  const [tourList, setTourList] = useState([]);
   const [currentUser, setCurrentUser] = useState({});
   const [blurValue, setBlurValue] = useState(0);
   const [brightValue, setBrightValue] = useState(10);
@@ -741,6 +742,21 @@ export default function EditImageSet(props) {
       setElement(div);
       setImageId(data.imageid);
     }
+  };
+  const handleImageTourChange = (event, id) => {
+    console.log(dragImages);
+    dragImages.forEach((res) => {
+      if (res.imageid === id) {
+        if (event === true) {
+          res.enableontour = 1;
+        } else {
+          res.enableontour = 0;
+        }
+      }
+    });
+    setDragImages(dragImages);
+    // setTourList([]);
+    setTourList(tourList);
   };
   const saveNewImage = () => {
     setOpen(true);
@@ -2221,6 +2237,65 @@ export default function EditImageSet(props) {
                               class="form-control"
                             />
                           </div>
+                          <div
+                            class="col-lg-9 col-md-9"
+                            style={{ marginTop: "10px" }}
+                          >
+                            <label style={{ marginRight: "35px" }}>
+                              Use this Image on tour ?
+                              <span style={{ color: "#ffa12d" }}></span>
+                            </label>
+                          </div>
+                          <div
+                            class="col-lg-2 col-md-2"
+                            style={{ marginTop: "7px" }}
+                          >
+                            <Switch
+                              onChange={(event) =>
+                                handleImageTourChange(event, res.imageid)
+                              }
+                              checked={res.enableontour}
+                              handleDiameter={28}
+                              offColor="#5D5D5D"
+                              onColor="#F6AD17"
+                              offHandleColor="#fff"
+                              onHandleColor="#fff"
+                              height={35}
+                              width={60}
+                              borderRadius={6}
+                              uncheckedIcon={
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%",
+                                    fontSize: 15,
+                                    color: "white",
+                                    paddingRight: 2,
+                                  }}
+                                >
+                                  No
+                                </div>
+                              }
+                              checkedIcon={
+                                <div
+                                  style={{
+                                    display: "flex",
+                                    justifyContent: "center",
+                                    alignItems: "center",
+                                    height: "100%",
+                                    fontSize: 15,
+                                    color: "white",
+                                    paddingRight: 2,
+                                  }}
+                                >
+                                  Yes
+                                </div>
+                              }
+                              className="react-switch"
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -3652,7 +3727,7 @@ export default function EditImageSet(props) {
                                     type="text"
                                     onChange={handleInputChange}
                                     name="widgetcaption"
-                                    value={propertyData.widgetcaption}
+                                    value={propertyData.caption}
                                     class="form-control"
                                   />
                                 </div>
