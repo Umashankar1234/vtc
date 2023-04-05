@@ -842,7 +842,7 @@ div.input-block input:focus + span.placeholder {
   -ms-flex-pack: center;
   width: 40px;
   height: 0px;
-  color: #ffa12d;
+  color: #ffffff;
   text-align: center;
   opacity: 1;
   transition: 0.5s ease-in-out;
@@ -11400,4 +11400,7 @@ h1 span.inner p {
 
 .asdf {
   margin: 2px;
+}
+.new_edit_sec label {
+  font-size: 15px;
 }
