@@ -1530,7 +1530,6 @@ export default function EditImageSet(props) {
       type: "imageset",
       imageArr: currentImagesetData,
     };
-    console.log(obj);
     postRecord(APIUpdateTour, obj)
       .then((res) => {
         if (res.data[0].response.status === "success") {
@@ -2166,8 +2165,8 @@ export default function EditImageSet(props) {
             <div>
               <GridDropZone
                 boxesPerRow={3}
-                rowHeight={180}
-                style={{ height: divHeight + "px" }}
+                rowHeight={400}
+                style={{ height: 800 + "px" }}
               >
                 {dragImages.map((res, index) => (
                   <GridItem className="top" key={res.imageid}>
@@ -2192,12 +2191,12 @@ export default function EditImageSet(props) {
                         style={{ marginBottom: "20px" }}
                       >
                         <div class="row">
-                          <div class="col-lg-5 col-md-5">
+                          <div class="col-lg-12 col-md-12">
                             <div class="select_img_set_box_img">
                               <img
                                 draggable="false"
                                 src={res.file_url}
-                                style={{ height: "110px" }}
+                                style={{ height: "185px" }}
                                 alt=""
                               />
                               {res.image_type === "panoramas" ? (
@@ -2225,7 +2224,7 @@ export default function EditImageSet(props) {
                               )}
                             </div>
                           </div>
-                          <div class="col-lg-7 col-md-7">
+                          <div class="col-lg-12 col-md-12">
                             <input
                               type="text"
                               name={"caption" + index}
@@ -4753,8 +4752,7 @@ export default function EditImageSet(props) {
                             value="Inventory Button"
                           />
                           <button type="button" class="next_btn">
-                            {" "}
-                            View Our VirtualTorCafe Inventory{" "}
+                            View Our VirtualTorCafe Inventory
                           </button>
                         </div>
                       </div>
