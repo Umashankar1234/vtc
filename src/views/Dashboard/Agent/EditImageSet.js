@@ -1390,6 +1390,10 @@ export default function EditImageSet(props) {
     // rotated = !rotated;
   };
 
+  const handleMyCafeGallery = (nextChecked) => {
+    let check = nextChecked === true ? 1 : 0;
+    setOtherLink({ ...otherLink, ["cafeValue"]: check });
+  };
   const handleTourQrCode = (nextChecked) => {
     let check = nextChecked === true ? 1 : 0;
     setOtherLink({ ...otherLink, ["tourvalue"]: check });
@@ -4590,11 +4594,11 @@ export default function EditImageSet(props) {
                   <div class="row">
                     <div class="col-lg-3 col-md-3">
                       <div class="agent_pop_img">
-                        <label>MyCafeGallery:</label>
+                        <label>Tour:</label>
                         <img
                           src={
                             Object.keys(otherLink).length > 0
-                              ? otherLink.qr_code.mycafe_image_link
+                              ? otherLink.qr_code.qr_image_link
                               : undefined
                           }
                           alt=""
@@ -4666,9 +4670,87 @@ export default function EditImageSet(props) {
                         )}
                       </div>
                     </div>
+                    <div class="col-lg-3 col-md-3">
+                      <div class="agent_pop_img">
+                        <label>MyCafeGallery:</label>
+                        <img
+                          src={
+                            Object.keys(otherLink).length > 0
+                              ? otherLink.qr_code.mycafe_image_link
+                              : undefined
+                          }
+                          alt=""
+                          title=""
+                          style={{ margin: "0 0 10px 0" }}
+                        />
+                      </div>
+                      <div class="download_qr">
+                        <div class="switchToggle custom-control custom-switch">
+                          <Switch
+                            onChange={handleMyCafeGallery}
+                            checked={otherLink.cafeValue}
+                            handleDiameter={28}
+                            offColor="#5D5D5D"
+                            onColor="#F6AD17"
+                            offHandleColor="#fff"
+                            onHandleColor="#fff"
+                            height={35}
+                            width={60}
+                            borderRadius={6}
+                            uncheckedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                No
+                              </div>
+                            }
+                            checkedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                Yes
+                              </div>
+                            }
+                            className="react-switch"
+                          />
+                        </div>
+                        {Object.keys(otherLink).length > 0 &&
+                        otherLink.cafeValue === 1 ? (
+                          <a
+                            href="javascript:void()"
+                            onClick={() => {
+                              downloadQrCode(
+                                otherLink.qr_code.mycafe_image_link
+                              );
+                            }}
+                            class="next_btn download_btn"
+                          >
+                            Download
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
                   </div>
                   <div class="agent_pop_main_head padd_top">
-                    <h5>Misc Links</h5>
+                    <h5>Tour Links</h5>
                   </div>
                   <div class="service_links">
                     <div class="row">

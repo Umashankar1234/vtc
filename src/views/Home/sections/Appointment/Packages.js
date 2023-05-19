@@ -455,8 +455,11 @@ export default function Packages(props) {
                                     expandIcon={<ExpandMoreIcon />}
                                     aria-controls="panel1a-content"
                                     id="panel1a-header"
-                                    className ={index == expanded?"test2":"test_accorodion"}
-                                    
+                                    className={
+                                      index == expanded
+                                        ? "test2"
+                                        : "test_accorodion"
+                                    }
                                   >
                                     <div>
                                       <a
@@ -607,146 +610,152 @@ export default function Packages(props) {
               </div>
               <div class="package_sec_cont">
                 {Object.keys(allPackages).length > 0 ? (
-                  <div>
-                    <div
-                      className="package-box-appointment package-productlist"
-                      style={{ marginBottom: "20px" }}
-                    >
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div id="main">
-                            <div className="" id="faq">
-                              <Accordion
-                                onChange={handleChange(555)}
-                                expanded={555 == expanded ? true : false}
-                                sx={{
-                                  mb: 2,
-                                }}
-                              >
-                                <AccordionSummary
-                                  expandIcon={<ExpandMoreIcon />}
-                                  aria-controls="panel1a-content"
-                                  id="panel1a-header"
-                                  className ="test_accorodion"
+                  allPackages.combopackage.map((res,index) => (
+                    <div>
+                      <div
+                        className="package-box-appointment package-productlist"
+                        style={{ marginBottom: "20px" }}
+                      >
+                        <div className="row">
+                          <div className="col-md-12">
+                            <div id="main">
+                              <div className="" id="faq">
+                                <Accordion
+                                  onChange={handleChange(res.id)}
+                                  expanded={res.id == expanded ? true : false}
+                                  sx={{
+                                    mb: 2,
+                                  }}
                                 >
-                                  <div>
-                                    <a
-                                      href="#"
-                                      className="btn btn-header-link"
-                                      data-toggle="collapse"
-                                      data-target="#faq1"
-                                      aria-expanded="true"
-                                      aria-controls="faq1"
-                                    >
-                                      {allPackages.combopackage[0].title}
-                                    </a>
-                                  </div>
-                                </AccordionSummary>
-                                <AccordionDetails style={{ padding: "0px" }}>
-                                  <div className="card-body">
-                                    <div className="pricing-box-photo">
-                                      <img
-                                        src={allPackages.combopackage[0].image}
-                                        alt
-                                      />
-                                      <div className="pricing-box-price-amount">
-                                        Starting at $200
+                                  <AccordionSummary
+                                    expandIcon={<ExpandMoreIcon />}
+                                    aria-controls="panel1a-content"
+                                    id="panel1a-header"
+                                    className="test_accorodion"
+                                  >
+                                    <div>
+                                      <a
+                                        href="#"
+                                        className="btn btn-header-link"
+                                        data-toggle="collapse"
+                                        data-target="#faq1"
+                                        aria-expanded="true"
+                                        aria-controls="faq1"
+                                      >
+                                        {res.title}
+                                      </a>
+                                    </div>
+                                  </AccordionSummary>
+                                  <AccordionDetails style={{ padding: "0px" }}>
+                                    <div className="card-body">
+                                      <div className="pricing-box-photo">
+                                        <img
+                                          src={
+                                            res.image
+                                          }
+                                          alt
+                                        />
+                                        <div className="pricing-box-price-amount">
+                                          Starting at $200
+                                        </div>
+                                      </div>
+                                      <div className="pricing-box-price">
+                                        <table
+                                          className="table"
+                                          style={{ width: "100%" }}
+                                          cellSpacing={0}
+                                          cellPadding={0}
+                                        >
+                                          <tbody>
+                                            {res.package_details.map(
+                                              (subpackage) => (
+                                                <tr>
+                                                  <td
+                                                    className="package-name"
+                                                    width="25%"
+                                                    align="left"
+                                                  >
+                                                    {subpackage.title}
+                                                  </td>
+                                                  <td
+                                                    className="package-info"
+                                                    width="40%"
+                                                    align="left"
+                                                  >
+                                                    <div
+                                                      dangerouslySetInnerHTML={{
+                                                        __html:
+                                                          subpackage.description,
+                                                      }}
+                                                    />
+                                                  </td>
+                                                  <td
+                                                    className="price"
+                                                    width="15%"
+                                                    align="right"
+                                                    style={{
+                                                      textAlign: "center",
+                                                    }}
+                                                  >
+                                                    ${subpackage.price}
+                                                  </td>
+                                                  <td
+                                                    className="price"
+                                                    width="20%"
+                                                    align="right"
+                                                    style={{
+                                                      textAlign: "right",
+                                                    }}
+                                                  >
+                                                    {checkId(subpackage.id) ===
+                                                    true ? (
+                                                      <a
+                                                        className="addtocart-btn"
+                                                        onClick={() => {
+                                                          removeComboSubPackages(
+                                                            subpackage.id,
+                                                            allPackages
+                                                              .combopackage[0]
+                                                              .id
+                                                          );
+                                                        }}
+                                                      >
+                                                        Remove From Cart
+                                                        <i className="far fa-shopping-cart" />
+                                                      </a>
+                                                    ) : (
+                                                      <a
+                                                        className="addtocart-btn"
+                                                        onClick={() => {
+                                                          addComboSubPackages(
+                                                            subpackage.id,
+                                                            allPackages
+                                                              .combopackage[0]
+                                                              .id
+                                                          );
+                                                        }}
+                                                      >
+                                                        Add to Cart
+                                                        <i className="far fa-shopping-cart" />
+                                                      </a>
+                                                    )}
+                                                  </td>
+                                                </tr>
+                                              )
+                                            )}
+                                          </tbody>
+                                        </table>
                                       </div>
                                     </div>
-                                    <div className="pricing-box-price">
-                                      <table
-                                        className="table"
-                                        style={{ width: "100%" }}
-                                        cellSpacing={0}
-                                        cellPadding={0}
-                                      >
-                                        <tbody>
-                                          {allPackages.combopackage[0].package_details.map(
-                                            (subpackage) => (
-                                              <tr>
-                                                <td
-                                                  className="package-name"
-                                                  width="25%"
-                                                  align="left"
-                                                >
-                                                  {subpackage.title}
-                                                </td>
-                                                <td
-                                                  className="package-info"
-                                                  width="40%"
-                                                  align="left"
-                                                >
-                                                  <div
-                                                    dangerouslySetInnerHTML={{
-                                                      __html:
-                                                        subpackage.description,
-                                                    }}
-                                                  />
-                                                </td>
-                                                <td
-                                                  className="price"
-                                                  width="15%"
-                                                  align="right"
-                                                  style={{
-                                                    textAlign: "center",
-                                                  }}
-                                                >
-                                                  ${subpackage.price}
-                                                </td>
-                                                <td
-                                                  className="price"
-                                                  width="20%"
-                                                  align="right"
-                                                  style={{
-                                                    textAlign: "right",
-                                                  }}
-                                                >
-                                                  {checkId(subpackage.id) ===
-                                                  true ? (
-                                                    <a
-                                                      className="addtocart-btn"
-                                                      onClick={() => {
-                                                        removeComboSubPackages(
-                                                          subpackage.id,
-                                                          allPackages
-                                                            .combopackage[0].id
-                                                        );
-                                                      }}
-                                                    >
-                                                      Remove From Cart
-                                                      <i className="far fa-shopping-cart" />
-                                                    </a>
-                                                  ) : (
-                                                    <a
-                                                      className="addtocart-btn"
-                                                      onClick={() => {
-                                                        addComboSubPackages(
-                                                          subpackage.id,
-                                                          allPackages
-                                                            .combopackage[0].id
-                                                        );
-                                                      }}
-                                                    >
-                                                      Add to Cart
-                                                      <i className="far fa-shopping-cart" />
-                                                    </a>
-                                                  )}
-                                                </td>
-                                              </tr>
-                                            )
-                                          )}
-                                        </tbody>
-                                      </table>
-                                    </div>
-                                  </div>
-                                </AccordionDetails>
-                              </Accordion>
+                                  </AccordionDetails>
+                                </Accordion>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  ))
                 ) : (
                   <div class="row">
                     <Skeleton
