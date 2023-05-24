@@ -28,6 +28,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import { HTML5_FMT } from "moment";
+import AgentDashBoardHeader from "../../../../../src/views/Dashboard/Agent/AgentDashBoardHeader";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetDashboardData = APIURL() + "agent-dashboard";
 const APIVerifyAccount = APIURL() + "resend-verification-mail";
@@ -717,61 +718,14 @@ export default function AgentDashboard(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                <div class="vtc_agent_menu_top">
-                  <ul>
-                    <li class="active">
-                      <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-video-list"}>Videos</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-setting"}>Settings</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-preferred-vendor"}>
-                        Preferred Vendors
-                      </Link>
-                    </li>
-                    <li>
-                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">
-                        Xpressdocs
-                      </a>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-support"}>Support</Link>
-                    </li>
-                  </ul>
-                  <div class="gee_mobile">
-                    <button onClick={() => ShowMenu()} class="gee_hamburger">
-                      &#9776;
-                    </button>
-                    <button onClick={() => HideMenu()} class="gee_cross">
-                      &#735;
-                    </button>
-                  </div>
-                </div>
+              <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
+
                 <div class="gee_menu">
                   <ul>
                     <li class="active">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                   
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>

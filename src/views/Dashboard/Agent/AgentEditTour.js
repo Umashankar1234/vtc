@@ -32,11 +32,6 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import CircularProgress from "@material-ui/core/CircularProgress";
-import thumbpics1 from "../../../images/thumbpics1.jpg";
-import thumbpics2 from "../../../images/thumbpics2.jpg";
-import thumbpics3 from "../../../images/thumbpics3.jpg";
-import thumbpics4 from "../../../images/thumbpics4.jpg";
-import profile1 from "../../../images/profile1.jpg";
 import up_img from "../../../images/up.png";
 import middle_img from "../../../images/middle.png";
 import bottom_img from "../../../images/bottom.png";
@@ -53,6 +48,9 @@ import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import ReactPaginate from "react-paginate";
 import OwlCarousel from "react-owl-carousel";
+import Dropzone from "react-dropzone";
+import { confirmAlert } from "react-confirm-alert";
+import AgentDashBoardHeader from "./AgentDashBoardHeader";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetAmenities = APIURL() + "get-amenities";
@@ -96,6 +94,11 @@ const APIDistributeTour = APIURL() + "distribute-tour";
 const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIUpdateOrder = APIURL() + "change-order";
 const APIcropImage = APIURL() + "save-cropper-image-tour";
+const APIDeleteImage = APIURL() + "delete-image-editimageset";
+const APIOtherMail = APIURL() + "other-link-send-email";
+const APIServiceMail = APIURL() + "tour-send-mail";
+const APIAgentTrafficOption = APIURL() + "agent-update-traffic";
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -107,6 +110,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function AgentEditTour(props) {
   const tour_id = props.match.params.tourid;
+  const imageset_id = props.match.params.tourid;
   const classes = useStyles();
   const initialMusicState = {
     musicid: "",
@@ -142,6 +146,10 @@ export default function AgentEditTour(props) {
   };
   let history = useHistory();
   const context = useContext(AuthContext);
+  const initialTrafficState = {
+    reportrecipients: "",
+    emailtrafficreport: "",
+  };
   const [currentUser, setCurrentUser] = useState({});
   const [sync, setSync] = useState(true);
   const [musicData, setMusicData] = useState(initialMusicState);
@@ -263,6 +271,19 @@ export default function AgentEditTour(props) {
   });
   const [image, setImage] = useState(null);
   const [fileName, setFilename] = useState("");
+  const [openModal, setOpenModal] = useState(false);
+  const [uploadedImages, setUploadedImages] = useState([]);
+  const [newImageData, setNewImageData] = useState({});
+  const [openVideoModal, setOpenVideoModal] = useState(false);
+  const [uploadedVideos, setUploadedVideos] = useState([]);
+  const [newVideoData, setNewVideoData] = useState({});
+  const [videoUrl, setVideoUrl] = useState("");
+  const [currentImagesetData, setCurrentImagesetData] = useState({});
+  const [otherLink, setOtherLink] = useState({});
+  const [serviceLinks, setServiceLinks] = useState({});
+  const [openTrafficModal, setOpenTrafficModal] = useState(false);
+  const [trafficData, setTrafficData] = useState(initialTrafficState);
+
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -2589,6 +2610,7 @@ export default function AgentEditTour(props) {
       });
   }
   const handleCaptionChange = (event, data) => {
+    console.log(data);
     const { name, value } = event.target;
     const arr = [];
     dragImages.forEach((res) => {
@@ -2638,8 +2660,325 @@ export default function AgentEditTour(props) {
       },
     },
   };
+  const handleImageRemove = (data) => {
+    const filteredPeople = uploadedImages.filter(
+      (item) => item.name !== data.name
+    );
+    setUploadedImages(filteredPeople);
+  };
+  const getImageFromUpload = (data) => {
+    return URL.createObjectURL(data);
+  };
+  const saveNewImage = () => {
+    setOpen(true);
+    newImageData.authenticate_key = "abcd123XYZ";
+    newImageData.agent_id = JSON.parse(context.state.user).agentId;
+    newImageData.tourId = imageset_id;
+    newImageData.imageArr = uploadedImages;
+    const formData = new FormData();
+    for (let i in newImageData) {
+      if (i === "imageArr") {
+        for (let file of newImageData[i]) {
+          formData.append("imageArr[]", file);
+        }
+      } else {
+        formData.append(i, newImageData[i]);
+      }
+    }
+    axios
+      .post(APIURL() + `save-tour-image`, formData, {})
+      //.post("https://cors-anywhere.herokuapp.com/http://139.59.28.82/vtc/api/save-tour-image", formData, {})
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setOpen(false);
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+          setSync(true);
+          setOpenModal(false);
+          setUploadedImages([]);
+        } else {
+          setOpen(false);
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+          setSync(true);
+        }
+        setSync(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const handleVideoRemove = (data) => {
+    const filteredPeople = uploadedVideos.filter(
+      (item) => item.name !== data.name
+    );
+    setUploadedVideos(filteredPeople);
+  };
+  const saveNewVideo = (data) => {
+    setOpen(true);
+    data.video = uploadedVideos;
+    const formData = new FormData();
+    for (let i in data) {
+      if (i === "video") {
+        for (let file of data[i]) {
+          formData.append("video[]", file);
+        }
+      } else {
+        formData.append(i, data[i]);
+      }
+    }
+    axios
+      .post(APIURL() + `add-video-editimageset`, formData, {})
+      // .post("https://cors-anywhere.herokuapp.com/http://139.59.28.82/vtc/api/add-video-editimageset", formData, {})
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+          setSync(true);
+          setOpenVideoModal(false);
+          setOpen(false);
+          setUploadedVideos([]);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+          setSync(true);
+          setOpen(false);
+        }
+        setSync(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const downloadImage = () => {
+    if (imageUrl !== "") {
+      if (imageId === "") {
+        setMessage("Please select one image");
+        setOpenError(true);
+      } else {
+        toDataURL(imageUrl, function (dataUrl) {
+          var link = document.createElement("a");
+          link.href = dataUrl;
+          link.replace(/\s/g, "%");
+          link.setAttribute("download", "image.jpg");
+          document.body.appendChild(link);
+          link.click();
+        });
+        setImageUrl("");
+      }
+    } else {
+      if (imageId === "") {
+        setMessage("Please select one image or video");
+        setOpenError(true);
+      } else {
+        toDataURL(videoUrl, function (dataUrl) {
+          var link = document.createElement("a");
+          link.href = dataUrl;
+          link.setAttribute("download", "image.jpg");
+          document.body.appendChild(link);
+          link.click();
+        });
+        setVideoUrl("");
+      }
+    }
+  };
+  function toDataURL(url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        callback(reader.result);
+      };
+      reader.readAsDataURL(xhr.response);
+    };
+    xhr.open("GET", url);
+    xhr.responseType = "blob";
+    xhr.send();
+  }
+  const handleDelete = () => {
+    if (imageId === "") {
+      setMessage("Please select one image");
+      setOpenError(true);
+    } else {
+      confirmAlert({
+        message: "Are you sure you want to delete this image ? ",
+        buttons: [
+          {
+            label: "Yes",
+            onClick: () => {
+              const sd = [];
+              sd.push(imageId);
+              const obj = {
+                authenticate_key: "abcd123XYZ",
+                agent_id: JSON.parse(context.state.user).agentId,
+                tourId: imageset_id,
+                imageSet: sd,
+              };
+              postRecord(APIDeleteImage, obj).then((res) => {
+                if (res.data[0].response.status === "success") {
+                  setMessage(res.data[0].response.message);
+                  setOpenSuccess(true);
+                  setSync(false);
+                } else {
+                  setMessage(res.data[0].response.message);
+                  setOpenError(true);
+                  setSync(false);
+                }
+                setSync(true);
+              });
+            },
+          },
+          {
+            label: "No",
+            onClick: () => {},
+          },
+        ],
+      });
+    }
+  };
+  const updateAllCaption = () => {
+    setOpen(true);
+    const obj = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user).agentId,
+      type: "imageset",
+      imageArr: allData,
+    };
+    postRecord(APIUpdateTour, obj)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+          setSync(false);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+          setSync(false);
+        }
+        setSync(true);
+        setOpen(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const SendOthereMail = () => {
+    setOpen(true);
+    otherLink.authenticate_key = "abcd123XYZ";
+    otherLink.agent_id = JSON.parse(context.state.user).agentId;
+    otherLink.tourId = imageset_id;
+    postRecord(APIOtherMail, otherLink)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+        }
+        setOpen(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const handleOtherInputChange = (event) => {
+    const { name, value } = event.target;
+    setOtherLink({ ...otherLink, [name]: value });
+  };
+  const downloadQrCode = (image) => {
+    toDataURL(image, function (dataUrl) {
+      var link = document.createElement("a");
+      link.href = dataUrl;
+      link.setAttribute("download", "image.jpg");
+      document.body.appendChild(link);
+      link.click();
+    });
+  };
+  const handleMyCafeGallery = (nextChecked) => {
+    let check = nextChecked === true ? 1 : 0;
+    setOtherLink({ ...otherLink, ["cafeValue"]: check });
+  };
+  const handleTourQrCode = (nextChecked) => {
+    let check = nextChecked === true ? 1 : 0;
+    setOtherLink({ ...otherLink, ["tourvalue"]: check });
+  };
+  const SendServiceMail = () => {
+    setOpen(true);
+    serviceLinks.authenticate_key = "abcd123XYZ";
+    serviceLinks.agent_id = JSON.parse(context.state.user).agentId;
+    serviceLinks.tourlink = serviceLinks.branded_link.tour_link;
+    serviceLinks.videolink = serviceLinks.branded_link.video_link;
+    serviceLinks.flyerlink = serviceLinks.branded_link.flyer_link;
+    serviceLinks.standard = serviceLinks.mls_link.standard_link;
+    serviceLinks.strict = serviceLinks.mls_link.strict_link;
+    postRecord(APIServiceMail, serviceLinks)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+        }
+        setOpen(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const handleServiceInputChange = (event) => {
+    const { name, value } = event.target;
+    setServiceLinks({ ...serviceLinks, [name]: value });
+  };
+  const handleTrafficChange = (nextChecked) => {
+    setTrafficData({ ...trafficData, ["emailtrafficreport"]: nextChecked });
+  };
+  const handleReport = () => {
+    window.open(APIPath() + "site/trafficreport/" + imageset_id, "_blank");
+  };
+  const handleTrafficInputChange = (event) => {
+    const { name, value } = event.target;
+    setTrafficData({ ...trafficData, [name]: value });
+  };
+  const SaveTrafficReport = () => {
+    setOpen(true);
+    trafficData.authenticate_key = "abcd123XYZ";
+    trafficData.agent_id = JSON.parse(context.state.user).agentId;
+    postRecord(APIAgentTrafficOption, trafficData)
+      .then((res) => {
+        //console.log(res);
+        if (res.data[0].response.status === "success") {
+          setMessage(res.data[0].response.message);
+          setOpenSuccess(true);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+        }
+        setOpen(false);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+        setOpen(false);
+      });
+  };
+  const panoroma = () => {
+    history.push(APIPath() + "agent-panaroma/" + imageset_id);
+    // window.location.href = APIPath() + "agent-panaroma/" + imageset_id;
+  };
   return (
-    <div>
+    <>
       <AgentHeader />
       <section
         class="vtc_agent_banner"
@@ -2649,61 +2988,18 @@ export default function AgentEditTour(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                <div class="vtc_agent_menu_top">
-                  <ul>
-                    <li>
-                      <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
-                    <li class="active">
-                      <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-video-list"}>Videos</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-setting"}>Settings</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-preferred-vendor"}>
-                        Preferred Vendors
-                      </Link>
-                    </li>
-                    <li>
-                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">
-                        Xpressdocs
-                      </a>
-                    </li>
-                    <li class="">
-                      <Link to={APIPath() + "agent-support"}>Support</Link>
-                    </li>
-                  </ul>
-                  <div class="gee_mobile">
-                    <button onClick={() => ShowMenu()} class="gee_hamburger">
-                      &#9776;
-                    </button>
-                    <button onClick={() => HideMenu()} class="gee_cross">
-                      &#735;
-                    </button>
-                  </div>
-                </div>
+                <AgentDashBoardHeader
+                  ShowMenu={ShowMenu}
+                  HideMenu={HideMenu}
+                  imagesetId={imageset_id}
+                />
+
                 <div class="gee_menu">
                   <ul>
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                   
                     <li class="active">
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -2774,6 +3070,16 @@ export default function AgentEditTour(props) {
                         role="tab"
                       >
                         <i class="fas fa-hand-point-right"></i>Advanced
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        data-toggle="tab"
+                        href="#ImageSetTools"
+                        role="tab"
+                      >
+                        <i class="fas fa-image"></i>ImageSet Tools
                       </a>
                     </li>
                   </ul>
@@ -3044,6 +3350,132 @@ export default function AgentEditTour(props) {
                                 <i class="fas fa-home"></i>
                               </span>
                               3D Walkthrough Home Tour
+                            </a>
+                          </div>
+                        </OwlCarousel>
+                      </div>
+                    </section>
+                  </div>
+                </div>
+                <div
+                  class="tab-pane"
+                  id="ImageSetTools"
+                  role="tabpanel"
+                  style={{ width: "100%", overflow: "auto" }}
+                >
+                  <div class="property_info_cont agent_img_sets" id="demo">
+                    <section class="snap-scrolling-example">
+                      <div class="horizontal-images tabscroll-windows">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
+                            <a
+                              className="owl_"
+                              onClick={() => {
+                                setOpenModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="far fa-image"></i>
+                              </span>
+                              Add Images
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              onClick={() => {
+                                setOpenVideoModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="fas fa-video"></i>
+                              </span>
+                              Add Video
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={downloadImage}>
+                              <span>
+                                <i class="fas fa-download"></i>
+                              </span>
+                              Download Image
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handleDelete}>
+                              <span>
+                                <i class="far fa-trash-alt"></i>
+                              </span>
+                              Delete Image
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => updateAllCaption()}>
+                              <span>
+                                <i class="fas fa-pen"></i>
+                              </span>
+                              Update All Captions
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              <span>
+                                <i class="fas fa-info-circle"></i>
+                              </span>
+                              Property Information
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenAmenityModal(true)}>
+                              <span>
+                                <i class="fas fa-file-spreadsheet"></i>
+                              </span>
+                              Amenities
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Services"
+                            >
+                              <span>
+                                <i class="fas fa-link"></i>
+                              </span>
+                              Service Links
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Links"
+                            >
+                              <span>
+                                <i class="fas fa-external-link-alt"></i>
+                              </span>
+                              Other Links
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenTrafficModal(true)}>
+                              <span>
+                                <i class="far fa-sticky-note"></i>
+                              </span>
+                              Traffic Reports
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            {/* <a href="panorama.html"><span><i class="far fa-image"></i></span>Panoramas</a> */}
+                            {/* <Link to={APIPath() + "agent-panoroma"}><span><i class="far fa-image"></i></span>Panoramas</Link> */}
+                            <a onClick={() => panoroma()}>
+                              <span>
+                                <i class="far fa-image"></i>
+                              </span>
+                              Panoramas
                             </a>
                           </div>
                         </OwlCarousel>
@@ -4977,6 +5409,116 @@ export default function AgentEditTour(props) {
                 </button>
               </div>
             </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        maxWidth={maxWidth}
+        fullWidth={true}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openVideoModal}
+      >
+        <DialogTitle id="customized-dialog-title">
+          Add Video
+          <CancelIcon
+            onClick={() => setOpenVideoModal(false)}
+            style={{ float: "right", cursor: "pointer" }}
+          />
+        </DialogTitle>
+        <DialogContent dividers>
+          <div class="container">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                newVideoData.authenticate_key = "abcd123XYZ";
+                newVideoData.agent_id = JSON.parse(context.state.user).agentId;
+                newVideoData.tourid = imageset_id;
+                saveNewVideo(newVideoData);
+              }}
+            >
+              <div class="agent_pop_main">
+                <h6 class="optimal_pic mar_top">
+                  Videos should be .mp4 file format and no larger than 500mb
+                  file size. Please be aware of MLS rules when adding videos
+                  with agent or broker branding and using MLS links as the
+                  videos will be included
+                </h6>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <Dropzone
+                      onDrop={(acceptedFiles) => {
+                        console.log(acceptedFiles);
+                        acceptedFiles.map((res) => {
+                          if (res.type == "video/mp4") {
+                            setUploadedVideos((oldArray) => [...oldArray, res]);
+                          } else {
+                            setMessage("Please upload a valid mp4 file.");
+                            setOpenError(true);
+                          }
+                        });
+                      }}
+                    >
+                      {({ getRootProps, getInputProps, isDragActive }) => (
+                        <div {...getRootProps({ className: "dropzone" })}>
+                          <input {...getInputProps()} />
+                          {isDragActive ? (
+                            <p>Drop the files here ...</p>
+                          ) : (
+                            <p>
+                              Drag 'n' drop some files here, or click to select
+                              files
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </Dropzone>
+                    {uploadedVideos.length > 0 && (
+                      <React.Fragment>
+                        <h4 style={{ marginTop: "20px" }}>Uploaded Files :</h4>
+                        <div class="row">
+                          {uploadedVideos.map((res, index) => (
+                            <React.Fragment>
+                              <h6
+                                style={{ marginLeft: "20px", color: "green" }}
+                              >
+                                {index + 1 + " : " + res.name}
+                              </h6>
+                              <CancelIcon
+                                onClick={() => handleVideoRemove(res)}
+                                style={{
+                                  marginTop: "-4px",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </React.Fragment>
+                          ))}
+                        </div>
+                      </React.Fragment>
+                    )}
+                    {/* <Dropzone
+                                            getUploadParams={getUploadParams}
+                                            onChangeStatus={handleChangeStatus}
+                                            onSubmit={handleVideoSubmit}
+                                            accept="video/*"
+                                            styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
+                                        /> */}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 text-center">
+                  <button
+                    style={{ border: "#ffa124" }}
+                    type="submit"
+                    class="need_pic save_btn"
+                  >
+                    Submit<i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
           </div>
         </DialogContent>
       </Dialog>
@@ -7102,6 +7644,1591 @@ export default function AgentEditTour(props) {
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
-    </div>
+      <Dialog
+        maxWidth={maxWidth}
+        fullWidth={true}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openModal}
+      >
+        <DialogTitle id="customized-dialog-title">
+          Add Images
+          <CancelIcon
+            onClick={() => setOpenModal(false)}
+            style={{ float: "right", cursor: "pointer" }}
+          />
+        </DialogTitle>
+        <DialogContent dividers>
+          <div class="container">
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                saveNewImage();
+              }}
+            >
+              <div class="agent_pop_main">
+                <h6 class="optimal_pic mar_top">
+                  Optimal picture size is 1075x768. Images should not be larger
+                  than 5mb file size and no smaller than 1075x768 or larger.
+                </h6>
+                <div class="row">
+                  <div class="col-lg-12 col-md-12">
+                    <Dropzone
+                      accept="image/*"
+                      onDrop={(acceptedFiles) => {
+                        acceptedFiles.map((res) => {
+                          if (
+                            res.type == "image/jpeg" ||
+                            res.type == "image/jpg" ||
+                            res.type == "image/png"
+                          ) {
+                            setUploadedImages((oldArray) => [...oldArray, res]);
+                          } else {
+                            setMessage("Accepts only images");
+                            setOpenError(true);
+                          }
+                        });
+                      }}
+                    >
+                      {({ getRootProps, getInputProps, isDragActive }) => (
+                        <div {...getRootProps({ className: "dropzone" })}>
+                          <input {...getInputProps()} />
+                          {isDragActive ? (
+                            <p>Drop the files here ...</p>
+                          ) : (
+                            <p>
+                              Drag 'n' drop some files here, or click to select
+                              files
+                            </p>
+                          )}
+                        </div>
+                      )}
+                    </Dropzone>
+                    {uploadedImages.length > 0 && (
+                      <React.Fragment>
+                        <h4 style={{ marginTop: "20px" }}>Uploaded Files :</h4>
+                        <div class="row">
+                          {uploadedImages.map((res) => (
+                            <div class="col-lg-2 col-md-2">
+                              <img
+                                style={{ height: "100px", width: "100%" }}
+                                src={getImageFromUpload(res)}
+                                alt="img"
+                              />
+                              <CancelIcon
+                                onClick={() => handleImageRemove(res)}
+                                style={{
+                                  marginTop: "-124%",
+                                  marginLeft: "86%",
+                                  background: "#fff",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      </React.Fragment>
+                    )}
+                    {/* <Dropzone
+                                            getUploadParams={getUploadParams}
+                                            onChangeStatus={handleChangeStatus}
+                                            onSubmit={handleImageSubmit}
+                                            accept="image/*"
+                                            styles={{ dropzone: { minHeight: 200, maxHeight: 250 } }}
+                                        /> */}
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-lg-12 col-md-12 text-center">
+                  <button
+                    style={{ border: "#ffa124" }}
+                    type="submit"
+                    class="need_pic save_btn"
+                  >
+                    Submit<i class="fas fa-arrow-right"></i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog
+        maxWidth={maxWidth}
+        fullWidth={true}
+        aria-labelledby="customized-dialog-title"
+        open={openTrafficModal}
+      >
+        <DialogTitle id="customized-dialog-title">
+          Traffic Report
+          <CancelIcon
+            onClick={() => setOpenTrafficModal(false)}
+            style={{ float: "right", cursor: "pointer" }}
+          />
+        </DialogTitle>
+        <DialogContent dividers>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
+              SaveTrafficReport();
+            }}
+          >
+            <div class="agent_pop_main">
+              <div class="agent_pop_main_head padd_top">
+                <h5>Email Recipients (comma seperated)</h5>
+              </div>
+              <p class="padd_top">
+                You could enter multiple email addresses separated by commas.
+              </p>
+              <div class="service_links">
+                <div class="row">
+                  <div class="col-lg-3 col-md-3">
+                    <div class="service_links_left">
+                      <h6>To:</h6>
+                    </div>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <div class="service_links_right">
+                      {/* <input type="text" name="" class="form-control" value={currentUser && currentUser.email} /> */}
+                      <input
+                        type="text"
+                        onChange={handleTrafficInputChange}
+                        value={trafficData.reportrecipients}
+                        name="reportrecipients"
+                        class="form-control"
+                      />
+                      <div class="d-flex">
+                        <button
+                          onClick={handleReport}
+                          type="button"
+                          class="next_btn"
+                        >
+                          View Report
+                        </button>
+                        <button type="submit" class="next_btn grey email_btn">
+                          Send Email
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="agent_pop_main_head padd_top">
+                <h5>Auto Forward</h5>
+              </div>
+              <div class="service_links">
+                <div class="row padd_top">
+                  <div class="col-lg-3 col-md-3">
+                    <div class="service_links_left">
+                      <h6>Email report every week:</h6>
+                    </div>
+                  </div>
+                  <div class="col-lg-9 col-md-9">
+                    <div class="service_links_right">
+                      <div class="switchToggle custom-control custom-switch">
+                        {/* <input type="checkbox" class="custom-control-input" id="customSwitch333" checked="" />
+                                            <label class="custom-control-label" for="customSwitch333">&nbsp;</label> */}
+                        {/* <input type="checkbox" class="custom-control-input" id="customSwitch1114" onChange={handleEmailStatusChange} value={Object.keys(currentUser).length > 0 && currentUser.emailStatus} checked={Object.keys(currentUser).length > 0 && currentUser.emailStatus === 1 ? true : false} /> */}
+                        {/* <input typ="checkbox" class="custom-control-input" onchange={handleEmailStatusChange} id="customSwitch1114" value={currentUser.emailStatus} checked={currentUser.emailStatus === 1 ? true : false}></input> */}
+                        {/* <label class="custom-control-label" for="customSwitch1114">&nbsp;</label> */}
+                        {/* <Switch
+                                                    onChange={handleEmailStatusChange}
+                                                    checked={currentUser.emailStatus}
+                                                    handleDiameter={28}
+                                                    offColor="#5D5D5D"
+                                                    onColor="#F6AD17"
+                                                    offHandleColor="#fff"
+                                                    onHandleColor="#fff"
+                                                    height={35}
+                                                    width={60}
+                                                    name="emailStatus"
+                                                    borderRadius={6}
+                                                    uncheckedIcon={
+                                                        <div
+                                                            style={{
+                                                                display: "flex",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                height: "100%",
+                                                                fontSize: 15,
+                                                                color: "white",
+                                                                paddingRight: 2
+                                                            }}
+                                                        >
+                                                            No
+                                                        </div>
+                                                    }
+                                                    checkedIcon={
+                                                        <div
+                                                            style={{
+                                                                display: "flex",
+                                                                justifyContent: "center",
+                                                                alignItems: "center",
+                                                                height: "100%",
+                                                                fontSize: 15,
+                                                                color: "white",
+                                                                paddingRight: 2
+                                                            }}
+                                                        >
+                                                            Yes
+                                                        </div>
+                                                    }
+
+                                                    className="react-switch"
+                                                /> */}
+                        <Switch
+                          onChange={handleTrafficChange}
+                          checked={trafficData.emailtrafficreport}
+                          handleDiameter={28}
+                          offColor="#5D5D5D"
+                          onColor="#F6AD17"
+                          offHandleColor="#fff"
+                          onHandleColor="#fff"
+                          height={35}
+                          width={60}
+                          borderRadius={6}
+                          uncheckedIcon={
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "100%",
+                                fontSize: 15,
+                                color: "white",
+                                paddingRight: 2,
+                              }}
+                            >
+                              No
+                            </div>
+                          }
+                          checkedIcon={
+                            <div
+                              style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: "100%",
+                                fontSize: 15,
+                                color: "white",
+                                paddingRight: 2,
+                              }}
+                            >
+                              Yes
+                            </div>
+                          }
+                          className="react-switch"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              startIcon={<SaveIcon />}
+            >
+              save
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <div class="agent_pop">
+        <div id="Property" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 class="modal-title">
+                  Property Information<i class="fas fa-info-circle"></i>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="browse_img">
+                  <div class="browse_img_conts_main">
+                    <div class="browse_img_conts">
+                      <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                          <a
+                            class="nav-link active"
+                            data-toggle="tab"
+                            href="#home"
+                            role="tab"
+                          >
+                            <i class="fas fa-user-edit"></i>Description
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link"
+                            data-toggle="tab"
+                            href="#profile"
+                            role="tab"
+                          >
+                            <i class="fas fa-globe"></i>Features
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link"
+                            data-toggle="tab"
+                            href="#messages"
+                            role="tab"
+                          >
+                            <i class="fas fa-money-bill"></i>Pricing
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link"
+                            data-toggle="tab"
+                            href="#location"
+                            role="tab"
+                          >
+                            <i class="fas fa-location-arrow"></i>Location
+                            Information
+                          </a>
+                        </li>
+                        <li class="nav-item">
+                          <a
+                            class="nav-link"
+                            data-toggle="tab"
+                            href="#docs"
+                            role="tab"
+                          >
+                            <i class="fab fa-wpforms"></i>Docs/Forms
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <div class="tab-content" id="">
+                      <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="prop_info">
+                          <div class="personalinfo">
+                            <form
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                savePropertyDescription();
+                              }}
+                            >
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>
+                                    CAPTION/TITLE{" "}
+                                    <span style={{ color: "#ffa12d" }}>*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="caption"
+                                    value={propertyData.caption}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>
+                                    WIDGET TITLE{" "}
+                                    <span style={{ color: "#ffa12d" }}>*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="widgetcaption"
+                                    value={propertyData.caption}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 formbox1">
+                                  <label>
+                                    Description{" "}
+                                    <span style={{ color: "#ffa12d" }}></span>
+                                  </label>
+                                  <textarea
+                                    onChange={handleInputChange}
+                                    name="description"
+                                    value={propertyData.description}
+                                    class="form-control"
+                                    rows="6"
+                                  ></textarea>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button
+                                    type="submit"
+                                    class="next_btn border-0"
+                                  >
+                                    SAVE
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="profile" role="tabpanel">
+                        <div class="prop_info">
+                          <div class="personalinfo">
+                            <form
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                savePropertyFeatures();
+                              }}
+                            >
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>Bedrooms</label>
+                                  <input
+                                    type="number"
+                                    onChange={handleInputChange}
+                                    name="totalbedrooms"
+                                    value={propertyData.totalbedrooms}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>Bathrooms</label>
+                                  <input
+                                    type="number"
+                                    onChange={handleInputChange}
+                                    name="totalbathrooms"
+                                    value={propertyData.totalbathrooms}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>Parking Space</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="parkingspaces"
+                                    value={propertyData.parkingspaces}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>Year Built</label>
+                                  <input
+                                    type="number"
+                                    onChange={handleInputChange}
+                                    name="yearbuilt"
+                                    value={propertyData.yearbuilt}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>Subdivision</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="subdivision"
+                                    value={propertyData.subdivision}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>LOT Size</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="lotsize"
+                                    value={propertyData.lotsize}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>Garage Size</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="garagesize"
+                                    value={propertyData.garagesize}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>School District </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="schooldistrict"
+                                    value={propertyData.schooldistrict}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>Square Footage </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="sqfootage"
+                                    value={propertyData.sqfootage}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>MLS </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="mls"
+                                    value={propertyData.mls}
+                                    class="form-control"
+                                  />
+                                  {/* <select type="text" onChange={handleInputChange} name="mls" value={propertyData.mls} class="form-control formbox1select">
+                                                                        <option>MLS</option>
+                                                                        <option>MLS</option>
+                                                                        <option>MLS</option>
+                                                                        <option>MLS</option>
+                                                                    </select> */}
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button
+                                    type="submit"
+                                    class="next_btn border-0"
+                                  >
+                                    SAVE
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="messages" role="tabpanel">
+                        <div class="prop_info">
+                          <div class="personalinfo">
+                            <form
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                savePropertyPrice();
+                              }}
+                            >
+                              <div class="row">
+                                <div class="col-md-3 formbox1">
+                                  <label>
+                                    Price
+                                    <span style={{ color: "#ffa12d" }}>*</span>
+                                  </label>
+                                  <select
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="pricetype"
+                                    value={propertyData.pricetype}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option>USD</option>
+                                    <option>CAD</option>
+                                    <option>EUR</option>
+                                  </select>
+                                </div>
+                                <div class="col-md-3 formbox1">
+                                  <label>
+                                    <span style={{ color: "#ffa12d" }}></span>
+                                  </label>
+                                  <input
+                                    type="number"
+                                    onChange={handleInputChange}
+                                    name="price"
+                                    value={propertyData.price}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>
+                                    FLEXIBILITY{" "}
+                                    <span style={{ color: "#ffa12d" }}>*</span>
+                                  </label>
+                                  <select
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="priceflexibility"
+                                    value={propertyData.priceflexibility}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option>Select option</option>
+                                    <option>FIRM</option>
+                                    <option>Negotiable</option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12 formbox1">
+                                  <label>
+                                    ADDITIONAL PRICE INFORMATION{" "}
+                                    <span style={{ color: "#ffa12d" }}>*</span>
+                                  </label>
+                                  <textarea
+                                    onChange={handleInputChange}
+                                    name="priceinfo"
+                                    value={propertyData.priceinfo}
+                                    class="form-control"
+                                    rows="6"
+                                  ></textarea>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button
+                                    type="submit"
+                                    class="next_btn border-0"
+                                  >
+                                    SAVE
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="location" role="tabpanel">
+                        <div class="prop_info">
+                          <div class="personalinfo">
+                            <form
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                savePropertyLocation();
+                              }}
+                            >
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>ADDRESS</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="address"
+                                    value={propertyData.address}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>PROPERTY TYPE</label>
+                                  <select
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="typeid"
+                                    value={propertyData.typeid}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option value="1">
+                                      Single Family Home
+                                    </option>
+                                    <option value="2">Condo</option>
+                                    <option value="3">Townhouse</option>
+                                    <option value="4">Coop</option>
+                                    <option value="5">Apartment</option>
+                                    <option value="6">Loft</option>
+                                    <option value="7">
+                                      Mobile/Manufactured
+                                    </option>
+                                    <option value="8">Farm/Ranch</option>
+                                    <option value="9">Multi-Family</option>
+                                    <option value="10">
+                                      Income/Investment
+                                    </option>
+                                    <option value="11">Houseboat</option>
+                                    <option value="12">
+                                      Commercial Lot/Land
+                                    </option>
+                                    <option value="13">Not Applicable</option>
+                                    <option value="14">Commercial</option>
+                                    <option value="15">Duet</option>
+                                    <option value="16">Duplex</option>
+                                    <option value="17">Triplex</option>
+                                    <option value="18">
+                                      Commercial Rental
+                                    </option>
+                                    <option value="19">
+                                      Residential Lot/Land
+                                    </option>
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>STATUS </label>
+                                  <select
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="categoryid"
+                                    value={propertyData.categoryid}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option value="1">For Sale</option>
+                                    <option value="2">For Rent</option>
+                                    <option value="3">Sold</option>
+                                    <option value="4">Contingent</option>
+                                    <option value="5">Pending</option>
+                                    <option value="6">Withdrawn</option>
+                                    <option value="7">Community</option>
+                                    <option value="8">Miscellaneous</option>
+                                    <option value="9">Personal</option>
+                                    <option value="10">Coming Soon</option>
+                                    <option value="11">Draft</option>
+                                    <option value="12">For Lease</option>
+                                    <option value="13">
+                                      For-Sale-By-Owner
+                                    </option>
+                                  </select>
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>Country</label>
+                                  <select
+                                    name="countryid"
+                                    value={propertyData.countryid}
+                                    onChange={handleInputChange}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option value="0">Select Country</option>
+                                    {allCountries.map((res) => (
+                                      <option value={res.id}>{res.name}</option>
+                                    ))}
+                                  </select>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>STATE</label>
+                                  <select
+                                    name="stateid"
+                                    value={propertyData.stateid}
+                                    onChange={handleInputChange}
+                                    class="form-control formbox1select"
+                                  >
+                                    <option value="0">Select State</option>
+                                    {allStates &&
+                                      allStates.map((res) => (
+                                        <option value={res.id}>
+                                          {res.name}
+                                        </option>
+                                      ))}
+                                  </select>
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>CITY</label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="city"
+                                    value={propertyData.city}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>ZIPCODE</label>
+                                  <input
+                                    type="number"
+                                    onChange={handleInputChange}
+                                    name="zipcode"
+                                    value={propertyData.zipcode}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>NEIGHBORHOOD </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="neighbourhood"
+                                    value={propertyData.neighbourhood}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>LATITUDE </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="latitude"
+                                    value={propertyData.latitude}
+                                    class="form-control"
+                                  />
+                                </div>
+                                <div class="col-md-6 formbox1">
+                                  <label>LONGITUDE </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="longitude"
+                                    value={propertyData.longitude}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-6 formbox1">
+                                  <label>AREA SCHOOLS LINK </label>
+                                  <input
+                                    type="text"
+                                    onChange={handleInputChange}
+                                    name="areaschoolslink"
+                                    value={propertyData.areaschoolslink}
+                                    class="form-control"
+                                  />
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <button
+                                    type="submit"
+                                    class="next_btn border-0"
+                                  >
+                                    SAVE
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="tab-pane" id="docs" role="tabpanel">
+                        <div class="prop_info">
+                          <div class="personalinfo">
+                            <form
+                              onSubmit={(event) => {
+                                event.preventDefault();
+                                savePropertyForms();
+                              }}
+                            >
+                              <table
+                                style={{ width: "100%", fontSize: "12px" }}
+                                class="table table-bordered"
+                              >
+                                <thead>
+                                  <tr>
+                                    <td style={{ fontSize: "12px" }}>Sl.no</td>
+                                    <td style={{ fontSize: "12px" }}>
+                                      Lead Capture
+                                    </td>
+                                    <td style={{ fontSize: "12px" }}>Name</td>
+                                    <td style={{ fontSize: "12px" }}>
+                                      File Name
+                                    </td>
+                                    <td style={{ fontSize: "12px" }}>
+                                      Password
+                                    </td>
+                                    <td style={{ fontSize: "12px" }}>Action</td>
+                                    {/* <td style={{fontSize:"12px"}}>Actions</td> */}
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  {documentData.length > 0
+                                    ? documentData.map((res, index) => (
+                                        <tr>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {index + 1}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.leadcapture === 1
+                                              ? "true"
+                                              : "false"}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.docname}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.filename}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.pwd}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            <Button
+                                              style={{ background: "red" }}
+                                              onClick={() =>
+                                                removeDocData(res.id)
+                                              }
+                                              startIcon={<CancelIcon />}
+                                              variant="contained"
+                                              color="primary"
+                                            >
+                                              Remove
+                                            </Button>
+                                          </td>
+                                        </tr>
+                                      ))
+                                    : ""}
+                                </tbody>
+                              </table>
+                              {totalDivs.map((res, index) => (
+                                <div class="row">
+                                  <div class="col-md-2 formbox1">
+                                    <label style={{ marginRight: "15px" }}>
+                                      LEAD CAPTURE
+                                      <span style={{ color: "#ffa12d" }}></span>
+                                    </label>
+                                    <Switch
+                                      readOnly
+                                      onChange={(event) =>
+                                        handleLeadChange(event, index)
+                                      }
+                                      checked={
+                                        documentLeadData["leadcapture" + index]
+                                          ? true
+                                          : false
+                                      }
+                                      //  checked={documentData[leadcapture${index}] ? true : false}
+                                      handleDiameter={28}
+                                      offColor="#5D5D5D"
+                                      onColor="#F6AD17"
+                                      offHandleColor="#fff"
+                                      onHandleColor="#fff"
+                                      height={35}
+                                      width={60}
+                                      borderRadius={6}
+                                      uncheckedIcon={
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            height: "100%",
+                                            fontSize: 15,
+                                            color: "white",
+                                            paddingRight: 2,
+                                          }}
+                                        >
+                                          No
+                                        </div>
+                                      }
+                                      checkedIcon={
+                                        <div
+                                          style={{
+                                            display: "flex",
+                                            justifyContent: "center",
+                                            alignItems: "center",
+                                            height: "100%",
+                                            fontSize: 15,
+                                            color: "white",
+                                            paddingRight: 2,
+                                          }}
+                                        >
+                                          Yes
+                                        </div>
+                                      }
+                                      className="react-switch"
+                                    />
+                                  </div>
+                                  <div class="col-md-2 formbox1">
+                                    <label>
+                                      Name{" "}
+                                      <span style={{ color: "#ffa12d" }}></span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name={"documentName" + index}
+                                      value={
+                                        documentNameData["documentName" + index]
+                                      }
+                                      onChange={(evt) =>
+                                        handleDocNameChange(evt, index)
+                                      }
+                                      class="form-control"
+                                    />
+                                  </div>
+                                  <div
+                                    style={{ marginTop: "25px" }}
+                                    class="col-md-4 formbox1"
+                                  >
+                                    <label style={{ marginRight: "15px" }}>
+                                      File
+                                      <span style={{ color: "#ffa12d" }}></span>
+                                    </label>
+                                    <input
+                                      type="file"
+                                      accept="/*"
+                                      onChange={(evt) =>
+                                        handleDocImageChange(evt, index)
+                                      }
+                                    />
+                                    {/* <span>{documentImageData["name" + index]}</span> */}
+                                  </div>
+                                  <div class="col-md-2 formbox1">
+                                    <label>
+                                      Password{" "}
+                                      <span style={{ color: "#ffa12d" }}></span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      name={"documentPassword" + index}
+                                      value={
+                                        documentPwdData[
+                                          "documentPassword" + index
+                                        ]
+                                      }
+                                      onChange={(evt) =>
+                                        handleDocPwdChange(evt, index)
+                                      }
+                                      class="form-control"
+                                    />
+                                  </div>
+                                  <div class="col-md-2 formbox1">
+                                    <Button
+                                      style={{
+                                        marginTop: "25px",
+                                        background: "red",
+                                      }}
+                                      onClick={() => removeDiv()}
+                                      startIcon={<CancelIcon />}
+                                      variant="contained"
+                                      color="primary"
+                                    >
+                                      Remove
+                                    </Button>
+                                  </div>
+                                </div>
+                              ))}
+                              <div class="row">
+                                <div class="col-md-6">
+                                  <Button
+                                    style={{ marginTop: "25px" }}
+                                    onClick={() => addNewDiv()}
+                                    startIcon={<AddIcon />}
+                                    variant="contained"
+                                    color="primary"
+                                  >
+                                    Add Document
+                                  </Button>
+                                </div>
+                                <div class="col-md-6">
+                                  <button
+                                    type="submit"
+                                    class="next_btn border-0"
+                                  >
+                                    SAVE
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="agent_pop">
+        <div id="Amenities" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 class="modal-title">
+                  Amenities<i class="fas fa-file-spreadsheet"></i>
+                </h4>
+              </div>
+              <div class="modal-body"></div>
+              {/* <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="">Save</button>
+                            </div> */}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="agent_pop">
+        <div id="Services" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 class="modal-title">
+                  Service Links<i class="fas fa-link"></i>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="agent_pop_main">
+                  <div class="agent_pop_main_head">
+                    <h5>Branded Links</h5>
+                    <div class="row" style={{ paddingLeft: "20px" }}>
+                      <div class="agent_info_sec_cont">
+                        <ul>
+                          <li>
+                            <span>Tour :</span>{" "}
+                            <a
+                              href={
+                                Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.tour_link
+                              }
+                            >
+                              {Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.tour_link}
+                            </a>{" "}
+                          </li>
+                          <li>
+                            <span>Flyer :</span>{" "}
+                            <a
+                              href={
+                                Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.flyer_link
+                              }
+                            >
+                              {Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.flyer_link}
+                            </a>{" "}
+                          </li>
+                          <li>
+                            <span>Video :</span>{" "}
+                            <a
+                              href={
+                                Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.video_link
+                              }
+                            >
+                              {Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.branded_link.video_link}
+                            </a>{" "}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="agent_pop_main_head"
+                    style={{ paddingTop: "15px" }}
+                  >
+                    <h5>MLS Links</h5>
+                    <div class="row" style={{ paddingLeft: "20px" }}>
+                      <div class="agent_info_sec_cont">
+                        <ul>
+                          <li>
+                            <span>Standard :</span>{" "}
+                            <a
+                              href={
+                                Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.mls_link.standard_link
+                              }
+                            >
+                              {Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.mls_link.standard_link}
+                            </a>{" "}
+                          </li>
+                          <li>
+                            <span>Strict :</span>{" "}
+                            <a
+                              href={
+                                Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.mls_link.strict_link
+                              }
+                            >
+                              {Object.keys(serviceLinks).length > 0 &&
+                                serviceLinks.mls_link.strict_link}
+                            </a>{" "}
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="agent_pop_main_head"
+                    style={{ paddingTop: "15px" }}
+                  >
+                    <h5>Email Links</h5>
+                    <p style={{ paddingTop: "10px" }}>
+                      You could enter multiple email addresses separated by
+                      comma.
+                    </p>
+                  </div>
+                  <div class="">
+                    <input
+                      type="text"
+                      name="email"
+                      value={serviceLinks.email}
+                      onChange={handleServiceInputChange}
+                      placeholder="Email"
+                      class="form-control"
+                    />
+                    <button
+                      type="button"
+                      onClick={SendServiceMail}
+                      class="next_btn"
+                    >
+                      Send
+                    </button>
+                  </div>
+                </div>
+              </div>
+              {/* <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="">Save</button>
+                            </div> */}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="agent_pop">
+        <div id="Links" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">
+                  &times;
+                </button>
+                <h4 class="modal-title">
+                  Other Links<i class="fas fa-external-link-alt"></i>
+                </h4>
+              </div>
+              <div class="modal-body">
+                <div class="agent_pop_main">
+                  <div class="agent_pop_main_head">
+                    <h5>QR Codes</h5>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-3 col-md-3">
+                      <div class="agent_pop_img">
+                        <label>Tour:</label>
+                        <img
+                          src={
+                            Object.keys(otherLink).length > 0
+                              ? otherLink.qr_code.qr_image_link
+                              : undefined
+                          }
+                          alt=""
+                          title=""
+                          style={{ margin: "0 0 10px 0" }}
+                        />
+                      </div>
+                      <div class="download_qr">
+                        <div class="switchToggle custom-control custom-switch">
+                          <Switch
+                            onChange={handleTourQrCode}
+                            checked={otherLink.tourvalue}
+                            handleDiameter={28}
+                            offColor="#5D5D5D"
+                            onColor="#F6AD17"
+                            offHandleColor="#fff"
+                            onHandleColor="#fff"
+                            height={35}
+                            width={60}
+                            borderRadius={6}
+                            uncheckedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                No
+                              </div>
+                            }
+                            checkedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                Yes
+                              </div>
+                            }
+                            className="react-switch"
+                          />
+                        </div>
+                        {Object.keys(otherLink).length > 0 &&
+                        otherLink.tourvalue === 1 ? (
+                          <a
+                            href="javascript:void()"
+                            onClick={() => {
+                              downloadQrCode(
+                                otherLink.qr_code.mycafe_image_link
+                              );
+                            }}
+                            class="next_btn download_btn"
+                          >
+                            Download
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3">
+                      <div class="agent_pop_img">
+                        <label>MyCafeGallery:</label>
+                        <img
+                          src={
+                            Object.keys(otherLink).length > 0
+                              ? otherLink.qr_code.mycafe_image_link
+                              : undefined
+                          }
+                          alt=""
+                          title=""
+                          style={{ margin: "0 0 10px 0" }}
+                        />
+                      </div>
+                      <div class="download_qr">
+                        <div class="switchToggle custom-control custom-switch">
+                          <Switch
+                            onChange={handleMyCafeGallery}
+                            checked={otherLink.cafeValue}
+                            handleDiameter={28}
+                            offColor="#5D5D5D"
+                            onColor="#F6AD17"
+                            offHandleColor="#fff"
+                            onHandleColor="#fff"
+                            height={35}
+                            width={60}
+                            borderRadius={6}
+                            uncheckedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                No
+                              </div>
+                            }
+                            checkedIcon={
+                              <div
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
+                              >
+                                Yes
+                              </div>
+                            }
+                            className="react-switch"
+                          />
+                        </div>
+                        {Object.keys(otherLink).length > 0 &&
+                        otherLink.cafeValue === 1 ? (
+                          <a
+                            href="javascript:void()"
+                            onClick={() => {
+                              downloadQrCode(
+                                otherLink.qr_code.mycafe_image_link
+                              );
+                            }}
+                            class="next_btn download_btn"
+                          >
+                            Download
+                          </a>
+                        ) : (
+                          ""
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="agent_pop_main_head padd_top">
+                    <h5>Tour Links</h5>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>Service Link: </h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <a
+                            href={
+                              Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.service_link
+                            }
+                          >
+                            {Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.service_link}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>MyCafeGallery (Branded): </h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <a
+                            href={
+                              Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.myCafeGallery_branded_link
+                            }
+                          >
+                            {Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.myCafeGallery_branded_link}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>MyCafeGallery (Unbranded): </h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <a
+                            href={
+                              Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.myCafeGallery_unbranded_link
+                            }
+                          >
+                            {Object.keys(otherLink).length > 0 &&
+                              otherLink.mis_link.myCafeGallery_unbranded_link}
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>Inventory Button: </h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <input
+                            type="text"
+                            name=""
+                            class="form-control"
+                            value="Inventory Button"
+                          />
+                          <button type="button" class="next_btn">
+                            View Our VirtualTorCafe Inventory
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>Tour Widget:</h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <input
+                            type="text"
+                            name=""
+                            class="form-control"
+                            value="Tour Widget"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>Embed Code:</h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <input
+                            type="text"
+                            name=""
+                            class="form-control"
+                            value="Embed Code"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="agent_pop_main_head padd_top">
+                    <h5>Email Links</h5>
+                  </div>
+                  <p class="padd_top">
+                    You could enter multiple email addresses seperated by comma.
+                  </p>
+                  <div class="service_links">
+                    <div class="row">
+                      <div class="col-lg-3 col-md-3">
+                        <div class="service_links_left">
+                          <h6>Email:</h6>
+                        </div>
+                      </div>
+                      <div class="col-lg-9 col-md-9">
+                        <div class="service_links_right">
+                          <input
+                            type="text"
+                            onChange={handleOtherInputChange}
+                            name="sendEmailTo"
+                            value={otherLink.sendEmailTo}
+                            class="form-control"
+                            placeholder=""
+                          />
+                          <button
+                            type="button"
+                            onClick={SendOthereMail}
+                            class="next_btn"
+                          >
+                            Send
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
   );
 }

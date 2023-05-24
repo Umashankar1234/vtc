@@ -45,6 +45,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import SaveIcon from "@material-ui/icons/Save";
 import ReactPaginate from "react-paginate";
+import AgentDashBoardHeader from "./AgentDashBoardHeader";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetVideoList = APIURL() + "get-videoList";
 const APIChangeService = APIURL() + "change-tour-service";
@@ -731,7 +732,7 @@ export default function AgentEditVideo(props) {
     history.push(APIPath() + "agent-edit-tour/" + tour_id);
   };
   const GoToRelatedImageset = () => {
-    history.push(APIPath() + "edit-image-set/" + tour_id);
+    history.push(APIPath() + "agent-edit-tour/" + tour_id);
   };
   function toDataURL(url, callback) {
     var xhr = new XMLHttpRequest();
@@ -959,61 +960,13 @@ export default function AgentEditVideo(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                <div class="vtc_agent_menu_top">
-                  <ul>
-                    <li>
-                      <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
-                    </li>
-                    <li class="active">
-                      <Link to={APIPath() + "agent-video-list"}>Videos</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-setting"}>Settings</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-preferred-vendor"}>
-                        Preferred Vendors
-                      </Link>
-                    </li>
-                    <li>
-                      <a href="https://www.xpressdocs.com/next/index.php?uuid=458143677bda0010f37b603828f3b783">
-                        Xpressdocs
-                      </a>
-                    </li>
-                    <li class="">
-                      <Link to={APIPath() + "agent-support"}>Support</Link>
-                    </li>
-                  </ul>
-                  <div class="gee_mobile">
-                    <button onClick={() => ShowMenu()} class="gee_hamburger">
-                      &#9776;
-                    </button>
-                    <button onClick={() => HideMenu()} class="gee_cross">
-                      &#735;
-                    </button>
-                  </div>
-                </div>
+              <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} imagesetId={tour_id} />
+
                 <div class="gee_menu">
                   <ul>
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                    </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                    </li>                   
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -1145,7 +1098,7 @@ export default function AgentEditVideo(props) {
                               <span>
                                 <i class="fas fa-newspaper"></i>
                               </span>
-                              Go to related ImageSet
+                              Go to related Tour
                             </a>
                           </div>
                         </OwlCarousel>
