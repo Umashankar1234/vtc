@@ -1,9 +1,8 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useMemo } from "react";
 import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { reducer } from "./CommonMethods/Authentication";
 import { AuthContext } from "./CommonMethods/Authentication";
-import Title from "./CommonMethods/Title";
 var CryptoJS = require("crypto-js");
 export default function App() {
   const initialState = {
@@ -34,14 +33,15 @@ export default function App() {
   useEffect(() => {
     VerifyAuth();
   }, []);
+  const contextValue = useMemo(() => {
+    return {
+      state,
+      dispatch,
+    };
+  }, [state]);
 
   return (
-    <AuthContext.Provider
-      value={{
-        state,
-        dispatch,
-      }}
-    >
+    <AuthContext.Provider value={contextValue}>
       <AppRoutes />
     </AuthContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import { APIPath } from "../src/CommonMethods/Fetch";
@@ -82,10 +82,52 @@ import TwitterAuth from "./views/Dashboard/Agent/TwitterAuth";
 // import PaymentPage from "./Home/sections/PaymentPage";
 import PaymentPage from "./views/Home/sections/Appointment/PaymentPage";
 import Title from "./CommonMethods/Title";
+import Loader from "react-js-loader";
+import { Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+import DragAndDrop from "./views/DragAndDrop";
+
 var hist = createBrowserHistory();
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 export default function AppRoutes() {
+  const [loading, setLoading] = useState(false);
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const [message, setMessage] = useState("");
+  const [alertType, setAlertType] = useState("");
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenPopUp(false);
+  };
   return (
     <>
+      {loading ? (
+        <Loader
+          type="hourglass"
+          bgColor={"#ffa12d"}
+          title={
+            "You can continue to add information to your tour while we upload the images."
+          }
+          color={"#ffffff"}
+          size={100}
+        />
+      ) : (
+        ""
+      )}
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={openPopUp}
+        autoHideDuration={3000}
+        onClose={handleClose}
+      >
+        <Alert onClose={handleClose} severity={alertType}>
+          {message}
+        </Alert>
+      </Snackbar>
+
       <Router history={hist}>
         <Switch>
           <PrivateRoute
@@ -96,6 +138,7 @@ export default function AppRoutes() {
             path={APIPath() + "my-office-gallery/:agentId"}
             component={MyOfficeGallery}
           />
+          <Route path={APIPath() + "dnd"} component={DragAndDrop} />
           <Route
             path={APIPath() + "order-details/:orderid/:agentId"}
             component={AgentAdminLogin}
@@ -147,10 +190,26 @@ export default function AppRoutes() {
           <PrivateRoute
             path={APIPath() + "agent-edit-tour/:tourid?"}
             component={AgentEditTour}
+            componentWithProps={
+              <AgentEditTour
+                setLoading={setLoading}
+                setMessage={setMessage}
+                setAlertType={setAlertType}
+                setOpenPopUp={setOpenPopUp}
+              />
+            }
           />
           <PrivateRoute
             path={APIPath() + "agent-tour-list"}
-            component={AgentTourList}
+            componentWithProps={
+              <AgentTourList
+                setLoading={setLoading}
+                setMessage={setMessage}
+                setAlertType={setAlertType}
+                setOpenPopUp={setOpenPopUp}
+              />
+            }
+            // render={(props) => <AgentTourList setLoading={setLoading} {...props} /> }
           />
           <PrivateRoute
             path={APIPath() + "edit-image-set/:imagesetid?"}

@@ -3,18 +3,24 @@ import { Route, Redirect } from "react-router-dom";
 import { CheckRouteAccess } from "./CommonMethods/Authentication";
 import { APIPath } from "./CommonMethods/Fetch";
 // eslint-disable-next-line react/prop-types
-export default function PrivateRoute({ component: Component, ...rest }) {
+export default function PrivateRoute({
+  component: Component,
+  componentWithProps: componentWithProps,
+  ...rest
+}) {
   // const [access, setAccess] = useState(CheckRouteAccess());
   return (
     <Route
       {...rest}
-      render={props =>
+      render={(props) =>
         CheckRouteAccess(props.location.pathname) ? (
-          <Component {...props} />
+          componentWithProps ? (
+            componentWithProps
+          ) : (
+            <Component {...props} />
+          )
         ) : (
-          <Redirect
-            to={APIPath() + "login"}
-          />
+          <Redirect to={APIPath() + "login"} />
         )
       }
     />

@@ -41,7 +41,7 @@ import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 import Footer from "../../../components/Footer/AgentFooter";
 import AgentHeader from "../Header/AgentHeader";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
@@ -51,6 +51,7 @@ import OwlCarousel from "react-owl-carousel";
 import Dropzone from "react-dropzone";
 import { confirmAlert } from "react-confirm-alert";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
+import { useParams } from "react-router-dom";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetAmenities = APIURL() + "get-amenities";
@@ -108,9 +109,14 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
 }));
-export default function AgentEditTour(props) {
-  const tour_id = props.match.params.tourid;
-  const imageset_id = props.match.params.tourid;
+const AgentEditTour = React.memo((props) => {
+  const params = useParams();
+  const tour_id = params.tourid;
+  const imageset_id = params.tourid;
+  const setGlobalLoading = props.setLoading;
+  const setGlobalOpenPopUp = props.setOpenPopUp;
+  const setGlobalMessage = props.setMessage;
+  const setGlobalAlertType = props.setAlertType;
   const classes = useStyles();
   const initialMusicState = {
     musicid: "",
@@ -1330,14 +1336,16 @@ export default function AgentEditTour(props) {
     setTourList(tourList);
   };
   const handlefontTourChange = (event, id) => {
-    tourList.forEach((res) => {
+    var new_tourList = tourList;
+    new_tourList.forEach((res) => {
       if (res.id === id) {
         res.tourfontstyle = event.target.value;
       }
     });
     // setTourList([]);
-    setTourList(tourList);
+    setTourList(new_tourList);
   };
+
   const handlefontSizeTourChange = (event, id) => {
     tourList.forEach((res) => {
       if (res.id === id) {
@@ -2478,10 +2486,11 @@ export default function AgentEditTour(props) {
         setOpen(false);
       });
   };
+
   const filterData = async () => {
     const endOffset = offset + postPerPage;
     setTotalData(tourList.slice(offset, endOffset));
-    setDragImages(tourList.slice(offset, endOffset));
+    setDragImages(tourList);
     setPageCount(Math.ceil(tourList.length / postPerPage));
   };
   const handlePageClick = (event) => {
@@ -2593,14 +2602,14 @@ export default function AgentEditTour(props) {
       .then((res) => {
         if (res.data[0].response.status === "success") {
           setMessage(res.data[0].response.message);
-          // setOpenSuccess(true);
-          setSync(false);
+          setOpenSuccess(true);
+          // setSync(false);
         } else {
           setMessage(res.data[0].response.message);
           setOpenError(true);
-          setSync(false);
+          // setSync(false);
         }
-        setSync(true);
+        // setSync(true);
         setOpen(false);
       })
       .catch((err) => {
@@ -2670,7 +2679,10 @@ export default function AgentEditTour(props) {
     return URL.createObjectURL(data);
   };
   const saveNewImage = () => {
-    setOpen(true);
+    // setOpen(true);
+    setGlobalLoading(true);
+    setOpenModal(false);
+
     newImageData.authenticate_key = "abcd123XYZ";
     newImageData.agent_id = JSON.parse(context.state.user).agentId;
     newImageData.tourId = imageset_id;
@@ -2690,14 +2702,22 @@ export default function AgentEditTour(props) {
       //.post("https://cors-anywhere.herokuapp.com/http://139.59.28.82/vtc/api/save-tour-image", formData, {})
       .then((res) => {
         if (res.data[0].response.status === "success") {
-          setOpen(false);
+          setGlobalMessage(res.data[0].response.message);
+          setGlobalAlertType("success");
+          setGlobalLoading(false);
+          setGlobalOpenPopUp(true);
           setMessage(res.data[0].response.message);
           setOpenSuccess(true);
           setSync(true);
           setOpenModal(false);
           setUploadedImages([]);
         } else {
-          setOpen(false);
+          setGlobalLoading(false);
+          setGlobalMessage(res.data[0].response.message);
+          setGlobalAlertType("error");
+
+          setGlobalOpenPopUp(true);
+
           setMessage(res.data[0].response.message);
           setOpenError(true);
           setSync(true);
@@ -2707,7 +2727,11 @@ export default function AgentEditTour(props) {
       .catch((err) => {
         setMessage("Something Went Wrong. Please try again later...");
         setOpenError(true);
-        setOpen(false);
+        setGlobalLoading(false);
+        setGlobalMessage("Something Went Wrong. Please try again later...");
+        setGlobalAlertType("error");
+
+        setGlobalOpenPopUp(true);
       });
   };
   const handleVideoRemove = (data) => {
@@ -2977,6 +3001,17 @@ export default function AgentEditTour(props) {
     history.push(APIPath() + "agent-panaroma/" + imageset_id);
     // window.location.href = APIPath() + "agent-panaroma/" + imageset_id;
   };
+  const applyToAll = (image) => {
+    var new_tourList = tourList;
+    new_tourList.forEach((res) => {
+      res.tourfontstyle = image.tourfontstyle;
+      res.tourfontsize = image.tourfontsize;
+      res.tourfontcolor = image.tourfontcolor;
+      res.tourfontlocation = image.tourfontlocation;
+    });
+    setTourList(new_tourList);
+  };
+  console.log("booyah");
   return (
     <>
       <AgentHeader />
@@ -2999,7 +3034,7 @@ export default function AgentEditTour(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li class="active">
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -3046,12 +3081,22 @@ export default function AgentEditTour(props) {
                       <a
                         class="nav-link active"
                         data-toggle="tab"
+                        href="#ImageSetTools"
+                        role="tab"
+                      >
+                        <i class="fas fa-image"></i>Media Tools
+                      </a>
+                    </li>
+                    {/* <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        data-toggle="tab"
                         href="#Actions_tab"
                         role="tab"
                       >
                         <i class="fas fa-cog"></i>Actions
                       </a>
-                    </li>
+                    </li> */}
                     <li class="nav-item">
                       <a
                         class="nav-link"
@@ -3072,16 +3117,6 @@ export default function AgentEditTour(props) {
                         <i class="fas fa-hand-point-right"></i>Advanced
                       </a>
                     </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        data-toggle="tab"
-                        href="#ImageSetTools"
-                        role="tab"
-                      >
-                        <i class="fas fa-image"></i>ImageSet Tools
-                      </a>
-                    </li>
                   </ul>
                 </div>
               </div>
@@ -3091,7 +3126,7 @@ export default function AgentEditTour(props) {
             <div class="col-lg-12 col-md-12">
               <div class="tab-content">
                 <div
-                  class="tab-pane active"
+                  class="tab-pane"
                   id="Actions_tab"
                   role="tabpanel"
                   style={{ width: "100%", overflow: "auto" }}
@@ -3100,14 +3135,6 @@ export default function AgentEditTour(props) {
                     <section class="snap-scrolling-example">
                       <div class="horizontal-images tab_main tabscroll-windows">
                         <ul class="list_sec" role="">
-                          <li class="">
-                            <a onClick={handleEditImageset} class="">
-                              <span>
-                                <i class="far fa-image"></i>
-                              </span>
-                              Go to related ImageSet
-                            </a>
-                          </li>
                           <li class="">
                             <a onClick={() => updateTourListData()}>
                               <span>
@@ -3358,7 +3385,7 @@ export default function AgentEditTour(props) {
                   </div>
                 </div>
                 <div
-                  class="tab-pane"
+                  class="tab-pane active"
                   id="ImageSetTools"
                   role="tabpanel"
                   style={{ width: "100%", overflow: "auto" }}
@@ -3478,6 +3505,54 @@ export default function AgentEditTour(props) {
                               Panoramas
                             </a>
                           </div>
+                          <div className="asdf">
+                            <a onClick={() => updateTourListData()}>
+                              <span>
+                                <i class="fas fa-cog"></i>
+                              </span>
+                              Update All Settings
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handleEditImageModal}>
+                              <span>
+                                <i class="fas fa-edit"></i>
+                              </span>
+                              Edit Image{" "}
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => viewtour()}>
+                              <span>
+                                <i class="fas fa-eye"></i>
+                              </span>
+                              View Tour
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Distributetour"
+                            >
+                              <span>
+                                <i class="fas fa-table"></i>
+                              </span>
+                              Distribute Tour
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href=""
+                              data-toggle="modal"
+                              data-target="#facebook"
+                            >
+                              <span>
+                                <i class="fab fa-facebook-f"></i>
+                              </span>
+                              Post to Facebook
+                            </a>
+                          </div>
                         </OwlCarousel>
                       </div>
                     </section>
@@ -3507,7 +3582,7 @@ export default function AgentEditTour(props) {
               </div>
             </div>
           </div>
-          <div class="row" style={{ paddingTop: "20px" }}>
+          {/* <div class="row" style={{ paddingTop: "20px" }}>
             <div class="col-lg-12 col-md-12">
               <div class="image_service">
                 <ul>
@@ -3602,7 +3677,7 @@ export default function AgentEditTour(props) {
                     </div>
                   </li>
                   <li>
-                    <div class="download_qr">
+                    {/* <div class="download_qr">
                       <p class="img_set_para">Use Ken Burns Effects on Tour</p>
                       <div class="switchToggle custom-control custom-switch">
                         <input
@@ -3628,7 +3703,7 @@ export default function AgentEditTour(props) {
                           &nbsp;
                         </label>
                       </div>
-                    </div>
+                    </div> 
                   </li>
                   <li>
                     <div class="download_qr">
@@ -3662,7 +3737,7 @@ export default function AgentEditTour(props) {
                 </ul>
               </div>
             </div>
-          </div>
+          </div> */}
           <GridContextProvider onChange={onChange}>
             <div className="" style={{ height: "900px", overflowY: "auto" }}>
               <GridDropZone
@@ -3696,14 +3771,17 @@ export default function AgentEditTour(props) {
                             aria-labelledby={"nav-home-tab" + res.id}
                           >
                             <div class="row">
-                              <div class="col-lg-4 col-md-4">
+                              <div class="col-lg-12 col-md-12 mb-3">
                                 <div class="select_img_set_box_img">
-                                  <img src={res.imageurl} alt="" />
+                                  <img
+                                    draggable="false"
+                                    src={res.imageurl}
+                                    alt=""
+                                  />
                                   {res.image_type === "panoramas" ? (
                                     <img
                                       src={res.flag_img}
                                       style={{
-                                        position: "absolute",
                                         width: "80px",
                                         right: "5px",
                                         top: "5px",
@@ -3711,6 +3789,7 @@ export default function AgentEditTour(props) {
                                         boxShadow: "none",
                                       }}
                                       alt=""
+                                      draggable="false"
                                     />
                                   ) : (
                                     <i
@@ -3718,17 +3797,18 @@ export default function AgentEditTour(props) {
                                         setOpenEditImageModal(true);
                                         setFilename(res.filename);
                                       }}
-                                      class="far fa-edit edit-btn"
+                                      class="far fa-edit new_edit_btn"
                                       style={{ top: "20px" }}
                                     ></i>
                                   )}
                                 </div>
                               </div>
-                              <div class="col-lg-8 col-md-8">
+                              <div class="col-lg-12 col-md-12">
                                 <div class="select_img_set_box_cont">
                                   <input
                                     type="text"
                                     onEnter
+                                    tabIndex={index + 1}
                                     onChange={(event) =>
                                       handleCaptionChange(event, res)
                                     }
@@ -3798,7 +3878,6 @@ export default function AgentEditTour(props) {
                                 />
                               </div>
                             </div>
-                            <hr class="brdr" />
                           </div>
                           <div
                             class="tab-pane fade"
@@ -3827,12 +3906,57 @@ export default function AgentEditTour(props) {
                                         }
                                         value={res.tourfontstyle}
                                       >
-                                        <option>Georgia</option>
-                                        <option>Arial</option>
-                                        <option>Times New Roman</option>
-                                        <option>Verdana</option>
-                                        <option>Tahoma</option>
-                                        <option>Georgia</option>
+                                        <option
+                                          value={"Georgia"}
+                                          selected={
+                                            res.tourfontstyle == "Georgia"
+                                              ? true
+                                              : ""
+                                          }
+                                        >
+                                          Georgia
+                                        </option>
+                                        <option
+                                          value={"Arial"}
+                                          selected={
+                                            res.tourfontstyle == "Arial"
+                                              ? true
+                                              : ""
+                                          }
+                                        >
+                                          Arial
+                                        </option>
+                                        <option
+                                          value={"Times New Roman"}
+                                          selected={
+                                            res.tourfontstyle ==
+                                            "Times New Roman"
+                                              ? true
+                                              : ""
+                                          }
+                                        >
+                                          Times New Roman
+                                        </option>
+                                        <option
+                                          value={"Verdana"}
+                                          selected={
+                                            res.tourfontstyle == "Verdana"
+                                              ? true
+                                              : ""
+                                          }
+                                        >
+                                          Verdana
+                                        </option>
+                                        <option
+                                          value={"Tahoma"}
+                                          selected={
+                                            res.tourfontstyle == "Tahoma"
+                                              ? true
+                                              : ""
+                                          }
+                                        >
+                                          Tahoma
+                                        </option>
                                       </select>
                                     </div>
                                     <div class="socila_status_single cap_set">
@@ -3968,8 +4092,18 @@ export default function AgentEditTour(props) {
                                 </div>
                               </div>
                             </div>
+                            <div class="row">
+                              <div class="col-lg-12 col-md-12">
+                                <button
+                                  className="next_btn_apply_changes"
+                                  onClick={applyToAll.bind(this, res)}
+                                >
+                                  Apply to all images
+                                </button>
+                              </div>
+                            </div>
                           </div>
-                          <div
+                          {/* <div
                             class="tab-pane fade"
                             id={"nav-contact" + res.id}
                             role="tabpanel"
@@ -4038,7 +4172,7 @@ export default function AgentEditTour(props) {
                               </div>
                             </div>
                             <hr class="brdr" />
-                          </div>
+                          </div> */}
                         </div>
                         <div class="nav_tab_sec">
                           <nav>
@@ -4069,7 +4203,7 @@ export default function AgentEditTour(props) {
                               >
                                 <i class="far fa-dot-circle"></i>
                               </a>
-                              <a
+                              {/* <a
                                 class="nav-item last"
                                 id={"nav-contact-tab" + res.id}
                                 data-toggle="tab"
@@ -4079,7 +4213,7 @@ export default function AgentEditTour(props) {
                                 aria-selected="false"
                               >
                                 <i class="far fa-dot-circle"></i>
-                              </a>
+                              </a> */}
                             </div>
                           </nav>
                         </div>
@@ -4091,30 +4225,7 @@ export default function AgentEditTour(props) {
             </div>
           </GridContextProvider>
 
-          <hr class="spacer10px"></hr>
-          <div class="row">
-            <div class="col-lg-12">
-              <ReactPaginate
-                previousLabel={"«"}
-                nextLabel={"»"}
-                breakLabel={"..."}
-                pageCount={pageCount}
-                marginPagesDisplayed={3}
-                ageRangeDisplayed={3}
-                onPageChange={handlePageClick}
-                containerClassName="pagination justify-content-center"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                activeClassName="active"
-              />
-            </div>
-          </div>
+          <hr class="spacer10px"></hr>          
         </div>
       </section>
 
@@ -9231,4 +9342,5 @@ export default function AgentEditTour(props) {
       </div>
     </>
   );
-}
+});
+export default AgentEditTour;

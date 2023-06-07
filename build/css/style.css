@@ -11404,3 +11404,31 @@ h1 span.inner p {
 .new_edit_sec label {
   font-size: 15px;
 }
+.next_btn_apply_changes {
+  margin: 10px 0 0;
+  background: #ffa12d;
+  color: #fff;
+  font-weight: 600;
+  border-radius: 50px;
+  padding: 7px 40px;
+  transition: 0.5s ease-in-out;
+  border: none;
+  font-size: 14px;
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  cursor: pointer;
+  z-index: 9999;
+}
+.sl-hourglass {
+  position: fixed !important;
+  bottom: 0 !important;
+  right: 0 !important;
+  z-index: 999 !important;
+}
+.sl-hourglass-loader-title {
+  width: 300px !important;
+  font-size: 15px !important;
+  line-height: 20px !important;
+  background-color: #ffa12d !important;
+}

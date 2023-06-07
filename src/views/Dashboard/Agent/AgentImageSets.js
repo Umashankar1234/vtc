@@ -1436,7 +1436,7 @@ export default function AgentImageSets() {
                           href="#Distribute"
                           role="tab"
                         >
-                          <i class="fas fa-broadcast-tower"></i>Distribute
+                          <i class="fas fa-globe"></i>Distribute
                         </a>
                       </li>
                     </ul>

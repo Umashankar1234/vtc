@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useLayoutEffect } from "react";
 import $ from "jquery";
 import { confirmAlert } from "react-confirm-alert";
 import ShareLink from "react-facebook-share-link";
@@ -98,7 +98,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function AgentTourList(props) {
+  useLayoutEffect(() => {
+    localStorage.removeItem("id");
+  }, []);
   let history = useHistory();
+  const setGlobalLoading = props.setLoading;
+  const setGlobalOpenPopUp = props.setOpenPopUp;
+  const setGlobalMessage = props.setMessage;
+  const setGlobalAlertType = props.setAlertType;
   const classes = useStyles();
   const { dispatch } = useContext(AuthContext);
   const [openWarning, setOpenWarning] = useState(false);
@@ -558,24 +565,24 @@ export default function AgentTourList(props) {
     }
   };
   const editTour = () => {
-    if (id === "") {
+    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
       setMessage("Please select one from tourlist");
       setOpenError(true);
     } else {
-      history.push(APIPath() + "agent-edit-tour/" + id);
+      history.push(APIPath() + "agent-edit-tour/" + localStorage.getItem("id"));
     }
   };
   const handleSaveToDesktop = () => {
-    if (id === "") {
+    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {
       setOpen(true);
       var DesktopId = document.getElementById("desktopId");
-      DesktopId.value = id;
+      DesktopId.value = localStorage.getItem("id");
       const objusr = {
         authenticate_key: "abcd123XYZ",
-        tourId: id,
+        tourId: localStorage.getItem("id"),
         agentId: JSON.parse(context.state.user).agentId,
       };
       postRecord(APISaveToDeskTop, objusr)
@@ -683,20 +690,21 @@ export default function AgentTourList(props) {
     setOffset(newOffset);
   };
   const viewtour = () => {
-    if (id === "") {
+
+    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {
       const objusr = {
         authenticate_key: "abcd123XYZ",
         agentId: JSON.parse(context.state.user).agentId,
-        tourid: id,
+        tourid: localStorage.getItem("id"),
       };
       postRecord(APIGetTourDetails, objusr)
         .then((res) => {
           if (res.data[0].response.status === "success") {
             if (res.data[0].response.tourdetails.isactive === 0) {
-              window.open(APIPath() + "agent-video-non-active/" + id, "_blank");
+              window.open(APIPath() + "agent-video-non-active/" + localStorage.getItem("id"), "_blank");
             } else {
               setThemeId(res.data[0].response.tourdetails.premium_tour_theme);
               setIsPremium(res.data[0].response.tourdetails.is_premium_theme);
@@ -1066,7 +1074,10 @@ export default function AgentTourList(props) {
       uploadedVideos.length !== 0 ||
       uploadedPanorama.length !== 0
     ) {
-      setOpen(true);
+      // setOpen(true);
+      setGlobalLoading(true);
+      setOpenModal(false);
+
       data.authenticate_key = "abcd123XYZ";
       data.agent_id = JSON.parse(context.state.user).agentId;
       data.caption = imagesetData.caption;
@@ -1094,8 +1105,11 @@ export default function AgentTourList(props) {
       axios
         .post(APIURL() + `agent-save-imageset`, formData, {})
         .then((res) => {
-          setOpen(false);
+          setGlobalLoading(false);
           if (res.data[0].response.status === "success") {
+            setGlobalMessage(res.data[0].response.message);
+            setGlobalAlertType("success");
+            setGlobalOpenPopUp(true);
             setMessage(res.data[0].response.message);
             setOpenSuccess(true);
             setSync(true);
@@ -1106,6 +1120,9 @@ export default function AgentTourList(props) {
             setMessage(res.data[0].response.message);
             setOpenError(true);
             setSync(true);
+            setGlobalMessage(res.data[0].response.message);
+            setGlobalAlertType("error");
+            setGlobalOpenPopUp(true);
           }
           setSync(false);
         })
@@ -1113,8 +1130,13 @@ export default function AgentTourList(props) {
           setMessage(
             "Some of the Images are Corrupt Please Check and Upload Again..."
           );
+          setGlobalMessage(
+            "Some of the Images are Corrupt Please Check and Upload Again..."
+          );
+          setGlobalAlertType("success");
+          setGlobalOpenPopUp(true);
           setOpenError(true);
-          setOpen(false);
+          setGlobalLoading(false);
         });
     } else {
       setMessage("Please Upload images / videos first to submit the form ...");
@@ -1165,11 +1187,11 @@ export default function AgentTourList(props) {
     setImagesetData({ ...imagesetData, [name]: value });
   };
   const handleDeleteModal = () => {
-    if (id === "") {
+    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {
-      handleDelete(id);
+      handleDelete(localStorage.getItem("id"));
     }
   };
   const handleServiceLink = () => {
@@ -1323,7 +1345,7 @@ export default function AgentTourList(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li class="active">
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -1394,7 +1416,7 @@ export default function AgentTourList(props) {
                           href="#Distribute"
                           role="tab"
                         >
-                          <i class="fas fa-broadcast-tower"></i>Distribute
+                          <i class="fas fa-globe"></i>Distribute
                         </a>
                       </li>
                     </ul>
@@ -1752,6 +1774,7 @@ export default function AgentTourList(props) {
                     allData.map((res) => (
                       <div
                         onClick={() => {
+                          localStorage.setItem("id", res.id);
                           setId(res.id);
                           handleImageSetId(res);
                         }}
