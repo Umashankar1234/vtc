@@ -46,12 +46,12 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
-import ReactPaginate from "react-paginate";
 import OwlCarousel from "react-owl-carousel";
 import Dropzone from "react-dropzone";
 import { confirmAlert } from "react-confirm-alert";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
 import { useParams } from "react-router-dom";
+import DragAndDrop from "./DragAndDrop";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetAmenities = APIURL() + "get-amenities";
@@ -186,6 +186,7 @@ const AgentEditTour = React.memo((props) => {
   const [checkdMenu, setCheckedMenu] = useState([]);
   const [allMenuData, setAllMenuData] = useState([]);
   const [menuOrders, setMenuOrders] = useState([]);
+  const [idsArray, setIdsArray] = useState([]);
   const [firstOrder, setFirstOrder] = useState({});
   const [announcements, setAnnouncements] = useState([]);
   const [announcementData, setAnnouncementData] = useState(
@@ -237,6 +238,7 @@ const AgentEditTour = React.memo((props) => {
   const [agentData, setAgentData] = useState({});
   const [agentPhoto, setAgentPhoto] = useState({});
   const [openNarrationModal, setOpenNarrationModal] = useState(false);
+  const [openChangeOrderModal, setOpenChangeOrderModal] = useState(false);
   const [value, setValue] = useState(initialVoiceData);
   const [allThemes, setAllThemes] = useState({});
   const [currentAudio, setCurrentAudio] = useState("");
@@ -2586,16 +2588,16 @@ const AgentEditTour = React.memo((props) => {
     return new File([u8arr], filename, { type: mime });
   }
   function onChange(sourceId, sourceIndex, targetIndex, targetId) {
-    const nextState = swap(dragImages, sourceIndex, targetIndex);
-    setDragImages(nextState);
-    var arr = [];
-    nextState.forEach((res) => {
-      arr.push(res.id);
-    });
+    // const nextState = swap(dragImages, sourceIndex, targetIndex);
+    // setDragImages(nextState);
+    // var arr = [];
+    // nextState.forEach((res) => {
+    //   arr.push(res.id);
+    // });
     const obj = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
-      imgid: arr,
+      imgid: idsArray,
       type: "tour",
     };
     postRecord(APIUpdateOrder, obj)
@@ -3072,516 +3074,525 @@ const AgentEditTour = React.memo((props) => {
       </section>
       <section class="action_sec">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="action_sec_main">
-                <div class="action_sec_left action_sec_tab">
-                  <ul class="nav nav-tabs list_sec" role="tablist">
-                    <li class="nav-item">
-                      <a
-                        class="nav-link active"
-                        data-toggle="tab"
-                        href="#ImageSetTools"
-                        role="tab"
-                      >
-                        <i class="fas fa-image"></i>Media Tools
-                      </a>
-                    </li>
-                    {/* <li class="nav-item">
-                      <a
-                        class="nav-link active"
-                        data-toggle="tab"
-                        href="#Actions_tab"
-                        role="tab"
-                      >
-                        <i class="fas fa-cog"></i>Actions
-                      </a>
-                    </li> */}
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        data-toggle="tab"
-                        href="#Basic"
-                        role="tab"
-                      >
-                        <i class="fas fa-line-height"></i>Basic
-                      </a>
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link"
-                        data-toggle="tab"
-                        href="#Advanced"
-                        role="tab"
-                      >
-                        <i class="fas fa-hand-point-right"></i>Advanced
-                      </a>
-                    </li>
-                  </ul>
-                </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="action_sec_main">
+              <div class="action_sec_left action_sec_tab">
+                <ul class="nav nav-tabs list_sec" role="tablist">
+                  <li class="nav-item">
+                    <a
+                      class="nav-link active"
+                      data-toggle="tab"
+                      href="#ImageSetTools"
+                      role="tab"
+                    >
+                      <i class="fas fa-image"></i>Media Tools
+                    </a>
+                  </li>
+                  {/* <li class="nav-item">
+              <a
+                class="nav-link active"
+                data-toggle="tab"
+                href="#Actions_tab"
+                role="tab"
+              >
+                <i class="fas fa-cog"></i>Actions
+              </a>
+            </li> */}
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Basic"
+                      role="tab"
+                    >
+                      <i class="fas fa-line-height"></i>Basic
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a
+                      class="nav-link"
+                      data-toggle="tab"
+                      href="#Advanced"
+                      role="tab"
+                    >
+                      <i class="fas fa-hand-point-right"></i>Advanced
+                    </a>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="tab-content">
-                <div
-                  class="tab-pane"
-                  id="Actions_tab"
-                  role="tabpanel"
-                  style={{ width: "100%", overflow: "auto" }}
-                >
-                  <div class="property_info_cont agent_img_sets" id="demo">
-                    <section class="snap-scrolling-example">
-                      <div class="horizontal-images tab_main tabscroll-windows">
-                        <ul class="list_sec" role="">
-                          <li class="">
-                            <a onClick={() => updateTourListData()}>
-                              <span>
-                                <i class="fas fa-cog"></i>
-                              </span>
-                              Update All Settings
-                            </a>
-                          </li>
-                          <li class="">
-                            <a onClick={handleEditImageModal}>
-                              <span>
-                                <i class="fas fa-edit"></i>
-                              </span>
-                              Edit Image{" "}
-                            </a>
-                          </li>
-                          <li class="">
-                            <a onClick={() => viewtour()}>
-                              <span>
-                                <i class="fas fa-eye"></i>
-                              </span>
-                              View Tour
-                            </a>
-                          </li>
-                          <li class="">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Distributetour"
-                            >
-                              <span>
-                                <i class="fas fa-table"></i>
-                              </span>
-                              Distribute Tour
-                            </a>
-                          </li>
-                          <li class="">
-                            <a
-                              href=""
-                              data-toggle="modal"
-                              data-target="#facebook"
-                            >
-                              <span>
-                                <i class="fab fa-facebook-f"></i>
-                              </span>
-                              Post to Facebook
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane"
-                  id="Basic"
-                  role="tabpanel"
-                  style={{ width: "100%", overflow: "auto" }}
-                >
-                  <div class="property_info_cont agent_img_sets" id="demo">
-                    <section class="snap-scrolling-example">
-                      <div class="horizontal-images tabscroll-windows">
-                        <OwlCarousel margin={10} {...options} id="home_slide1">
-                          <div className="asdf">
-                            <a
-                              class=""
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#menu_opt"
-                            >
-                              <span>
-                                <i class="fas fa-bars"></i>
-                              </span>
-                              Menu Options
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#bg_music"
-                            >
-                              <span>
-                                <i class="fas fa-music"></i>
-                              </span>{" "}
-                              Background Music
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => setOpenNarrationModal(true)}>
-                              <span>
-                                <i class="fas fa-torii-gate"></i>
-                              </span>
-                              Tour Narration{" "}
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Property"
-                            >
-                              <span>
-                                <i class="fas fa-home"></i>
-                              </span>
-                              Property Information{" "}
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => setOpenAmenityModal(true)}>
-                              <span>
-                                <i class="fas fa-sticky-note"></i>
-                              </span>{" "}
-                              Amenities
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#open_house"
-                            >
-                              <span>
-                                <i class="fas fa-warehouse"></i>
-                              </span>
-                              Open House Announcements
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Newsletter"
-                            >
-                              <span>
-                                <i class="fab fa-wpforms"></i>
-                              </span>
-                              Add Newsletter Form
-                            </a>
-                          </div>
-                        </OwlCarousel>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane"
-                  id="Advanced"
-                  role="tabpanel"
-                  style={{ width: "100%", overflow: "auto" }}
-                >
-                  <div class="property_info_cont agent_img_sets" id="demo">
-                    <section class="snap-scrolling-example">
-                      <div class="horizontal-images tabscroll-windows">
-                        <OwlCarousel margin={10} {...options} id="home_slide1">
-                          <div className="asdf">
-                            <a
-                              class=""
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#themes"
-                            >
-                              <span>
-                                <i class="fas fa-gopuram"></i>
-                              </span>
-                              Themes
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => setOpenCompanyBanner(true)}>
-                              <span>
-                                <i class="fas fa-building"></i>
-                              </span>{" "}
-                              Company Banner
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#agent_pop_tab"
-                            >
-                              <span>
-                                <i class="fas fa-user"></i>
-                              </span>
-                              Co-listing agent{" "}
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => handleFloorPlan()}>
-                              <span>
-                                <i class="fas fa-ruler-horizontal"></i>
-                              </span>
-                              Floor Plans
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={handleEditFloor}>
-                              <span>
-                                <i class="fas fa-wifi"></i>
-                              </span>
-                              Floor-plan Hot-spot
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={handlePanorama}>
-                              <span>
-                                <i class="fas fa-photo-video"></i>
-                              </span>
-                              Panoramas
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => handleSlideShow()}>
-                              <span>
-                                <i class="fas fa-sliders-h"></i>
-                              </span>
-                              Slide-Show Editor
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              onClick={() => {
-                                setOpenYoutubeModal(true);
-                              }}
-                            >
-                              <span>
-                                <i class="fab fa-youtube"></i>
-                              </span>
-                              Additional YouTube Links
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              onClick={() => {
-                                setOpenWalkThroughModal(true);
-                              }}
-                            >
-                              <span>
-                                <i class="fas fa-home"></i>
-                              </span>
-                              3D Walkthrough Home Tour
-                            </a>
-                          </div>
-                        </OwlCarousel>
-                      </div>
-                    </section>
-                  </div>
-                </div>
-                <div
-                  class="tab-pane active"
-                  id="ImageSetTools"
-                  role="tabpanel"
-                  style={{ width: "100%", overflow: "auto" }}
-                >
-                  <div class="property_info_cont agent_img_sets" id="demo">
-                    <section class="snap-scrolling-example">
-                      <div class="horizontal-images tabscroll-windows">
-                        <OwlCarousel margin={10} {...options} id="home_slide1">
-                          <div className="asdf">
-                            <a
-                              className="owl_"
-                              onClick={() => {
-                                setOpenModal(true);
-                              }}
-                            >
-                              <span>
-                                <i class="far fa-image"></i>
-                              </span>
-                              Add Images
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              onClick={() => {
-                                setOpenVideoModal(true);
-                              }}
-                            >
-                              <span>
-                                <i class="fas fa-video"></i>
-                              </span>
-                              Add Video
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={downloadImage}>
-                              <span>
-                                <i class="fas fa-download"></i>
-                              </span>
-                              Download Image
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={handleDelete}>
-                              <span>
-                                <i class="far fa-trash-alt"></i>
-                              </span>
-                              Delete Image
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => updateAllCaption()}>
-                              <span>
-                                <i class="fas fa-pen"></i>
-                              </span>
-                              Update All Captions
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Property"
-                            >
-                              <span>
-                                <i class="fas fa-info-circle"></i>
-                              </span>
-                              Property Information
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => setOpenAmenityModal(true)}>
-                              <span>
-                                <i class="fas fa-file-spreadsheet"></i>
-                              </span>
-                              Amenities
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Services"
-                            >
-                              <span>
-                                <i class="fas fa-link"></i>
-                              </span>
-                              Service Links
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Links"
-                            >
-                              <span>
-                                <i class="fas fa-external-link-alt"></i>
-                              </span>
-                              Other Links
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => setOpenTrafficModal(true)}>
-                              <span>
-                                <i class="far fa-sticky-note"></i>
-                              </span>
-                              Traffic Reports
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            {/* <a href="panorama.html"><span><i class="far fa-image"></i></span>Panoramas</a> */}
-                            {/* <Link to={APIPath() + "agent-panoroma"}><span><i class="far fa-image"></i></span>Panoramas</Link> */}
-                            <a onClick={() => panoroma()}>
-                              <span>
-                                <i class="far fa-image"></i>
-                              </span>
-                              Panoramas
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => updateTourListData()}>
-                              <span>
-                                <i class="fas fa-cog"></i>
-                              </span>
-                              Update All Settings
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={handleEditImageModal}>
-                              <span>
-                                <i class="fas fa-edit"></i>
-                              </span>
-                              Edit Image{" "}
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a onClick={() => viewtour()}>
-                              <span>
-                                <i class="fas fa-eye"></i>
-                              </span>
-                              View Tour
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href="#"
-                              data-toggle="modal"
-                              data-target="#Distributetour"
-                            >
-                              <span>
-                                <i class="fas fa-table"></i>
-                              </span>
-                              Distribute Tour
-                            </a>
-                          </div>
-                          <div className="asdf">
-                            <a
-                              href=""
-                              data-toggle="modal"
-                              data-target="#facebook"
-                            >
-                              <span>
-                                <i class="fab fa-facebook-f"></i>
-                              </span>
-                              Post to Facebook
-                            </a>
-                          </div>
-                        </OwlCarousel>
-                      </div>
-                    </section>
-                  </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="tab-content">
+              <div
+                class="tab-pane"
+                id="Actions_tab"
+                role="tabpanel"
+                style={{ width: "100%", overflow: "auto" }}
+              >
+                <div class="property_info_cont agent_img_sets" id="demo">
+                  <section class="snap-scrolling-example">
+                    <div class="horizontal-images tab_main tabscroll-windows">
+                      <ul class="list_sec" role="">
+                        <li class="">
+                          <a onClick={() => updateTourListData()}>
+                            <span>
+                              <i class="fas fa-cog"></i>
+                            </span>
+                            Update All Settings
+                          </a>
+                        </li>
+                        <li class="">
+                          <a onClick={handleEditImageModal}>
+                            <span>
+                              <i class="fas fa-edit"></i>
+                            </span>
+                            Edit Image{" "}
+                          </a>
+                        </li>
+                        <li class="">
+                          <a onClick={() => viewtour()}>
+                            <span>
+                              <i class="fas fa-eye"></i>
+                            </span>
+                            View Tour
+                          </a>
+                        </li>
+                        <li class="">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Distributetour"
+                          >
+                            <span>
+                              <i class="fas fa-table"></i>
+                            </span>
+                            Distribute Tour
+                          </a>
+                        </li>
+                        <li class="">
+                          <a
+                            href=""
+                            data-toggle="modal"
+                            data-target="#facebook"
+                          >
+                            <span>
+                              <i class="fab fa-facebook-f"></i>
+                            </span>
+                            Post to Facebook
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </section>
                 </div>
               </div>
-            </div>
-          </div>
-          {/* <div class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <h6 class="optimal_pic mar_top">Note ! Drag-n-Drop to Rearrange Images for All Services.<span class="close">X</span></h6>
+              <div
+                class="tab-pane"
+                id="Basic"
+                role="tabpanel"
+                style={{ width: "100%", overflow: "auto" }}
+              >
+                <div class="property_info_cont agent_img_sets" id="demo">
+                  <section class="snap-scrolling-example">
+                    <div class="horizontal-images tabscroll-windows">
+                      <OwlCarousel margin={10} {...options} id="home_slide1">
+                        <div className="asdf">
+                          <a
+                            class=""
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#menu_opt"
+                          >
+                            <span>
+                              <i class="fas fa-bars"></i>
+                            </span>
+                            Menu Options
+                          </a>
                         </div>
-                    </div> */}
-          <div class="row">
-            <div class="col-lg-12 col-md-12">
-              <div class="test_sec">
-                <div class="test_sec_left"></div>
-                <div class="test_sec_right">
-                  <button
-                    onClick={updateTourListData}
-                    type="button"
-                    class="next_btn"
-                  >
-                    Save
-                  </button>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#bg_music"
+                          >
+                            <span>
+                              <i class="fas fa-music"></i>
+                            </span>{" "}
+                            Background Music
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => setOpenNarrationModal(true)}>
+                            <span>
+                              <i class="fas fa-torii-gate"></i>
+                            </span>
+                            Tour Narration{" "}
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Property"
+                          >
+                            <span>
+                              <i class="fas fa-home"></i>
+                            </span>
+                            Property Information{" "}
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => setOpenAmenityModal(true)}>
+                            <span>
+                              <i class="fas fa-sticky-note"></i>
+                            </span>{" "}
+                            Amenities
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#open_house"
+                          >
+                            <span>
+                              <i class="fas fa-warehouse"></i>
+                            </span>
+                            Open House Announcements
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Newsletter"
+                          >
+                            <span>
+                              <i class="fab fa-wpforms"></i>
+                            </span>
+                            Add Newsletter Form
+                          </a>
+                        </div>
+                      </OwlCarousel>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div
+                class="tab-pane"
+                id="Advanced"
+                role="tabpanel"
+                style={{ width: "100%", overflow: "auto" }}
+              >
+                <div class="property_info_cont agent_img_sets" id="demo">
+                  <section class="snap-scrolling-example">
+                    <div class="horizontal-images tabscroll-windows">
+                      <OwlCarousel margin={10} {...options} id="home_slide1">
+                        <div className="asdf">
+                          <a
+                            class=""
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#themes"
+                          >
+                            <span>
+                              <i class="fas fa-gopuram"></i>
+                            </span>
+                            Themes
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => setOpenCompanyBanner(true)}>
+                            <span>
+                              <i class="fas fa-building"></i>
+                            </span>{" "}
+                            Company Banner
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#agent_pop_tab"
+                          >
+                            <span>
+                              <i class="fas fa-user"></i>
+                            </span>
+                            Co-listing agent{" "}
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => handleFloorPlan()}>
+                            <span>
+                              <i class="fas fa-ruler-horizontal"></i>
+                            </span>
+                            Floor Plans
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={handleEditFloor}>
+                            <span>
+                              <i class="fas fa-wifi"></i>
+                            </span>
+                            Floor-plan Hot-spot
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={handlePanorama}>
+                            <span>
+                              <i class="fas fa-photo-video"></i>
+                            </span>
+                            Panoramas
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => handleSlideShow()}>
+                            <span>
+                              <i class="fas fa-sliders-h"></i>
+                            </span>
+                            Slide-Show Editor
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            onClick={() => {
+                              setOpenYoutubeModal(true);
+                            }}
+                          >
+                            <span>
+                              <i class="fab fa-youtube"></i>
+                            </span>
+                            Additional YouTube Links
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            onClick={() => {
+                              setOpenWalkThroughModal(true);
+                            }}
+                          >
+                            <span>
+                              <i class="fas fa-home"></i>
+                            </span>
+                            3D Walkthrough Home Tour
+                          </a>
+                        </div>
+                      </OwlCarousel>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div
+                class="tab-pane active"
+                id="ImageSetTools"
+                role="tabpanel"
+                style={{ width: "100%", overflow: "auto" }}
+              >
+                <div class="property_info_cont agent_img_sets" id="demo">
+                  <section class="snap-scrolling-example">
+                    <div class="horizontal-images tabscroll-windows">
+                      <OwlCarousel margin={10} {...options} id="home_slide1">
+                        <div className="asdf">
+                          <a
+                            className="owl_"
+                            onClick={() => {
+                              setOpenChangeOrderModal(true);
+                            }}
+                          >
+                            <span>
+                              <i class="far fa-image"></i>
+                            </span>
+                            Change order
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            className="owl_"
+                            onClick={() => {
+                              setOpenModal(true);
+                            }}
+                          >
+                            <span>
+                              <i class="far fa-image"></i>
+                            </span>
+                            Add Images
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            onClick={() => {
+                              setOpenVideoModal(true);
+                            }}
+                          >
+                            <span>
+                              <i class="fas fa-video"></i>
+                            </span>
+                            Add Video
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={downloadImage}>
+                            <span>
+                              <i class="fas fa-download"></i>
+                            </span>
+                            Download Image
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={handleDelete}>
+                            <span>
+                              <i class="far fa-trash-alt"></i>
+                            </span>
+                            Delete Image
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => updateAllCaption()}>
+                            <span>
+                              <i class="fas fa-pen"></i>
+                            </span>
+                            Update All Captions
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Property"
+                          >
+                            <span>
+                              <i class="fas fa-info-circle"></i>
+                            </span>
+                            Property Information
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => setOpenAmenityModal(true)}>
+                            <span>
+                              <i class="fas fa-file-spreadsheet"></i>
+                            </span>
+                            Amenities
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Services"
+                          >
+                            <span>
+                              <i class="fas fa-link"></i>
+                            </span>
+                            Service Links
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a href="#" data-toggle="modal" data-target="#Links">
+                            <span>
+                              <i class="fas fa-external-link-alt"></i>
+                            </span>
+                            Other Links
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => setOpenTrafficModal(true)}>
+                            <span>
+                              <i class="far fa-sticky-note"></i>
+                            </span>
+                            Traffic Reports
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          {/* <a href="panorama.html"><span><i class="far fa-image"></i></span>Panoramas</a> */}
+                          {/* <Link to={APIPath() + "agent-panoroma"}><span><i class="far fa-image"></i></span>Panoramas</Link> */}
+                          <a onClick={() => panoroma()}>
+                            <span>
+                              <i class="far fa-image"></i>
+                            </span>
+                            Panoramas
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => updateTourListData()}>
+                            <span>
+                              <i class="fas fa-cog"></i>
+                            </span>
+                            Update All Settings
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={handleEditImageModal}>
+                            <span>
+                              <i class="fas fa-edit"></i>
+                            </span>
+                            Edit Image{" "}
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a onClick={() => viewtour()}>
+                            <span>
+                              <i class="fas fa-eye"></i>
+                            </span>
+                            View Tour
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Distributetour"
+                          >
+                            <span>
+                              <i class="fas fa-table"></i>
+                            </span>
+                            Distribute Tour
+                          </a>
+                        </div>
+                        <div className="asdf">
+                          <a
+                            href=""
+                            data-toggle="modal"
+                            data-target="#facebook"
+                          >
+                            <span>
+                              <i class="fab fa-facebook-f"></i>
+                            </span>
+                            Post to Facebook
+                          </a>
+                        </div>
+                      </OwlCarousel>
+                    </div>
+                  </section>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        {/* <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <h6 class="optimal_pic mar_top">Note ! Drag-n-Drop to Rearrange Images for All Services.<span class="close">X</span></h6>
+                </div>
+            </div> */}
+        <div class="row">
+          <div class="col-lg-12 col-md-12">
+            <div class="test_sec">
+              <div class="test_sec_left"></div>
+              <div class="test_sec_right">
+                <button
+                  onClick={updateTourListData}
+                  type="button"
+                  class="next_btn"
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
           {/* <div class="row" style={{ paddingTop: "20px" }}>
             <div class="col-lg-12 col-md-12">
               <div class="image_service">
@@ -3738,23 +3749,16 @@ const AgentEditTour = React.memo((props) => {
               </div>
             </div>
           </div> */}
-          <GridContextProvider onChange={onChange}>
-            <div className="" style={{ height: "900px", overflowY: "auto" }}>
-              <GridDropZone
-                boxesPerRow={3}
-                rowHeight={420}
-                style={{ height: "900px" }}
-              >
+            <div className="row" style={{ height: "900px", overflowY: "auto" }}>
+              
                 {dragImages.map((res, index) => (
-                  <GridItem key={res.id}>
-                    <div
+                  <div
                       onClick={() => {
                         setImageUrl(res.imageurl);
                         setImageId(res.id);
                         handleImageId(res);
                       }}
-                      class="col-lg-12 col-md-12"
-                      style={{ cursor: "grab" }}
+                      class="col-lg-4 col-md-4"
                     >
                       <div
                         id={"myDiv" + res.id}
@@ -4219,13 +4223,10 @@ const AgentEditTour = React.memo((props) => {
                         </div>
                       </div>
                     </div>
-                  </GridItem>
                 ))}
-              </GridDropZone>
             </div>
-          </GridContextProvider>
 
-          <hr class="spacer10px"></hr>          
+          <hr class="spacer10px"></hr>
         </div>
       </section>
 
@@ -5521,6 +5522,25 @@ const AgentEditTour = React.memo((props) => {
               </div>
             </div>
           </div>
+        </DialogContent>
+      </Dialog>order
+      <Dialog
+        maxWidth={maxWidth}
+        fullWidth={true}
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={openChangeOrderModal}
+      >
+        <DialogTitle className="umaModalTitle" id="customized-dialog-title">
+          Change Order
+          <CancelIcon
+            onClick={() => setOpenChangeOrderModal(false)}
+            style={{ float: "right", cursor: "pointer" }}
+          />
+          <button className="next_btn" style={{ float: "right" ,marginRight:"20px" }} onClick={onChange}>Save</button>
+        </DialogTitle>
+        <DialogContent dividers>
+          <DragAndDrop dragImages={dragImages} setDragImages={setDragImages} setIdsArray={setIdsArray}/>
         </DialogContent>
       </Dialog>
       <Dialog

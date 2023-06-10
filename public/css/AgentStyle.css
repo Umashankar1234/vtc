@@ -1724,6 +1724,11 @@ footer {
 
   font-size: 14px;
 }
+.umaModalTitle .next_btn{
+  background: #ffffff;
+
+  color: #000000;
+}
 
 .apply_btn:hover,
 .next_btn:hover {

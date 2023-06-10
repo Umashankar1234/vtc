@@ -11432,3 +11432,12 @@ h1 span.inner p {
   line-height: 20px !important;
   background-color: #ffa12d !important;
 }
+.imageSortable{
+  z-index: 9999999;
+  cursor: move;
+}
+.imageSortable img{
+  border: 2px solid #ffa12d;
+  padding: 2px;
+  border-radius: 6px;
+}

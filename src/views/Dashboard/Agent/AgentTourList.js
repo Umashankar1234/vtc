@@ -565,7 +565,7 @@ export default function AgentTourList(props) {
     }
   };
   const editTour = () => {
-    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
+    if (!localStorage.getItem("id") || localStorage.getItem("id") === "") {
       setMessage("Please select one from tourlist");
       setOpenError(true);
     } else {
@@ -573,7 +573,7 @@ export default function AgentTourList(props) {
     }
   };
   const handleSaveToDesktop = () => {
-    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
+    if (!localStorage.getItem("id") || localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {
@@ -691,7 +691,7 @@ export default function AgentTourList(props) {
   };
   const viewtour = () => {
 
-    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
+    if (!localStorage.getItem("id") || localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {
@@ -1187,7 +1187,7 @@ export default function AgentTourList(props) {
     setImagesetData({ ...imagesetData, [name]: value });
   };
   const handleDeleteModal = () => {
-    if (!localStorage.getItem("id") && localStorage.getItem("id") === "") {
+    if (!localStorage.getItem("id") || localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
     } else {

@@ -85,7 +85,7 @@ import Title from "./CommonMethods/Title";
 import Loader from "react-js-loader";
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
-import DragAndDrop from "./views/DragAndDrop";
+import DragAndDrop from "./views/Dashboard/Agent/DragAndDrop";
 
 var hist = createBrowserHistory();
 function Alert(props) {
