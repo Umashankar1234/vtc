@@ -160,9 +160,7 @@ export default function CheckoutTab(props) {
       }
     }
   }
-  console.log("====================================");
-  console.log("basicInfo", basicInfo);
-  console.log("====================================");
+  
   const onSubmit = async (values) => {
     if (values.number === undefined) {
       setMessage("Please enter card number");

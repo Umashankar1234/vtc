@@ -60,7 +60,7 @@ export default function BrokerReports() {
   };
   let history = useHistory();
   const context = useContext(AuthContext);
-  const classes = useStyles();
+  const classNamees = useStyles();
   const mediainputRef = useRef();
   const { dispatch } = useContext(AuthContext);
   const [companyInfoData, setCompanyInfoData] = useState({});
@@ -88,7 +88,7 @@ export default function BrokerReports() {
   const [loadTourListDat, SetTourListData] = useState([]);
   const [trafficEmail, setTrafficeEmail] = useState("");
   const APISaveTrafficReport = APIURL() + "save-TrafficEmail";
-
+  const [hover, setHover] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -266,14 +266,14 @@ export default function BrokerReports() {
   const handleImageSetId = (data) => {
     var div = document.getElementById("myDiv" + data.id);
     if (element !== "") {
-      element.classList.remove("active");
+      element.classNameList.remove("active");
     }
     if (element === div) {
-      div.classList.remove("active");
+      div.classNameList.remove("active");
       setElement("");
       setId("");
     } else {
-      div.classList.add("active");
+      div.classNameList.add("active");
       setElement(div);
       setId(data.id);
     }
@@ -415,19 +415,23 @@ export default function BrokerReports() {
         setOpen(false);
       });
   };
+  function changeHover(e) {
+    
+    setHover(true);
+  }
   return (
     <div>
-    <Title title="Broker Reports"/>
+      <Title title="Broker Reports" />
       <BrokerHeader />
       <section
-        class="vtc_agent_banner"
+        className="vtc_agent_banner"
         style={{ backgroundImage: "url(" + banner + ")" }}
       >
-        <div class="vtc_top_menu">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                <div class="vtc_agent_menu_top">
+        <div className="vtc_top_menu">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12 col-md-12">
+                <div className="vtc_agent_menu_top">
                   <ul>
                     <li>
                       <Link to={APIPath() + "broker-dashboard"}>
@@ -440,7 +444,7 @@ export default function BrokerReports() {
                     <li>
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>
                     </li>
-                    <li class="active">
+                    <li className="active">
                       <Link to={APIPath() + "broker-reports"}>
                         Broker Reports
                       </Link>
@@ -456,18 +460,18 @@ export default function BrokerReports() {
                     </li>
                   </ul>
 
-                  <div class="gee_mobile">
-                    <button onClick={() => ShowMenu()} class="gee_hamburger">
+                  <div className="gee_mobile">
+                    <button onClick={() => ShowMenu()} className="gee_hamburger">
                       &#9776;
                     </button>
-                    <button onClick={() => HideMenu()} class="gee_cross">
+                    <button onClick={() => HideMenu()} className="gee_cross">
                       &#735;
                     </button>
                   </div>
                 </div>
-                <div class="gee_menu">
+                <div className="gee_menu">
                   <ul>
-                    <li class="active">
+                    <li className="active">
                       <Link to={APIPath() + "broker-dashboard"}>
                         My Cafe Office
                       </Link>
@@ -478,7 +482,7 @@ export default function BrokerReports() {
                     <li>
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>
                     </li>
-                    <li class="active">
+                    <li className="active">
                       <Link to={APIPath() + "broker-reports"}>
                         Broker Reports
                       </Link>
@@ -498,11 +502,11 @@ export default function BrokerReports() {
             </div>
           </div>
         </div>
-        <div class="vtc_btm_menu">
-          <div class="container-fluid">
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                <div class="vtc_btm_menu_sec">
+        <div className="vtc_btm_menu">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-lg-12 col-md-12">
+                <div className="vtc_btm_menu_sec">
                   <ul>
                     <li>Yearly - Unlimited Active Tours</li>
                     <li>Ala-Carte - Available Credits 1 </li>
@@ -512,113 +516,194 @@ export default function BrokerReports() {
             </div>
           </div>
         </div>
-        <div class="banner-title">
+        <div className="banner-title">
           <h2>Office Reports</h2>
         </div>
       </section>
-      <section class="property_info toggle_sec" style={{ display: "block" }}>
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-12 col-md-12 mx-auto">
-              <div class="our_partners_head">
+      <section className="property_info toggle_sec" style={{ display: "block" }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-12 col-md-12 mx-auto">
+              <div className="our_partners_head">
                 <h2>Office Report</h2>
               </div>
-              <div class="property_info_cont" id="demo">
-                <section id="examples" class="snap-scrolling-example">
-                  <div
+              <nav className="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+                </button>
+
+                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul className="navbar-nav mr-auto">
+
+                    <li className="nav-item dropdown"   onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                      <a className="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i className="fas fa-image"></i> Office Report
+                      </a>
+                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+
+                        <ul className="column-count-2">
+                          <li>
+                            <a
+                              className="dropdown-item"
+                              data-toggle="tab"
+                              href="#AgentList"
+                              role="tab1"
+                            >
+                                <i className="fas fa-user"></i> Agent List
+                            </a>
+                          </li>
+                          <li >
+                            <a
+                              className="dropdown-item"
+                              data-toggle="tab"
+                              href="#AgentNeverSignIn"
+                              role="tab1"
+                            >
+                                <i className="fas fa-mail-bulk"></i> Agent List Never Signed in
+                            </a>
+                          </li>
+                          <li >
+                            <a
+                              className="dropdown-item"
+                              data-toggle="tab"
+                              href="#Tourlist"
+                              role="tab1"
+                            >
+                                <i className="far fa-credit-card"></i> Tour List
+                            </a>
+                          </li>
+                          <li >
+                            <a
+                              className="dropdown-item"
+                              data-toggle="tab"
+                              href="#TourServices"
+                              role="tab1"
+                            >
+                                <i className="fas fa-video"></i> Tour Services
+                            </a>
+                          </li>
+                          <li >
+                            <a
+                              className="dropdown-item"
+                              onClick={() => setOpenTrafficReport(true)}
+                              role="tab1"
+                            >
+                                <i className="fas fa-paste"></i> Traffic Report{" "}
+                            </a>
+                          </li>
+                          <li >
+                            <a
+                              className="dropdown-item"
+                              data-toggle="tab"
+                              href="#DistributeYoutube"
+                              role="tab1"
+                            >
+                                <i className="fab fa-youtube"></i> Distributed to Youtube
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              <div className="property_info_cont" id="demo">
+                <section id="examples" className="snap-scrolling-example">
+                  {/* <div
                     id="content-1"
-                    class="content horizontal-images tab_main"
+                    className="content horizontal-images tab_main"
                   >
-                    <ul class="nav nav-tabs list_sec" role="tablist1">
-                      <li class="nav-item">
+                    <ul className="nav nav-tabs list_sec" role="tablist1">
+                      <li className="nav-item">
                         <a
-                          class="nav-link active"
+                          className="nav-link active"
                           data-toggle="tab"
                           href="#AgentList"
                           role="tab1"
                         >
                           <span>
-                            <i class="fas fa-user"></i>
+                            <i className="fas fa-user"></i>
                           </span>
                           Agent List
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           data-toggle="tab"
                           href="#AgentNeverSignIn"
                           role="tab1"
                         >
                           <span>
-                            <i class="fas fa-mail-bulk"></i>
+                            <i className="fas fa-mail-bulk"></i>
                           </span>
                           Agent List Never Signed in
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           data-toggle="tab"
                           href="#Tourlist"
                           role="tab1"
                         >
                           <span>
-                            <i class="far fa-credit-card"></i>
+                            <i className="far fa-credit-card"></i>
                           </span>
                           Tour List
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           data-toggle="tab"
                           href="#TourServices"
                           role="tab1"
                         >
                           <span>
-                            <i class="fas fa-video"></i>
+                            <i className="fas fa-video"></i>
                           </span>
                           Tour Services
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           onClick={() => setOpenTrafficReport(true)}
                           role="tab1"
                         >
                           <span>
                             {" "}
-                            <i class="fas fa-paste"></i>{" "}
+                            <i className="fas fa-paste"></i>{" "}
                           </span>
                           Traffic Report{" "}
                         </a>
                       </li>
-                      <li class="nav-item">
+                      <li className="nav-item">
                         <a
-                          class="nav-link"
+                          className="nav-link"
                           data-toggle="tab"
                           href="#DistributeYoutube"
                           role="tab1"
                         >
                           <span>
-                            <i class="fab fa-youtube"></i>
+                            <i className="fab fa-youtube"></i>
                           </span>{" "}
                           Distributed to Youtube
                         </a>
                       </li>
                     </ul>
-                  </div>
-                  <div class="tab-content">
+                  </div> */}
+                  <div className="tab-content">
                     <div
-                      class="browse_img tab-pane active"
+                      className="browse_img tab-pane active"
                       id="AgentList"
                       role="tabpanel"
                     >
-                      <div class="browse_img_conts_main">
-                        <div class="row">
-                          <div class="col-md-12 formbox1">
+                      <div className="browse_img_conts_main">
+                        <div className="row">
+                          <div className="col-md-12 formbox1">
                             <div style={{ marginTop: "20px" }}>
                               <CSVLink {...csvLink}>
                                 <Button
@@ -631,7 +716,7 @@ export default function BrokerReports() {
                                 >
                                   {" "}
                                   <i
-                                    class="fa fa-download"
+                                    className="fa fa-download"
                                     aria-hidden="true"
                                   ></i>
                                   Download
@@ -645,54 +730,54 @@ export default function BrokerReports() {
                                   color: "whitesmoke",
                                 }}
                               >
-                                <i class="fa fa-print" aria-hidden="true">
+                                <i className="fa fa-print" aria-hidden="true">
                                   Print
                                 </i>
                               </Button>
                             </div>
                           </div>
                         </div>
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12">
-                            <div class="profile_listing_main">
-                              <div class="row">
+                        <div className="row">
+                          <div className="col-lg-12 col-md-12">
+                            <div className="profile_listing_main">
+                              <div className="row">
                                 {Object.keys(agentData).length > 0
                                   ? agentGetData.map((res) => (
+                                    <div
+                                      onClick={() => {
+                                        setId(res.id);
+                                        handleImageSetId(res);
+                                      }}
+                                      className="col-lg-4 col-md-4"
+                                    >
                                       <div
-                                        onClick={() => {
-                                          setId(res.id);
-                                          handleImageSetId(res);
-                                        }}
-                                        class="col-lg-4 col-md-4"
+                                        id={"myDiv" + res.id}
+                                        className="profile_listing_single"
+                                        style={{ cursor: "pointer" }}
                                       >
-                                        <div
-                                          id={"myDiv" + res.id}
-                                          class="profile_listing_single"
-                                          style={{ cursor: "pointer" }}
-                                        >
-                                          <div class="profile_listing_single_inner">
-                                            <div class="socila_avatar">
-                                              <div class="socila_avatar_img">
-                                                <img
-                                                  class=""
-                                                  alt="image"
-                                                  src={res.src}
-                                                />
-                                              </div>
-                                              <div class="socila_avatar_cont">
-                                                <h6>
-                                                  {res.fname} {res.lname}
-                                                </h6>
-                                                <p>
-                                                  Active Tour:{res.is_autotour}
-                                                </p>
-                                                <p>Email:{res.email}</p>
-                                              </div>
+                                        <div className="profile_listing_single_inner">
+                                          <div className="socila_avatar">
+                                            <div className="socila_avatar_img">
+                                              <img
+                                                className=""
+                                                alt="image"
+                                                src={res.src}
+                                              />
+                                            </div>
+                                            <div className="socila_avatar_cont">
+                                              <h6>
+                                                {res.fname} {res.lname}
+                                              </h6>
+                                              <p>
+                                                Active Tour:{res.is_autotour}
+                                              </p>
+                                              <p>Email:{res.email}</p>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    ))
+                                    </div>
+                                  ))
                                   : ""}
                               </div>
                             </div>
@@ -700,10 +785,10 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="AgentNeverSignIn" role="tabpanel">
-                      <div class="filter_sec">
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12">
+                    <div className="tab-pane" id="AgentNeverSignIn" role="tabpanel">
+                      <div className="filter_sec">
+                        <div className="row">
+                          <div className="col-lg-12 col-md-12">
                             <Button
                               onClick={() => AgentNeverLoginPrint()}
                               style={{
@@ -712,49 +797,49 @@ export default function BrokerReports() {
                                 color: "whitesmoke",
                               }}
                             >
-                              <i class="fa fa-print" aria-hidden="true">
+                              <i className="fa fa-print" aria-hidden="true">
                                 Print
                               </i>
                             </Button>
-                            <div class="profile_listing_main">
-                              <div class="row">
+                            <div className="profile_listing_main">
+                              <div className="row">
                                 {agentNeverSignIn.length > 0
                                   ? agentNeverSignIn.map((res) => (
+                                    <div
+                                      onClick={() => {
+                                        setId(res.id);
+                                        handleImageSetId(res);
+                                      }}
+                                      className="col-lg-4 col-md-4"
+                                    >
                                       <div
-                                        onClick={() => {
-                                          setId(res.id);
-                                          handleImageSetId(res);
-                                        }}
-                                        class="col-lg-4 col-md-4"
+                                        id={"myDiv" + res.id}
+                                        className="profile_listing_single"
+                                        style={{ cursor: "pointer" }}
                                       >
-                                        <div
-                                          id={"myDiv" + res.id}
-                                          class="profile_listing_single"
-                                          style={{ cursor: "pointer" }}
-                                        >
-                                          <div class="profile_listing_single_inner">
-                                            <div class="socila_avatar">
-                                              <div class="socila_avatar_img">
-                                                <img
-                                                  class=""
-                                                  alt="image"
-                                                  src={res.src}
-                                                />
-                                              </div>
-                                              <div class="socila_avatar_cont">
-                                                <h6>
-                                                  {res.fname} {res.lname}
-                                                </h6>
-                                                <p>
-                                                  Active Tour:{res.is_autotour}
-                                                </p>
-                                                <p>Email:{res.email}</p>
-                                              </div>
+                                        <div className="profile_listing_single_inner">
+                                          <div className="socila_avatar">
+                                            <div className="socila_avatar_img">
+                                              <img
+                                                className=""
+                                                alt="image"
+                                                src={res.src}
+                                              />
+                                            </div>
+                                            <div className="socila_avatar_cont">
+                                              <h6>
+                                                {res.fname} {res.lname}
+                                              </h6>
+                                              <p>
+                                                Active Tour:{res.is_autotour}
+                                              </p>
+                                              <p>Email:{res.email}</p>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    ))
+                                    </div>
+                                  ))
                                   : ""}
                               </div>
                             </div>
@@ -762,49 +847,49 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="AgentNeverSignIn" role="tabpanel">
-                      <div class="filter_sec">
-                        <div class="row">
-                          <div class="col-lg-12 col-md-12">
-                            <div class="profile_listing_main">
-                              <div class="row">
+                    <div className="tab-pane" id="AgentNeverSignIn" role="tabpanel">
+                      <div className="filter_sec">
+                        <div className="row">
+                          <div className="col-lg-12 col-md-12">
+                            <div className="profile_listing_main">
+                              <div className="row">
                                 {Object.keys(agentData).length > 0
                                   ? agentGetData.map((res) => (
+                                    <div
+                                      onClick={() => {
+                                        setId(res.id);
+                                        handleImageSetId(res);
+                                      }}
+                                      className="col-lg-4 col-md-4"
+                                    >
                                       <div
-                                        onClick={() => {
-                                          setId(res.id);
-                                          handleImageSetId(res);
-                                        }}
-                                        class="col-lg-4 col-md-4"
+                                        id={"myDiv" + res.id}
+                                        className="profile_listing_single"
+                                        style={{ cursor: "pointer" }}
                                       >
-                                        <div
-                                          id={"myDiv" + res.id}
-                                          class="profile_listing_single"
-                                          style={{ cursor: "pointer" }}
-                                        >
-                                          <div class="profile_listing_single_inner">
-                                            <div class="socila_avatar">
-                                              <div class="socila_avatar_img">
-                                                <img
-                                                  class=""
-                                                  alt="image"
-                                                  src={res.src}
-                                                />
-                                              </div>
-                                              <div class="socila_avatar_cont">
-                                                <h6>
-                                                  {res.fname} {res.lname}
-                                                </h6>
-                                                <p>
-                                                  Active Tour:{res.is_autotour}
-                                                </p>
-                                                <p>Email:{res.email}</p>
-                                              </div>
+                                        <div className="profile_listing_single_inner">
+                                          <div className="socila_avatar">
+                                            <div className="socila_avatar_img">
+                                              <img
+                                                className=""
+                                                alt="image"
+                                                src={res.src}
+                                              />
+                                            </div>
+                                            <div className="socila_avatar_cont">
+                                              <h6>
+                                                {res.fname} {res.lname}
+                                              </h6>
+                                              <p>
+                                                Active Tour:{res.is_autotour}
+                                              </p>
+                                              <p>Email:{res.email}</p>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    ))
+                                    </div>
+                                  ))
                                   : ""}
                               </div>
                             </div>
@@ -812,10 +897,10 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="Tourlist" role="tabpanel">
-                      <div class="filter_sec">
-                        <div class="row">
-                          <div class="col-lg-12 col-sm-12">
+                    <div className="tab-pane" id="Tourlist" role="tabpanel">
+                      <div className="filter_sec">
+                        <div className="row">
+                          <div className="col-lg-12 col-sm-12">
                             <CSVLink {...csvLink1}>
                               <Button
                                 style={{
@@ -827,19 +912,19 @@ export default function BrokerReports() {
                               >
                                 {" "}
                                 <i
-                                  class="fa fa-download"
+                                  className="fa fa-download"
                                   aria-hidden="true"
                                 ></i>
                                 Download
                               </Button>
                             </CSVLink>
                           </div>
-                          <div class="col-lg-12 col-sm-12">
+                          <div className="col-lg-12 col-sm-12">
                             <table
-                              class="table table-bordered"
+                              className="table table-bordered"
                               style={{ marginTop: "20px" }}
                             >
-                              <thead class="thead-light">
+                              <thead className="thead-light">
                                 <tr>
                                   <th style={{ textAlign: "center" }}>Sr.no</th>
                                   <th style={{ textAlign: "center" }}>
@@ -862,29 +947,29 @@ export default function BrokerReports() {
                               <tbody>
                                 {loadTourListDat.length > 0
                                   ? loadTourListDat.map((res, index) => (
-                                      <tr>
-                                        <td style={{ textAlign: "center" }}>
-                                          {index + 1}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.id}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.address}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.fname} {res.lname}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.isactive == 0
-                                            ? "in Active"
-                                            : "Active"}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          N/A
-                                        </td>
-                                      </tr>
-                                    ))
+                                    <tr>
+                                      <td style={{ textAlign: "center" }}>
+                                        {index + 1}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        {res.id}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        {res.address}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        {res.fname} {res.lname}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        {res.isactive == 0
+                                          ? "in Active"
+                                          : "Active"}
+                                      </td>
+                                      <td style={{ textAlign: "center" }}>
+                                        N/A
+                                      </td>
+                                    </tr>
+                                  ))
                                   : ""}
                               </tbody>
                             </table>
@@ -892,11 +977,11 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div class="tab-pane" id="TourServices" role="tabpanel">
-                      <div class="filter_sec">
-                        <div class="row">
-                          <div class="col-lg-12 col-sm-12">
-                            <div class="col-lg-12 col-sm-12">
+                    <div className="tab-pane" id="TourServices" role="tabpanel">
+                      <div className="filter_sec">
+                        <div className="row">
+                          <div className="col-lg-12 col-sm-12">
+                            <div className="col-lg-12 col-sm-12">
                               <CSVLink {...csvLink2}>
                                 <Button
                                   style={{
@@ -908,19 +993,19 @@ export default function BrokerReports() {
                                 >
                                   {" "}
                                   <i
-                                    class="fa fa-download"
+                                    className="fa fa-download"
                                     aria-hidden="true"
                                   ></i>
                                   Download
                                 </Button>
                               </CSVLink>
                             </div>
-                            <div class="col-lg-12 col-sm-12">
+                            <div className="col-lg-12 col-sm-12">
                               <table
-                                class="table table-bordered"
+                                className="table table-bordered"
                                 style={{ marginTop: "20px" }}
                               >
-                                <thead class="thead-light">
+                                <thead className="thead-light">
                                   <tr>
                                     <th style={{ textAlign: "center" }}>
                                       Sr.no
@@ -945,37 +1030,37 @@ export default function BrokerReports() {
                                 <tbody>
                                   {loadTourListDat.length > 0
                                     ? loadTourListDat.map((res, index) => (
-                                        <tr>
-                                          <td style={{ textAlign: "center" }}>
-                                            {index + 1}
-                                          </td>
-                                          <td style={{ textAlign: "center" }}>
-                                            {res.id}
-                                          </td>
-                                          <td style={{ textAlign: "center" }}>
-                                            {res.fname} {res.lname}
-                                          </td>
-                                          <td style={{ textAlign: "center" }}>
-                                            {res.address}
-                                          </td>
-                                          <td style={{ textAlign: "center" }}>
-                                            {res.videoservice == 0
-                                              ? ""
-                                              : "Video"}
-                                            ,
-                                            {res.virtualtourservice == 0
-                                              ? ""
-                                              : "Tour"}
-                                            ,
-                                            {res.flyerservice == 0
-                                              ? ""
-                                              : "Flyer"}
-                                          </td>
-                                          <td style={{ textAlign: "center" }}>
-                                            {res.creationdate}
-                                          </td>
-                                        </tr>
-                                      ))
+                                      <tr>
+                                        <td style={{ textAlign: "center" }}>
+                                          {index + 1}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.id}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.fname} {res.lname}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.address}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.videoservice == 0
+                                            ? ""
+                                            : "Video"}
+                                          ,
+                                          {res.virtualtourservice == 0
+                                            ? ""
+                                            : "Tour"}
+                                          ,
+                                          {res.flyerservice == 0
+                                            ? ""
+                                            : "Flyer"}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.creationdate}
+                                        </td>
+                                      </tr>
+                                    ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -985,20 +1070,20 @@ export default function BrokerReports() {
                       </div>
                     </div>
                     <div
-                      class="tab-pane"
+                      className="tab-pane"
                       id="DistributeYoutube"
                       role="tabpanel"
                     >
                       <div>
-                        <div class="filter_sec">
-                          <div class="row">
-                            <div class="col-md-12">
-                              <div class="filterbox d-inline-block">
+                        <div className="filter_sec">
+                          <div className="row">
+                            <div className="col-md-12">
+                              <div className="filterbox d-inline-block">
                                 <ul>
                                   <li>Month</li>
                                   <li>
                                     <select
-                                      class="form-control"
+                                      className="form-control"
                                       name="month"
                                       value={DistributeYoutube.month}
                                       onChange={handleMonthChange}
@@ -1028,7 +1113,7 @@ export default function BrokerReports() {
                                   </li>
                                   <li>
                                     <select
-                                      class="form-control"
+                                      className="form-control"
                                       name="year"
                                       value={DistributeYoutube.year}
                                       onChange={HandleYearChange}
@@ -1052,10 +1137,10 @@ export default function BrokerReports() {
                                       <option value="2025">2025</option>
                                     </select>
                                   </li>
-                                  <li class="inline-mob">
+                                  <li className="inline-mob">
                                     <button
                                       type="button"
-                                      class="btn-style-one smallsize2"
+                                      className="btn-style-one smallsize2"
                                       style={{
                                         marginRight: "0px",
                                         marginLeft: "40px",
@@ -1065,10 +1150,10 @@ export default function BrokerReports() {
                                       Search
                                     </button>
                                   </li>
-                                  <li class="inline-mob">
+                                  <li className="inline-mob">
                                     <button
                                       type="button"
-                                      class="btn-style-one smallsize2 grey"
+                                      className="btn-style-one smallsize2 grey"
                                       onClick={YoutubePrint}
                                     >
                                       Print
@@ -1077,10 +1162,10 @@ export default function BrokerReports() {
                                 </ul>
                               </div>
                             </div>
-                            <div class="col-md-11">
+                            <div className="col-md-11">
                               {youtubeData == false ? (
                                 <div
-                                  class="alert alert-primary"
+                                  className="alert alert-primary"
                                   role="alert"
                                   style={{
                                     display: "flex",
@@ -1093,10 +1178,10 @@ export default function BrokerReports() {
                                 </div>
                               ) : (
                                 <table
-                                  class="table table-bordered"
+                                  className="table table-bordered"
                                   style={{ marginTop: "20px" }}
                                 >
-                                  <thead class="thead-light">
+                                  <thead className="thead-light">
                                     <tr>
                                       <th style={{ textAlign: "center" }}>
                                         Tour Id
@@ -1132,7 +1217,7 @@ export default function BrokerReports() {
                                       ))
                                     ) : (
                                       <div
-                                        class="alert alert-primary"
+                                        className="alert alert-primary"
                                         role="alert"
                                         style={{
                                           display: "flex",
@@ -1168,58 +1253,58 @@ export default function BrokerReports() {
         open={openTrafficReport}
       >
         <DialogTitle id="customized-dialog-title">
-          <i class="fas fa-paste    "></i> Traffic Report
+          <i className="fas fa-paste    "></i> Traffic Report
           <CancelIcon
             onClick={() => setOpenTrafficReport(false)}
             style={{ float: "right", cursor: "pointer" }}
           />
         </DialogTitle>
         <DialogContent dividers>
-          <div class="container">
-            <div class="agent_pop_main">
-              <div class="row">
-                <div class="col-lg-12 col-md-12">
+          <div className="container">
+            <div className="agent_pop_main">
+              <div className="row">
+                <div className="col-lg-12 col-md-12">
                   <form
                     onSubmit={(event) => {
                       event.preventDefault();
                       saveTrafficData();
                     }}
                   >
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12">
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12">
                         <h5 style={{ margin: "20px" }}>
                           Email Recipients (comma seperated)
                         </h5>
                       </div>
                     </div>
                     <hr></hr>
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12">
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12">
                         <h6 style={{ margin: "20px" }}>
                           You could enter multiple email addresses separated by
                           commas.
                         </h6>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-3 formbox1">
+                    <div className="row">
+                      <div className="col-md-3 formbox1">
                         <label style={{ marginLeft: "20px" }}>
                           To:<span style={{ color: "#ffa12d" }}></span>
                         </label>
                       </div>
-                      <div class="col-md-9">
+                      <div className="col-md-9">
                         <input
                           type="text"
                           onChange={handleTrafficInputChange}
                           value={trafficEmail}
                           name="email"
-                          class="form-control"
+                          className="form-control"
                         />
                       </div>
                     </div>
-                    <div class="row" style={{ marginTop: "10px" }}>
+                    <div className="row" style={{ marginTop: "10px" }}>
                       <div
-                        class="col-lg-12 col-md-12"
+                        className="col-lg-12 col-md-12"
                         style={{ display: "flex", justifyContent: "center" }}
                       >
                         <Button
@@ -1246,21 +1331,21 @@ export default function BrokerReports() {
                         </Button>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12">
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12">
                         <h5 style={{ margin: "20px" }}>Auto Forward</h5>
                       </div>
                     </div>
                     <hr></hr>
-                    <div class="row">
-                      <div class="col-md-6">
+                    <div className="row">
+                      <div className="col-md-6">
                         <label style={{ marginRight: "35px" }}>
                           Email report every week
                           <span style={{ color: "#ffa12d" }}></span>
                         </label>
                       </div>
-                      <div class="col-md-6">
-                        <div class="switchToggle custom-control custom-switch">
+                      <div className="col-md-6">
+                        <div className="switchToggle custom-control custom-switch">
                           <Switch
                             onChange={handleTrafficChange}
                             checked={trafficData.emailtrafficreport}
@@ -1302,19 +1387,19 @@ export default function BrokerReports() {
                                 Yes
                               </div>
                             }
-                            className="react-switch"
+                            classNameName="react-switch"
                           />
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-lg-12 col-md-12 text-center">
+                    <div className="row">
+                      <div className="col-lg-12 col-md-12 text-center">
                         <button
                           style={{ border: "#ffa124" }}
                           type="submit"
-                          class="need_pic save_btn"
+                          className="need_pic save_btn"
                         >
-                          Save<i class="fas fa-arrow-right"></i>
+                          Save<i className="fas fa-arrow-right"></i>
                         </button>
                       </div>
                     </div>
@@ -1325,13 +1410,13 @@ export default function BrokerReports() {
           </div>
         </DialogContent>
       </Dialog>
-      <div class="agent_pop" id="printcontainer">
-        <div id="Newsletter" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="browse_img">
-                  <div class="browse_img_conts_main">
+      <div className="agent_pop" id="printcontainer">
+        <div id="Newsletter" className="modal fade" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-body">
+                <div className="browse_img">
+                  <div className="browse_img_conts_main">
                     <div
                       style={{
                         display: "flex",
@@ -1368,18 +1453,18 @@ export default function BrokerReports() {
                         </tr>
                         {agentGetData.length > 0
                           ? agentGetData.map((res) => (
-                              <tr>
-                                <td>
-                                  <h3>{res.fname}</h3>
-                                </td>
-                                <td>
-                                  <h3>{res.email}</h3>
-                                </td>
-                                <td>
-                                  <h3>{res.address}</h3>
-                                </td>
-                              </tr>
-                            ))
+                            <tr>
+                              <td>
+                                <h3>{res.fname}</h3>
+                              </td>
+                              <td>
+                                <h3>{res.email}</h3>
+                              </td>
+                              <td>
+                                <h3>{res.address}</h3>
+                              </td>
+                            </tr>
+                          ))
                           : ""}
                       </table>
                     </div>
@@ -1390,17 +1475,17 @@ export default function BrokerReports() {
           </div>
         </div>
       </div>
-      <div class="agent_pop" id="Youtube">
-        <div id="Newsletter" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="browse_img">
+      <div className="agent_pop" id="Youtube">
+        <div id="Newsletter" className="modal fade" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-body">
+                <div className="browse_img">
                   <table
-                    class="table table-bordered"
+                    className="table table-bordered"
                     style={{ marginTop: "20px" }}
                   >
-                    <thead class="thead-light">
+                    <thead className="thead-light">
                       <tr>
                         <th style={{ textAlign: "center" }}>Tour Id</th>
                         <th style={{ textAlign: "center" }}>Caption</th>
@@ -1426,7 +1511,7 @@ export default function BrokerReports() {
                         ))
                       ) : (
                         <div
-                          class="alert alert-primary"
+                          className="alert alert-primary"
                           role="alert"
                           style={{
                             display: "flex",
@@ -1445,13 +1530,13 @@ export default function BrokerReports() {
           </div>
         </div>
       </div>
-      <div class="agent_pop" id="agentneverlogin">
-        <div id="Newsletter" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-body">
-                <div class="browse_img">
-                  <div class="browse_img_conts_main">
+      <div className="agent_pop" id="agentneverlogin">
+        <div id="Newsletter" className="modal fade" role="dialog">
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-body">
+                <div className="browse_img">
+                  <div className="browse_img_conts_main">
                     <div
                       style={{
                         display: "flex",
@@ -1488,18 +1573,18 @@ export default function BrokerReports() {
                         </tr>
                         {agentNeverSignIn.length > 0
                           ? agentNeverSignIn.map((res) => (
-                              <tr>
-                                <td>
-                                  <h3>{res.fname}</h3>
-                                </td>
-                                <td>
-                                  <h3>{res.email}</h3>
-                                </td>
-                                <td>
-                                  <h3>{res.address}</h3>
-                                </td>
-                              </tr>
-                            ))
+                            <tr>
+                              <td>
+                                <h3>{res.fname}</h3>
+                              </td>
+                              <td>
+                                <h3>{res.email}</h3>
+                              </td>
+                              <td>
+                                <h3>{res.address}</h3>
+                              </td>
+                            </tr>
+                          ))
                           : ""}
                       </table>
                     </div>
@@ -1540,7 +1625,7 @@ export default function BrokerReports() {
           {message}
         </Alert>
       </Snackbar>
-      <Backdrop className={classes.backdrop} open={open}>
+      <Backdrop classNameName={classNamees.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
     </div>

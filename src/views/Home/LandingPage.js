@@ -29,6 +29,7 @@ import { AuthContext } from "../../CommonMethods/Authentication";
 import Footer1 from "../../components/Footer/Footer1";
 import "./Landingpage.css";
 import Title from "../../CommonMethods/Title";
+import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetUserData = APIURL() + "user-details";
 const APIHomeData = APIURL() + "homecontent";
@@ -364,9 +365,11 @@ export default function LandingPage(props) {
       return $("body").css("overflow", "auto");
     }
   };
+  const metaCtx = MetaInfo();
+  console.log(metaCtx, "metaCtx");
   return (
     <div>
-      <Title title=""/>
+      <Title title="" />
       <section class="home_page">
         <div class="mobile_on mobile_slide">
           <div class="mob_head">
@@ -925,7 +928,7 @@ export default function LandingPage(props) {
             </div>
             <div class="wow_sellers_right">
               <iframe
-                src="https://my.matterport.com/show/?m=ZWi86mmrNXs"
+                src="https://my.matterport.com/show/?m=v5KwPp7TiPH"
                 allowfullscreen=""
                 width="100%"
                 height="500"

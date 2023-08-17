@@ -48,6 +48,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function AgentFlyerList(props) {
+
   const classes = useStyles();
   const { dispatch } = useContext(AuthContext);
   const context = useContext(AuthContext);
@@ -81,6 +82,7 @@ export default function AgentFlyerList(props) {
   const [pageCount, setPageCount] = useState(0);
   const [refresh, setRefresh] = useState(true);
   const [open, setOpen] = useState(false);
+  const [hover, setHover] = useState(false);
   useEffect(() => {
     if (context.state.user) {
       const objusr = {
@@ -231,7 +233,7 @@ export default function AgentFlyerList(props) {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -649,6 +651,11 @@ export default function AgentFlyerList(props) {
         setOpen(false);
       });
   };
+
+  function changeHover(e) {
+    
+    setHover(true);
+  }
   return (
     <div>
       <Title title="Agent Flyer List" />
@@ -668,7 +675,7 @@ export default function AgentFlyerList(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -709,8 +716,64 @@ export default function AgentFlyerList(props) {
           {allData.length > 0 && (
             <div class="row">
               <div class="col-lg-12 col-md-12">
+                {/* Navigation Menu */}
+                <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                        <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-tasks"></i> Manage Flyers
+                        </a>
+                        <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                          <ul class="column-count-2">
+                            <li>
+                              <a class="dropdown-item" onClick={() => goToImageSet()}>
+                                <i class="far fa-image"></i> Go To Selected Tour</a>
+                            </li>
+
+                            <li>
+                              <a class="dropdown-item" onClick={() => editFlyer()}>
+                                <i class="far fa-edit"></i>  Edit Flyer</a>
+                            </li>
+
+                            <li>
+                              <a class="dropdown-item" onClick={() => handleViewModal()}>
+                                <i class="far fa-image"></i>  View Flyer</a>
+                            </li>
+
+                            <li>
+                              <a class="dropdown-item" onClick={() => printFlyerModal()}>
+                                <i class="fas fa-print"></i>  Print Flyer</a>
+                            </li>
+
+                            <li>
+                              <a class="dropdown-item" href={`#${craigeListOpen}`}
+                                data-toggle="modal"
+                                onClick={() => PostCraigeList()}>
+                                <i class="fas fa-sticky-note"></i>  Post To Craigslist</a>
+                            </li>
+
+                            <li>
+                              <a class="dropdown-item" onClick={() => downloadFlyerModal()}>
+                                <i class="fas fa-file-pdf"></i>   Download Flyer PDF</a>
+                            </li>
+
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+                {/* Navigation Menu */}
                 <div class="action_sec_main">
+
                   <div class="action_sec_left action_sec_tab">
+                    {/* 
                     <ul class="nav nav-tabs list_sec" role="tablist">
                       <li class="nav-item">
                         <a
@@ -729,22 +792,14 @@ export default function AgentFlyerList(props) {
                           href="#Filter"
                           role="tab"
                         >
-                          <i class="fas fa-filter"></i>Flyer Filter
+                          <i class="fas fa-filter"></i>  Flyer Filter
                         </a>
                       </li>
                     </ul>
+                     */}
                   </div>
                   <div class="action_sec_right">
                     <ul>
-                      {/* <li><span>order By</span>
-                                        <select>
-                                            <option>Creation Date (desc)</option>
-                                            <option>Creation Date (desc)</option>
-                                            <option>Creation Date (desc)</option>
-                                            <option>Creation Date (desc)</option>
-                                            <option>Creation Date (desc)</option>
-                                        </select>
-                                    </li> */}
                       <li>
                         <span>order By</span>
                         <select
@@ -786,7 +841,7 @@ export default function AgentFlyerList(props) {
               <div class="col-lg-12 col-md-12">
                 <div class="tab-content">
                   <div
-                    class="tab-pane active"
+                    class="tab-pane "
                     id="Manage"
                     role="tabpanel"
                     style={{ width: "100%", overflow: "auto" }}
@@ -860,7 +915,7 @@ export default function AgentFlyerList(props) {
                       </section>
                     </div>
                   </div>
-                  <div class="tab-pane" id="Filter" role="tabpanel">
+                  <div class="tab-pane active" id="Filter" role="tabpanel">
                     <div class="filter_sec">
                       <form
                         onSubmit={(event) => {

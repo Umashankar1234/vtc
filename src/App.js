@@ -3,6 +3,7 @@ import "./App.css";
 import AppRoutes from "./AppRoutes";
 import { reducer } from "./CommonMethods/Authentication";
 import { AuthContext } from "./CommonMethods/Authentication";
+import MetaTagsContext from "./CommonMethods/MetaTagsContext";
 var CryptoJS = require("crypto-js");
 export default function App() {
   const initialState = {
@@ -42,7 +43,9 @@ export default function App() {
 
   return (
     <AuthContext.Provider value={contextValue}>
-      <AppRoutes />
+      <MetaTagsContext>
+        <AppRoutes />
+      </MetaTagsContext>
     </AuthContext.Provider>
   );
 }

@@ -178,6 +178,7 @@ export default function EditFlyerTheme(props) {
   const [documentPwdData, setDocumentPwdData] = useState([]);
   const [totalDivs, setTotalDivs] = useState([]);
   const [documentData, setDocumentData] = useState([]);
+  const [hover, setHover] = useState(false);
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -727,7 +728,7 @@ export default function EditFlyerTheme(props) {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -761,7 +762,7 @@ export default function EditFlyerTheme(props) {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -792,8 +793,8 @@ export default function EditFlyerTheme(props) {
     });
   };
 
-  const cloneRow = () => {};
-  const deleteRow = () => {};
+  const cloneRow = () => { };
+  const deleteRow = () => { };
   const updateEditFlyerTemplate = () => {
     customEditFlyThemeData.authenticate_key = "abcd123XYZ";
     customEditFlyThemeData.agent_id = JSON.parse(context.state.user).agentId;
@@ -882,7 +883,7 @@ export default function EditFlyerTheme(props) {
     EditorState.createEmpty()
   );
 
-  const handleEditorChange1 = (state) => {};
+  const handleEditorChange1 = (state) => { };
   const handleEditorChange2 = (state) => {
     // const { name, value } = state.target;
     // setPropertyData({ ...propertyData, [name]: value });
@@ -1041,6 +1042,10 @@ export default function EditFlyerTheme(props) {
     });
     setDocumentData(filter_data);
   };
+  function changeHover(e) {
+    
+    setHover(true);
+  }
   return (
     <div>
       <AgentHeader />
@@ -1063,7 +1068,7 @@ export default function EditFlyerTheme(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -1103,7 +1108,91 @@ export default function EditFlyerTheme(props) {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12">
-              <div class="action_sec_main">
+              {/* Navigation Menu */}
+              <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog"></i> Flyer Tools
+                      </a>
+                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <ul class="column-count-2">
+                            <li>
+                              <a class="dropdown-item" onClick={handleEditImageset}>
+                                <i class="far fa-image"></i> Go to related ImageSet
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                href="#"
+                                data-toggle="modal"
+                                data-target="#add_img"
+                              >
+                                <i class="fas fa-eye"></i> Send to friend
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                onClick={() => {
+                                  handleEditTheme();
+                                }}
+                              >
+                                <i class="fas fa-magic"></i> Themes{" "}
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                onClick={() => {
+                                  handleViewModal();
+                                }}
+                              >
+                                <i class="fas fa-eye"></i> View Flyer
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                onClick={() => {
+                                  printFlyerModal();
+                                }}
+                                data-toggle="modal"
+                                data-target="#Distributetour"
+                              >
+                                <i class="fas fa-print"></i> Print Flyer
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                href={`#${craigeListOpen}`}
+                                data-toggle="modal"
+                                onClick={() => PostCraigeList()}
+                              >
+                                <i class="fas fa-sticky-note"></i> Post To Craigslist
+                              </a>
+                            </li>
+                            <li>
+                              <a  class="dropdown-item"
+                                href="#"
+                                data-toggle="modal"
+                                data-target="#Property"
+                              >
+                                <i class="fas fa-home"></i> Property Information{" "}
+                              </a>
+                            </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              {/* Navigation Menu */}
+              {/* <div class="action_sec_main">
                 <div class="action_sec_left action_sec_tab">
                   <ul class="nav nav-tabs list_sec" role="tablist">
                     <li class="nav-item">
@@ -1118,11 +1207,12 @@ export default function EditFlyerTheme(props) {
                     </li>
                   </ul>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
-          <div class="row">
+          {/* <div class="row">
             <div class="col-lg-12 col-md-12">
+
               <div class="tab-content">
                 <div class="tab-pane active" id="Actions_tab" role="tabpanel">
                   <div class="property_info_cont agent_img_sets" id="demo">
@@ -1218,7 +1308,7 @@ export default function EditFlyerTheme(props) {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
@@ -1267,19 +1357,19 @@ export default function EditFlyerTheme(props) {
                         <optgroup label="One Sided Flyer">
                           {flyerOneSide.length > 0
                             ? flyerOneSide.map((res, index) => (
-                                <option value={JSON.stringify(res)}>
-                                  {res.title}{" "}
-                                </option>
-                              ))
+                              <option value={JSON.stringify(res)}>
+                                {res.title}{" "}
+                              </option>
+                            ))
                             : ""}
                         </optgroup>
                         <optgroup label="Two Sided Flyer">
                           {flyerTwoSide.length > 0
                             ? flyerTwoSide.map((res, index) => (
-                                <option value={JSON.stringify(res)}>
-                                  {res.title}{" "}
-                                </option>
-                              ))
+                              <option value={JSON.stringify(res)}>
+                                {res.title}{" "}
+                              </option>
+                            ))
                             : ""}
                         </optgroup>
                       </select>
@@ -1421,9 +1511,9 @@ export default function EditFlyerTheme(props) {
                       <td style={{ textAlign: "center" }}>
                         {Object.keys(editFlyerThemeData).length > 0
                           ? dateFormat(
-                              editFlyerThemeData.data[0].updated_at,
-                              "dd-mm-yyyy"
-                            )
+                            editFlyerThemeData.data[0].updated_at,
+                            "dd-mm-yyyy"
+                          )
                           : ""}
                       </td>
                       <td style={{ textAlign: "center" }}>
@@ -1465,53 +1555,53 @@ export default function EditFlyerTheme(props) {
                   <tbody id="tableToModify">
                     {Object.keys(editFlyerThemeData).length > 0
                       ? editFlyerThemeData.flyerData.map((res) => (
-                          <tr id="rowToClone">
-                            <td>
-                              <h5>{res.templatename}</h5>
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              <h5>
-                                {dateFormat(res.updated_at, "dd-mm-yyyy")}
-                              </h5>
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              <Button
-                                variant="contained"
-                                style={{
-                                  backgroundColor: "#ffa124",
-                                  color: "white",
-                                }}
-                                onClick={() => EditFlyerDesigner(res)}
-                              >
-                                Edit
-                              </Button>
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              <Button
-                                variant="contained"
-                                style={{
-                                  backgroundColor: "#ffa124",
-                                  color: "white",
-                                }}
-                                onClick={() => cloneThisTemplate(res)}
-                              >
-                                Clone
-                              </Button>
-                            </td>
-                            <td style={{ textAlign: "center" }}>
-                              <Button
-                                variant="contained"
-                                style={{
-                                  backgroundColor: "#ffa124",
-                                  color: "white",
-                                }}
-                                onClick={() => deleteThisTemplate(res)}
-                              >
-                                Delete
-                              </Button>
-                            </td>
-                          </tr>
-                        ))
+                        <tr id="rowToClone">
+                          <td>
+                            <h5>{res.templatename}</h5>
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            <h5>
+                              {dateFormat(res.updated_at, "dd-mm-yyyy")}
+                            </h5>
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                backgroundColor: "#ffa124",
+                                color: "white",
+                              }}
+                              onClick={() => EditFlyerDesigner(res)}
+                            >
+                              Edit
+                            </Button>
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                backgroundColor: "#ffa124",
+                                color: "white",
+                              }}
+                              onClick={() => cloneThisTemplate(res)}
+                            >
+                              Clone
+                            </Button>
+                          </td>
+                          <td style={{ textAlign: "center" }}>
+                            <Button
+                              variant="contained"
+                              style={{
+                                backgroundColor: "#ffa124",
+                                color: "white",
+                              }}
+                              onClick={() => deleteThisTemplate(res)}
+                            >
+                              Delete
+                            </Button>
+                          </td>
+                        </tr>
+                      ))
                       : ""}
                   </tbody>
                 </table>
@@ -2857,39 +2947,39 @@ export default function EditFlyerTheme(props) {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                        <tr>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {index + 1}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.leadcapture === 1
-                                              ? "true"
-                                              : "false"}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.docname}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.filename}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.pwd}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            <Button
-                                              style={{ background: "red" }}
-                                              onClick={() =>
-                                                removeDocData(res.id)
-                                              }
-                                              startIcon={<CancelIcon />}
-                                              variant="contained"
-                                              color="primary"
-                                            >
-                                              Remove
-                                            </Button>
-                                          </td>
-                                        </tr>
-                                      ))
+                                      <tr>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {index + 1}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.leadcapture === 1
+                                            ? "true"
+                                            : "false"}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.docname}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.filename}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.pwd}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          <Button
+                                            style={{ background: "red" }}
+                                            onClick={() =>
+                                              removeDocData(res.id)
+                                            }
+                                            startIcon={<CancelIcon />}
+                                            variant="contained"
+                                            color="primary"
+                                          >
+                                            Remove
+                                          </Button>
+                                        </td>
+                                      </tr>
+                                    ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -2996,7 +3086,7 @@ export default function EditFlyerTheme(props) {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                          "documentPassword" + index
+                                        "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>

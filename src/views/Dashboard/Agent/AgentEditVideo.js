@@ -119,6 +119,7 @@ export default function AgentEditVideo(props) {
   const [previoussepiaValue, setpreviousSepiaValue] = useState(0);
   const [previousrotatevalue, setpreviousRotateValue] = useState(0);
   const [editImageData, setEditImageData] = useState({});
+  const [hover, setHover] = useState(false);
   const [crop, setCrop] = useState({
     unit: "px", // Can be 'px' or '%'
     x: 25,
@@ -949,6 +950,10 @@ export default function AgentEditVideo(props) {
     },
   };
   console.log("currentTourData", currentTourData);
+  function changeHover(e) {
+    
+    setHover(true);
+  }
   return (
     <div>
       <AgentHeader />
@@ -960,13 +965,13 @@ export default function AgentEditVideo(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-              <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} imagesetId={tour_id} />
+                <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} imagesetId={tour_id} />
 
                 <div class="gee_menu">
                   <ul>
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                    </li>                   
+                    </li>
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -1006,6 +1011,62 @@ export default function AgentEditVideo(props) {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12">
+              {/* Navigation Menu */}
+              <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-cog"></i> Video Edit
+                      </a>
+                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <ul class="column-count-2">
+                          <li>
+                            <a class="dropdown-item" onClick={handleVideoPromo}>
+                              <i class="fas fa-photo-video"></i> Distribute Video</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleVideoPromo}>
+                              <i class="fas fa-video"></i> Video Promotion{" "}</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handlePreviewVideo}>
+                              <i class="fas fa-magic"></i> Preview Video Frame{" "}</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handlePreviewImage}>
+                              <i class="fas fa-eye"></i> Preview Image Frame</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={downloadImage}>
+                              <i class="fas fa-print"></i> Download Video</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={() => BackToTourImage()}
+                              data-toggle="modal"
+                              data-target="#">
+                              <i class="fas fa-mail-bulk"></i> Back to Tour Images</a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={() => GoToRelatedImageset()}
+                              data-toggle="modal"
+                              data-target="#">
+                              <i class="fas fa-newspaper"></i> Go to related Tour</a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              {/* Navigation Menu */}
+              {/* 
               <div class="action_sec_main">
                 <div class="action_sec_left action_sec_tab">
                   <ul class="nav nav-tabs list_sec" role="tablist">
@@ -1022,8 +1083,10 @@ export default function AgentEditVideo(props) {
                   </ul>
                 </div>
               </div>
+               */}
             </div>
           </div>
+        {/*
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="tab-content">
@@ -1109,6 +1172,7 @@ export default function AgentEditVideo(props) {
               </div>
             </div>
           </div>
+        */}
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="test_sec">
@@ -1145,7 +1209,7 @@ export default function AgentEditVideo(props) {
                           }
                           checked={
                             Object.keys(currentTourData).length > 0 &&
-                            currentTourData.virtualtourservice === 1
+                              currentTourData.virtualtourservice === 1
                               ? true
                               : false
                           }
@@ -1174,7 +1238,7 @@ export default function AgentEditVideo(props) {
                           }
                           checked={
                             Object.keys(currentTourData).length > 0 &&
-                            currentTourData.flyerservice === 1
+                              currentTourData.flyerservice === 1
                               ? true
                               : false
                           }
@@ -1203,7 +1267,7 @@ export default function AgentEditVideo(props) {
                           }
                           checked={
                             Object.keys(currentTourData).length > 0 &&
-                            currentTourData.videoservice === 1
+                              currentTourData.videoservice === 1
                               ? true
                               : false
                           }
@@ -1429,7 +1493,7 @@ export default function AgentEditVideo(props) {
                                                 id={"hra" + res.id}
                                                 checked={
                                                   res.camera_horizontal ===
-                                                  "none"
+                                                    "none"
                                                     ? true
                                                     : false
                                                 }
@@ -1513,7 +1577,7 @@ export default function AgentEditVideo(props) {
                                                 id={"hrb" + res.id}
                                                 checked={
                                                   res.camera_horizontal ===
-                                                  "right"
+                                                    "right"
                                                     ? true
                                                     : false
                                                 }
@@ -1597,7 +1661,7 @@ export default function AgentEditVideo(props) {
                                                 id={"hrc" + res.id}
                                                 checked={
                                                   res.camera_horizontal ===
-                                                  "left"
+                                                    "left"
                                                     ? true
                                                     : false
                                                 }
@@ -1625,7 +1689,7 @@ export default function AgentEditVideo(props) {
                                                 id={"vrc" + res.id}
                                                 checked={
                                                   res.camera_vertical ===
-                                                  "bottom"
+                                                    "bottom"
                                                     ? true
                                                     : false
                                                 }

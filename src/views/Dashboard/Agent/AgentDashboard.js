@@ -641,7 +641,6 @@ export default function AgentDashboard(props) {
     imagesetData.picture = uploadedImages;
     imagesetData.video = uploadedVideos;
     imagesetData.panorama = uploadedPanorama;
-    console.log(imagesetData);
     const formData = new FormData();
     for (let i in imagesetData) {
       if (i === "picture") {
@@ -690,7 +689,7 @@ export default function AgentDashboard(props) {
           setSync(true);
           setUploadedImages([]);
           setImagesetData(initialImagesetState);
-          history.push(APIPath() + "agent-image-sets");
+          history.push(APIPath() + "agent-tour-list");
         } else {
           setMessage(res.data[0].response.message);
           setOpenError(true);
@@ -929,7 +928,6 @@ export default function AgentDashboard(props) {
                                         Optimal picture size is 1075x768. Images
                                         should not be larger than 5mb file size
                                         and no smaller than 1075x768 or larger.
-                                        <span class="close">X</span>
                                       </h6>
                                       <Dropzone
                                         accept="image/*"

@@ -56,6 +56,7 @@ export default function AgentFlashVideo() {
   const [propertyType, setPropertyType] = useState([]);
   const [propertyDataType, setPropertyTypeData] = useState({});
   const [refresh, setRefresh] = useState(true);
+  const [hover, setHover] = useState(false);
   useEffect(() => {
     if (context.state.user) {
       const objusr = {
@@ -278,7 +279,7 @@ export default function AgentFlashVideo() {
         },
         {
           label: "No",
-          onClick: () => {},
+          onClick: () => { },
         },
       ],
     });
@@ -397,10 +398,10 @@ export default function AgentFlashVideo() {
             } else {
               window.open(
                 APIPath() +
-                  "agent-video-selected/" +
-                  id +
-                  "/" +
-                  JSON.parse(context.state.user).agentId,
+                "agent-video-selected/" +
+                id +
+                "/" +
+                JSON.parse(context.state.user).agentId,
                 "_blank"
               );
             }
@@ -496,6 +497,11 @@ export default function AgentFlashVideo() {
       });
   };
 
+  function changeHover(e) {
+    
+    setHover(true);
+  }
+
   return (
     <div>
       <Title title="Agent Video List" />
@@ -515,7 +521,7 @@ export default function AgentFlashVideo() {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -567,8 +573,48 @@ export default function AgentFlashVideo() {
           {allData.length > 0 && (
             <div class="row">
               <div class="col-lg-12 col-md-12">
+                {/* Navigation Menu */}
+                <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                      <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                        <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-tasks"></i> Manage Videos
+                        </a>
+                        <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                          <ul class="column-count-2">
+                            <li>
+                              <a class="dropdown-item" onClick={() => goToImageSet()}>
+                                <i class="far fa-image"></i> Go To Selected Tour</a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" onClick={() => editVideo()}>
+                                <i class="far fa-edit"></i> Edit Selected Video</a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" onClick={() => viewSelectvideo()}>
+                                <i class="far fa-eye"></i> View Selected Video</a>
+                              <input type="hidden" id="videoIdValue" value="" />
+                            </li>
+                            <li>
+                              <a class="dropdown-item" onClick={() => ezFlashCard()}>
+                                <i class="far fa-eye"></i> EZ FlashCards</a>
+                            </li>
+                          </ul>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+                {/* Navigation Menu */}
                 <div class="action_sec_main">
                   <div class="action_sec_left action_sec_tab">
+                    {/*
                     <ul class="nav nav-tabs list_sec" role="tablist">
                       <li class="nav-item">
                         <a
@@ -591,6 +637,7 @@ export default function AgentFlashVideo() {
                         </a>
                       </li>
                     </ul>
+                    */}
                   </div>
                   <div class="action_sec_right">
                     <ul>
@@ -641,6 +688,7 @@ export default function AgentFlashVideo() {
             <div class="row">
               <div class="col-lg-12 col-md-12">
                 <div class="tab-content">
+                  {/* 
                   <div
                     class="tab-pane active"
                     id="Manage"
@@ -688,8 +736,8 @@ export default function AgentFlashVideo() {
                         </div>
                       </section>
                     </div>
-                  </div>
-                  <div class="tab-pane" id="Filter" role="tabpanel">
+          </div> */}
+                  <div class="tab-pane active" id="Filter" role="tabpanel">
                     {/* <div class="filter_sec">
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3">

@@ -648,7 +648,7 @@ export default function About() {
                     </div>
                     <div class="row justify-content-center">
                         {teamList.length > 0 ? (teamList.map(res => (
-                            <div class="col-lg-3 col-md-4 col-sm-6">
+                            <div class="col-lg-4 col-md-4 col-sm-6">
                                 <div class="team-member-two wow fadeInUp delay-0-2s animated"
                                     style={{ visibility: "visible", animationName: "fadeInUp" }}>
                                     <div class="image">

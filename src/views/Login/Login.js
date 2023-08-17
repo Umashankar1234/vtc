@@ -143,7 +143,7 @@ export default function Login(props) {
           setOpenError(true);
           setOpen(false);
         });
-    }
+   }
   };
   const sendForgotMail = (data) => {
     setOpenModal(false);
@@ -511,10 +511,10 @@ export default function Login(props) {
                             {/* 6LfOR3kgAAAAAN7f4zcHQQTUrXNpbDMc6vUA0Ka_ */}
 
                             {/* 6LfUR3kgAAAAAIqP4h16I5W6EbweU_7zIDvBNyUq */}
-                            <ReCAPTCHA
+                              <ReCAPTCHA
                               sitekey="6LfHSiwgAAAAAAHtot668mAzqqmXqcre4wXdHbf-"
                               onChange={onChange}
-                            />
+                            /> 
                           </li>
                           <li>
                             <div class="row">

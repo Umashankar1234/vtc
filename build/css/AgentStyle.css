@@ -1755,6 +1755,21 @@ footer {
   margin: 0;
 }
 
+.browse_img_conts_main .nav-tabs .nav-item.show .nav-new-link,
+.nav-new-link,
+.nav-tabs .nav-new-link.active,
+.tab_main .nav-tabs .nav-item.show .nav-new-link {
+  background: #2d3e50;
+
+  border-radius: 0 !important;
+
+  margin: 0;
+}
+
+.navbar-light .navbar-nav .nav-new-link {
+  color: rgb(236, 233, 233);
+}
+
 .action_sec_tab ul.nav-tabs .nav-link,
 .browse_img_conts_main .nav-tabs .nav-link,
 .post_list p {
@@ -5570,3 +5585,78 @@ input[type="text"]:disabled {
   color: #5e5e5e !important;
   font-weight: 500 !important;
 }
+/* .dropdown-menu.show ul {
+  column-count: 2;
+} */
+.navbar-blue {
+  background:#2d3e50;
+}
+.dropdown-menu.show ul.column-count-3{
+  column-count: 3;
+}
+.dropdown-menu.show ul.column-count-2{
+  column-count: 2;
+}
+.dropdown-toggle{
+  position: relative;
+}
+#navbarDropdown::after {
+  display: inline-block;
+  margin-left: 10px;
+  font-size: 15px;
+  line-height: 16px;
+  padding-top: 6px;
+  font-weight: bold;
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-bottom: 0;
+  border-left: 0.3em solid transparent;
+  color: #ffffff;
+  vertical-align: middle;
+}
+.dropdown-menu a:not([href]):not([tabindex]) {
+  color:unset !important;
+  cursor: pointer !important;
+}
+.m-t-10{
+  margin-bottom: 20px;
+}
+
+.action_sec .navbar-light .navbar-toggler-icon {
+  filter: invert(1) hue-rotate(96deg) saturate(38);
+  opacity: 1;
+}
+
+.action_sec .navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.5);
+  border-color: rgb(255 255 255);
+  margin: 7px 0px 7px 10px;
+}
+.action_sec .nav-link {
+  display: block;
+  padding: 8px 5px;
+  margin-left: 12px !important;
+}
+
+
+.toggle_sec .navbar-light .navbar-toggler-icon {
+  filter: invert(1) hue-rotate(96deg) saturate(38);
+  opacity: 1;
+}
+
+.toggle_sec .navbar-light .navbar-toggler {
+  color: rgba(0,0,0,.5);
+  border-color: rgb(255 255 255);
+  margin: 7px 0px 7px 10px;
+}
+.toggle_sec .nav-link {
+  display: block;
+  padding: 8px 5px;
+  margin-left: 12px !important;
+}
+/* ul.navbar-nav li.dropdown:hover .dropdown-menu.ul{ display: block; column-count: 3;}
+.dropdown-menu.show ul.column-count-3 {
+  column-count: 3;
+} */
+
+

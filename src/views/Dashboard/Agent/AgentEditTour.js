@@ -291,7 +291,9 @@ const AgentEditTour = React.memo((props) => {
   const [serviceLinks, setServiceLinks] = useState({});
   const [openTrafficModal, setOpenTrafficModal] = useState(false);
   const [trafficData, setTrafficData] = useState(initialTrafficState);
-
+  const [hover, setHover] = useState(false);
+  const [hover1, setHover1] = useState(false);
+  const [hover2, setHover2] = useState(false);
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -790,45 +792,45 @@ const AgentEditTour = React.memo((props) => {
       if (themeId === 1) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template/" +
-            tour_id +
-            "/" +
-            agent_id,
+          tour_id +
+          "/" +
+          agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 2) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template1/" +
-            tour_id +
-            "/" +
-            agent_id,
+          tour_id +
+          "/" +
+          agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 3) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template2/" +
-            tour_id +
-            "/" +
-            agent_id,
+          tour_id +
+          "/" +
+          agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 4) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template3/" +
-            tour_id +
-            "/" +
-            agent_id,
+          tour_id +
+          "/" +
+          agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template4/" +
-            tour_id +
-            "/" +
-            agent_id,
+          tour_id +
+          "/" +
+          agent_id,
           "_blank"
         );
         setThemeId("");
@@ -841,11 +843,11 @@ const AgentEditTour = React.memo((props) => {
       if (defaultsThemeId && isPremium === 0) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template5/" +
-            tour_id +
-            "/" +
-            agent_id +
-            "/" +
-            defaultsThemeId,
+          tour_id +
+          "/" +
+          agent_id +
+          "/" +
+          defaultsThemeId,
           "_blank"
         );
         setDefaultsThemeId("");
@@ -901,8 +903,8 @@ const AgentEditTour = React.memo((props) => {
           res.name === data.name
             ? firstOrder.order
             : res.name === data.firstOrder
-            ? data.order
-            : res.order,
+              ? data.order
+              : res.order,
       };
       // if (res.name === data.name) {
       //     res.order = firstOrder.order;
@@ -1495,11 +1497,11 @@ const AgentEditTour = React.memo((props) => {
     setAgentData({ ...agentData, photo: event.target.files });
     setAgentPhoto(URL.createObjectURL(event.target.files[0]));
   };
-  const handleOnChange = (val, fname) => {};
+  const handleOnChange = (val, fname) => { };
   const handleAudioStop = (data) => {
     setValue({ audioDetails: data });
   };
-  const handleCountDown = (data) => {};
+  const handleCountDown = (data) => { };
   const handleAudioUpload = (file) => {
     setNarrationData({ ...narrationData, file_two: value.audioDetails });
     setCurrentAudio(value.audioDetails.url);
@@ -2860,7 +2862,7 @@ const AgentEditTour = React.memo((props) => {
           },
           {
             label: "No",
-            onClick: () => {},
+            onClick: () => { },
           },
         ],
       });
@@ -3014,6 +3016,18 @@ const AgentEditTour = React.memo((props) => {
     setTourList(new_tourList);
   };
   console.log("booyah");
+  function changeHover(e) {
+    
+    setHover(true);
+  }
+  function changeHover1(e) {
+    
+    setHover1(true);
+  }
+  function changeHover2(e) {
+    
+    setHover2(true);
+  }
   return (
     <>
       <AgentHeader />
@@ -3074,22 +3088,177 @@ const AgentEditTour = React.memo((props) => {
       </section>
       <section class="action_sec">
         <div class="container-fluid">
-        <div class="row">
-          <div class="col-lg-12 col-md-12">
-            <div class="action_sec_main">
-              <div class="action_sec_left action_sec_tab">
-                <ul class="nav nav-tabs list_sec" role="tablist">
-                  <li class="nav-item">
-                    <a
-                      class="nav-link active"
-                      data-toggle="tab"
-                      href="#ImageSetTools"
-                      role="tab"
-                    >
-                      <i class="fas fa-image"></i>Media Tools
-                    </a>
-                  </li>
-                  {/* <li class="nav-item">
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+
+              {/* Navigation Menu */}
+
+              {/* <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                  Dropdown button
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" href="#">Action</a>
+                  <a class="dropdown-item" href="#">Another action</a>
+                  <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+              </div> */}
+
+              <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-image"></i> Media Tools
+                      </a>
+                      <div  className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+
+                        <ul class="column-count-3">
+                          <li><a class="dropdown-item" onClick={() => viewtour()}><i class="fas fa-eye"></i> View Tour</a></li>
+                          <li><a class="dropdown-item" onClick={() => {
+                            setOpenChangeOrderModal(true);
+                          }}><i class="far fa-image"></i> Change order</a></li>
+
+                          <li><a class="dropdown-item" onClick={() => {
+                            setOpenModal(true);
+                          }}><i class="far fa-image"></i> Add Images</a></li>
+                          <li><a class="dropdown-item" onClick={() => {
+                            setOpenVideoModal(true);
+                          }}> <i class="fas fa-video"></i> Add Video</a></li>
+
+                          <li><a class="dropdown-item" onClick={downloadImage}><i class="fas fa-download"></i> Download Image</a></li>
+
+                          <li><a class="dropdown-item" onClick={handleDelete}><i class="far fa-trash-alt"></i> Delete Image</a></li>
+
+                          <li><a class="dropdown-item" onClick={() => updateAllCaption()}> <i class="fas fa-pen"></i> Update All Captions</a></li>
+
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#Property">  <i class="fas fa-info-circle"></i> Property Information</a></li>
+
+                          <li><a class="dropdown-item" onClick={() => setOpenAmenityModal(true)}> <i class="fas fa-file-spreadsheet"></i> Amenities</a></li>
+
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#Services"
+                          >  <i class="fas fa-link"></i> Service Links</a></li>
+
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#Links">  <i class="fas fa-external-link-alt"></i> Other Links</a></li>
+                          <li><a class="dropdown-item" onClick={() => setOpenTrafficModal(true)}> <i class="far fa-sticky-note"></i> Traffic Reports</a></li>
+                          <li><a class="dropdown-item" onClick={() => panoroma()}> <i class="far fa-image"></i> Panoramas</a></li>
+                          <li><a class="dropdown-item" onClick={() => updateTourListData()}>  <i class="fas fa-cog"></i> Update All Settings</a></li>
+                          <li><a class="dropdown-item" onClick={handleEditImageModal}>  <i class="fas fa-edit"></i> Edit Image{" "}</a></li>
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#Distributetour">  <i class="fas fa-table"></i> Distribute Tour</a></li>
+                          <li><a class="dropdown-item" href=""
+                            data-toggle="modal"
+                            data-target="#facebook">  <i class="fab fa-facebook-f"></i> Post to Facebook</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover1(false)} onMouseEnter={changeHover1}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-line-height"></i> Basic
+                      </a>
+                      <div className={hover1 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <ul class="column-count-2">
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#menu_opt"
+                          > <i class="fas fa-bars"></i> Menu Options</a></li>
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#bg_music"
+                          > <i class="fas fa-music"></i> Background Music</a></li>
+
+                          <li><a class="dropdown-item" onClick={() => setOpenNarrationModal(true)}><i class="fas fa-torii-gate"></i> Tour Narration{" "}</a></li>
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#Property"><i class="fas fa-home"></i> Property Information{" "}</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={() => setOpenAmenityModal(true)}> <i class="fas fa-sticky-note"></i>  Amenities</a></li>
+
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#open_house">  <i class="fas fa-warehouse"></i>  Open House Announcements</a></li>
+
+                          <li><a class="dropdown-item"
+                            href="#"
+                            data-toggle="modal"
+                            data-target="#Newsletter">   <i class="fab fa-wpforms"></i>  Add Newsletter Form</a></li>
+                        </ul>
+
+                      </div>
+                    </li>
+                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover2(false)} onMouseEnter={changeHover2}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-hand-point-right"></i> Advanced
+                      </a>
+                      <div   className={hover2 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <ul class="column-count-2">
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#themes"
+                          > <i class="fas fa-gopuram"></i> Themes</a></li>
+                          <li><a class="dropdown-item" onClick={() => setOpenCompanyBanner(true)}> <i class="fas fa-building"></i> Company Banner</a></li>
+
+                          <li><a class="dropdown-item"
+                            data-toggle="modal"
+                            data-target="#agent_pop_tab"><i class="fas fa-user"></i>  Co-listing agent{" "}</a></li>
+                          <li><a class="dropdown-item"
+                            onClick={() => handleFloorPlan()}><i class="fas fa-ruler-horizontal"></i>  Floor Plans</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={handleEditFloor}><i class="fas fa-wifi"></i>  Floor-plan Hot-spot</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={handlePanorama}> <i class="fas fa-photo-video"></i>  Panoramas</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={() => handleSlideShow()}> <i class="fas fa-sliders-h"></i> Slide-Show Editor</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={() => {
+                              setOpenYoutubeModal(true);
+                            }}
+                          >  <i class="fab fa-youtube"></i> Additional YouTube Links</a></li>
+
+                          <li><a class="dropdown-item"
+                            onClick={() => {
+                              setOpenWalkThroughModal(true);
+                            }}
+                          >  <i class="fas fa-home"></i>  3D Walkthrough Home Tour</a></li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              {/* Navigation Menu */}
+
+              {/*<div class="action_sec_main">
+                <div class="action_sec_left action_sec_tab">
+                  <ul class="nav nav-tabs list_sec" role="tablist">
+                    <li class="nav-item">
+                      <a
+                        class="nav-link active"
+                        data-toggle="tab"
+                        href="#ImageSetTools"
+                        role="tab"
+                      >
+                        <i class="fas fa-image"></i>Media Tools
+                      </a>
+                    </li>*/}
+              {/* <li class="nav-item">
               <a
                 class="nav-link active"
                 data-toggle="tab"
@@ -3099,500 +3268,508 @@ const AgentEditTour = React.memo((props) => {
                 <i class="fas fa-cog"></i>Actions
               </a>
             </li> */}
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Basic"
-                      role="tab"
-                    >
-                      <i class="fas fa-line-height"></i>Basic
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a
-                      class="nav-link"
-                      data-toggle="tab"
-                      href="#Advanced"
-                      role="tab"
-                    >
-                      <i class="fas fa-hand-point-right"></i>Advanced
-                    </a>
-                  </li>
-                </ul>
-              </div>
+              {/*<li class="nav-item">
+                      <a
+                        class="nav-link"
+                        data-toggle="tab"
+                        href="#Basic"
+                        role="tab"
+                      >
+                        <i class="fas fa-line-height"></i> Basic
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a
+                        class="nav-link"
+                        data-toggle="tab"
+                        href="#Advanced"
+                        role="tab"
+                      >
+                        <i class="fas fa-hand-point-right"></i> Advanced
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </div>*/}
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-12 col-md-12">
-            <div class="tab-content">
-              <div
-                class="tab-pane"
-                id="Actions_tab"
-                role="tabpanel"
-                style={{ width: "100%", overflow: "auto" }}
-              >
-                <div class="property_info_cont agent_img_sets" id="demo">
-                  <section class="snap-scrolling-example">
-                    <div class="horizontal-images tab_main tabscroll-windows">
-                      <ul class="list_sec" role="">
-                        <li class="">
-                          <a onClick={() => updateTourListData()}>
-                            <span>
-                              <i class="fas fa-cog"></i>
-                            </span>
-                            Update All Settings
-                          </a>
-                        </li>
-                        <li class="">
-                          <a onClick={handleEditImageModal}>
-                            <span>
-                              <i class="fas fa-edit"></i>
-                            </span>
-                            Edit Image{" "}
-                          </a>
-                        </li>
-                        <li class="">
-                          <a onClick={() => viewtour()}>
-                            <span>
-                              <i class="fas fa-eye"></i>
-                            </span>
-                            View Tour
-                          </a>
-                        </li>
-                        <li class="">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Distributetour"
-                          >
-                            <span>
-                              <i class="fas fa-table"></i>
-                            </span>
-                            Distribute Tour
-                          </a>
-                        </li>
-                        <li class="">
-                          <a
-                            href=""
-                            data-toggle="modal"
-                            data-target="#facebook"
-                          >
-                            <span>
-                              <i class="fab fa-facebook-f"></i>
-                            </span>
-                            Post to Facebook
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </section>
+          {/*<div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="tab-content">
+                <div
+                  class="tab-pane"
+                  id="Actions_tab"
+                  role="tabpanel"
+                  style={{ width: "100%", overflow: "auto" }}
+                >
+                  <div class="property_info_cont agent_img_sets" id="demo">
+
+                    <section class="snap-scrolling-example">
+
+
+
+                      <div class="horizontal-images tab_main tabscroll-windows">
+                        <ul class="list_sec" role="">
+                          <li class="">
+                            <a onClick={() => updateTourListData()}>
+                              <span>
+                                <i class="fas fa-cog"></i>
+                              </span>
+                              Update All Settings
+                            </a>
+                          </li>
+                          <li class="">
+                            <a onClick={handleEditImageModal}>
+                              <span>
+                                <i class="fas fa-edit"></i>
+                              </span>
+                              Edit Image{" "}
+                            </a>
+                          </li>
+                          <li class="">
+                            <a onClick={() => viewtour()}>
+                              <span>
+                                <i class="fas fa-eye"></i>
+                              </span>
+                              View Tour
+                            </a>
+                          </li>
+                          <li class="">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Distributetour"
+                            >
+                              <span>
+                                <i class="fas fa-table"></i>
+                              </span>
+                              Distribute Tour
+                            </a>
+                          </li>
+                          <li class="">
+                            <a
+                              href=""
+                              data-toggle="modal"
+                              data-target="#facebook"
+                            >
+                              <span>
+                                <i class="fab fa-facebook-f"></i>
+                              </span>
+                              Post to Facebook
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </section>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="tab-pane"
-                id="Basic"
-                role="tabpanel"
-                style={{ width: "100%", overflow: "auto" }}
-              >
-                <div class="property_info_cont agent_img_sets" id="demo">
-                  <section class="snap-scrolling-example">
-                    <div class="horizontal-images tabscroll-windows">
-                      <OwlCarousel margin={10} {...options} id="home_slide1">
-                        <div className="asdf">
-                          <a
-                            class=""
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#menu_opt"
-                          >
-                            <span>
-                              <i class="fas fa-bars"></i>
-                            </span>
-                            Menu Options
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#bg_music"
-                          >
-                            <span>
-                              <i class="fas fa-music"></i>
-                            </span>{" "}
-                            Background Music
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => setOpenNarrationModal(true)}>
-                            <span>
-                              <i class="fas fa-torii-gate"></i>
-                            </span>
-                            Tour Narration{" "}
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Property"
-                          >
-                            <span>
-                              <i class="fas fa-home"></i>
-                            </span>
-                            Property Information{" "}
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => setOpenAmenityModal(true)}>
-                            <span>
-                              <i class="fas fa-sticky-note"></i>
-                            </span>{" "}
-                            Amenities
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#open_house"
-                          >
-                            <span>
-                              <i class="fas fa-warehouse"></i>
-                            </span>
-                            Open House Announcements
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Newsletter"
-                          >
-                            <span>
-                              <i class="fab fa-wpforms"></i>
-                            </span>
-                            Add Newsletter Form
-                          </a>
-                        </div>
-                      </OwlCarousel>
-                    </div>
-                  </section>
+                <div
+                  class="tab-pane"
+                  id="Basic"
+                  role="tabpanel"
+                  style={{ width: "100%", overflow: "auto" }}
+                >
+                  <div class="property_info_cont agent_img_sets" id="demo">
+                    <section class="snap-scrolling-example">
+                      <div class="horizontal-images tabscroll-windows">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
+                            <a
+                              class=""
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#menu_opt"
+                            >
+                              <span>
+                                <i class="fas fa-bars"></i>
+                              </span>
+                              Menu Options
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#bg_music"
+                            >
+                              <span>
+                                <i class="fas fa-music"></i>
+                              </span>{" "}
+                              Background Music
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenNarrationModal(true)}>
+                              <span>
+                                <i class="fas fa-torii-gate"></i>
+                              </span>
+                              Tour Narration{" "}
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              <span>
+                                <i class="fas fa-home"></i>
+                              </span>
+                              Property Information{" "}
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenAmenityModal(true)}>
+                              <span>
+                                <i class="fas fa-sticky-note"></i>
+                              </span>{" "}
+                              Amenities
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#open_house"
+                            >
+                              <span>
+                                <i class="fas fa-warehouse"></i>
+                              </span>
+                              Open House Announcements
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Newsletter"
+                            >
+                              <span>
+                                <i class="fab fa-wpforms"></i>
+                              </span>
+                              Add Newsletter Form
+                            </a>
+                          </div>
+                        </OwlCarousel>
+                      </div>
+                    </section>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="tab-pane"
-                id="Advanced"
-                role="tabpanel"
-                style={{ width: "100%", overflow: "auto" }}
-              >
-                <div class="property_info_cont agent_img_sets" id="demo">
-                  <section class="snap-scrolling-example">
-                    <div class="horizontal-images tabscroll-windows">
-                      <OwlCarousel margin={10} {...options} id="home_slide1">
-                        <div className="asdf">
-                          <a
-                            class=""
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#themes"
-                          >
-                            <span>
-                              <i class="fas fa-gopuram"></i>
-                            </span>
-                            Themes
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => setOpenCompanyBanner(true)}>
-                            <span>
-                              <i class="fas fa-building"></i>
-                            </span>{" "}
-                            Company Banner
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#agent_pop_tab"
-                          >
-                            <span>
-                              <i class="fas fa-user"></i>
-                            </span>
-                            Co-listing agent{" "}
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => handleFloorPlan()}>
-                            <span>
-                              <i class="fas fa-ruler-horizontal"></i>
-                            </span>
-                            Floor Plans
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={handleEditFloor}>
-                            <span>
-                              <i class="fas fa-wifi"></i>
-                            </span>
-                            Floor-plan Hot-spot
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={handlePanorama}>
-                            <span>
-                              <i class="fas fa-photo-video"></i>
-                            </span>
-                            Panoramas
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => handleSlideShow()}>
-                            <span>
-                              <i class="fas fa-sliders-h"></i>
-                            </span>
-                            Slide-Show Editor
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            onClick={() => {
-                              setOpenYoutubeModal(true);
-                            }}
-                          >
-                            <span>
-                              <i class="fab fa-youtube"></i>
-                            </span>
-                            Additional YouTube Links
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            onClick={() => {
-                              setOpenWalkThroughModal(true);
-                            }}
-                          >
-                            <span>
-                              <i class="fas fa-home"></i>
-                            </span>
-                            3D Walkthrough Home Tour
-                          </a>
-                        </div>
-                      </OwlCarousel>
-                    </div>
-                  </section>
+                <div
+                  class="tab-pane"
+                  id="Advanced"
+                  role="tabpanel"
+                  style={{ width: "100%", overflow: "auto" }}
+                >
+                  <div class="property_info_cont agent_img_sets" id="demo">
+                    <section class="snap-scrolling-example">
+                      <div class="horizontal-images tabscroll-windows">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
+                            <a
+                              class=""
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#themes"
+                            >
+                              <span>
+                                <i class="fas fa-gopuram"></i>
+                              </span>
+                              Themes
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenCompanyBanner(true)}>
+                              <span>
+                                <i class="fas fa-building"></i>
+                              </span>{" "}
+                              Company Banner
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#agent_pop_tab"
+                            >
+                              <span>
+                                <i class="fas fa-user"></i>
+                              </span>
+                              Co-listing agent{" "}
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => handleFloorPlan()}>
+                              <span>
+                                <i class="fas fa-ruler-horizontal"></i>
+                              </span>
+                              Floor Plans
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handleEditFloor}>
+                              <span>
+                                <i class="fas fa-wifi"></i>
+                              </span>
+                              Floor-plan Hot-spot
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handlePanorama}>
+                              <span>
+                                <i class="fas fa-photo-video"></i>
+                              </span>
+                              Panoramas
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => handleSlideShow()}>
+                              <span>
+                                <i class="fas fa-sliders-h"></i>
+                              </span>
+                              Slide-Show Editor
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              onClick={() => {
+                                setOpenYoutubeModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="fab fa-youtube"></i>
+                              </span>
+                              Additional YouTube Links
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              onClick={() => {
+                                setOpenWalkThroughModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="fas fa-home"></i>
+                              </span>
+                              3D Walkthrough Home Tour
+                            </a>
+                          </div>
+                        </OwlCarousel>
+                      </div>
+                    </section>
+                  </div>
                 </div>
-              </div>
-              <div
-                class="tab-pane active"
-                id="ImageSetTools"
-                role="tabpanel"
-                style={{ width: "100%", overflow: "auto" }}
-              >
-                <div class="property_info_cont agent_img_sets" id="demo">
-                  <section class="snap-scrolling-example">
-                    <div class="horizontal-images tabscroll-windows">
-                      <OwlCarousel margin={10} {...options} id="home_slide1">
-                        <div className="asdf">
-                          <a
-                            className="owl_"
-                            onClick={() => {
-                              setOpenChangeOrderModal(true);
-                            }}
-                          >
-                            <span>
-                              <i class="far fa-image"></i>
-                            </span>
-                            Change order
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            className="owl_"
-                            onClick={() => {
-                              setOpenModal(true);
-                            }}
-                          >
-                            <span>
-                              <i class="far fa-image"></i>
-                            </span>
-                            Add Images
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            onClick={() => {
-                              setOpenVideoModal(true);
-                            }}
-                          >
-                            <span>
-                              <i class="fas fa-video"></i>
-                            </span>
-                            Add Video
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={downloadImage}>
-                            <span>
-                              <i class="fas fa-download"></i>
-                            </span>
-                            Download Image
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={handleDelete}>
-                            <span>
-                              <i class="far fa-trash-alt"></i>
-                            </span>
-                            Delete Image
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => updateAllCaption()}>
-                            <span>
-                              <i class="fas fa-pen"></i>
-                            </span>
-                            Update All Captions
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Property"
-                          >
-                            <span>
-                              <i class="fas fa-info-circle"></i>
-                            </span>
-                            Property Information
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => setOpenAmenityModal(true)}>
-                            <span>
-                              <i class="fas fa-file-spreadsheet"></i>
-                            </span>
-                            Amenities
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Services"
-                          >
-                            <span>
-                              <i class="fas fa-link"></i>
-                            </span>
-                            Service Links
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a href="#" data-toggle="modal" data-target="#Links">
-                            <span>
-                              <i class="fas fa-external-link-alt"></i>
-                            </span>
-                            Other Links
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => setOpenTrafficModal(true)}>
-                            <span>
-                              <i class="far fa-sticky-note"></i>
-                            </span>
-                            Traffic Reports
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          {/* <a href="panorama.html"><span><i class="far fa-image"></i></span>Panoramas</a> */}
-                          {/* <Link to={APIPath() + "agent-panoroma"}><span><i class="far fa-image"></i></span>Panoramas</Link> */}
-                          <a onClick={() => panoroma()}>
-                            <span>
-                              <i class="far fa-image"></i>
-                            </span>
-                            Panoramas
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => updateTourListData()}>
-                            <span>
-                              <i class="fas fa-cog"></i>
-                            </span>
-                            Update All Settings
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={handleEditImageModal}>
-                            <span>
-                              <i class="fas fa-edit"></i>
-                            </span>
-                            Edit Image{" "}
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a onClick={() => viewtour()}>
-                            <span>
-                              <i class="fas fa-eye"></i>
-                            </span>
-                            View Tour
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Distributetour"
-                          >
-                            <span>
-                              <i class="fas fa-table"></i>
-                            </span>
-                            Distribute Tour
-                          </a>
-                        </div>
-                        <div className="asdf">
-                          <a
-                            href=""
-                            data-toggle="modal"
-                            data-target="#facebook"
-                          >
-                            <span>
-                              <i class="fab fa-facebook-f"></i>
-                            </span>
-                            Post to Facebook
-                          </a>
-                        </div>
-                      </OwlCarousel>
-                    </div>
-                  </section>
+                <div
+                  class="tab-pane active"
+                  id="ImageSetTools"
+                  role="tabpanel"
+                  style={{ width: "100%", overflow: "auto" }}
+                >
+                  <div class="property_info_cont agent_img_sets" id="demo">
+                    <section class="snap-scrolling-example">
+                      <div class="horizontal-images tabscroll-windows">
+                        <OwlCarousel margin={10} {...options} id="home_slide1">
+                          <div className="asdf">
+                            <a onClick={() => viewtour()}>
+                              <span>
+                                <i class="fas fa-eye"></i>
+                              </span>
+                              View Tour
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              className="owl_"
+                              onClick={() => {
+                                setOpenChangeOrderModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="far fa-image"></i>
+                              </span>
+                              Change order
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              className="owl_"
+                              onClick={() => {
+                                setOpenModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="far fa-image"></i>
+                              </span>
+                              Add Images
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              onClick={() => {
+                                setOpenVideoModal(true);
+                              }}
+                            >
+                              <span>
+                                <i class="fas fa-video"></i>
+                              </span>
+                              Add Video
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={downloadImage}>
+                              <span>
+                                <i class="fas fa-download"></i>
+                              </span>
+                              Download Image
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handleDelete}>
+                              <span>
+                                <i class="far fa-trash-alt"></i>
+                              </span>
+                              Delete Image
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => updateAllCaption()}>
+                              <span>
+                                <i class="fas fa-pen"></i>
+                              </span>
+                              Update All Captions
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              <span>
+                                <i class="fas fa-info-circle"></i>
+                              </span>
+                              Property Information
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenAmenityModal(true)}>
+                              <span>
+                                <i class="fas fa-file-spreadsheet"></i>
+                              </span>
+                              Amenities
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Services"
+                            >
+                              <span>
+                                <i class="fas fa-link"></i>
+                              </span>
+                              Service Links
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Links"
+                            >
+                              <span>
+                                <i class="fas fa-external-link-alt"></i>
+                              </span>
+                              Other Links
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => setOpenTrafficModal(true)}>
+                              <span>
+                                <i class="far fa-sticky-note"></i>
+                              </span>
+                              Traffic Reports
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a href="panorama.html"><span><i class="far fa-image"></i></span>Panoramas</a>
+                            <Link to={APIPath() + "agent-panoroma"}><span><i class="far fa-image"></i></span>Panoramas</Link>
+                            <a onClick={() => panoroma()}>
+                              <span>
+                                <i class="far fa-image"></i>
+                              </span>
+                              Panoramas
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={() => updateTourListData()}>
+                              <span>
+                                <i class="fas fa-cog"></i>
+                              </span>
+                              Update All Settings
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a onClick={handleEditImageModal}>
+                              <span>
+                                <i class="fas fa-edit"></i>
+                              </span>
+                              Edit Image{" "}
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Distributetour"
+                            >
+                              <span>
+                                <i class="fas fa-table"></i>
+                              </span>
+                              Distribute Tour
+                            </a>
+                          </div>
+                          <div className="asdf">
+                            <a
+                              href=""
+                              data-toggle="modal"
+                              data-target="#facebook"
+                            >
+                              <span>
+                                <i class="fab fa-facebook-f"></i>
+                              </span>
+                              Post to Facebook
+                            </a>
+                          </div>
+                        </OwlCarousel>
+                      </div>
+                    </section>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-        {/* <div class="row">
+          </div>*/}
+          {/* <div class="row">
                 <div class="col-lg-12 col-md-12">
                     <h6 class="optimal_pic mar_top">Note ! Drag-n-Drop to Rearrange Images for All Services.<span class="close">X</span></h6>
                 </div>
             </div> */}
-        <div class="row">
-          <div class="col-lg-12 col-md-12">
-            <div class="test_sec">
-              <div class="test_sec_left"></div>
-              <div class="test_sec_right">
-                <button
-                  onClick={updateTourListData}
-                  type="button"
-                  class="next_btn"
-                >
-                  Save
-                </button>
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <div class="test_sec">
+                <div class="test_sec_left"></div>
+                <div class="test_sec_right">
+                  <button
+                    onClick={updateTourListData}
+                    type="button"
+                    class="next_btn"
+                  >
+                    Save
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
           {/* <div class="row" style={{ paddingTop: "20px" }}>
             <div class="col-lg-12 col-md-12">
               <div class="image_service">
@@ -3749,365 +3926,342 @@ const AgentEditTour = React.memo((props) => {
               </div>
             </div>
           </div> */}
-            <div className="row" style={{ height: "900px", overflowY: "auto" }}>
-              
-                {dragImages.map((res, index) => (
+          <div className="row" style={{ height: "900px", overflowY: "auto" }}>
+            {dragImages.map((res, index) => (
+              <div
+                onClick={() => {
+                  setImageUrl(res.imageurl);
+                  setImageId(res.id);
+                  handleImageId(res);
+                }}
+                class="col-lg-4 col-md-4"
+              >
+                <div
+                  id={"myDiv" + res.id}
+                  class="select_img_set_box new_edit_tour_sec"
+                >
                   <div
-                      onClick={() => {
-                        setImageUrl(res.imageurl);
-                        setImageId(res.id);
-                        handleImageId(res);
-                      }}
-                      class="col-lg-4 col-md-4"
+                    class="tab-content py-3 px-3 px-sm-0"
+                    id="nav-tabContent"
+                  >
+                    <div
+                      class="tab-pane fade show active"
+                      id={"nav-home" + res.id}
+                      role="tabpanel"
+                      aria-labelledby={"nav-home-tab" + res.id}
                     >
-                      <div
-                        id={"myDiv" + res.id}
-                        class="select_img_set_box new_edit_tour_sec"
-                      >
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12 mb-3">
+                          <div class="select_img_set_box_img">
+                            <img draggable="false" src={res.imageurl} alt="" />
+                            {res.image_type === "panoramas" ? (
+                              <img
+                                src={res.flag_img}
+                                style={{
+                                  width: "80px",
+                                  right: "5px",
+                                  top: "5px",
+                                  border: "none",
+                                  boxShadow: "none",
+                                }}
+                                alt=""
+                                draggable="false"
+                              />
+                            ) : (
+                              <i
+                                onClick={() => {
+                                  setOpenEditImageModal(true);
+                                  setFilename(res.filename);
+                                }}
+                                class="far fa-edit new_edit_btn"
+                                style={{ top: "20px" }}
+                              ></i>
+                            )}
+                          </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12">
+                          <div class="select_img_set_box_cont">
+                            <input
+                              type="text"
+                              onEnter
+                              tabIndex={index + 1}
+                              onChange={(event) =>
+                                handleCaptionChange(event, res)
+                              }
+                              value={res.caption}
+                              placeholder={res.caption}
+                              class="form-control"
+                            />
+                          </div>
+                        </div>
                         <div
-                          class="tab-content py-3 px-3 px-sm-0"
-                          id="nav-tabContent"
+                          class="col-md-9 formbox1"
+                          style={{ marginTop: "10px" }}
                         >
-                          <div
-                            class="tab-pane fade show active"
-                            id={"nav-home" + res.id}
-                            role="tabpanel"
-                            aria-labelledby={"nav-home-tab" + res.id}
-                          >
-                            <div class="row">
-                              <div class="col-lg-12 col-md-12 mb-3">
-                                <div class="select_img_set_box_img">
-                                  <img
-                                    draggable="false"
-                                    src={res.imageurl}
-                                    alt=""
-                                  />
-                                  {res.image_type === "panoramas" ? (
-                                    <img
-                                      src={res.flag_img}
-                                      style={{
-                                        width: "80px",
-                                        right: "5px",
-                                        top: "5px",
-                                        border: "none",
-                                        boxShadow: "none",
-                                      }}
-                                      alt=""
-                                      draggable="false"
-                                    />
-                                  ) : (
-                                    <i
-                                      onClick={() => {
-                                        setOpenEditImageModal(true);
-                                        setFilename(res.filename);
-                                      }}
-                                      class="far fa-edit new_edit_btn"
-                                      style={{ top: "20px" }}
-                                    ></i>
-                                  )}
-                                </div>
-                              </div>
-                              <div class="col-lg-12 col-md-12">
-                                <div class="select_img_set_box_cont">
-                                  <input
-                                    type="text"
-                                    onEnter
-                                    tabIndex={index + 1}
-                                    onChange={(event) =>
-                                      handleCaptionChange(event, res)
-                                    }
-                                    value={res.caption}
-                                    placeholder={res.caption}
-                                    class="form-control"
-                                  />
-                                </div>
-                              </div>
+                          <label style={{ marginRight: "35px" }}>
+                            Use this Image on tour ?
+                            <span style={{ color: "#ffa12d" }}></span>
+                          </label>
+                        </div>
+                        <div
+                          class="col-md-3 formbox1"
+                          style={{ marginTop: "7px" }}
+                        >
+                          <Switch
+                            onChange={(event) =>
+                              handleImageTourChange(event, res.id)
+                            }
+                            checked={res.enableontour}
+                            handleDiameter={28}
+                            offColor="#5D5D5D"
+                            onColor="#F6AD17"
+                            offHandleColor="#fff"
+                            onHandleColor="#fff"
+                            height={35}
+                            width={60}
+                            borderRadius={6}
+                            uncheckedIcon={
                               <div
-                                class="col-md-9 formbox1"
-                                style={{ marginTop: "10px" }}
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
                               >
-                                <label style={{ marginRight: "35px" }}>
-                                  Use this Image on tour ?
-                                  <span style={{ color: "#ffa12d" }}></span>
-                                </label>
+                                No
                               </div>
+                            }
+                            checkedIcon={
                               <div
-                                class="col-md-3 formbox1"
-                                style={{ marginTop: "7px" }}
+                                style={{
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  height: "100%",
+                                  fontSize: 15,
+                                  color: "white",
+                                  paddingRight: 2,
+                                }}
                               >
-                                <Switch
+                                Yes
+                              </div>
+                            }
+                            className="react-switch"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                    <div
+                      class="tab-pane fade"
+                      id={"nav-profile" + res.id}
+                      role="tabpanel"
+                      aria-labelledby={"nav-profile-tab" + res.id}
+                    >
+                      <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                          <div class="select_img_set_box_img">
+                            <img src={res.imageurl} alt="" />
+                            <i class="far fa-edit edit-btn"></i>
+                          </div>
+                        </div>
+                        <div class="col-lg-8 col-md-8">
+                          <div class="caption_setting">
+                            <h6>Caption Setting</h6>
+                          </div>
+                          <div class="row">
+                            <div class="col-lg-12 col-md-12">
+                              <div class="socila_status_single cap_set">
+                                <label>Font</label>
+                                <select
                                   onChange={(event) =>
-                                    handleImageTourChange(event, res.id)
+                                    handlefontTourChange(event, res.id)
                                   }
-                                  checked={res.enableontour}
-                                  handleDiameter={28}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={35}
-                                  width={60}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
-                            </div>
-                          </div>
-                          <div
-                            class="tab-pane fade"
-                            id={"nav-profile" + res.id}
-                            role="tabpanel"
-                            aria-labelledby={"nav-profile-tab" + res.id}
-                          >
-                            <div class="row">
-                              <div class="col-lg-4 col-md-4">
-                                <div class="select_img_set_box_img">
-                                  <img src={res.imageurl} alt="" />
-                                  <i class="far fa-edit edit-btn"></i>
-                                </div>
-                              </div>
-                              <div class="col-lg-8 col-md-8">
-                                <div class="caption_setting">
-                                  <h6>Caption Setting</h6>
-                                </div>
-                                <div class="row">
-                                  <div class="col-lg-12 col-md-12">
-                                    <div class="socila_status_single cap_set">
-                                      <label>Font</label>
-                                      <select
-                                        onChange={(event) =>
-                                          handlefontTourChange(event, res.id)
-                                        }
-                                        value={res.tourfontstyle}
-                                      >
-                                        <option
-                                          value={"Georgia"}
-                                          selected={
-                                            res.tourfontstyle == "Georgia"
-                                              ? true
-                                              : ""
-                                          }
-                                        >
-                                          Georgia
-                                        </option>
-                                        <option
-                                          value={"Arial"}
-                                          selected={
-                                            res.tourfontstyle == "Arial"
-                                              ? true
-                                              : ""
-                                          }
-                                        >
-                                          Arial
-                                        </option>
-                                        <option
-                                          value={"Times New Roman"}
-                                          selected={
-                                            res.tourfontstyle ==
-                                            "Times New Roman"
-                                              ? true
-                                              : ""
-                                          }
-                                        >
-                                          Times New Roman
-                                        </option>
-                                        <option
-                                          value={"Verdana"}
-                                          selected={
-                                            res.tourfontstyle == "Verdana"
-                                              ? true
-                                              : ""
-                                          }
-                                        >
-                                          Verdana
-                                        </option>
-                                        <option
-                                          value={"Tahoma"}
-                                          selected={
-                                            res.tourfontstyle == "Tahoma"
-                                              ? true
-                                              : ""
-                                          }
-                                        >
-                                          Tahoma
-                                        </option>
-                                      </select>
-                                    </div>
-                                    <div class="socila_status_single cap_set">
-                                      <label>Size</label>
-                                      <select
-                                        onChange={(event) =>
-                                          handlefontSizeTourChange(
-                                            event,
-                                            res.id
-                                          )
-                                        }
-                                        value={res.tourfontsize}
-                                      >
-                                        <option value="22" selected="selected">
-                                          22
-                                        </option>
-                                        <option value="24" selected="selected">
-                                          24
-                                        </option>
-                                        <option value="26" selected="selected">
-                                          26
-                                        </option>
-                                        <option value="28" selected="selected">
-                                          28
-                                        </option>
-                                        <option value="30" selected="selected">
-                                          30
-                                        </option>
-                                        <option value="32" selected="selected">
-                                          32
-                                        </option>
-                                        <option value="34" selected="selected">
-                                          34
-                                        </option>
-                                        <option value="36" selected="selected">
-                                          36
-                                        </option>
-                                      </select>
-                                    </div>
-                                    <div class="socila_status_single cap_set">
-                                      <label>Color</label>
-                                      <select
-                                        onChange={(event) =>
-                                          handleColorTourChange(event, res.id)
-                                        }
-                                        value={res.tourfontcolor}
-                                      >
-                                        <option>Red</option>
-                                        <option>green</option>
-                                        <option>blue</option>
-                                        <option>yellow</option>
-                                        <option>cyan</option>
-                                        <option>pink</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-6 col-md-6">
-                                <div class="caption_loc">
-                                  <div class="caption_setting">
-                                    <h6>Caption Location</h6>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="col-lg-2 col-md-2">
-                                <div class="pre_tour_single">
-                                  <input
-                                    style={{ display: "none" }}
-                                    class="radio"
-                                    type="radio"
-                                    onChange={(event) => {
-                                      handleRadioChange(event, res.id);
-                                    }}
-                                    name={"caption" + res.id}
-                                    value="top"
-                                    id={"a" + res.id}
-                                    checked={
-                                      res.tourfontlocation === "top"
-                                        ? true
-                                        : false
-                                    }
-                                  />
-                                  <label id="lbl" for={"a" + res.id}>
-                                    <img src={up_img} />
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-lg-2 col-md-2">
-                                <div class="pre_tour_single">
-                                  <input
-                                    class="radio"
-                                    type="radio"
-                                    onChange={(event) => {
-                                      handleRadioChange(event, res.id);
-                                    }}
-                                    name={"caption" + res.id}
-                                    value="center"
-                                    id={"b" + res.id}
-                                    checked={
-                                      res.tourfontlocation === "center"
-                                        ? true
-                                        : false
-                                    }
-                                  />
-                                  <label id="lbl" for={"b" + res.id}>
-                                    <img src={middle_img} />
-                                  </label>
-                                </div>
-                              </div>
-                              <div class="col-lg-2 col-md-2">
-                                <div class="pre_tour_single">
-                                  <input
-                                    class="radio"
-                                    type="radio"
-                                    onChange={(event) => {
-                                      handleRadioChange(event, res.id);
-                                    }}
-                                    name={"caption" + res.id}
-                                    value="bottom"
-                                    id={"c" + res.id}
-                                    checked={
-                                      res.tourfontlocation === "bottom"
-                                        ? true
-                                        : false
-                                    }
-                                  />
-                                  <label id="lbl" for={"c" + res.id}>
-                                    <img src={bottom_img} />
-                                  </label>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-12 col-md-12">
-                                <button
-                                  className="next_btn_apply_changes"
-                                  onClick={applyToAll.bind(this, res)}
+                                  value={res.tourfontstyle}
                                 >
-                                  Apply to all images
-                                </button>
+                                  <option
+                                    value={"Georgia"}
+                                    selected={
+                                      res.tourfontstyle == "Georgia" ? true : ""
+                                    }
+                                  >
+                                    Georgia
+                                  </option>
+                                  <option
+                                    value={"Arial"}
+                                    selected={
+                                      res.tourfontstyle == "Arial" ? true : ""
+                                    }
+                                  >
+                                    Arial
+                                  </option>
+                                  <option
+                                    value={"Times New Roman"}
+                                    selected={
+                                      res.tourfontstyle == "Times New Roman"
+                                        ? true
+                                        : ""
+                                    }
+                                  >
+                                    Times New Roman
+                                  </option>
+                                  <option
+                                    value={"Verdana"}
+                                    selected={
+                                      res.tourfontstyle == "Verdana" ? true : ""
+                                    }
+                                  >
+                                    Verdana
+                                  </option>
+                                  <option
+                                    value={"Tahoma"}
+                                    selected={
+                                      res.tourfontstyle == "Tahoma" ? true : ""
+                                    }
+                                  >
+                                    Tahoma
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="socila_status_single cap_set">
+                                <label>Size</label>
+                                <select
+                                  onChange={(event) =>
+                                    handlefontSizeTourChange(event, res.id)
+                                  }
+                                  value={res.tourfontsize}
+                                >
+                                  <option value="22" selected="selected">
+                                    22
+                                  </option>
+                                  <option value="24" selected="selected">
+                                    24
+                                  </option>
+                                  <option value="26" selected="selected">
+                                    26
+                                  </option>
+                                  <option value="28" selected="selected">
+                                    28
+                                  </option>
+                                  <option value="30" selected="selected">
+                                    30
+                                  </option>
+                                  <option value="32" selected="selected">
+                                    32
+                                  </option>
+                                  <option value="34" selected="selected">
+                                    34
+                                  </option>
+                                  <option value="36" selected="selected">
+                                    36
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="socila_status_single cap_set">
+                                <label>Color</label>
+                                <select
+                                  onChange={(event) =>
+                                    handleColorTourChange(event, res.id)
+                                  }
+                                  value={res.tourfontcolor}
+                                >
+                                  <option>Red</option>
+                                  <option>green</option>
+                                  <option>blue</option>
+                                  <option>yellow</option>
+                                  <option>cyan</option>
+                                  <option>pink</option>
+                                </select>
                               </div>
                             </div>
                           </div>
-                          {/* <div
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-6 col-md-6">
+                          <div class="caption_loc">
+                            <div class="caption_setting">
+                              <h6>Caption Location</h6>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+                          <div class="pre_tour_single">
+                            <input
+                              style={{ display: "none" }}
+                              class="radio"
+                              type="radio"
+                              onChange={(event) => {
+                                handleRadioChange(event, res.id);
+                              }}
+                              name={"caption" + res.id}
+                              value="top"
+                              id={"a" + res.id}
+                              checked={
+                                res.tourfontlocation === "top" ? true : false
+                              }
+                            />
+                            <label id="lbl" for={"a" + res.id}>
+                              <img src={up_img} />
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+                          <div class="pre_tour_single">
+                            <input
+                              class="radio"
+                              type="radio"
+                              onChange={(event) => {
+                                handleRadioChange(event, res.id);
+                              }}
+                              name={"caption" + res.id}
+                              value="center"
+                              id={"b" + res.id}
+                              checked={
+                                res.tourfontlocation === "center" ? true : false
+                              }
+                            />
+                            <label id="lbl" for={"b" + res.id}>
+                              <img src={middle_img} />
+                            </label>
+                          </div>
+                        </div>
+                        <div class="col-lg-2 col-md-2">
+                          <div class="pre_tour_single">
+                            <input
+                              class="radio"
+                              type="radio"
+                              onChange={(event) => {
+                                handleRadioChange(event, res.id);
+                              }}
+                              name={"caption" + res.id}
+                              value="bottom"
+                              id={"c" + res.id}
+                              checked={
+                                res.tourfontlocation === "bottom" ? true : false
+                              }
+                            />
+                            <label id="lbl" for={"c" + res.id}>
+                              <img src={bottom_img} />
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                          <button
+                            className="next_btn_apply_changes"
+                            onClick={applyToAll.bind(this, res)}
+                          >
+                            Apply to all images
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                    {/* <div
                             class="tab-pane fade"
                             id={"nav-contact" + res.id}
                             role="tabpanel"
@@ -4177,37 +4331,37 @@ const AgentEditTour = React.memo((props) => {
                             </div>
                             <hr class="brdr" />
                           </div> */}
-                        </div>
-                        <div class="nav_tab_sec">
-                          <nav>
-                            <div
-                              class="nav nav-tabs nav-fill"
-                              id="nav-tab"
-                              role="tablist"
-                            >
-                              <a
-                                class="nav-item active first"
-                                id={"nav-home-tab" + res.id}
-                                data-toggle="tab"
-                                href={"#nav-home" + res.id}
-                                role="tab"
-                                aria-controls={"#nav-home" + res.id}
-                                aria-selected="true"
-                              >
-                                <i class="far fa-dot-circle"></i>
-                              </a>
-                              <a
-                                class="nav-item middle"
-                                id={"nav-profile-tab" + res.id}
-                                data-toggle="tab"
-                                href={"#nav-profile" + res.id}
-                                role="tab"
-                                aria-controls={"nav-profile" + res.id}
-                                aria-selected="false"
-                              >
-                                <i class="far fa-dot-circle"></i>
-                              </a>
-                              {/* <a
+                  </div>
+                  <div class="nav_tab_sec">
+                    <nav>
+                      <div
+                        class="nav nav-tabs nav-fill"
+                        id="nav-tab"
+                        role="tablist"
+                      >
+                        <a
+                          class="nav-item active first"
+                          id={"nav-home-tab" + res.id}
+                          data-toggle="tab"
+                          href={"#nav-home" + res.id}
+                          role="tab"
+                          aria-controls={"#nav-home" + res.id}
+                          aria-selected="true"
+                        >
+                          <i class="far fa-dot-circle"></i>
+                        </a>
+                        <a
+                          class="nav-item middle"
+                          id={"nav-profile-tab" + res.id}
+                          data-toggle="tab"
+                          href={"#nav-profile" + res.id}
+                          role="tab"
+                          aria-controls={"nav-profile" + res.id}
+                          aria-selected="false"
+                        >
+                          <i class="far fa-dot-circle"></i>
+                        </a>
+                        {/* <a
                                 class="nav-item last"
                                 id={"nav-contact-tab" + res.id}
                                 data-toggle="tab"
@@ -4218,18 +4372,17 @@ const AgentEditTour = React.memo((props) => {
                               >
                                 <i class="far fa-dot-circle"></i>
                               </a> */}
-                            </div>
-                          </nav>
-                        </div>
                       </div>
-                    </div>
-                ))}
-            </div>
+                    </nav>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
           <hr class="spacer10px"></hr>
         </div>
       </section>
-
       <Footer />
       <Dialog
         maxWidth={maxWidth}
@@ -4301,79 +4454,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {appliancesAmenities && appliancesAmenities.length > 0
                       ? appliancesAmenities.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <div class="switchToggle custom-control custom-switch">
-                                <Switch
-                                  onChange={(event) => {
-                                    handleChange(event, res);
-                                  }}
-                                  checked={
-                                    res.countamenity === 1 ? true : false
-                                  }
-                                  handleDiameter={28}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={35}
-                                  width={60}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                                {/*  */}
-                              </div>
-                              <p style={{ marginLeft: "20px" }}>
-                                {res.amenityname}
-                              </p>
-                              {res.agentid ===
-                              JSON.parse(context.state.user).agentId ? (
-                                <HighlightOffIcon
-                                  onClick={() => removeAmenity(res.id)}
-                                  style={{
-                                    left: "26%",
-                                    position: "absolute",
-                                    top: "-10px",
-                                    color: "red",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                ""
-                              )}
+                        <div class="col-lg-4 col-md-4">
+                          <div class="app_preview">
+                            <div class="switchToggle custom-control custom-switch">
+                              <Switch
+                                onChange={(event) => {
+                                  handleChange(event, res);
+                                }}
+                                checked={
+                                  res.countamenity === 1 ? true : false
+                                }
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
+                              {/*  */}
                             </div>
+                            <p style={{ marginLeft: "20px" }}>
+                              {res.amenityname}
+                            </p>
+                            {res.agentid ===
+                              JSON.parse(context.state.user).agentId ? (
+                              <HighlightOffIcon
+                                onClick={() => removeAmenity(res.id)}
+                                style={{
+                                  left: "26%",
+                                  position: "absolute",
+                                  top: "-10px",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </div>
-                        ))
+                        </div>
+                      ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4423,79 +4576,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {interiorAmenities && interiorAmenities.length > 0
                       ? interiorAmenities.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              {/* <p>{res.amenityname}</p> */}
-                              <div class="switchToggle custom-control custom-switch">
-                                <Switch
-                                  onChange={(event) => {
-                                    handleInteriorChange(event, res);
-                                  }}
-                                  checked={
-                                    res.countamenity === 1 ? true : false
-                                  }
-                                  handleDiameter={28}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={35}
-                                  width={60}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
-                              <p style={{ marginLeft: "20px" }}>
-                                {res.amenityname}
-                              </p>
-                              {res.agentid ===
-                              JSON.parse(context.state.user).agentId ? (
-                                <HighlightOffIcon
-                                  onClick={() => removeAmenity(res.id)}
-                                  style={{
-                                    left: "26%",
-                                    position: "absolute",
-                                    top: "-10px",
-                                    color: "red",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                ""
-                              )}
+                        <div class="col-lg-4 col-md-4">
+                          <div class="app_preview">
+                            {/* <p>{res.amenityname}</p> */}
+                            <div class="switchToggle custom-control custom-switch">
+                              <Switch
+                                onChange={(event) => {
+                                  handleInteriorChange(event, res);
+                                }}
+                                checked={
+                                  res.countamenity === 1 ? true : false
+                                }
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
+                            <p style={{ marginLeft: "20px" }}>
+                              {res.amenityname}
+                            </p>
+                            {res.agentid ===
+                              JSON.parse(context.state.user).agentId ? (
+                              <HighlightOffIcon
+                                onClick={() => removeAmenity(res.id)}
+                                style={{
+                                  left: "26%",
+                                  position: "absolute",
+                                  top: "-10px",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </div>
-                        ))
+                        </div>
+                      ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4545,79 +4698,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {Object.keys(exteriorAmenities).length > 0
                       ? exteriorAmenities.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              {/* <p>{res.amenityname}</p> */}
-                              <div class="switchToggle custom-control custom-switch">
-                                <Switch
-                                  onChange={(event) => {
-                                    handleExteriorChange(event, res);
-                                  }}
-                                  checked={
-                                    res.countamenity === 1 ? true : false
-                                  }
-                                  handleDiameter={28}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={35}
-                                  width={60}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
-                              <p style={{ marginLeft: "20px" }}>
-                                {res.amenityname}
-                              </p>
-                              {res.agentid ===
-                              JSON.parse(context.state.user).agentId ? (
-                                <HighlightOffIcon
-                                  onClick={() => removeAmenity(res.id)}
-                                  style={{
-                                    left: "26%",
-                                    position: "absolute",
-                                    top: "-10px",
-                                    color: "red",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                ""
-                              )}
+                        <div class="col-lg-4 col-md-4">
+                          <div class="app_preview">
+                            {/* <p>{res.amenityname}</p> */}
+                            <div class="switchToggle custom-control custom-switch">
+                              <Switch
+                                onChange={(event) => {
+                                  handleExteriorChange(event, res);
+                                }}
+                                checked={
+                                  res.countamenity === 1 ? true : false
+                                }
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
+                            <p style={{ marginLeft: "20px" }}>
+                              {res.amenityname}
+                            </p>
+                            {res.agentid ===
+                              JSON.parse(context.state.user).agentId ? (
+                              <HighlightOffIcon
+                                onClick={() => removeAmenity(res.id)}
+                                style={{
+                                  left: "26%",
+                                  position: "absolute",
+                                  top: "-10px",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </div>
-                        ))
+                        </div>
+                      ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4667,79 +4820,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {Object.keys(allAmenities).length > 0
                       ? communityAmenities.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              {/* <p>{res.amenityname}</p> */}
-                              <div class="switchToggle custom-control custom-switch">
-                                <Switch
-                                  onChange={(event) => {
-                                    handleCommunityChange(event, res);
-                                  }}
-                                  checked={
-                                    res.countamenity === 1 ? true : false
-                                  }
-                                  handleDiameter={28}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={35}
-                                  width={60}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 15,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
-                              <p style={{ marginLeft: "20px" }}>
-                                {res.amenityname}
-                              </p>
-                              {res.agentid ===
-                              JSON.parse(context.state.user).agentId ? (
-                                <HighlightOffIcon
-                                  onClick={() => removeAmenity(res.id)}
-                                  style={{
-                                    left: "26%",
-                                    position: "absolute",
-                                    top: "-10px",
-                                    color: "red",
-                                    cursor: "pointer",
-                                  }}
-                                />
-                              ) : (
-                                ""
-                              )}
+                        <div class="col-lg-4 col-md-4">
+                          <div class="app_preview">
+                            {/* <p>{res.amenityname}</p> */}
+                            <div class="switchToggle custom-control custom-switch">
+                              <Switch
+                                onChange={(event) => {
+                                  handleCommunityChange(event, res);
+                                }}
+                                checked={
+                                  res.countamenity === 1 ? true : false
+                                }
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
+                            <p style={{ marginLeft: "20px" }}>
+                              {res.amenityname}
+                            </p>
+                            {res.agentid ===
+                              JSON.parse(context.state.user).agentId ? (
+                              <HighlightOffIcon
+                                onClick={() => removeAmenity(res.id)}
+                                style={{
+                                  left: "26%",
+                                  position: "absolute",
+                                  top: "-10px",
+                                  color: "red",
+                                  cursor: "pointer",
+                                }}
+                              />
+                            ) : (
+                              ""
+                            )}
                           </div>
-                        ))
+                        </div>
+                      ))
                       : ""}
                   </div>
                   <div class="row">
@@ -5096,7 +5249,6 @@ const AgentEditTour = React.memo((props) => {
           </div>
         </DialogContent>
       </Dialog>
-
       <Dialog
         maxWidth={maxWidth}
         fullWidth={true}
@@ -5523,7 +5675,8 @@ const AgentEditTour = React.memo((props) => {
             </div>
           </div>
         </DialogContent>
-      </Dialog>order
+      </Dialog>
+      order
       <Dialog
         maxWidth={maxWidth}
         fullWidth={true}
@@ -5537,10 +5690,20 @@ const AgentEditTour = React.memo((props) => {
             onClick={() => setOpenChangeOrderModal(false)}
             style={{ float: "right", cursor: "pointer" }}
           />
-          <button className="next_btn" style={{ float: "right" ,marginRight:"20px" }} onClick={onChange}>Save</button>
+          <button
+            className="next_btn"
+            style={{ float: "right", marginRight: "20px" }}
+            onClick={onChange}
+          >
+            Save
+          </button>
         </DialogTitle>
         <DialogContent dividers>
-          <DragAndDrop dragImages={dragImages} setDragImages={setDragImages} setIdsArray={setIdsArray}/>
+          <DragAndDrop
+            dragImages={dragImages}
+            setDragImages={setDragImages}
+            setIdsArray={setIdsArray}
+          />
         </DialogContent>
       </Dialog>
       <Dialog
@@ -5653,7 +5816,6 @@ const AgentEditTour = React.memo((props) => {
           </div>
         </DialogContent>
       </Dialog>
-
       <div class="agent_pop">
         <div id="Distributetour" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -5849,7 +6011,7 @@ const AgentEditTour = React.memo((props) => {
                           onChange={handleCheckboxChange}
                           checked={
                             Object.keys(allThemes).length > 0 &&
-                            allThemes.is_premium_theme === 1
+                              allThemes.is_premium_theme === 1
                               ? true
                               : false
                           }
@@ -5871,7 +6033,7 @@ const AgentEditTour = React.memo((props) => {
                       <div class="row">
                         {Object.keys(allThemes).length > 0 &&
                           allThemes.premiumArry.map((res) => (
-                            <div class="col-lg-3 col-md-3">
+                            <div class="col-lg-3 col-md-3 m-t-10">
                               <div class="pre_tour_single">
                                 <input
                                   style={{ display: "none", cursor: "pointer" }}
@@ -5974,57 +6136,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {viewerMenuData.length > 0
                         ? viewerMenuData.map((res) => (
-                            <div class="col-lg-4 col-md-4">
-                              <div class="app_preview">
-                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                                <Switch
-                                  onChange={(event) =>
-                                    handleViewerChange(event, res)
-                                  }
-                                  checked={res.status}
-                                  handleDiameter={17}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={25}
-                                  width={45}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                              <Switch
+                                onChange={(event) =>
+                                  handleViewerChange(event, res)
+                                }
+                                checked={res.status}
+                                handleDiameter={17}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={25}
+                                width={45}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                     </div>
                   </div>
@@ -6035,57 +6197,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {shareMenuData.length > 0
                         ? shareMenuData.map((res) => (
-                            <div class="col-lg-4 col-md-4">
-                              <div class="app_preview">
-                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                                <Switch
-                                  onChange={(event) =>
-                                    handleShareChange(event, res)
-                                  }
-                                  checked={res.status}
-                                  handleDiameter={17}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={25}
-                                  width={45}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                              <Switch
+                                onChange={(event) =>
+                                  handleShareChange(event, res)
+                                }
+                                checked={res.status}
+                                handleDiameter={17}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={25}
+                                width={45}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                     </div>
                   </div>
@@ -6096,57 +6258,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {detailMenuData.length > 0
                         ? detailMenuData.map((res) => (
-                            <div class="col-lg-4 col-md-4">
-                              <div class="app_preview">
-                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                                <Switch
-                                  onChange={(event) =>
-                                    handleDetailChange(event, res)
-                                  }
-                                  checked={res.status}
-                                  handleDiameter={17}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={25}
-                                  width={45}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                              <Switch
+                                onChange={(event) =>
+                                  handleDetailChange(event, res)
+                                }
+                                checked={res.status}
+                                handleDiameter={17}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={25}
+                                width={45}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                     </div>
                   </div>
@@ -6157,57 +6319,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {contactMenuData.length > 0
                         ? contactMenuData.map((res) => (
-                            <div class="col-lg-4 col-md-4">
-                              <div class="app_preview">
-                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                                <Switch
-                                  onChange={(event) =>
-                                    handleContactChange(event, res)
-                                  }
-                                  checked={res.status}
-                                  handleDiameter={17}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={25}
-                                  width={45}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                              <Switch
+                                onChange={(event) =>
+                                  handleContactChange(event, res)
+                                }
+                                checked={res.status}
+                                handleDiameter={17}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={25}
+                                width={45}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                     </div>
                   </div>
@@ -6218,57 +6380,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {toolsMenuData.length > 0
                         ? toolsMenuData.map((res) => (
-                            <div class="col-lg-4 col-md-4">
-                              <div class="app_preview">
-                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                                <Switch
-                                  onChange={(event) =>
-                                    handleToolsChange(event, res)
-                                  }
-                                  checked={res.status}
-                                  handleDiameter={17}
-                                  offColor="#5D5D5D"
-                                  onColor="#F6AD17"
-                                  offHandleColor="#fff"
-                                  onHandleColor="#fff"
-                                  height={25}
-                                  width={45}
-                                  borderRadius={6}
-                                  uncheckedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      No
-                                    </div>
-                                  }
-                                  checkedIcon={
-                                    <div
-                                      style={{
-                                        display: "flex",
-                                        justifyContent: "center",
-                                        alignItems: "center",
-                                        height: "100%",
-                                        fontSize: 13,
-                                        color: "white",
-                                        paddingRight: 2,
-                                      }}
-                                    >
-                                      Yes
-                                    </div>
-                                  }
-                                  className="react-switch"
-                                />
-                              </div>
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                              <Switch
+                                onChange={(event) =>
+                                  handleToolsChange(event, res)
+                                }
+                                checked={res.status}
+                                handleDiameter={17}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={25}
+                                width={45}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 13,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                     </div>
                   </div>
@@ -6279,19 +6441,19 @@ const AgentEditTour = React.memo((props) => {
                     <div id="list2" class="row">
                       {menuOrders.length > 0
                         ? menuOrders.map((res) => (
-                            <div
-                              draggable={true}
-                              onDragOver={(ev) => ev.preventDefault()}
-                              onDragStart={() => handleDrag(res)}
-                              onDrop={(event) => handleDrop(res)}
-                              class="col-lg-3 col-md-3"
-                            >
-                              <div class="tab_sec_main_sec">
-                                <i class="fas fa-home"></i>
-                                <h6>{res.name}</h6>
-                              </div>
+                          <div
+                            draggable={true}
+                            onDragOver={(ev) => ev.preventDefault()}
+                            onDragStart={() => handleDrag(res)}
+                            onDrop={(event) => handleDrop(res)}
+                            class="col-lg-3 col-md-3"
+                          >
+                            <div class="tab_sec_main_sec">
+                              <i class="fas fa-home"></i>
+                              <h6>{res.name}</h6>
                             </div>
-                          ))
+                          </div>
+                        ))
                         : ""}
                       {/* <div class="col-lg-3 col-md-3">
                                                 <div class="tab_sec_main_sec">
@@ -6553,7 +6715,6 @@ const AgentEditTour = React.memo((props) => {
           </div>
         </div>
       </div>
-
       <div class="agent_pop">
         <div id="Property" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -7196,39 +7357,39 @@ const AgentEditTour = React.memo((props) => {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                        <tr>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {index + 1}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.leadcapture === 1
-                                              ? "true"
-                                              : "false"}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.docname}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.filename}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.pwd}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            <Button
-                                              style={{ background: "red" }}
-                                              onClick={() =>
-                                                removeDocData(res.id)
-                                              }
-                                              startIcon={<CancelIcon />}
-                                              variant="contained"
-                                              color="primary"
-                                            >
-                                              Remove
-                                            </Button>
-                                          </td>
-                                        </tr>
-                                      ))
+                                      <tr>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {index + 1}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.leadcapture === 1
+                                            ? "true"
+                                            : "false"}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.docname}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.filename}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.pwd}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          <Button
+                                            style={{ background: "red" }}
+                                            onClick={() =>
+                                              removeDocData(res.id)
+                                            }
+                                            startIcon={<CancelIcon />}
+                                            variant="contained"
+                                            color="primary"
+                                          >
+                                            Remove
+                                          </Button>
+                                        </td>
+                                      </tr>
+                                    ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -7335,7 +7496,7 @@ const AgentEditTour = React.memo((props) => {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                          "documentPassword" + index
+                                        "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>
@@ -7430,24 +7591,24 @@ const AgentEditTour = React.memo((props) => {
                           </li>
                           {musicData && musicData.all_music
                             ? musicData.all_music.map((res) => (
-                                <li style={{ margin: "10px" }}>
-                                  <input
-                                    type="radio"
-                                    onClick={() => handleMusicChange(res)}
-                                    name="mus"
-                                    value="Above_and_Beyond_full_mix"
-                                    checked={
-                                      currentMusic.musicid === res.musicid
-                                    }
-                                  />
-                                  <label
-                                    style={{ marginLeft: "20px" }}
-                                    for="Above_and_Beyond_full_mix.mp3"
-                                  >
-                                    {res.caption}
-                                  </label>
-                                </li>
-                              ))
+                              <li style={{ margin: "10px" }}>
+                                <input
+                                  type="radio"
+                                  onClick={() => handleMusicChange(res)}
+                                  name="mus"
+                                  value="Above_and_Beyond_full_mix"
+                                  checked={
+                                    currentMusic.musicid === res.musicid
+                                  }
+                                />
+                                <label
+                                  style={{ marginLeft: "20px" }}
+                                  for="Above_and_Beyond_full_mix.mp3"
+                                >
+                                  {res.caption}
+                                </label>
+                              </li>
+                            ))
                             : ""}
                         </ul>
                       </div>
@@ -7639,7 +7800,6 @@ const AgentEditTour = React.memo((props) => {
           </div>
         </div>
       </div>
-
       <div class="agent_pop">
         <div id="Newsletter" class="modal fade" role="dialog">
           <div class="modal-dialog">
@@ -8668,39 +8828,39 @@ const AgentEditTour = React.memo((props) => {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                        <tr>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {index + 1}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.leadcapture === 1
-                                              ? "true"
-                                              : "false"}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.docname}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.filename}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            {res.pwd}
-                                          </td>
-                                          <td style={{ fontSize: "12px" }}>
-                                            <Button
-                                              style={{ background: "red" }}
-                                              onClick={() =>
-                                                removeDocData(res.id)
-                                              }
-                                              startIcon={<CancelIcon />}
-                                              variant="contained"
-                                              color="primary"
-                                            >
-                                              Remove
-                                            </Button>
-                                          </td>
-                                        </tr>
-                                      ))
+                                      <tr>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {index + 1}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.leadcapture === 1
+                                            ? "true"
+                                            : "false"}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.docname}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.filename}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          {res.pwd}
+                                        </td>
+                                        <td style={{ fontSize: "12px" }}>
+                                          <Button
+                                            style={{ background: "red" }}
+                                            onClick={() =>
+                                              removeDocData(res.id)
+                                            }
+                                            startIcon={<CancelIcon />}
+                                            variant="contained"
+                                            color="primary"
+                                          >
+                                            Remove
+                                          </Button>
+                                        </td>
+                                      </tr>
+                                    ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -8807,7 +8967,7 @@ const AgentEditTour = React.memo((props) => {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                          "documentPassword" + index
+                                        "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>
@@ -9095,7 +9255,7 @@ const AgentEditTour = React.memo((props) => {
                           />
                         </div>
                         {Object.keys(otherLink).length > 0 &&
-                        otherLink.tourvalue === 1 ? (
+                          otherLink.tourvalue === 1 ? (
                           <a
                             href="javascript:void()"
                             onClick={() => {
@@ -9173,7 +9333,7 @@ const AgentEditTour = React.memo((props) => {
                           />
                         </div>
                         {Object.keys(otherLink).length > 0 &&
-                        otherLink.cafeValue === 1 ? (
+                          otherLink.cafeValue === 1 ? (
                           <a
                             href="javascript:void()"
                             onClick={() => {

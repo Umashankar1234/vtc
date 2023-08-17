@@ -86,6 +86,8 @@ import Loader from "react-js-loader";
 import { Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import DragAndDrop from "./views/Dashboard/Agent/DragAndDrop";
+import AdminVideoLogin from "./views/Login/AdminVideoLogin";
+import MetaTags from "./components/MetaTags";
 
 var hist = createBrowserHistory();
 function Alert(props) {
@@ -127,6 +129,7 @@ export default function AppRoutes() {
           {message}
         </Alert>
       </Snackbar>
+      <MetaTags />
 
       <Router history={hist}>
         <Switch>
@@ -388,6 +391,10 @@ export default function AppRoutes() {
           <Route path={APIPath() + "captcha"} component={Captcha} />
           <Route
             path={APIPath() + "admin-as-agent/:agentId?"}
+            component={AgentAdminLogin}
+          />
+          <Route
+            path={APIPath() + "admin-as-agent-mobile/:agentId?/:videoId?"}
             component={AgentAdminLogin}
           />
           <Route

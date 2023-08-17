@@ -586,7 +586,7 @@ export default function Pricing() {
                         <i class="fas fa-briefcase"></i> Signature
                       </a>
                     </li>
-                    <li class="nav-item">
+                    {/* <li class="nav-item">
                       <a
                         class="nav-link"
                         data-toggle="tab"
@@ -596,7 +596,7 @@ export default function Pricing() {
                       >
                         <i class="fas fa-head-vr"></i> Virtual
                       </a>
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
               </div>

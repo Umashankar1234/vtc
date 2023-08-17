@@ -182,6 +182,11 @@ export default function AgentFloorPlan(props) {
     const [open, setOpen] = useState(false);
     const [documentData, setDocumentData] = useState([]);
     const [exteriorAmenities, setExteriorAmenities] = useState([]);
+
+    const [hover, setHover] = useState(false);
+    const [hover1, setHover1] = useState(false);
+    const [hover2, setHover2] = useState(false);
+
     useEffect(() => {
         $(".gee_cross").hide();
         $(".gee_menu").hide();
@@ -1928,7 +1933,7 @@ export default function AgentFloorPlan(props) {
     }
     const handleCaptionChange = (event, data) => {
         const { name, value } = event.target;
-        const arr=[];
+        const arr = [];
         floorPlanList.forEach(res => {
             if (data.id === res.id) {
                 res.caption = value;
@@ -1937,6 +1942,18 @@ export default function AgentFloorPlan(props) {
         })
         setFloorPlanList(arr);
     }
+    function changeHover(e) {
+    
+        setHover(true);
+      }
+      function changeHover1(e) {
+        
+        setHover1(true);
+      }
+      function changeHover2(e) {
+        
+        setHover2(true);
+      }
     return (
         <div>
             <AgentHeader />
@@ -2023,7 +2040,66 @@ export default function AgentFloorPlan(props) {
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
-                            <div class="action_sec_main">
+                            <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+                                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul class="navbar-nav mr-auto">
+                                        <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                                            <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="fas fa-cog"></i> Actions
+                                            </a>
+                                            <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                                                <ul class="column-count-2">
+                                                    <li><a class="dropdown-item" onClick={() => handleEditTour()}><i class="far fa-image"></i>  Back to Tour Images</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => handleEditImageset()}><i class="far fa-image"></i>  Go to related ImageSet</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => setOpenFloorModal(true)}><i class="fas fa-plus"></i>  Add Floor Plans</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => viewtour()}><i class="fas fa-eye"></i> View Tour</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#Distributetour" class="dropdown-item" ><i class="fas fa-table"></i> Distribute Tour</a></li>
+                                                    <li><a href="#" data-toggle="modal" data-target="#facebook" class="dropdown-item" ><i class="fab fa-facebook-f"></i> Post to Facebook</a></li>
+
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li class="nav-item dropdown" onMouseLeave={(e) => setHover1(false)} onMouseEnter={changeHover1}>
+                                            <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-line-height"></i> Basic
+                                            </a>
+                                            <div className={hover1 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                                                <ul class="column-count-2">
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#menu_opt"><i class="fas fa-bars"></i> Menu Options</a></li>
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#bg_music"><i class="fas fa-music"></i> Background Music</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => setOpenNarrationModal(true)}><i class="fas fa-torii-gate"></i> Tour Narration</a></li>
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#Property"><i class="fas fa-home"></i> Property Information</a></li>
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#Amenities"><i class="fas fa-sticky-note"></i> Amenities</a></li>
+                                                    <li><a class="dropdown-item" href="" data-target="#open_house" data-toggle="modal"><i class="fas fa-warehouse"></i> Open House Announcements</a></li>
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#Newsletter"><i class="fab fa-wpforms"></i> Add Newsletter Form</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+
+                                        <li class="nav-item dropdown" onMouseLeave={(e) => setHover2(false)} onMouseEnter={changeHover2}>
+                                            <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-hand-point-right"></i> Advanced
+                                            </a>
+                                            <div   className={hover2 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                                                <ul class="column-count-2">
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#themes"><i class="fas fa-gopuram"></i> Themes</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => setOpenCompanyBanner(true)}><i class="fas fa-building"></i> Company Banner</a></li>
+                                                    <li><a class="dropdown-item" href="#" data-toggle="modal" data-target="#agent_pop_tab"><i class="fas fa-user"></i> Co-listing agent</a></li>
+                                                    <li><a class="dropdown-item" onClick={handleFloorPlan}><i class="fas fa-ruler-horizontal"></i> Floor Plans</a></li>
+                                                    <li><a class="dropdown-item" onClick={handleEditFloor}><i class="fas fa-wifi"></i> Floor-plan Hot-spot</a></li>
+                                                    <li><a class="dropdown-item" onClick={handlePanorama}><i class="fas fa-photo-video"></i> Panoramas</a></li>
+                                                    <li><a class="dropdown-item" onClick={handleSlideShow}><i class="fas fa-sliders-h"></i> Slide-Show Editor</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => { setOpenYoutubeModal(true) }}><i class="fab fa-youtube"></i> Additional YouTube Links</a></li>
+                                                    <li><a class="dropdown-item" onClick={() => { setOpenWalkThroughModal(true) }}><i class="fas fa-home"></i> 3D Walkthrough Home Tour</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </nav>
+
+                            {/* <div class="action_sec_main">
                                 <div class="action_sec_left action_sec_tab">
                                     <ul class="nav nav-tabs list_sec" role="tablist">
                                         <li class="nav-item">
@@ -2037,10 +2113,10 @@ export default function AgentFloorPlan(props) {
                                         </li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
-                    <div class="row">
+                    {/* <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="tab-content">
                                 <div class="tab-pane active" id="Actions_tab" role="tabpanel">
@@ -2154,7 +2230,7 @@ export default function AgentFloorPlan(props) {
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> */}
                     <div class="row">
                         <div class="col-lg-12 col-md-12">
                             <div class="test_sec">

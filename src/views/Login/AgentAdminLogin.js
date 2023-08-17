@@ -42,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
 export default function AgentAdminLogin(props) {
   const AgentId = props.match.params.agentId;
   const order_id = props.match.params.orderid;
+  const videoId = props.match.params.videoId;
   let history = useHistory();
   const { dispatch } = useContext(AuthContext);
 
@@ -60,7 +61,8 @@ export default function AgentAdminLogin(props) {
     });
     if (order_id) {
       history.push(APIPath() + `order-details/${order_id}`);
-    } else history.push(APIPath() + "agent-dashboard/admin");
+    } else if (videoId) history.push(APIPath() + `agent-video-selected/${videoId}/${AgentId}`);
+    else history.push(APIPath() + "agent-dashboard/admin");
   }, [AgentId, order_id]);
   console.log("AgentId", AgentId);
   console.log("order_id", order_id);

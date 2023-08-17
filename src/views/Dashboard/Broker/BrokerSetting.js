@@ -169,6 +169,7 @@ export default function BrokerSetting(props) {
   const [defaultLogo, setDefaultlogo] = useState("");
   const [customLogo, setCustomLogo] = useState("");
   const [captchaSuccess, setCaptchaSuccess] = useState(false);
+  const [hover, setHover] = useState(false);
   const [user, setUser] = useState({
     username: "",
   });
@@ -789,9 +790,13 @@ export default function BrokerSetting(props) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
+  function changeHover(e) {
+    
+    setHover(true);
+  }
   return (
     <div>
-    <Title title="Broker Setting"/>
+      <Title title="Broker Setting" />
       <BrokerHeader />
       <section
         class="vtc_agent_banner"
@@ -892,9 +897,70 @@ export default function BrokerSetting(props) {
               <div class="our_partners_head">
                 <h2>Settings Menu</h2>
               </div>
+              <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav mr-auto">
+
+                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
+                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-image"></i> Settings Menu
+                      </a>
+                      <div  className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+
+                        <ul class="column-count-2">
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              href="#Images"
+                            >
+                              <i class="fas fa-user" aria-hidden="true"></i> Company Information
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" data-toggle="tab"
+                              href="#Email">
+                              <i class="fas fa-mail-bulk"></i> Branding{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" data-toggle="tab"
+                              href="#Preferences">
+                              <i class="far fa-credit-card"></i> Payment Profiles{" "}
+                            </a>
+                          </li>
+                          <li >
+                            <a class="dropdown-item" data-toggle="tab"
+                              href="#Video">
+                              <i class="fas fa-video" aria-hidden="true"></i> All Tours Widget
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" data-toggle="tab"
+                              href="#Tour">
+                              <i class="far fa-images" aria-hidden="true"></i> My Office Gallery{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" data-toggle="tab"
+                              href="#Youtube">
+                              <i class="fab fa-youtube" aria-hidden="true"></i> Youtube Setting
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
               <div class="property_info_cont" id="demo">
                 <section id="examples" class="snap-scrolling-example">
-                  <div
+                  {/* <div
                     id="content-1"
                     class="content horizontal-images tab_main"
                   >
@@ -978,7 +1044,7 @@ export default function BrokerSetting(props) {
                         </a>
                       </li>
                     </ul>
-                  </div>
+                  </div> */}
                   <div class="tab-content">
                     <div
                       class="browse_img tab-pane active"
@@ -1280,8 +1346,8 @@ export default function BrokerSetting(props) {
                                               fname_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                              "success"
-                                            ),
+                                            "success"
+                                          ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               fname: "error",
@@ -1316,8 +1382,8 @@ export default function BrokerSetting(props) {
                                               lname_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                              "success"
-                                            ),
+                                            "success"
+                                          ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               lname: "error",
@@ -1354,8 +1420,8 @@ export default function BrokerSetting(props) {
                                               email_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                              "success"
-                                            ),
+                                            "success"
+                                          ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               email_error:
@@ -1445,8 +1511,8 @@ export default function BrokerSetting(props) {
                                               password_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                              "success"
-                                            ),
+                                            "success"
+                                          ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               password: "error",
@@ -1487,20 +1553,20 @@ export default function BrokerSetting(props) {
                                       class="form-control"
                                       onChange={handleCompanyInputChange}
                                       name="cnfpassword"
-                                      onMouseDown={(e)=>console.log(e.target.type)}
+                                      onMouseDown={(e) => console.log(e.target.type)}
                                       value={companyInfoData.cnfpassword}
                                     />
                                     <IconButton
-                                    className={classes.btn_pwd}
-                                    onClick={handleClickShowPassword}
-                                    onMouseDown={handleMouseDownPassword}
-                                  >
-                                    {companyInfoData.showPasswordOne ? (
-                                      <Visibility />
-                                    ) : (
-                                      <VisibilityOff />
-                                    )}
-                                  </IconButton>
+                                      className={classes.btn_pwd}
+                                      onClick={handleClickShowPassword}
+                                      onMouseDown={handleMouseDownPassword}
+                                    >
+                                      {companyInfoData.showPasswordOne ? (
+                                        <Visibility />
+                                      ) : (
+                                        <VisibilityOff />
+                                      )}
+                                    </IconButton>
                                   </div>
                                 </div>
                                 <div class="row">
@@ -1897,7 +1963,7 @@ export default function BrokerSetting(props) {
                                         name="countryid"
                                         className="form-control formbox1select"
                                         value={user.countryid}
-                                        // onChange={handleInputChange}
+                                      // onChange={handleInputChange}
                                       >
                                         <option value="0">default</option>
                                       </select>
