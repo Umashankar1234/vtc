@@ -2021,7 +2021,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 11;
+  z-index: 2;
 }
 .inner_banner_cont_sec h2 {
   position: relative;
@@ -2060,7 +2060,7 @@ padding-left: 20px;*/
   width: 100%;
   left: 0;
   padding: 15px 0;
-  z-index: 11;
+  z-index: 3;
 }
 .inner_page_breadcumb_main ul li {
   display: inline-block;

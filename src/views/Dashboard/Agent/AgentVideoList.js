@@ -80,6 +80,8 @@ export default function AgentFlashVideo() {
         if (res.data[0].response.status === "success") {
           setImagesetList(res.data[0].response.data);
           setOrderByData(res.data[0].response.orderby);
+          setRefresh(false);
+
         }
       });
     }
@@ -118,11 +120,6 @@ export default function AgentFlashVideo() {
       setAllData([]);
     }
   }, [offset, imagesetList]);
-  useEffect(() => {
-    setTimeout(() => {
-      setRefresh(false);
-    }, 2000);
-  }, [allData]);
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();

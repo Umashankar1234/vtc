@@ -7,6 +7,7 @@ export const MetaInfo = () => {
 };
 
 function MetaTagsContext({ children }) {
+  const [pageTitle, setPageTitle] = useState("");
   const [metaDesc, setMetaDesc] = useState("");
   const [metaKeyWords, setMetaKw] = useState("");
   const [metaTitle, setMetaTitle] = useState("testTitle");
@@ -19,6 +20,8 @@ function MetaTagsContext({ children }) {
   const [twitterTitle, setTwitterTitle] = useState("");
   const [twitterDesc, setTwitterDesc] = useState("");
   const value = {
+    pageTitle: pageTitle,
+    setPageTitle: setPageTitle,
     metaDesc: metaDesc,
     setMetaDesc: setMetaDesc,
     metaKeyWords: metaKeyWords,

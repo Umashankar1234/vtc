@@ -253,45 +253,45 @@ export default function AgentTourList(props) {
       if (themeId === 1 && isPremium === 1) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template/" +
-          id +
-          "/" +
-          agent_id,
+            id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 2 && isPremium === 1) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template1/" +
-          id +
-          "/" +
-          agent_id,
+            id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 3 && isPremium === 1) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template2/" +
-          id +
-          "/" +
-          agent_id,
+            id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 4 && isPremium === 1) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template3/" +
-          id +
-          "/" +
-          agent_id,
+            id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template4/" +
-          id +
-          "/" +
-          agent_id,
+            id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
@@ -306,11 +306,11 @@ export default function AgentTourList(props) {
         // window.location.href = "https://virtualtourcafe.com/alpha/tour/theme-template5/" + id + "/" + agent_id;
         window.open(
           "https://virtualtourcafe.com/alpha/tour/theme-template5/" +
-          id +
-          "/" +
-          agent_id +
-          "/" +
-          defaultsThemeId,
+            id +
+            "/" +
+            agent_id +
+            "/" +
+            defaultsThemeId,
           "_blank"
         );
         setDefaultsThemeId("");
@@ -324,32 +324,39 @@ export default function AgentTourList(props) {
       setAllData([]);
     }
   }, [offset, imagesetList]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setRefresh(false);
+  //   }, 2000);
+  // }, [allData]);
   useEffect(() => {
-    setTimeout(() => {
-      setRefresh(false);
-    }, 2000);
-  }, [allData]);
-  useEffect(() => {
-    $(".gee_cross").hide();
-    $(".gee_menu").hide();
+    if ($) {
+      $(".gee_cross").hide();
+      $(".gee_menu").hide();
+    }
   }, []);
   const ShowMenu = () => {
+    if ($) {
     $(".gee_menu").slideToggle("slow", function () {
       $(".gee_hamburger").hide();
       $(".gee_cross").show();
     });
+  }
   };
   const HideMenu = () => {
+    if ($) {
     $(".gee_menu").slideToggle("slow", function () {
       $(".gee_cross").hide();
       $(".gee_hamburger").show();
     });
+  }
   };
   const filterData = async () => {
     const endOffset = offset + postPerPage;
     setTotalData(imagesetList.slice(offset, endOffset));
     setAllData(imagesetList.slice(offset, endOffset));
     setPageCount(Math.ceil(imagesetList.length / postPerPage));
+    setRefresh(false);
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -497,7 +504,7 @@ export default function AgentTourList(props) {
         },
         {
           label: "No",
-          onClick: () => { },
+          onClick: () => {},
         },
       ],
     });
@@ -691,7 +698,6 @@ export default function AgentTourList(props) {
     setOffset(newOffset);
   };
   const viewtour = () => {
-
     if (!localStorage.getItem("id") || localStorage.getItem("id") === "") {
       setMessage("Please select one imageset");
       setOpenError(true);
@@ -705,7 +711,12 @@ export default function AgentTourList(props) {
         .then((res) => {
           if (res.data[0].response.status === "success") {
             if (res.data[0].response.tourdetails.isactive === 0) {
-              window.open(APIPath() + "agent-video-non-active/" + localStorage.getItem("id"), "_blank");
+              window.open(
+                APIPath() +
+                  "agent-video-non-active/" +
+                  localStorage.getItem("id"),
+                "_blank"
+              );
             } else {
               setThemeId(res.data[0].response.tourdetails.premium_tour_theme);
               setIsPremium(res.data[0].response.tourdetails.is_premium_theme);
@@ -1395,50 +1406,189 @@ export default function AgentTourList(props) {
             <div class="row">
               <div class="col-lg-12 col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
                     <span class="navbar-toggler-icon"></span>
                   </button>
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                  >
                     <ul class="navbar-nav mr-auto">
-                      <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                        <a class="nav-link nav-new-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <li
+                        class="nav-item dropdown"
+                        onMouseLeave={(e) => setHover(false)}
+                        onMouseEnter={changeHover}
+                      >
+                        <a
+                          class="nav-link nav-new-link dropdown-toggle"
+                          id="navbarDropdown"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
                           <i class="fas fa-tasks"></i> Manage Tours
                         </a>
-                        <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <div
+                          className={
+                            hover ? "show dropdown-menu" : "dropdown-menu"
+                          }
+                          aria-labelledby="navbarDropdown"
+                        >
                           <ul class="column-count-3">
-                            <li><a class="dropdown-item"  onClick={() => {
-                              setOpenModal(true);
-                            }}><i class="far fa-image"></i>  Create a Virtual Tour</a></li>
-                            <li><a class="dropdown-item"  onClick={editTour}> <i class="fas fa-pen"></i>  Edit Tour</a></li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => {
+                                  setOpenModal(true);
+                                }}
+                              >
+                                <i class="far fa-image"></i> Create a Virtual
+                                Tour
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item" onClick={editTour}>
+                                {" "}
+                                <i class="fas fa-pen"></i> Edit Tour
+                              </a>
+                            </li>
 
-                            <li><a class="dropdown-item"  onClick={viewtour}> <i class="far fa-eye"></i>  View Tour</a></li>
+                            <li>
+                              <a class="dropdown-item" onClick={viewtour}>
+                                {" "}
+                                <i class="far fa-eye"></i> View Tour
+                              </a>
+                            </li>
 
-                            <li><a class="dropdown-item"  onClick={handleDeleteModal}> <i class="fas fa-trash-alt"></i> Delete Tour</a></li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleDeleteModal}
+                              >
+                                {" "}
+                                <i class="fas fa-trash-alt"></i> Delete Tour
+                              </a>
+                            </li>
 
-                            <li><a class="dropdown-item"  onClick={handleServiceLink}> <i class="fas fa-link"></i>  Service Links</a></li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleServiceLink}
+                              >
+                                {" "}
+                                <i class="fas fa-link"></i> Service Links
+                              </a>
+                            </li>
 
-                            <li><a class="dropdown-item"  onClick={handleSaveToDesktop}>  <i class="fas fa-desktop"></i> Save To Desktop</a><input type="hidden" id="desktopId" value="" /></li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleSaveToDesktop}
+                              >
+                                {" "}
+                                <i class="fas fa-desktop"></i> Save To Desktop
+                              </a>
+                              <input type="hidden" id="desktopId" value="" />
+                            </li>
 
-                            <li><a class="dropdown-item"  onClick={handleTraffic}>  <i class="far fa-file-chart-pie"></i> Traffic Report</a><input type="hidden" id="desktopId" value="" /></li>
-
+                            <li>
+                              <a class="dropdown-item" onClick={handleTraffic}>
+                                {" "}
+                                <i class="far fa-file-chart-pie"></i> Traffic
+                                Report
+                              </a>
+                              <input type="hidden" id="desktopId" value="" />
+                            </li>
                           </ul>
                         </div>
                       </li>
-                      <li class="nav-item dropdown" onMouseLeave={(e) => setHover1(false)} onMouseEnter={changeHover1}>
-                        <a class="nav-link nav-new-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-globe"></i> Distribute
+                      <li
+                        class="nav-item dropdown"
+                        onMouseLeave={(e) => setHover1(false)}
+                        onMouseEnter={changeHover1}
+                      >
+                        <a
+                          class="nav-link nav-new-link dropdown-toggle"
+                          id="navbarDropdown"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
+                          <i class="fas fa-globe"></i> Distribute
                         </a>
-                        <div className={hover1 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <div
+                          className={
+                            hover1 ? "show dropdown-menu" : "dropdown-menu"
+                          }
+                          aria-labelledby="navbarDropdown"
+                        >
                           <ul class="column-count-2">
-                            <li><a class="dropdown-item" onClick={handleDistributeTour}><i class="fad fa-chart-network"></i>  Distribute Tour</a></li>
-                            <li><a class="dropdown-item" onClick={handlePostModal}><i class="fas fa-paste"></i>  Post to Craigslist</a></li>
-                            <li><a class="dropdown-item" onClick={handleVideoPromo}><i class="fas fa-video"></i>   Video Promotion{" "}</a></li>
-                            <li><a class="dropdown-item" onClick={handleVideoPromo}><i class="fas fa-photo-video"></i>   Distribute Video</a></li>
-                            <li><a class="dropdown-item" 
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleDistributeTour}
+                              >
+                                <i class="fad fa-chart-network"></i> Distribute
+                                Tour
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handlePostModal}
+                              >
+                                <i class="fas fa-paste"></i> Post to Craigslist
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleVideoPromo}
+                              >
+                                <i class="fas fa-video"></i> Video Promotion{" "}
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                onClick={handleVideoPromo}
+                              >
+                                <i class="fas fa-photo-video"></i> Distribute
+                                Video
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
                                 data-toggle="modal"
-                                data-target="#Property"> <i class="fas fa-home"></i>  Single Property Domain</a></li>
-                            <li><a class="dropdown-item" href={`#${craigeListOpen}`}
+                                data-target="#Property"
+                              >
+                                {" "}
+                                <i class="fas fa-home"></i> Single Property
+                                Domain
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                class="dropdown-item"
+                                href={`#${craigeListOpen}`}
                                 data-toggle="modal"
-                                onClick={() => DomainManger()}> <i class="fas fa-user-tie"></i>   Domain Manager</a></li>
+                                onClick={() => DomainManger()}
+                              >
+                                {" "}
+                                <i class="fas fa-user-tie"></i> Domain Manager
+                              </a>
+                            </li>
                           </ul>
                         </div>
                       </li>
@@ -1446,7 +1596,7 @@ export default function AgentTourList(props) {
                   </div>
                 </nav>
                 <div class="action_sec_main">
-                   <div class="action_sec_left action_sec_tab">
+                  <div class="action_sec_left action_sec_tab">
                     {/*<ul class="nav nav-tabs list_sec" role="tablist">
                       <li class="nav-item">
                         <a
@@ -1479,7 +1629,7 @@ export default function AgentTourList(props) {
                         </a>
                       </li>
                     </ul>*/}
-                  </div> 
+                  </div>
                   <div class="action_sec_right">
                     <ul>
                       <li>
@@ -1522,7 +1672,6 @@ export default function AgentTourList(props) {
             <div class="row">
               <div class="col-lg-12 col-md-12">
                 <div class="tab-content">
-                  
                   <div
                     class="tab-pane"
                     id="Manage"
@@ -6501,22 +6650,22 @@ export default function AgentTourList(props) {
                   <tbody>
                     {domainData.length > 0
                       ? domainData.map((res, index) => (
-                        <tr>
-                          <td style={{ fontSize: "12px" }}>{index + 1}</td>
-                          <td style={{ fontSize: "12px" }}>
-                            {res.createdAt}
-                          </td>
-                          <td style={{ fontSize: "12px" }}>{res.domain}</td>
-                          <td style={{ fontSize: "12px" }}>{res.domainId}</td>
-                          <td style={{ fontSize: "12px" }}>{res.expires}</td>
-                          <td style={{ fontSize: "12px" }}>
-                            {res.renewDeadline}
-                          </td>
-                          <td style={{ fontSize: "12px" }}>{res.status}</td>
-                          {/* <td style={{fontSize:"12px",width:"100",textAlign:"center"}}>
+                          <tr>
+                            <td style={{ fontSize: "12px" }}>{index + 1}</td>
+                            <td style={{ fontSize: "12px" }}>
+                              {res.createdAt}
+                            </td>
+                            <td style={{ fontSize: "12px" }}>{res.domain}</td>
+                            <td style={{ fontSize: "12px" }}>{res.domainId}</td>
+                            <td style={{ fontSize: "12px" }}>{res.expires}</td>
+                            <td style={{ fontSize: "12px" }}>
+                              {res.renewDeadline}
+                            </td>
+                            <td style={{ fontSize: "12px" }}>{res.status}</td>
+                            {/* <td style={{fontSize:"12px",width:"100",textAlign:"center"}}>
                                                         <span style={{}}><i class="far fa-trash-alt"></i></span></td> */}
-                        </tr>
-                      ))
+                          </tr>
+                        ))
                       : ""}
                   </tbody>
                 </table>

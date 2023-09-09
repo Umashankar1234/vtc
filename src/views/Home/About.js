@@ -21,6 +21,7 @@ import RectangleImage from "../../images/rectangle-dots.png"
 import ImageCircle from"../../images/circle-dots.png";
 import ProcessCircle from "../../images/process-circle2.png";
 import Title from "../../CommonMethods/Title";
+import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetAboutData = APIURL() + "aboutcontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -167,6 +168,33 @@ export default function About() {
             return $('body').css('overflow', 'auto');
         }
     }
+    const metaCtx = MetaInfo();
+    const [metaData, setMetaData] = useState({});
+  
+    useEffect(() => {
+      const fetchData = async () => {
+        const objusr = {
+          authenticate_key: "abcd123XYZ",
+          pageId: 7,
+        };
+        const res = await postRecord(APIURL() + "get-metadata", objusr);
+  
+        setMetaData(res.data);
+      };
+      fetchData();
+    }, []);
+    useEffect(() => {
+      metaCtx.setPageTitle(metaData.page);
+      metaCtx.setMetaDesc(metaData.metaDesc);
+      metaCtx.setMetaKw(metaData.metaKeyWords);
+      metaCtx.setMetaTitle(metaData.metaTitle);
+      metaCtx.setOgtitle(metaData.ogDesc);
+      metaCtx.setOgSiteName(metaData.ogSiteName);
+      metaCtx.setTwitterCard(metaData.twitterCard);
+      metaCtx.setTwitterSite(metaData.twitterSite);
+      metaCtx.setTwitterTitle(metaData.twitterTitle);
+      metaCtx.setTwitterDesc(metaData.twitterDesc);
+    }, [metaData]);
     return (
         <div>
         <Title title="About"/>

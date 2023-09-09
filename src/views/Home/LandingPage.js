@@ -30,12 +30,14 @@ import Footer1 from "../../components/Footer/Footer1";
 import "./Landingpage.css";
 import Title from "../../CommonMethods/Title";
 import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
+import axios from "axios";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetUserData = APIURL() + "user-details";
 const APIHomeData = APIURL() + "homecontent";
 const APIPartnerData = APIURL() + "company-logoList";
 const APIGetBrokerDetails = APIURL() + "get-BrokerDetails";
 const APIVisitorOption = APIURL() + "visitor-opt-newsletter";
+const APITourData = APIURL() + "getTourData";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -236,12 +238,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 export default function LandingPage(props) {
+  const metaCtx = MetaInfo();
+
   const { a } = props;
   console.log(a);
   const classes = useStyles();
   const { dispatch } = useContext(AuthContext);
   const context = useContext(AuthContext);
   const [currentUser, setCurrentUser] = useState({});
+  const [metaData, setMetaData] = useState({});
+  const [tourData, setTourData] = useState({});
   const [data, setData] = useState({});
   const [homeData, setHomeData] = useState({});
   const [siteTitle, setSiteTitle] = useState("");
@@ -266,6 +272,12 @@ export default function LandingPage(props) {
         setData(res.data[0].response.data);
         setSiteTitle(res.data[0].response.data.site_title);
       }
+    });
+  }, []);
+  useEffect(() => {
+    const obj = { authenticate_key: "abcd123XYZ" };
+    postRecord(APITourData, obj).then((res) => {
+      setTourData(res.data);
     });
   }, []);
   useEffect(() => {
@@ -311,7 +323,18 @@ export default function LandingPage(props) {
       type: "LOGOUT",
     });
   };
+  useEffect(() => {
+    const fetchData = async () => {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        pageId: 1,
+      };
+      const res = await postRecord(APIURL() + "get-metadata", objusr);
 
+      setMetaData(res.data);
+    };
+    fetchData();
+  }, []);
   useEffect(() => {
     if (context.state.user) {
       const objusr = {
@@ -365,8 +388,19 @@ export default function LandingPage(props) {
       return $("body").css("overflow", "auto");
     }
   };
-  const metaCtx = MetaInfo();
-  console.log(metaCtx, "metaCtx");
+  useEffect(() => {
+    metaCtx.setPageTitle(metaData.page);
+    metaCtx.setMetaDesc(metaData.metaDesc);
+    metaCtx.setMetaKw(metaData.metaKeyWords);
+    metaCtx.setMetaTitle(metaData.metaTitle);
+    metaCtx.setOgtitle(metaData.ogTitle);
+    metaCtx.setOgDesc(metaData.ogDesc);
+    metaCtx.setOgSiteName(metaData.ogSiteName);
+    metaCtx.setTwitterCard(metaData.twitterCard);
+    metaCtx.setTwitterSite(metaData.twitterSite);
+    metaCtx.setTwitterTitle(metaData.twitterTitle);
+    metaCtx.setTwitterDesc(metaData.twitterDesc);
+  }, [metaData]);
   return (
     <div>
       <Title title="" />
@@ -1133,8 +1167,8 @@ export default function LandingPage(props) {
             <div class="tab-content">
               <div class="tab-pane active" id="Websites">
                 <div class="row">
-                  {Object.keys(homeData).length > 0
-                    ? homeData.websites.map((res) => (
+                  {Object.keys(tourData).length > 0
+                    ? tourData.map((res) => (
                         <div class="col-lg-4 col-md-4 wow">
                           <div class="recent_projects_tabs_img">
                             <img src={res.image} alt="" title="" />
@@ -1674,6 +1708,7 @@ export default function LandingPage(props) {
       <Backdrop className={classes.backdrop} open={open}>
         <CircularProgress color="inherit" />
       </Backdrop>
+      
     </div>
   );
 }

@@ -25,6 +25,7 @@ import { AuthContext } from "../../CommonMethods/Authentication";
 import { postRecord } from "../../CommonMethods/Save";
 import Footer1 from "../../components/Footer/Footer1";
 import Title from "../../CommonMethods/Title";
+import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetBrokerData = APIURL() + "brokercontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -104,9 +105,37 @@ export default function Broker() {
       return $("body").css("overflow", "auto");
     }
   };
+  const metaCtx = MetaInfo();
+  const [metaData, setMetaData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        pageId: 4,
+      };
+      const res = await postRecord(APIURL() + "get-metadata", objusr);
+
+      setMetaData(res.data);
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    metaCtx.setPageTitle(metaData.page);
+    metaCtx.setMetaDesc(metaData.metaDesc);
+    metaCtx.setMetaKw(metaData.metaKeyWords);
+    metaCtx.setMetaTitle(metaData.metaTitle);
+    metaCtx.setOgtitle(metaData.ogTitle);
+    metaCtx.setOgDesc(metaData.ogDesc);
+    metaCtx.setOgSiteName(metaData.ogSiteName);
+    metaCtx.setTwitterCard(metaData.twitterCard);
+    metaCtx.setTwitterSite(metaData.twitterSite);
+    metaCtx.setTwitterTitle(metaData.twitterTitle);
+    metaCtx.setTwitterDesc(metaData.twitterDesc);
+  }, [metaData]);
   return (
     <div>
-      <Title title="Broker"/>
+      <Title title="Broker" />
       <section class="home_page">
         <div class="mobile_on mobile_slide">
           <div class="mob_head">

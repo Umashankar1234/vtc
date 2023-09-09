@@ -53,6 +53,7 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import HomeIcon from "@material-ui/icons/Home";
 import Switch from "react-switch";
 import Title from "../../CommonMethods/Title";
+import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetAgentData = APIURL() + "agentcontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -808,9 +809,37 @@ export default function Agent() {
       return $("body").css("overflow", "auto");
     }
   };
+  const metaCtx = MetaInfo();
+  const [metaData, setMetaData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        pageId: 3,
+      };
+      const res = await postRecord(APIURL() + "get-metadata", objusr);
+
+      setMetaData(res.data);
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    metaCtx.setPageTitle(metaData.page);
+    metaCtx.setMetaDesc(metaData.metaDesc);
+    metaCtx.setMetaKw(metaData.metaKeyWords);
+    metaCtx.setMetaTitle(metaData.metaTitle);
+    metaCtx.setOgtitle(metaData.ogTitle);
+    metaCtx.setOgDesc(metaData.ogDesc);
+    metaCtx.setOgSiteName(metaData.ogSiteName);
+    metaCtx.setTwitterCard(metaData.twitterCard);
+    metaCtx.setTwitterSite(metaData.twitterSite);
+    metaCtx.setTwitterTitle(metaData.twitterTitle);
+    metaCtx.setTwitterDesc(metaData.twitterDesc);
+  }, [metaData]);
   return (
     <div>
-      <Title title="Agent"/>
+      <Title title="Agent" />
       <section class="home_page">
         <div class="mobile_on mobile_slide">
           <div class="mob_head">

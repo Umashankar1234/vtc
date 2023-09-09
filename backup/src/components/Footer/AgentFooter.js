@@ -34,10 +34,7 @@ export default function AgentFooter(props) {
                                             <ul class="ftr_main_cont_top">
                                                 <li>
                                                     <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
-                                                </li>
-                                                <li>
-                                                    <a href={APIPath() + "agent-image-sets"}>Image Sets</a>
-                                                </li>
+                                                </li>                                               
                                                 <li>
                                                     <a href={APIPath() + "agent-tour-list"}>Tours</a>
                                                 </li>

@@ -12,6 +12,7 @@ import { postRecord } from "../../CommonMethods/Save";
 import { AuthContext } from "../../CommonMethods/Authentication";
 import Footer1 from "../../components/Footer/Footer1";
 import Title from "../../CommonMethods/Title";
+import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetVendorContent = APIURL() + "preferedvendorcontent";
 const APIGetUserData = APIURL() + "user-details";
@@ -83,6 +84,34 @@ export default function PreferredVendors() {
       return $("body").css("overflow", "auto");
     }
   };
+  const metaCtx = MetaInfo();
+  const [metaData, setMetaData] = useState({});
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        pageId: 6,
+      };
+      const res = await postRecord(APIURL() + "get-metadata", objusr);
+
+      setMetaData(res.data);
+    };
+    fetchData();
+  }, []);
+  useEffect(() => {
+    metaCtx.setPageTitle(metaData.page);
+    metaCtx.setMetaDesc(metaData.metaDesc);
+    metaCtx.setMetaKw(metaData.metaKeyWords);
+    metaCtx.setMetaTitle(metaData.metaTitle);
+    metaCtx.setOgtitle(metaData.ogTitle);
+    metaCtx.setOgDesc(metaData.ogDesc);
+    metaCtx.setOgSiteName(metaData.ogSiteName);
+    metaCtx.setTwitterCard(metaData.twitterCard);
+    metaCtx.setTwitterSite(metaData.twitterSite);
+    metaCtx.setTwitterTitle(metaData.twitterTitle);
+    metaCtx.setTwitterDesc(metaData.twitterDesc);
+  }, [metaData]);
   return (
     <div>
       <Title title="Preferred Vendors"/>

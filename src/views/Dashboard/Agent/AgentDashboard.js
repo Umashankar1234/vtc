@@ -2537,7 +2537,7 @@ export default function AgentDashboard(props) {
                         </h3>
                         <ul class="agent_docs">
                           {Object.keys(dashboardData).length > 0 ? (
-                            dashboardData.mobile !== null && (
+                            (dashboardData.mobile !== "" && dashboardData.mobile !== null) && (
                               <React.Fragment>
                                 <i class="fas fa-phone-alt"></i>
                                 <span
@@ -2569,7 +2569,7 @@ export default function AgentDashboard(props) {
                       </div>
                       <div class="agent-code">
                         <span>
-                          <i class="far fa-id-card"></i>&nbsp;#BH785674
+                          <i class="far fa-id-card"></i>&nbsp;#{dashboardData?.licenceno}
                         </span>
                       </div>
                     </div>
