@@ -161,6 +161,97 @@ export default function CheckoutTab(props) {
     }
   }
   
+  const onSubmit1 = async (values) => {
+    if (values.number === undefined) {
+      setMessage("Please enter card number");
+      setOpenError(true);
+    } else if (values.name === undefined) {
+      setMessage("Please enter Full name");
+      setOpenError(true);
+    } else if (values.cvc === undefined) {
+      setMessage("Please enter CVV");
+      setOpenError(true);
+    } else if (values.expiry === undefined) {
+      setMessage("Please enter Expiry date");
+      setOpenError(true);
+    } else {
+      setOpenModal(false);
+      setOpen(true);
+
+      var date = values.expiry;
+      var parts = date.split("/");
+      values.authenticate_key = "abcd123XYZ";
+      values.agent_id = JSON.parse(context.state.user).agentId;
+      values.street_address = basicInfo.address;
+      values.city = basicInfo.city;
+      values.zipcode = basicInfo.zip;
+      values.notes = basicInfo.notes;
+      values.combocategories = JSON.parse(
+        localStorage.getItem("Combo_Package")
+      );
+      values.categories = JSON.parse(localStorage.getItem("Carte_Package"));
+      values.packageid = JSON.parse(localStorage.getItem("Sub_Package"));
+      values.combopackageid = JSON.parse(
+        localStorage.getItem("Combo_Sub_Package")
+      );
+      values.miscellaneousids = JSON.parse(
+        localStorage.getItem("Misc_Package")
+      );
+      values.parent_category = JSON.parse(
+        localStorage.getItem("Carte_Package")
+      );
+      values.cc_month = parts[0];
+      values.cc_year = insert(parts[1], 0, "20");
+      // values.card_type = GetCardType(parseInt(values.number.split(" ").join('')));
+      values.card_no = values.number.split(" ").join("");
+      values.card_holder = values.name;
+      values.cvv_no = values.cvc;
+      values.amount = price;
+      values.bed_room = propertyInfo.bed_room;
+      values.bath_room = propertyInfo.bath_room;
+      values.square_footage = propertyInfo.square_footage;
+      values.mls = propertyInfo.mls;
+      values.caption = propertyInfo.caption;
+      values.description = propertyInfo.description;
+      values.year_built = propertyInfo.year_built;
+      values.state = basicInfo.state;
+      values.interior_area = basicInfo.interior_area;
+      values.first_choice = propertyInfo.first_choice;
+      values.second_choice = propertyInfo.second_choice;
+      values.third_choice = propertyInfo.third_choice;
+      values.first_time = propertyInfo.first_time;
+      values.second_time = propertyInfo.second_time;
+      values.third_time = propertyInfo.third_time;
+      values.brokerid = basicInfo.broker_id;
+      values.notes = basicInfo.notes;
+      values.pay_later = 1;
+      postRecord(APISaveAppointment, values)
+        .then((res) => {
+          setOpen(false);
+          if (res.data[0].response.status === "success") {
+            setMessage(res.data[0].response.message);
+            setOpenSuccess(true);
+            localStorage.removeItem("Combo_Package");
+            localStorage.removeItem("Carte_Package");
+            localStorage.removeItem("Sub_Package");
+            localStorage.removeItem("Combo_Sub_Package");
+            localStorage.removeItem("Misc_Package");
+            localStorage.removeItem("Property_Info");
+            localStorage.removeItem("Basic_Info");
+            window.location.href = APIPath() + "agent-order-list";
+            // history.push(APIPath() + "agent-order-list");
+          } else {
+            setMessage(res.data[0].response.message);
+            setOpenError(true);
+          }
+        })
+        .catch((err) => {
+          setOpen(false);
+          setMessage("Error Occured");
+          setOpenError(true);
+        });
+    }
+  };
   const onSubmit = async (values) => {
     if (values.number === undefined) {
       setMessage("Please enter card number");
@@ -224,6 +315,7 @@ export default function CheckoutTab(props) {
       values.third_time = propertyInfo.third_time;
       values.brokerid = basicInfo.broker_id;
       values.notes = basicInfo.notes;
+      values.pay_later = 0;
       postRecord(APISaveAppointment, values)
         .then((res) => {
           setOpen(false);
@@ -571,7 +663,7 @@ export default function CheckoutTab(props) {
         <div class="row" style={{ display: "grid" }}>
           <Styles>
             <Form
-              onSubmit={onSubmit}
+              onSubmit={onSubmit1}
               render={({
                 handleSubmit,
                 form,

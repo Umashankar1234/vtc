@@ -30,6 +30,7 @@ import { postRecord } from "../../../CommonMethods/Save";
 import { HTML5_FMT } from "moment";
 import Title from "../../../CommonMethods/Title";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
+import { NavLink } from "react-router-dom/cjs/react-router-dom.min";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetDashboardData = APIURL() + "agent-dashboard";
 const APIVerifyAccount = APIURL() + "resend-verification-mail";
@@ -722,12 +723,12 @@ export default function AgentDashboard(props) {
                 <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
                 <div class="gee_menu">
                   <ul>
-                    <li class="active">
-                      <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
+                    <li>
+                      <NavLink to={APIPath() + "agent-dashboard"}>My Cafe</NavLink>
                     </li>
                    
                     <li>
-                      <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
+                      <NavLink to={APIPath() + "agent-tour-list"}>Toursss</NavLink>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-flyer"}>Flyers</Link>

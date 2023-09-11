@@ -124,25 +124,25 @@ export default function AgentMylisting(props) {
                 });
         }
     }, [context.state.user]);
-    // https://virtualtourcafe.com/alpha/tour/
+    // https://virtualtourcafe.com/tour/
     useEffect(() => {
         if (context.state.user) {
             const agent_id = JSON.parse(context.state.user).agentId;
             if (themeId === 1) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 2) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template1/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template1/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 3) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template2/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template2/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 4) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template3/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template3/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             }
             else if (themeId === 5) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template4/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template4/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             }
         }

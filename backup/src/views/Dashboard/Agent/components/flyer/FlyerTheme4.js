@@ -76,7 +76,7 @@ export default function FlyerTheme4(props) {
                                             }
                                         </p>
                                         <p style={{ "color": "#FFFFFF", "margin": "0px" }}>
-                                            <a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}</a>
+                                            <a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}</a>
                                         </p>            </td>
                                 </tr>
                                 <tr>

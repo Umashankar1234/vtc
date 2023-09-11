@@ -53,9 +53,11 @@ export default function AgentFlyerList(props) {
   const context = useContext(AuthContext);
   let history = useHistory();
   const [currentUser, setCurrentUser] = useState({});
+  const [loading, setLoading] = useState(false);
   const [imagesetList, setImagesetList] = useState([]);
   const [sync, setSync] = useState(true);
   const [id, setId] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
   const [element, setElement] = useState("");
   const [openError, setOpenError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
@@ -97,19 +99,33 @@ export default function AgentFlyerList(props) {
   }, [context.state.user]);
   useEffect(() => {
     if (context.state.user) {
+      setLoading(true);
+
       const objusr = {
         authenticate_key: "abcd123XYZ",
         agent_id: JSON.parse(context.state.user).agentId,
+        pageNumber: pageNumber,
+        address: propertyData.address,
+        city: propertyData.city,
+        state: propertyData.countryid,
+        zipcode: propertyData.zipcode,
+        category: categoryInfo.catagory,
+        property: propertyDataType.property,
+        tourid: propertyData.flyerid,
+        mls: propertyData.mls,
       };
       postRecord(APIGetImagesetList, objusr).then((res) => {
         if (res.data[0].response.status === "success") {
           setImagesetList(res.data[0].response.data);
+
           setOrderByData(res.data[0].response.orderby);
           setRefresh(false);
+          setPageCount(res.data[0].response.datacount);
+          setLoading(false);
         }
       });
     }
-  }, [context.state.user, sync]);
+  }, [context.state.user, sync, pageNumber]);
   // useEffect(() => {
   //     if (context.state.user) {
   //         const objusr = { authenticate_key: "abcd123XYZ", agentId: JSON.parse(context.state.user).agentId ,tourid};
@@ -173,7 +189,7 @@ export default function AgentFlyerList(props) {
     const endOffset = offset + postPerPage;
     setTotalData(imagesetList.slice(offset, endOffset));
     setAllData(imagesetList.slice(offset, endOffset));
-    setPageCount(Math.ceil(imagesetList.length / postPerPage));
+    // setPageCount(Math.ceil(imagesetList.length / postPerPage));
   };
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -544,10 +560,21 @@ export default function AgentFlyerList(props) {
   const selectOrderbyChange = (event) => {
     const { name, value } = event.target;
     setOrderByData({ ...orderByData, [name]: value });
+    setLoading(true);
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
       order: event.target.value,
+      pageNumber: pageNumber,
+      address: propertyData.address,
+      city: propertyData.city,
+      state: propertyData.countryid,
+      zipcode: propertyData.zipcode,
+      category: categoryInfo.catagory,
+      property: propertyDataType.property,
+      tourid: propertyData.flyerid,
+      mls: propertyData.mls,
+
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -555,6 +582,10 @@ export default function AgentFlyerList(props) {
           setImagesetList(res.data[0].response.data);
           setMessage(res.data[0].response.status);
           setOpenSuccess(true);
+          setPageCount(res.data[0].response.datacount);
+
+          setRefresh(false);
+          setLoading(false);
         } else {
           setMessage(res.data[0].response.status);
           setOpenError(true);
@@ -568,6 +599,8 @@ export default function AgentFlyerList(props) {
   };
 
   const handlePageClick = (event) => {
+    setPageNumber(event.selected + 1);
+
     const newOffset = (event.selected * postPerPage) % imagesetList.length;
     setOffset(newOffset);
   };
@@ -611,6 +644,8 @@ export default function AgentFlyerList(props) {
   };
   const filterTourData = () => {
     setOpen(true);
+          setLoading(true);
+
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
@@ -622,12 +657,17 @@ export default function AgentFlyerList(props) {
       property: propertyDataType.property,
       tourid: propertyData.flyerid,
       mls: propertyData.mls,
+      pageNumber: pageNumber,
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
         if (res.data[0].response.status === "success") {
           if (res.data[0].response.data.length > 0) {
             setImagesetList(res.data[0].response.data);
+            setPageCount(res.data[0].response.datacount);
+
+            setRefresh(false);
+          setLoading(false);
           } else {
             setImagesetList([]);
           }
@@ -652,6 +692,13 @@ export default function AgentFlyerList(props) {
   }
   return (
     <div>
+      {loading && (
+        <div class="load-bar">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      )}
       <Title title="Agent Flyer List" />
       <AgentHeader />
       <section
@@ -1108,7 +1155,7 @@ export default function AgentFlyerList(props) {
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
                 <div class="row">
-                  {allData.length > 0 ? (
+                  {allData.length > 0 && !loading? (
                     allData.map((res) => (
                       <div
                         onClick={() => {
@@ -1163,7 +1210,7 @@ export default function AgentFlyerList(props) {
                                     <label>Share:</label>
                                     <ShareLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -1179,7 +1226,7 @@ export default function AgentFlyerList(props) {
                                   <li>
                                     <TwitterLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -1489,7 +1536,7 @@ export default function AgentFlyerList(props) {
                         </div>
                       </div>
                     ))
-                  ) : refresh === true ? (
+                  ) : refresh === true || loading ? (
                     <div class="row">
                       <Skeleton
                         variant="text"

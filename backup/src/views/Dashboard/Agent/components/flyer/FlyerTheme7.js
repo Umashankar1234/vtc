@@ -140,7 +140,7 @@ export default function FlyerTheme7(props) {
                                                     </p>
                                                         <p style={{ "margin": "5px 0px 5px 0px", "fontSize": "14px", "wordBreak": "break-all", "color": "#FFFFFF" }}>
                                                             <a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>
-                                                                https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}
+                                                                https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}
                                                             </a>
                                                         </p></td>
                                                 </tr>

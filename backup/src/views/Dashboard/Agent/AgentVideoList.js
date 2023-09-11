@@ -835,7 +835,7 @@ export default function AgentFlashVideo() {
                                                                 <ul>
                                                                     <li>
                                                                         <label>Share:</label>
-                                                                        <ShareLink link={"https://www.virtualtourcafe.com/alpha/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
+                                                                        <ShareLink link={"https://www.virtualtourcafe.com/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
                                                                             {link => (
                                                                                 <a href={link} target='_blank'><i class="fab fa-facebook-square fb"></i></a>
                                                                             )}
@@ -843,7 +843,7 @@ export default function AgentFlashVideo() {
                                                                     </li>
 
                                                                     <li>
-                                                                        <TwitterLink link={"https://www.virtualtourcafe.com/alpha/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
+                                                                        <TwitterLink link={"https://www.virtualtourcafe.com/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
                                                                             {link => (
                                                                                 <a href={link} target='_blank'><i class="fab fa-twitter-square tw"></i></a>
                                                                             )}

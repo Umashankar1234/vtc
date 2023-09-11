@@ -169,7 +169,7 @@ export default function FlyerTheme2(props) {
                     <td align="center" valign="middle" bgcolor="#343434" style={{ "paddingTop": "10px", "paddingBottom": "10px" }}><table width="80%" border="0" cellspacing="0" cellpadding="0">
                         <tr style={{ background: "#343434" }}>
                             <td align="center" valign="top">
-                                <p style={{ "margin": "5px 0px 5px 0px", "fontSize": "14px", "wordBreak": "break-all", color: "white" }}>https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}</p>
+                                <p style={{ "margin": "5px 0px 5px 0px", "fontSize": "14px", "wordBreak": "break-all", color: "white" }}>https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}</p>
 
                                 <p style={{ "margin": "0px", "fontSize": "12px", color: "white" }}>All information deemed reliable, but not guaranteed.</p>
                             </td>

@@ -168,7 +168,7 @@ export default function FlyerTheme3(props) {
                                     </table></td>
                                 </tr>
                                 <tr>
-                                    <td align="center" valign="top" bgcolor="#323232" style={{ padding: "10px" }}><a style={{ "textDecoration": "none", "color": "#FFF" }} target="_blank" href="https://virtualtourcafe.com/beta/tour/6139332">https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}
+                                    <td align="center" valign="top" bgcolor="#323232" style={{ padding: "10px" }}><a style={{ "textDecoration": "none", "color": "#FFF" }} target="_blank" href="https://virtualtourcafe.com/beta/tour/6139332">https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}
                                     </a>
                                         <br /><span style={{ color: "#fff" }}>
                                             All information deemed reliable, but not guaranteed.

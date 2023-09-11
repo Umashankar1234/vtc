@@ -160,7 +160,11 @@ export default function CheckoutTab(props) {
       }
     }
   }
-  const onSubmit = async (values) => {
+  const onSubmit = async (values,payLater) => {
+    console.log('====================================');
+    console.log(payLater);
+    console.log('====================================');
+    return;
     if (values.number === undefined) {
       setMessage("Please enter card number");
       setOpenError(true);
@@ -579,7 +583,7 @@ export default function CheckoutTab(props) {
                 active,
               }) => {
                 return (
-                  <form onSubmit={handleSubmit}>
+                  <form onSubmit={(e)=>handleSubmit(values,"payLater")}>
                     <div>
                       <Field
                         style={{ display: "none" }}

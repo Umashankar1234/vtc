@@ -38,7 +38,6 @@ const APIPartnerData = APIURL() + "company-logoList";
 const APIGetBrokerDetails = APIURL() + "get-BrokerDetails";
 const APIVisitorOption = APIURL() + "visitor-opt-newsletter";
 const APITourData = APIURL() + "getTourData";
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }

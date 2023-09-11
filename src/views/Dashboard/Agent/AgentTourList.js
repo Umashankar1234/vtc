@@ -114,9 +114,11 @@ export default function AgentTourList(props) {
   const [allCountries, setAllCountries] = useState([]);
   const [openVideoPromoModal, setOpenVideoPromoModal] = useState(false);
   const [DomainName, setDomainName] = useState("");
+  const [pageNumber, setPageNumber] = useState(1);
   const [DomainExtension, setDomainExtension] = useState("");
   const [uploadedImages, setUploadedImages] = useState([]);
   const [openServiceModal, setOpenServiceModal] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [distributeVideoChecked, setDistributeVideoChecked] = useState(false);
   const [domainOrderData, setDomainOrderData] = useState(
@@ -195,18 +197,32 @@ export default function AgentTourList(props) {
 
   useEffect(() => {
     if (context.state.user) {
+      setLoading(true);
       const objusr = {
         authenticate_key: "abcd123XYZ",
         agent_id: JSON.parse(context.state.user).agentId,
+        pageNumber: pageNumber,
+        address: propertyData.address,
+      city: propertyData.city,
+      state: propertyData.countryid,
+      zipcode: propertyData.zipcode,
+      category: categoryInfo.category,
+      property: propertyDataType.property,
+      tourid: propertyData.tourid,
+      mls: propertyData.mls,
       };
       postRecord(APIGetImagesetList, objusr).then((res) => {
         if (res.data[0].response.status === "success") {
           setImagesetList(res.data[0].response.data);
           setOrderByData(res.data[0].response.orderby);
+          setPageCount(res.data[0].response.datacount);
+
+          setRefresh(false);
+          setLoading(false);
         }
       });
     }
-  }, [context.state.user, sync]);
+  }, [context.state.user, sync, pageNumber]);
 
   useEffect(() => {
     const objusr = { authenticate_key: "abcd123XYZ", country_id: 40 };
@@ -252,7 +268,7 @@ export default function AgentTourList(props) {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (themeId === 1 && isPremium === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template/" +
+          "https://virtualtourcafe.com/tour/theme-template/" +
             id +
             "/" +
             agent_id,
@@ -261,7 +277,7 @@ export default function AgentTourList(props) {
         setThemeId("");
       } else if (themeId === 2 && isPremium === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template1/" +
+          "https://virtualtourcafe.com/tour/theme-template1/" +
             id +
             "/" +
             agent_id,
@@ -270,7 +286,7 @@ export default function AgentTourList(props) {
         setThemeId("");
       } else if (themeId === 3 && isPremium === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template2/" +
+          "https://virtualtourcafe.com/tour/theme-template2/" +
             id +
             "/" +
             agent_id,
@@ -279,7 +295,7 @@ export default function AgentTourList(props) {
         setThemeId("");
       } else if (themeId === 4 && isPremium === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template3/" +
+          "https://virtualtourcafe.com/tour/theme-template3/" +
             id +
             "/" +
             agent_id,
@@ -288,7 +304,7 @@ export default function AgentTourList(props) {
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template4/" +
+          "https://virtualtourcafe.com/tour/theme-template4/" +
             id +
             "/" +
             agent_id,
@@ -303,9 +319,9 @@ export default function AgentTourList(props) {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (defaultsThemeId && isPremium === 0) {
         // window.location.href = "http://localhost:3001/theme-template5/" + id + APIPath() + agent_id + APIPath() + defaultsThemeId;
-        // window.location.href = "https://virtualtourcafe.com/alpha/tour/theme-template5/" + id + "/" + agent_id;
+        // window.location.href = "https://virtualtourcafe.com/tour/theme-template5/" + id + "/" + agent_id;
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template5/" +
+          "https://virtualtourcafe.com/tour/theme-template5/" +
             id +
             "/" +
             agent_id +
@@ -337,25 +353,25 @@ export default function AgentTourList(props) {
   }, []);
   const ShowMenu = () => {
     if ($) {
-    $(".gee_menu").slideToggle("slow", function () {
-      $(".gee_hamburger").hide();
-      $(".gee_cross").show();
-    });
-  }
+      $(".gee_menu").slideToggle("slow", function () {
+        $(".gee_hamburger").hide();
+        $(".gee_cross").show();
+      });
+    }
   };
   const HideMenu = () => {
     if ($) {
-    $(".gee_menu").slideToggle("slow", function () {
-      $(".gee_cross").hide();
-      $(".gee_hamburger").show();
-    });
-  }
+      $(".gee_menu").slideToggle("slow", function () {
+        $(".gee_cross").hide();
+        $(".gee_hamburger").show();
+      });
+    }
   };
   const filterData = async () => {
     const endOffset = offset + postPerPage;
     setTotalData(imagesetList.slice(offset, endOffset));
     setAllData(imagesetList.slice(offset, endOffset));
-    setPageCount(Math.ceil(imagesetList.length / postPerPage));
+    // setPageCount(Math.ceil(imagesetList.length / postPerPage));
     setRefresh(false);
   };
   const handleClose = (event, reason) => {
@@ -620,10 +636,22 @@ export default function AgentTourList(props) {
   const selectOrderbyChange = (event) => {
     const { name, value } = event.target;
     setOrderByData({ ...orderByData, [name]: value });
+    setLoading(true);
+
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
       order: event.target.value,
+      pageNumber: pageNumber,
+      address: propertyData.address,
+      city: propertyData.city,
+      state: propertyData.countryid,
+      zipcode: propertyData.zipcode,
+      category: categoryInfo.category,
+      property: propertyDataType.property,
+      tourid: propertyData.tourid,
+      mls: propertyData.mls,
+
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -632,6 +660,10 @@ export default function AgentTourList(props) {
           setImagesetList(res.data[0].response.data);
           setMessage(res.data[0].response.status);
           setOpenSuccess(true);
+          setPageCount(res.data[0].response.datacount);
+
+          setRefresh(false);
+          setLoading(false);
           //setSync(false)
         } else {
           setMessage(res.data[0].response.status);
@@ -658,6 +690,8 @@ export default function AgentTourList(props) {
   };
   const filterTourData = () => {
     setOpen(true);
+    setLoading(true);
+
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
@@ -669,12 +703,18 @@ export default function AgentTourList(props) {
       property: propertyDataType.property,
       tourid: propertyData.tourid,
       mls: propertyData.mls,
+      pageNumber: pageNumber,
+
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
         if (res.data[0].response.status === "success") {
           if (res.data[0].response.data.length > 0) {
             setImagesetList(res.data[0].response.data);
+            setPageCount(res.data[0].response.datacount);
+
+            setRefresh(false);
+          setLoading(false);
           } else {
             setImagesetList([]);
           }
@@ -694,6 +734,7 @@ export default function AgentTourList(props) {
       });
   };
   const handlePageClick = (event) => {
+    setPageNumber(event.selected + 1);
     const newOffset = (event.selected * postPerPage) % imagesetList.length;
     setOffset(newOffset);
   };
@@ -1347,6 +1388,12 @@ export default function AgentTourList(props) {
   }
   return (
     <>
+    {loading && <div class="load-bar">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>}
+      
       <Title title="Agent Tour List" />
       <AgentHeader />
       <section
@@ -1366,7 +1413,7 @@ export default function AgentTourList(props) {
                     </li>
 
                     <li class="active">
-                      <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
+                      <Link class="active" to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
                     <li class="">
                       <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
@@ -1979,7 +2026,7 @@ export default function AgentTourList(props) {
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
                 <div class="row">
-                  {allData.length > 0 ? (
+                  {allData.length > 0 && !loading ? (
                     allData.map((res) => (
                       <div
                         onClick={() => {
@@ -2034,7 +2081,7 @@ export default function AgentTourList(props) {
                                     <label>Share:</label>
                                     <ShareLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -2050,7 +2097,7 @@ export default function AgentTourList(props) {
                                   <li>
                                     <TwitterLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -2334,7 +2381,7 @@ export default function AgentTourList(props) {
                         </div>
                       </div>
                     ))
-                  ) : refresh === true ? (
+                  ) : refresh === true || loading ? (
                     <div class="row">
                       <Skeleton
                         variant="text"

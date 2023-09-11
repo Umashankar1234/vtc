@@ -163,7 +163,7 @@ export default function FlyerTheme6(props) {
                                             </p>
                                                 <p style={{ "margin": "5px 0px 5px 0px", "fontSize": "14px", "wordBreak": "break-all", "color": "#FFFFFF" }}>
                                                     <a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>
-                                                        https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}
+                                                        https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}
                                                     </a>
                                                 </p>
                                             </td>
@@ -178,7 +178,7 @@ export default function FlyerTheme6(props) {
                         <tr>
                             <td height="30" align="left" valign="middle" bgcolor="#51304f" style={{ padding: "15px" }}><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr style={{ background: "#51304f" }}>
-                                    <td width="50%" align="left" valign="top" style={{ color: "#FFFFFF" }}>https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}</td>
+                                    <td width="50%" align="left" valign="top" style={{ color: "#FFFFFF" }}>https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}</td>
                                     <td width="50%" align="right" valign="top" style={{ color: "#FFFFFF" }}>All information deemed reliable, but not guaranteed.</td>
                                 </tr>
                             </table></td>

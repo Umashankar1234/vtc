@@ -131,20 +131,20 @@ export default function AgentTourList(props) {
         if (context.state.user) {
             const agent_id = JSON.parse(context.state.user).agentId;
             if (themeId === 1 && isPremium === 1) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 2 && isPremium === 1) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template1/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template1/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 3 && isPremium === 1) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template2/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template2/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             } else if (themeId === 4 && isPremium === 1) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template3/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template3/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             }
             else if (themeId === 5) {
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template4/" + id + "/" + agent_id, '_blank');
+                window.open("https://virtualtourcafe.com/tour/theme-template4/" + id + "/" + agent_id, '_blank');
                 setThemeId("");
             }
         }
@@ -154,8 +154,8 @@ export default function AgentTourList(props) {
             const agent_id = JSON.parse(context.state.user).agentId;
             if (defaultsThemeId && isPremium === 0) {
                 // window.location.href = "http://localhost:3001/theme-template5/" + id + APIPath() + agent_id + APIPath() + defaultsThemeId;
-                // window.location.href = "https://virtualtourcafe.com/alpha/tour/theme-template5/" + id + "/" + agent_id;
-                window.open("https://virtualtourcafe.com/alpha/tour/theme-template5/" + id + "/" + agent_id + "/" + defaultsThemeId, '_blank');
+                // window.location.href = "https://virtualtourcafe.com/tour/theme-template5/" + id + "/" + agent_id;
+                window.open("https://virtualtourcafe.com/tour/theme-template5/" + id + "/" + agent_id + "/" + defaultsThemeId, '_blank');
                 setDefaultsThemeId("");
             }
         }
@@ -806,7 +806,7 @@ export default function AgentTourList(props) {
                                                                 <ul>
                                                                     <li>
                                                                         <label>Share:</label>
-                                                                        <ShareLink link={"https://www.virtualtourcafe.com/alpha/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
+                                                                        <ShareLink link={"https://www.virtualtourcafe.com/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
                                                                             {link => (
                                                                                 <a href={link} target='_blank'><i class="fab fa-facebook-square fb"></i></a>
                                                                             )}
@@ -814,7 +814,7 @@ export default function AgentTourList(props) {
                                                                     </li>
 
                                                                     <li>
-                                                                        <TwitterLink link={"https://www.virtualtourcafe.com/alpha/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
+                                                                        <TwitterLink link={"https://www.virtualtourcafe.com/tour/theme-template/" + id + JSON.parse(context.state.user).agentId}>
                                                                             {link => (
                                                                                 <a href={link} target='_blank'><i class="fab fa-twitter-square tw"></i></a>
                                                                             )}

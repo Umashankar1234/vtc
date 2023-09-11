@@ -4,12 +4,6 @@ import { Recorder } from "react-voice-recorder";
 import $ from "jquery";
 import ReactCrop from "react-image-crop";
 import "react-image-crop/dist/ReactCrop.css";
-import {
-  GridContextProvider,
-  GridDropZone,
-  GridItem,
-  swap,
-} from "react-grid-drag";
 import Backdrop from "@material-ui/core/Backdrop";
 import "react-voice-recorder/dist/index.css";
 import Button from "@material-ui/core/Button";
@@ -22,7 +16,7 @@ import axios from "axios";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-import banner from "../../../images/vtc-banner.jpg";
+// import banner from "../../../images/vtc-banner.jpg";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -46,7 +40,6 @@ import { Link, useHistory } from "react-router-dom";
 import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
-import OwlCarousel from "react-owl-carousel";
 import Dropzone from "react-dropzone";
 import { confirmAlert } from "react-confirm-alert";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
@@ -295,20 +288,26 @@ const AgentEditTour = React.memo((props) => {
   const [hover1, setHover1] = useState(false);
   const [hover2, setHover2] = useState(false);
   useEffect(() => {
-    $(".gee_cross").hide();
-    $(".gee_menu").hide();
-  }, []);
+    if ($) {
+      $(".gee_cross").hide();
+      $(".gee_menu").hide();
+    }
+  }, [$]);
   const ShowMenu = () => {
-    $(".gee_menu").slideToggle("slow", function () {
-      $(".gee_hamburger").hide();
-      $(".gee_cross").show();
-    });
+    if ($) {
+      $(".gee_menu").slideToggle("slow", function () {
+        $(".gee_hamburger").hide();
+        $(".gee_cross").show();
+      });
+    }
   };
   const HideMenu = () => {
-    $(".gee_menu").slideToggle("slow", function () {
-      $(".gee_cross").hide();
-      $(".gee_hamburger").show();
-    });
+    if ($) {
+      $(".gee_menu").slideToggle("slow", function () {
+        $(".gee_cross").hide();
+        $(".gee_hamburger").show();
+      });
+    }
   };
   const resetImageValues = () => {
     setBlurValue(previousblurValue);
@@ -791,46 +790,46 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (themeId === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template/" +
-          tour_id +
-          "/" +
-          agent_id,
+          "https://virtualtourcafe.com/tour/theme-template/" +
+            tour_id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 2) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template1/" +
-          tour_id +
-          "/" +
-          agent_id,
+          "https://virtualtourcafe.com/tour/theme-template1/" +
+            tour_id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 3) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template2/" +
-          tour_id +
-          "/" +
-          agent_id,
+          "https://virtualtourcafe.com/tour/theme-template2/" +
+            tour_id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 4) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template3/" +
-          tour_id +
-          "/" +
-          agent_id,
+          "https://virtualtourcafe.com/tour/theme-template3/" +
+            tour_id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template4/" +
-          tour_id +
-          "/" +
-          agent_id,
+          "https://virtualtourcafe.com/tour/theme-template4/" +
+            tour_id +
+            "/" +
+            agent_id,
           "_blank"
         );
         setThemeId("");
@@ -842,12 +841,12 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (defaultsThemeId && isPremium === 0) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/theme-template5/" +
-          tour_id +
-          "/" +
-          agent_id +
-          "/" +
-          defaultsThemeId,
+          "https://virtualtourcafe.com/tour/theme-template5/" +
+            tour_id +
+            "/" +
+            agent_id +
+            "/" +
+            defaultsThemeId,
           "_blank"
         );
         setDefaultsThemeId("");
@@ -903,8 +902,8 @@ const AgentEditTour = React.memo((props) => {
           res.name === data.name
             ? firstOrder.order
             : res.name === data.firstOrder
-              ? data.order
-              : res.order,
+            ? data.order
+            : res.order,
       };
       // if (res.name === data.name) {
       //     res.order = firstOrder.order;
@@ -1497,11 +1496,11 @@ const AgentEditTour = React.memo((props) => {
     setAgentData({ ...agentData, photo: event.target.files });
     setAgentPhoto(URL.createObjectURL(event.target.files[0]));
   };
-  const handleOnChange = (val, fname) => { };
+  const handleOnChange = (val, fname) => {};
   const handleAudioStop = (data) => {
     setValue({ audioDetails: data });
   };
-  const handleCountDown = (data) => { };
+  const handleCountDown = (data) => {};
   const handleAudioUpload = (file) => {
     setNarrationData({ ...narrationData, file_two: value.audioDetails });
     setCurrentAudio(value.audioDetails.url);
@@ -2862,7 +2861,7 @@ const AgentEditTour = React.memo((props) => {
           },
           {
             label: "No",
-            onClick: () => { },
+            onClick: () => {},
           },
         ],
       });
@@ -3017,15 +3016,12 @@ const AgentEditTour = React.memo((props) => {
   };
   console.log("booyah");
   function changeHover(e) {
-    
     setHover(true);
   }
   function changeHover1(e) {
-    
     setHover1(true);
   }
   function changeHover2(e) {
-    
     setHover2(true);
   }
   return (
@@ -3033,7 +3029,7 @@ const AgentEditTour = React.memo((props) => {
       <AgentHeader />
       <section
         class="vtc_agent_banner"
-        style={{ backgroundImage: "url(" + banner + ")" }}
+        style={{ backgroundImage: "https://virtualtourcafe.com/static/media/vtc-banner.eee05fbf.jpg" }}
       >
         <div class="vtc_top_menu">
           <div class="container-fluid">
@@ -3090,7 +3086,6 @@ const AgentEditTour = React.memo((props) => {
         <div class="container-fluid">
           <div class="row">
             <div class="col-lg-12 col-md-12">
-
               {/* Navigation Menu */}
 
               {/* <div class="dropdown">
@@ -3105,138 +3100,412 @@ const AgentEditTour = React.memo((props) => {
               </div> */}
 
               <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
                   <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-image"></i> Media Tools
                       </a>
-                      <div  className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
-
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-3">
-                          <li><a class="dropdown-item" onClick={() => viewtour()}><i class="fas fa-eye"></i> View Tour</a></li>
-                          <li><a class="dropdown-item" onClick={() => {
-                            setOpenChangeOrderModal(true);
-                          }}><i class="far fa-image"></i> Change order</a></li>
+                          <li>
+                            <a class="dropdown-item" onClick={() => viewtour()}>
+                              <i class="fas fa-eye"></i> View Tour
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenChangeOrderModal(true);
+                              }}
+                            >
+                              <i class="far fa-image"></i> Change order
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={() => {
-                            setOpenModal(true);
-                          }}><i class="far fa-image"></i> Add Images</a></li>
-                          <li><a class="dropdown-item" onClick={() => {
-                            setOpenVideoModal(true);
-                          }}> <i class="fas fa-video"></i> Add Video</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenModal(true);
+                              }}
+                            >
+                              <i class="far fa-image"></i> Add Images
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenVideoModal(true);
+                              }}
+                            >
+                              {" "}
+                              <i class="fas fa-video"></i> Add Video
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={downloadImage}><i class="fas fa-download"></i> Download Image</a></li>
+                          <li>
+                            <a class="dropdown-item" onClick={downloadImage}>
+                              <i class="fas fa-download"></i> Download Image
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={handleDelete}><i class="far fa-trash-alt"></i> Delete Image</a></li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleDelete}>
+                              <i class="far fa-trash-alt"></i> Delete Image
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={() => updateAllCaption()}> <i class="fas fa-pen"></i> Update All Captions</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => updateAllCaption()}
+                            >
+                              {" "}
+                              <i class="fas fa-pen"></i> Update All Captions
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#Property">  <i class="fas fa-info-circle"></i> Property Information</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              {" "}
+                              <i class="fas fa-info-circle"></i> Property
+                              Information
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={() => setOpenAmenityModal(true)}> <i class="fas fa-file-spreadsheet"></i> Amenities</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => setOpenAmenityModal(true)}
+                            >
+                              {" "}
+                              <i class="fas fa-file-spreadsheet"></i> Amenities
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#Services"
-                          >  <i class="fas fa-link"></i> Service Links</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Services"
+                            >
+                              {" "}
+                              <i class="fas fa-link"></i> Service Links
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#Links">  <i class="fas fa-external-link-alt"></i> Other Links</a></li>
-                          <li><a class="dropdown-item" onClick={() => setOpenTrafficModal(true)}> <i class="far fa-sticky-note"></i> Traffic Reports</a></li>
-                          <li><a class="dropdown-item" onClick={() => panoroma()}> <i class="far fa-image"></i> Panoramas</a></li>
-                          <li><a class="dropdown-item" onClick={() => updateTourListData()}>  <i class="fas fa-cog"></i> Update All Settings</a></li>
-                          <li><a class="dropdown-item" onClick={handleEditImageModal}>  <i class="fas fa-edit"></i> Edit Image{" "}</a></li>
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#Distributetour">  <i class="fas fa-table"></i> Distribute Tour</a></li>
-                          <li><a class="dropdown-item" href=""
-                            data-toggle="modal"
-                            data-target="#facebook">  <i class="fab fa-facebook-f"></i> Post to Facebook</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Links"
+                            >
+                              {" "}
+                              <i class="fas fa-external-link-alt"></i> Other
+                              Links
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => setOpenTrafficModal(true)}
+                            >
+                              {" "}
+                              <i class="far fa-sticky-note"></i> Traffic Reports
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={() => panoroma()}>
+                              {" "}
+                              <i class="far fa-image"></i> Panoramas
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => updateTourListData()}
+                            >
+                              {" "}
+                              <i class="fas fa-cog"></i> Update All Settings
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleEditImageModal}
+                            >
+                              {" "}
+                              <i class="fas fa-edit"></i> Edit Image{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Distributetour"
+                            >
+                              {" "}
+                              <i class="fas fa-table"></i> Distribute Tour
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href=""
+                              data-toggle="modal"
+                              data-target="#facebook"
+                            >
+                              {" "}
+                              <i class="fab fa-facebook-f"></i> Post to Facebook
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </li>
-                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover1(false)} onMouseEnter={changeHover1}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover1(false)}
+                      onMouseEnter={changeHover1}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-line-height"></i> Basic
                       </a>
-                      <div className={hover1 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                      <div
+                        className={
+                          hover1 ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-2">
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#menu_opt"
-                          > <i class="fas fa-bars"></i> Menu Options</a></li>
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#bg_music"
-                          > <i class="fas fa-music"></i> Background Music</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#menu_opt"
+                            >
+                              {" "}
+                              <i class="fas fa-bars"></i> Menu Options
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#bg_music"
+                            >
+                              {" "}
+                              <i class="fas fa-music"></i> Background Music
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item" onClick={() => setOpenNarrationModal(true)}><i class="fas fa-torii-gate"></i> Tour Narration{" "}</a></li>
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#Property"><i class="fas fa-home"></i> Property Information{" "}</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => setOpenNarrationModal(true)}
+                            >
+                              <i class="fas fa-torii-gate"></i> Tour Narration{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              <i class="fas fa-home"></i> Property Information{" "}
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={() => setOpenAmenityModal(true)}> <i class="fas fa-sticky-note"></i>  Amenities</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => setOpenAmenityModal(true)}
+                            >
+                              {" "}
+                              <i class="fas fa-sticky-note"></i> Amenities
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#open_house">  <i class="fas fa-warehouse"></i>  Open House Announcements</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#open_house"
+                            >
+                              {" "}
+                              <i class="fas fa-warehouse"></i> Open House
+                              Announcements
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            href="#"
-                            data-toggle="modal"
-                            data-target="#Newsletter">   <i class="fab fa-wpforms"></i>  Add Newsletter Form</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Newsletter"
+                            >
+                              {" "}
+                              <i class="fab fa-wpforms"></i> Add Newsletter Form
+                            </a>
+                          </li>
                         </ul>
-
                       </div>
                     </li>
-                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover2(false)} onMouseEnter={changeHover2}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-hand-point-right"></i> Advanced
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover2(false)}
+                      onMouseEnter={changeHover2}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-hand-point-right"></i> Advanced
                       </a>
-                      <div   className={hover2 ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                      <div
+                        className={
+                          hover2 ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-2">
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#themes"
-                          > <i class="fas fa-gopuram"></i> Themes</a></li>
-                          <li><a class="dropdown-item" onClick={() => setOpenCompanyBanner(true)}> <i class="fas fa-building"></i> Company Banner</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#themes"
+                            >
+                              {" "}
+                              <i class="fas fa-gopuram"></i> Themes
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => setOpenCompanyBanner(true)}
+                            >
+                              {" "}
+                              <i class="fas fa-building"></i> Company Banner
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            data-toggle="modal"
-                            data-target="#agent_pop_tab"><i class="fas fa-user"></i>  Co-listing agent{" "}</a></li>
-                          <li><a class="dropdown-item"
-                            onClick={() => handleFloorPlan()}><i class="fas fa-ruler-horizontal"></i>  Floor Plans</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#agent_pop_tab"
+                            >
+                              <i class="fas fa-user"></i> Co-listing agent{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => handleFloorPlan()}
+                            >
+                              <i class="fas fa-ruler-horizontal"></i> Floor
+                              Plans
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={handleEditFloor}><i class="fas fa-wifi"></i>  Floor-plan Hot-spot</a></li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleEditFloor}>
+                              <i class="fas fa-wifi"></i> Floor-plan Hot-spot
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={handlePanorama}> <i class="fas fa-photo-video"></i>  Panoramas</a></li>
+                          <li>
+                            <a class="dropdown-item" onClick={handlePanorama}>
+                              {" "}
+                              <i class="fas fa-photo-video"></i> Panoramas
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={() => handleSlideShow()}> <i class="fas fa-sliders-h"></i> Slide-Show Editor</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => handleSlideShow()}
+                            >
+                              {" "}
+                              <i class="fas fa-sliders-h"></i> Slide-Show Editor
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={() => {
-                              setOpenYoutubeModal(true);
-                            }}
-                          >  <i class="fab fa-youtube"></i> Additional YouTube Links</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenYoutubeModal(true);
+                              }}
+                            >
+                              {" "}
+                              <i class="fab fa-youtube"></i> Additional YouTube
+                              Links
+                            </a>
+                          </li>
 
-                          <li><a class="dropdown-item"
-                            onClick={() => {
-                              setOpenWalkThroughModal(true);
-                            }}
-                          >  <i class="fas fa-home"></i>  3D Walkthrough Home Tour</a></li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenWalkThroughModal(true);
+                              }}
+                            >
+                              {" "}
+                              <i class="fas fa-home"></i> 3D Walkthrough Home
+                              Tour
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </li>
@@ -4454,79 +4723,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {appliancesAmenities && appliancesAmenities.length > 0
                       ? appliancesAmenities.map((res) => (
-                        <div class="col-lg-4 col-md-4">
-                          <div class="app_preview">
-                            <div class="switchToggle custom-control custom-switch">
-                              <Switch
-                                onChange={(event) => {
-                                  handleChange(event, res);
-                                }}
-                                checked={
-                                  res.countamenity === 1 ? true : false
-                                }
-                                handleDiameter={28}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={35}
-                                width={60}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
-                              {/*  */}
-                            </div>
-                            <p style={{ marginLeft: "20px" }}>
-                              {res.amenityname}
-                            </p>
-                            {res.agentid ===
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              <div class="switchToggle custom-control custom-switch">
+                                <Switch
+                                  onChange={(event) => {
+                                    handleChange(event, res);
+                                  }}
+                                  checked={
+                                    res.countamenity === 1 ? true : false
+                                  }
+                                  handleDiameter={28}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={35}
+                                  width={60}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                                {/*  */}
+                              </div>
+                              <p style={{ marginLeft: "20px" }}>
+                                {res.amenityname}
+                              </p>
+                              {res.agentid ===
                               JSON.parse(context.state.user).agentId ? (
-                              <HighlightOffIcon
-                                onClick={() => removeAmenity(res.id)}
-                                style={{
-                                  left: "26%",
-                                  position: "absolute",
-                                  top: "-10px",
-                                  color: "red",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            ) : (
-                              ""
-                            )}
+                                <HighlightOffIcon
+                                  onClick={() => removeAmenity(res.id)}
+                                  style={{
+                                    left: "26%",
+                                    position: "absolute",
+                                    top: "-10px",
+                                    color: "red",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4576,79 +4845,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {interiorAmenities && interiorAmenities.length > 0
                       ? interiorAmenities.map((res) => (
-                        <div class="col-lg-4 col-md-4">
-                          <div class="app_preview">
-                            {/* <p>{res.amenityname}</p> */}
-                            <div class="switchToggle custom-control custom-switch">
-                              <Switch
-                                onChange={(event) => {
-                                  handleInteriorChange(event, res);
-                                }}
-                                checked={
-                                  res.countamenity === 1 ? true : false
-                                }
-                                handleDiameter={28}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={35}
-                                width={60}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
-                            </div>
-                            <p style={{ marginLeft: "20px" }}>
-                              {res.amenityname}
-                            </p>
-                            {res.agentid ===
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              {/* <p>{res.amenityname}</p> */}
+                              <div class="switchToggle custom-control custom-switch">
+                                <Switch
+                                  onChange={(event) => {
+                                    handleInteriorChange(event, res);
+                                  }}
+                                  checked={
+                                    res.countamenity === 1 ? true : false
+                                  }
+                                  handleDiameter={28}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={35}
+                                  width={60}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
+                              <p style={{ marginLeft: "20px" }}>
+                                {res.amenityname}
+                              </p>
+                              {res.agentid ===
                               JSON.parse(context.state.user).agentId ? (
-                              <HighlightOffIcon
-                                onClick={() => removeAmenity(res.id)}
-                                style={{
-                                  left: "26%",
-                                  position: "absolute",
-                                  top: "-10px",
-                                  color: "red",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            ) : (
-                              ""
-                            )}
+                                <HighlightOffIcon
+                                  onClick={() => removeAmenity(res.id)}
+                                  style={{
+                                    left: "26%",
+                                    position: "absolute",
+                                    top: "-10px",
+                                    color: "red",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4698,79 +4967,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {Object.keys(exteriorAmenities).length > 0
                       ? exteriorAmenities.map((res) => (
-                        <div class="col-lg-4 col-md-4">
-                          <div class="app_preview">
-                            {/* <p>{res.amenityname}</p> */}
-                            <div class="switchToggle custom-control custom-switch">
-                              <Switch
-                                onChange={(event) => {
-                                  handleExteriorChange(event, res);
-                                }}
-                                checked={
-                                  res.countamenity === 1 ? true : false
-                                }
-                                handleDiameter={28}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={35}
-                                width={60}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
-                            </div>
-                            <p style={{ marginLeft: "20px" }}>
-                              {res.amenityname}
-                            </p>
-                            {res.agentid ===
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              {/* <p>{res.amenityname}</p> */}
+                              <div class="switchToggle custom-control custom-switch">
+                                <Switch
+                                  onChange={(event) => {
+                                    handleExteriorChange(event, res);
+                                  }}
+                                  checked={
+                                    res.countamenity === 1 ? true : false
+                                  }
+                                  handleDiameter={28}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={35}
+                                  width={60}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
+                              <p style={{ marginLeft: "20px" }}>
+                                {res.amenityname}
+                              </p>
+                              {res.agentid ===
                               JSON.parse(context.state.user).agentId ? (
-                              <HighlightOffIcon
-                                onClick={() => removeAmenity(res.id)}
-                                style={{
-                                  left: "26%",
-                                  position: "absolute",
-                                  top: "-10px",
-                                  color: "red",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            ) : (
-                              ""
-                            )}
+                                <HighlightOffIcon
+                                  onClick={() => removeAmenity(res.id)}
+                                  style={{
+                                    left: "26%",
+                                    position: "absolute",
+                                    top: "-10px",
+                                    color: "red",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                       : ""}
                   </div>
                   <div class="row">
@@ -4820,79 +5089,79 @@ const AgentEditTour = React.memo((props) => {
                   <div class="mar_top row">
                     {Object.keys(allAmenities).length > 0
                       ? communityAmenities.map((res) => (
-                        <div class="col-lg-4 col-md-4">
-                          <div class="app_preview">
-                            {/* <p>{res.amenityname}</p> */}
-                            <div class="switchToggle custom-control custom-switch">
-                              <Switch
-                                onChange={(event) => {
-                                  handleCommunityChange(event, res);
-                                }}
-                                checked={
-                                  res.countamenity === 1 ? true : false
-                                }
-                                handleDiameter={28}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={35}
-                                width={60}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 15,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
-                            </div>
-                            <p style={{ marginLeft: "20px" }}>
-                              {res.amenityname}
-                            </p>
-                            {res.agentid ===
+                          <div class="col-lg-4 col-md-4">
+                            <div class="app_preview">
+                              {/* <p>{res.amenityname}</p> */}
+                              <div class="switchToggle custom-control custom-switch">
+                                <Switch
+                                  onChange={(event) => {
+                                    handleCommunityChange(event, res);
+                                  }}
+                                  checked={
+                                    res.countamenity === 1 ? true : false
+                                  }
+                                  handleDiameter={28}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={35}
+                                  width={60}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 15,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
+                              <p style={{ marginLeft: "20px" }}>
+                                {res.amenityname}
+                              </p>
+                              {res.agentid ===
                               JSON.parse(context.state.user).agentId ? (
-                              <HighlightOffIcon
-                                onClick={() => removeAmenity(res.id)}
-                                style={{
-                                  left: "26%",
-                                  position: "absolute",
-                                  top: "-10px",
-                                  color: "red",
-                                  cursor: "pointer",
-                                }}
-                              />
-                            ) : (
-                              ""
-                            )}
+                                <HighlightOffIcon
+                                  onClick={() => removeAmenity(res.id)}
+                                  style={{
+                                    left: "26%",
+                                    position: "absolute",
+                                    top: "-10px",
+                                    color: "red",
+                                    cursor: "pointer",
+                                  }}
+                                />
+                              ) : (
+                                ""
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      ))
+                        ))
                       : ""}
                   </div>
                   <div class="row">
@@ -6011,7 +6280,7 @@ const AgentEditTour = React.memo((props) => {
                           onChange={handleCheckboxChange}
                           checked={
                             Object.keys(allThemes).length > 0 &&
-                              allThemes.is_premium_theme === 1
+                            allThemes.is_premium_theme === 1
                               ? true
                               : false
                           }
@@ -6136,57 +6405,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {viewerMenuData.length > 0
                         ? viewerMenuData.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                              <Switch
-                                onChange={(event) =>
-                                  handleViewerChange(event, res)
-                                }
-                                checked={res.status}
-                                handleDiameter={17}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={25}
-                                width={45}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
+                            <div class="col-lg-4 col-md-4">
+                              <div class="app_preview">
+                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                                <Switch
+                                  onChange={(event) =>
+                                    handleViewerChange(event, res)
+                                  }
+                                  checked={res.status}
+                                  handleDiameter={17}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={25}
+                                  width={45}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                     </div>
                   </div>
@@ -6197,57 +6466,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {shareMenuData.length > 0
                         ? shareMenuData.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                              <Switch
-                                onChange={(event) =>
-                                  handleShareChange(event, res)
-                                }
-                                checked={res.status}
-                                handleDiameter={17}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={25}
-                                width={45}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
+                            <div class="col-lg-4 col-md-4">
+                              <div class="app_preview">
+                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                                <Switch
+                                  onChange={(event) =>
+                                    handleShareChange(event, res)
+                                  }
+                                  checked={res.status}
+                                  handleDiameter={17}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={25}
+                                  width={45}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                     </div>
                   </div>
@@ -6258,57 +6527,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {detailMenuData.length > 0
                         ? detailMenuData.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                              <Switch
-                                onChange={(event) =>
-                                  handleDetailChange(event, res)
-                                }
-                                checked={res.status}
-                                handleDiameter={17}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={25}
-                                width={45}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
+                            <div class="col-lg-4 col-md-4">
+                              <div class="app_preview">
+                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                                <Switch
+                                  onChange={(event) =>
+                                    handleDetailChange(event, res)
+                                  }
+                                  checked={res.status}
+                                  handleDiameter={17}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={25}
+                                  width={45}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                     </div>
                   </div>
@@ -6319,57 +6588,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {contactMenuData.length > 0
                         ? contactMenuData.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                              <Switch
-                                onChange={(event) =>
-                                  handleContactChange(event, res)
-                                }
-                                checked={res.status}
-                                handleDiameter={17}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={25}
-                                width={45}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
+                            <div class="col-lg-4 col-md-4">
+                              <div class="app_preview">
+                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                                <Switch
+                                  onChange={(event) =>
+                                    handleContactChange(event, res)
+                                  }
+                                  checked={res.status}
+                                  handleDiameter={17}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={25}
+                                  width={45}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                     </div>
                   </div>
@@ -6380,57 +6649,57 @@ const AgentEditTour = React.memo((props) => {
                     <div class="mar_top row">
                       {toolsMenuData.length > 0
                         ? toolsMenuData.map((res) => (
-                          <div class="col-lg-4 col-md-4">
-                            <div class="app_preview">
-                              <p style={{ marginLeft: "20px" }}>{res.name}</p>
-                              <Switch
-                                onChange={(event) =>
-                                  handleToolsChange(event, res)
-                                }
-                                checked={res.status}
-                                handleDiameter={17}
-                                offColor="#5D5D5D"
-                                onColor="#F6AD17"
-                                offHandleColor="#fff"
-                                onHandleColor="#fff"
-                                height={25}
-                                width={45}
-                                borderRadius={6}
-                                uncheckedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    No
-                                  </div>
-                                }
-                                checkedIcon={
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      justifyContent: "center",
-                                      alignItems: "center",
-                                      height: "100%",
-                                      fontSize: 13,
-                                      color: "white",
-                                      paddingRight: 2,
-                                    }}
-                                  >
-                                    Yes
-                                  </div>
-                                }
-                                className="react-switch"
-                              />
+                            <div class="col-lg-4 col-md-4">
+                              <div class="app_preview">
+                                <p style={{ marginLeft: "20px" }}>{res.name}</p>
+                                <Switch
+                                  onChange={(event) =>
+                                    handleToolsChange(event, res)
+                                  }
+                                  checked={res.status}
+                                  handleDiameter={17}
+                                  offColor="#5D5D5D"
+                                  onColor="#F6AD17"
+                                  offHandleColor="#fff"
+                                  onHandleColor="#fff"
+                                  height={25}
+                                  width={45}
+                                  borderRadius={6}
+                                  uncheckedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      No
+                                    </div>
+                                  }
+                                  checkedIcon={
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        height: "100%",
+                                        fontSize: 13,
+                                        color: "white",
+                                        paddingRight: 2,
+                                      }}
+                                    >
+                                      Yes
+                                    </div>
+                                  }
+                                  className="react-switch"
+                                />
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                     </div>
                   </div>
@@ -6441,19 +6710,19 @@ const AgentEditTour = React.memo((props) => {
                     <div id="list2" class="row">
                       {menuOrders.length > 0
                         ? menuOrders.map((res) => (
-                          <div
-                            draggable={true}
-                            onDragOver={(ev) => ev.preventDefault()}
-                            onDragStart={() => handleDrag(res)}
-                            onDrop={(event) => handleDrop(res)}
-                            class="col-lg-3 col-md-3"
-                          >
-                            <div class="tab_sec_main_sec">
-                              <i class="fas fa-home"></i>
-                              <h6>{res.name}</h6>
+                            <div
+                              draggable={true}
+                              onDragOver={(ev) => ev.preventDefault()}
+                              onDragStart={() => handleDrag(res)}
+                              onDrop={(event) => handleDrop(res)}
+                              class="col-lg-3 col-md-3"
+                            >
+                              <div class="tab_sec_main_sec">
+                                <i class="fas fa-home"></i>
+                                <h6>{res.name}</h6>
+                              </div>
                             </div>
-                          </div>
-                        ))
+                          ))
                         : ""}
                       {/* <div class="col-lg-3 col-md-3">
                                                 <div class="tab_sec_main_sec">
@@ -7357,39 +7626,39 @@ const AgentEditTour = React.memo((props) => {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                      <tr>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {index + 1}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.leadcapture === 1
-                                            ? "true"
-                                            : "false"}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.docname}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.filename}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.pwd}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          <Button
-                                            style={{ background: "red" }}
-                                            onClick={() =>
-                                              removeDocData(res.id)
-                                            }
-                                            startIcon={<CancelIcon />}
-                                            variant="contained"
-                                            color="primary"
-                                          >
-                                            Remove
-                                          </Button>
-                                        </td>
-                                      </tr>
-                                    ))
+                                        <tr>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {index + 1}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.leadcapture === 1
+                                              ? "true"
+                                              : "false"}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.docname}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.filename}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.pwd}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            <Button
+                                              style={{ background: "red" }}
+                                              onClick={() =>
+                                                removeDocData(res.id)
+                                              }
+                                              startIcon={<CancelIcon />}
+                                              variant="contained"
+                                              color="primary"
+                                            >
+                                              Remove
+                                            </Button>
+                                          </td>
+                                        </tr>
+                                      ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -7496,7 +7765,7 @@ const AgentEditTour = React.memo((props) => {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                        "documentPassword" + index
+                                          "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>
@@ -7591,24 +7860,24 @@ const AgentEditTour = React.memo((props) => {
                           </li>
                           {musicData && musicData.all_music
                             ? musicData.all_music.map((res) => (
-                              <li style={{ margin: "10px" }}>
-                                <input
-                                  type="radio"
-                                  onClick={() => handleMusicChange(res)}
-                                  name="mus"
-                                  value="Above_and_Beyond_full_mix"
-                                  checked={
-                                    currentMusic.musicid === res.musicid
-                                  }
-                                />
-                                <label
-                                  style={{ marginLeft: "20px" }}
-                                  for="Above_and_Beyond_full_mix.mp3"
-                                >
-                                  {res.caption}
-                                </label>
-                              </li>
-                            ))
+                                <li style={{ margin: "10px" }}>
+                                  <input
+                                    type="radio"
+                                    onClick={() => handleMusicChange(res)}
+                                    name="mus"
+                                    value="Above_and_Beyond_full_mix"
+                                    checked={
+                                      currentMusic.musicid === res.musicid
+                                    }
+                                  />
+                                  <label
+                                    style={{ marginLeft: "20px" }}
+                                    for="Above_and_Beyond_full_mix.mp3"
+                                  >
+                                    {res.caption}
+                                  </label>
+                                </li>
+                              ))
                             : ""}
                         </ul>
                       </div>
@@ -8828,39 +9097,39 @@ const AgentEditTour = React.memo((props) => {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                      <tr>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {index + 1}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.leadcapture === 1
-                                            ? "true"
-                                            : "false"}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.docname}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.filename}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.pwd}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          <Button
-                                            style={{ background: "red" }}
-                                            onClick={() =>
-                                              removeDocData(res.id)
-                                            }
-                                            startIcon={<CancelIcon />}
-                                            variant="contained"
-                                            color="primary"
-                                          >
-                                            Remove
-                                          </Button>
-                                        </td>
-                                      </tr>
-                                    ))
+                                        <tr>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {index + 1}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.leadcapture === 1
+                                              ? "true"
+                                              : "false"}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.docname}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.filename}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.pwd}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            <Button
+                                              style={{ background: "red" }}
+                                              onClick={() =>
+                                                removeDocData(res.id)
+                                              }
+                                              startIcon={<CancelIcon />}
+                                              variant="contained"
+                                              color="primary"
+                                            >
+                                              Remove
+                                            </Button>
+                                          </td>
+                                        </tr>
+                                      ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -8967,7 +9236,7 @@ const AgentEditTour = React.memo((props) => {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                        "documentPassword" + index
+                                          "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>
@@ -9255,7 +9524,7 @@ const AgentEditTour = React.memo((props) => {
                           />
                         </div>
                         {Object.keys(otherLink).length > 0 &&
-                          otherLink.tourvalue === 1 ? (
+                        otherLink.tourvalue === 1 ? (
                           <a
                             href="javascript:void()"
                             onClick={() => {
@@ -9333,7 +9602,7 @@ const AgentEditTour = React.memo((props) => {
                           />
                         </div>
                         {Object.keys(otherLink).length > 0 &&
-                          otherLink.cafeValue === 1 ? (
+                        otherLink.cafeValue === 1 ? (
                           <a
                             href="javascript:void()"
                             onClick={() => {

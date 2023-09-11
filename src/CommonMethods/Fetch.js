@@ -7,7 +7,7 @@ export const APIURL = () => {
 }
 export const APIPath = () => {
   //  return "/";
-  return "/alpha/";
+  return "/";
 }
 // "homepage": "http://139.59.28.82/mybid_frontend/",
 // yarn add final-form react-final-form

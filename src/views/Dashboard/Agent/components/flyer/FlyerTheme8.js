@@ -18,7 +18,7 @@ export default function FlyerTheme7(props) {
                         </tr>
                         <tr>
                             <td height="40" align="center" valign="middle" bgcolor="#198b72"><a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>
-                                https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}
+                                https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}
                             </a></td>
                         </tr>
                         <tr>
@@ -108,7 +108,7 @@ export default function FlyerTheme7(props) {
                         <tr>
                             <td height="27" align="left" valign="middle" bgcolor="#534f4c" style={{ "padding": "15px" }}><table width="100%" border="0" cellspacing="0" cellpadding="0">
                                 <tr style={{ background: "#534f4c" }}>
-                                    <td width="50%" align="left" valign="middle" style={{ color: "#FFFFFF" }}><a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}> https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}</a></td>
+                                    <td width="50%" align="left" valign="middle" style={{ color: "#FFFFFF" }}><a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}> https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}</a></td>
                                     <td width="50%" align="right" valign="middle" style={{ color: "#FFFFFF" }}>
                                         All information deemed reliable, but not guaranteed.</td>
                                 </tr>
@@ -176,7 +176,7 @@ export default function FlyerTheme7(props) {
                                                     </p>
                                                         <p style={{ "margin": "5px 0px 5px 0px", "fontSize": "14px", "wordBreak": "break-all", "color": "#FFFFFF" }}>
                                                             <a href="#" style={{ "color": "#FFFFFF", "textDecoration": "none" }}>
-                                                                https://virtualtourcafe.com/alpha/tour/theme-template/{link}/{tourData.userid}
+                                                                https://virtualtourcafe.com/tour/theme-template/{link}/{tourData.userid}
                                                             </a>
                                                         </p></td>
                                                 </tr>

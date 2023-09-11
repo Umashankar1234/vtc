@@ -12,14 +12,21 @@ import Backdrop from "@material-ui/core/Backdrop";
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Title from "../../../CommonMethods/Title";
+
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
+const APIGetOrderDetails = APIURL() + "pending-orders-details";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetOrderList = APIURL() + "orders-list";
 export default function AgentOrderList(props) {
   let history = useHistory();
   const context = useContext(AuthContext);
+  const [miscPackages, setMiscPackages] = useState([]);
+  const [propertyInfo, setPropertyInfo] = useState({});
+  const [basicInfo, setBasicInfo] = useState({});
   const [currentUser, setCurrentUser] = useState({});
   const [allOrders, setAllOrders] = useState([]);
+  const [packages, setPackages] = useState([]);
+  const [cartePackages, setCartePackages] = useState([]);
   const [postPerPage] = useState(10);
   const [pageCount, setPageCount] = useState(0);
   const [offset, setOffset] = useState(0);
@@ -102,7 +109,56 @@ export default function AgentOrderList(props) {
   const [open, setOpen] = useState(false);
   const classes = useStyles();
 
+  const completeOrder = (id) => {
+    localStorage.setItem("checkout", "yes");
+    localStorage.removeItem("Combo_Package");
+    localStorage.removeItem("Carte_Package");
+    localStorage.removeItem("Sub_Package");
+    localStorage.removeItem("Combo_Sub_Package");
+    localStorage.removeItem("Misc_Package");
+    localStorage.removeItem("Property_Info");
+    localStorage.removeItem("Basic_Info");
 
+    const objusr = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user).agentId,
+      orderid: id,
+    };
+    postRecord(APIGetOrderDetails, objusr).then((res) => {
+      console.log(res.data[0].response);
+      if (res.data[0].response.status === "success") {
+        if (
+          res.data[0].response.data.miscellaneouspackage &&
+          res.data[0].response.data.miscellaneouspackage.length > 0
+        ) {
+          res.data[0].response.data.miscellaneouspackage.map((res) => {
+            setMiscPackages((prevArray) => [...prevArray, res.id]);
+          });
+        }
+        if (
+          res.data[0].response.data.packagedetails &&
+          res.data[0].response.data.packagedetails.length > 0
+        ) {
+          res.data[0].response.data.packagedetails.map((res) => {
+            setPackages((prevArray) => [...prevArray, res.id]);
+            setCartePackages((prevArray) => [...prevArray, res.cat_id]);
+          });
+        }
+
+        // setAllOrders(res.data[0].response.data);
+        setPropertyInfo(res.data[0].response.data.orderdetails);
+        const obj = {
+          city: res.data[0].response.data.orderdetails.city,
+          zip: res.data[0].response.data.orderdetails.zipcode,
+          state: res.data[0].response.data.orderdetails.state,
+          squre_feet: res.data[0].response.data.orderdetails.square_footage,
+          notes: res.data[0].response.data.orderdetails.notes,
+        };
+        setBasicInfo(obj);
+        history.push(APIPath() + "appointment/?order");
+      }
+    });
+  };
   return (
     <div>
     <Title title="Agent Order List"/>
@@ -194,14 +250,22 @@ export default function AgentOrderList(props) {
                             {res.payment_date}
                           </td>
                           <td style={{ textAlign: "center" }}>
-                            <a
+                          {res.payment_status == 1 ?<a
                               style={{ marginRight: "20px" }}
                               onClick={() => handleDetails(res.id)}
                               class="btn btn-warning"
                               title="View Details"
                             >
                               View Details
-                            </a>
+                            </a>:<a
+                              style={{ marginRight: "20px" }}
+                              onClick={() => completeOrder(res.id)}
+                              class="btn btn-info"
+                              title="View Details"
+                            >
+                              Complete payment
+                            </a>}
+                            
                           </td>
                         </tr>
                       ))

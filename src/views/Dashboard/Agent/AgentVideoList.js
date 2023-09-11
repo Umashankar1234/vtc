@@ -57,6 +57,9 @@ export default function AgentFlashVideo() {
   const [propertyDataType, setPropertyTypeData] = useState({});
   const [refresh, setRefresh] = useState(true);
   const [hover, setHover] = useState(false);
+  const [pageNumber, setPageNumber] = useState(1);
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     if (context.state.user) {
       const objusr = {
@@ -72,20 +75,32 @@ export default function AgentFlashVideo() {
   }, [context.state.user]);
   useEffect(() => {
     if (context.state.user) {
+      setLoading(true);
+
       const objusr = {
         authenticate_key: "abcd123XYZ",
         agent_id: JSON.parse(context.state.user).agentId,
+        pageNumber: pageNumber,
+        address: propertyData.address,
+        city: propertyData.city,
+        state: propertyData.countryid,
+        zipcode: propertyData.zipcode,
+        category: categoryInfo.category,
+        property: propertyDataType.property,
+        tourid: propertyData.tourid,
+        mls: propertyData.mls,
       };
       postRecord(APIGetImagesetList, objusr).then((res) => {
         if (res.data[0].response.status === "success") {
           setImagesetList(res.data[0].response.data);
           setOrderByData(res.data[0].response.orderby);
+          setPageCount(res.data[0].response.datacount);
           setRefresh(false);
-
+          setLoading(false);
         }
       });
     }
-  }, [context.state.user, sync]);
+  }, [context.state.user, sync, pageNumber]);
   useEffect(() => {
     const objusr = { authenticate_key: "abcd123XYZ", country_id: 40 };
     postRecord(APIGetStates, objusr).then((res) => {
@@ -140,7 +155,7 @@ export default function AgentFlashVideo() {
     const endOffset = offset + postPerPage;
     setTotalData(imagesetList.slice(offset, endOffset));
     setAllData(imagesetList.slice(offset, endOffset));
-    setPageCount(Math.ceil(imagesetList.length / postPerPage));
+    // setPageCount(Math.ceil(imagesetList.length / postPerPage));
   };
 
   const handleClose = (event, reason) => {
@@ -276,7 +291,7 @@ export default function AgentFlashVideo() {
         },
         {
           label: "No",
-          onClick: () => { },
+          onClick: () => {},
         },
       ],
     });
@@ -395,10 +410,10 @@ export default function AgentFlashVideo() {
             } else {
               window.open(
                 APIPath() +
-                "agent-video-selected/" +
-                id +
-                "/" +
-                JSON.parse(context.state.user).agentId,
+                  "agent-video-selected/" +
+                  id +
+                  "/" +
+                  JSON.parse(context.state.user).agentId,
                 "_blank"
               );
             }
@@ -411,6 +426,8 @@ export default function AgentFlashVideo() {
     }
   };
   const handlePageClick = (event) => {
+    setPageNumber(event.selected + 1);
+
     const newOffset = (event.selected * postPerPage) % imagesetList.length;
     setOffset(newOffset);
   };
@@ -427,10 +444,22 @@ export default function AgentFlashVideo() {
   const selectOrderbyChange = (event) => {
     const { name, value } = event.target;
     setOrderByData({ ...orderByData, [name]: value });
+    setLoading(true);
+
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
       order: event.target.value,
+      pageNumber: pageNumber,
+      address: propertyData.address,
+      city: propertyData.city,
+      state: propertyData.countryid,
+      zipcode: propertyData.zipcode,
+      category: categoryInfo.category,
+      property: propertyDataType.property,
+      tourid: propertyData.tourid,
+      mls: propertyData.mls,
+
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -438,6 +467,11 @@ export default function AgentFlashVideo() {
           setImagesetList(res.data[0].response.data);
           setMessage(res.data[0].response.status);
           setOpenSuccess(true);
+          setPageCount(res.data[0].response.datacount);
+
+          setRefresh(false);
+          setLoading(false);
+          
         } else {
           setMessage(res.data[0].response.status);
           setOpenError(true);
@@ -459,6 +493,8 @@ export default function AgentFlashVideo() {
   };
   const filterTourData = () => {
     // setOpenError(true);
+    setLoading(true);
+
     const objusr = {
       authenticate_key: "abcd123XYZ",
       agent_id: JSON.parse(context.state.user).agentId,
@@ -470,12 +506,18 @@ export default function AgentFlashVideo() {
       property: propertyDataType.property,
       tourid: propertyData.tourid,
       mls: propertyData.mls,
+      pageNumber: pageNumber,
+
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
         if (res.data[0].response.status === "success") {
           if (res.data[0].response.data.length > 0) {
             setImagesetList(res.data[0].response.data);
+            setPageCount(res.data[0].response.datacount);
+
+            setRefresh(false);
+          setLoading(false);
           } else {
             setImagesetList([]);
           }
@@ -495,12 +537,18 @@ export default function AgentFlashVideo() {
   };
 
   function changeHover(e) {
-    
     setHover(true);
   }
 
   return (
     <div>
+      {loading && (
+        <div class="load-bar">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      )}
       <Title title="Agent Video List" />
       <AgentHeader />
       <section
@@ -572,35 +620,77 @@ export default function AgentFlashVideo() {
               <div class="col-lg-12 col-md-12">
                 {/* Navigation Menu */}
                 <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                  >
                     <span class="navbar-toggler-icon"></span>
                   </button>
 
-                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <div
+                    class="collapse navbar-collapse"
+                    id="navbarSupportedContent"
+                  >
                     <ul class="navbar-nav mr-auto">
-                      <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                        <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <li
+                        class="nav-item dropdown"
+                        onMouseLeave={(e) => setHover(false)}
+                        onMouseEnter={changeHover}
+                      >
+                        <a
+                          class="nav-link nav-new-link dropdown-toggle"
+                          id="navbarDropdown"
+                          role="button"
+                          data-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        >
                           <i class="fas fa-tasks"></i> Manage Videos
                         </a>
-                        <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                        <div
+                          className={
+                            hover ? "show dropdown-menu" : "dropdown-menu"
+                          }
+                          aria-labelledby="navbarDropdown"
+                        >
                           <ul class="column-count-2">
                             <li>
-                              <a class="dropdown-item" onClick={() => goToImageSet()}>
-                                <i class="far fa-image"></i> Go To Selected Tour</a>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => goToImageSet()}
+                              >
+                                <i class="far fa-image"></i> Go To Selected Tour
+                              </a>
                             </li>
                             <li>
-                              <a class="dropdown-item" onClick={() => editVideo()}>
-                                <i class="far fa-edit"></i> Edit Selected Video</a>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => editVideo()}
+                              >
+                                <i class="far fa-edit"></i> Edit Selected Video
+                              </a>
                             </li>
                             <li>
-                              <a class="dropdown-item" onClick={() => viewSelectvideo()}>
-                                <i class="far fa-eye"></i> View Selected Video</a>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => viewSelectvideo()}
+                              >
+                                <i class="far fa-eye"></i> View Selected Video
+                              </a>
                               <input type="hidden" id="videoIdValue" value="" />
                             </li>
                             <li>
-                              <a class="dropdown-item" onClick={() => ezFlashCard()}>
-                                <i class="far fa-eye"></i> EZ FlashCards</a>
+                              <a
+                                class="dropdown-item"
+                                onClick={() => ezFlashCard()}
+                              >
+                                <i class="far fa-eye"></i> EZ FlashCards
+                              </a>
                             </li>
                           </ul>
                         </div>
@@ -950,7 +1040,7 @@ export default function AgentFlashVideo() {
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
                 <div class="row">
-                  {allData.length > 0 ? (
+                  {allData.length > 0 && !loading ? (
                     allData.map((res) => (
                       <div
                         onClick={() => {
@@ -1004,7 +1094,7 @@ export default function AgentFlashVideo() {
                                     <label>Share:</label>
                                     <ShareLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -1020,7 +1110,7 @@ export default function AgentFlashVideo() {
                                   <li>
                                     <TwitterLink
                                       link={
-                                        "https://www.virtualtourcafe.com/alpha/tour/theme-template/" +
+                                        "https://www.virtualtourcafe.com/tour/theme-template/" +
                                         id +
                                         JSON.parse(context.state.user).agentId
                                       }
@@ -1304,7 +1394,7 @@ export default function AgentFlashVideo() {
                         </div>
                       </div>
                     ))
-                  ) : refresh === true ? (
+                  ) : refresh === true || loading ? (
                     <div class="row">
                       <Skeleton
                         variant="text"
