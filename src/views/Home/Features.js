@@ -825,7 +825,7 @@ export default function Features() {
                                     width="100%"
                                     height="440"
                                     autoplay
-                                    src="https://youriguide.com/ezwk2_4266_barbara_ct_pleasanton_ca/"
+                                    src="https://my.matterport.com/show/?m=v5KwPp7TiPH"
                                     title="YouTube video player"
                                     frameborder="0"
                                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"

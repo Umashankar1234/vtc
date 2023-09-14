@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import {
   FormApi,
   Config,
@@ -7,12 +7,15 @@ import {
   FormSubscription,
   FieldState,
   FieldSubscription,
-  FieldValidator
-} from 'final-form';
+  FieldValidator,
+} from "final-form";
 
-type SupportedInputs = 'input' | 'select' | 'textarea';
+type SupportedInputs = "input" | "select" | "textarea";
 
-export interface ReactContext<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>> {
+export interface ReactContext<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> {
   reactFinalForm: FormApi<FormValues, InitialFormValues>;
 }
 
@@ -20,7 +23,7 @@ export type FieldMetaState<FieldValue> = Pick<
   FieldState<FieldValue>,
   Exclude<
     keyof FieldState<FieldValue>,
-    'blur' | 'change' | 'focus' | 'name' | 'value'
+    "blur" | "change" | "focus" | "name" | "value"
   >
 >;
 
@@ -42,26 +45,31 @@ interface AnyObject {
 
 export interface FieldRenderProps<
   FieldValue,
-  T extends HTMLElement = HTMLElement
+  T extends HTMLElement = HTMLElement,
+  InputValue = FieldValue,
 > {
-  input: FieldInputProps<FieldValue, T>;
+  input: FieldInputProps<InputValue, T>;
   meta: FieldMetaState<FieldValue>;
   [otherProp: string]: any;
 }
 
-export interface FormRenderProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
-  extends FormState<FormValues, InitialFormValues>,
+export interface FormRenderProps<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> extends FormState<FormValues, InitialFormValues>,
     RenderableProps<FormRenderProps<FormValues>> {
   form: FormApi<FormValues>;
   handleSubmit: (
     event?: Partial<
-      Pick<React.SyntheticEvent, 'preventDefault' | 'stopPropagation'>
-    >
+      Pick<React.SyntheticEvent, "preventDefault" | "stopPropagation">
+    >,
   ) => Promise<AnyObject | undefined> | undefined;
 }
 
-export interface FormSpyRenderProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
-  extends FormState<FormValues, InitialFormValues> {
+export interface FormSpyRenderProps<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> extends FormState<FormValues, InitialFormValues> {
   form: FormApi<FormValues, InitialFormValues>;
 }
 
@@ -71,8 +79,10 @@ export interface RenderableProps<T> {
   render?: (props: T) => React.ReactNode;
 }
 
-export interface FormProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
-  extends Config<FormValues, InitialFormValues>,
+export interface FormProps<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> extends Config<FormValues, InitialFormValues>,
     RenderableProps<FormRenderProps<FormValues, InitialFormValues>> {
   subscription?: FormSubscription;
   decorators?: Array<Decorator<FormValues, InitialFormValues>>;
@@ -81,18 +91,18 @@ export interface FormProps<FormValues = Record<string, any>, InitialFormValues =
   [otherProp: string]: any;
 }
 
-export interface UseFieldConfig<FieldValue> {
+export interface UseFieldConfig<FieldValue, InputValue = any> {
   afterSubmit?: () => void;
   allowNull?: boolean;
   beforeSubmit?: () => void | boolean;
   data?: AnyObject;
   defaultValue?: FieldValue;
-  format?: (value: FieldValue, name: string) => any;
+  format?: (value: FieldValue, name: string) => InputValue;
   formatOnBlur?: boolean;
   initialValue?: FieldValue;
   isEqual?: (a: any, b: any) => boolean;
   multiple?: boolean;
-  parse?: (value: any, name: string) => FieldValue;
+  parse?: (value: InputValue, name: string) => FieldValue;
   subscription?: FieldSubscription;
   type?: string;
   validate?: FieldValidator<FieldValue>;
@@ -102,49 +112,75 @@ export interface UseFieldConfig<FieldValue> {
 
 export interface FieldProps<
   FieldValue,
-  RP extends FieldRenderProps<FieldValue, T>,
-  T extends HTMLElement = HTMLElement
-> extends UseFieldConfig<FieldValue>, RenderableProps<RP> {
+  RP extends FieldRenderProps<FieldValue, T, InputValue>,
+  T extends HTMLElement = HTMLElement,
+  InputValue = FieldValue,
+> extends UseFieldConfig<FieldValue, InputValue>,
+    RenderableProps<RP> {
   name: string;
   [otherProp: string]: any;
 }
 
-export interface UseFormStateParams<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>> {
+export interface UseFormStateParams<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> {
   onChange?: (formState: FormState<FormValues, InitialFormValues>) => void;
   subscription?: FormSubscription;
 }
 
-export interface FormSpyProps<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>
-  extends UseFormStateParams<FormValues, InitialFormValues>,
+export interface FormSpyProps<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+> extends UseFormStateParams<FormValues, InitialFormValues>,
     RenderableProps<FormSpyRenderProps<FormValues, InitialFormValues>> {}
 
 export const Field: <
   FieldValue = any,
-  RP extends FieldRenderProps<FieldValue, T> = FieldRenderProps<
+  T extends HTMLElement = HTMLElement,
+  InputValue = FieldValue,
+  RP extends FieldRenderProps<FieldValue, T, InputValue> = FieldRenderProps<
     FieldValue,
-    HTMLElement
+    T,
+    InputValue
   >,
-  T extends HTMLElement = HTMLElement
 >(
-  props: FieldProps<FieldValue, RP, T>
+  props: FieldProps<FieldValue, RP, T, InputValue>,
 ) => React.ReactElement;
-export const Form: <FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>(
-  props: FormProps<FormValues, InitialFormValues>
+export const Form: <
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+>(
+  props: FormProps<FormValues, InitialFormValues>,
 ) => React.ReactElement;
-export const FormSpy: <FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>(
-  props: FormSpyProps<FormValues, InitialFormValues>
+export const FormSpy: <
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+>(
+  props: FormSpyProps<FormValues, InitialFormValues>,
 ) => React.ReactElement;
-export function useField<FieldValue = any, T extends HTMLElement = HTMLElement>(
+export function useField<
+  FieldValue = any,
+  T extends HTMLElement = HTMLElement,
+  InputValue = FieldValue,
+>(
   name: string,
-  config?: UseFieldConfig<FieldValue>
-): FieldRenderProps<FieldValue, T>;
-export function useForm<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>(
-  componentName?: string
-): FormApi<FormValues, InitialFormValues>;
-export function useFormState<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>(
-  params?: UseFormStateParams<FormValues, InitialFormValues>
+  config?: UseFieldConfig<FieldValue, InputValue>,
+): FieldRenderProps<FieldValue, T, InputValue>;
+export function useForm<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+>(componentName?: string): FormApi<FormValues, InitialFormValues>;
+export function useFormState<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+>(
+  params?: UseFormStateParams<FormValues, InitialFormValues>,
 ): FormState<FormValues, InitialFormValues>;
-export function withTypes<FormValues = Record<string, any>, InitialFormValues = Partial<FormValues>>(): {
+export function withTypes<
+  FormValues = Record<string, any>,
+  InitialFormValues = Partial<FormValues>,
+>(): {
   Form: React.FC<FormProps<FormValues, InitialFormValues>>;
   FormSpy: React.FC<FormSpyProps<FormValues, InitialFormValues>>;
 };

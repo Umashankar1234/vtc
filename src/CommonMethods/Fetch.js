@@ -3,7 +3,7 @@ import axios from "axios";
 export const APIURL = () => {
   //  return "https://thingproxy.freeboard.io/fetch/https://virtualtourcafe.com/alpha/admin/api/";
   // return "https://cors-anywhere.herokuapp.com/http://139.59.28.82/vtc/api/";
-  return "https://virtualtourcafe.com/alpha/admin/api/";
+  return "https://virtualtourcafe.com/admin2/api/";
 }
 export const APIPath = () => {
   //  return "/";
