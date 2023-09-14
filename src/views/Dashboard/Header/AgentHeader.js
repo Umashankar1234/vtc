@@ -371,11 +371,11 @@ export default function AgentHeader(props) {
                                                 <li>
                                                     <a onClick={() => setOpenModal(true)} style={{ color: "white", cursor: "pointer" }} class="acc_btn"><i class="fas fa-user"></i>Account Status</a></li>
                                                 <li>
-                                                    <Link to={APIPath() + "agent-order-list"} class={props.path == "/agent-order-list" ? "acc_btn active" : "acc_btn"}><i class="fas fa-shopping-cart"></i>My Order</Link>
+                                                    <Link to={APIPath() + "agent-order-list"} class={props.path == "/alpha/agent-order-list" ? "acc_btn active" : "acc_btn"}><i class="fas fa-shopping-cart"></i>My Orders</Link>
                                                 </li>
                                                 <li>
 
-                                                    <Link to={APIPath() + "agent-pending-order-list"} class={props.path == "/agent-pending-order-list" ? "acc_btn active" : "acc_btn"}><i class="fas fa-cart-arrow-down"></i>My Pending Order</Link>
+                                                    <Link to={APIPath() + "agent-pending-order-list"} class={props.path == "/alpha/agent-pending-order-list" ? "acc_btn active" : "acc_btn"}><i class="fas fa-cart-arrow-down"></i>My Pending Order</Link>
                                                 </li>
                                                 <li class="dashboard nav-item nav-profile dropdown dropdown-animate show">
                                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" id="profileDropdown" aria-expanded="true">

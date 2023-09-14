@@ -239,8 +239,6 @@ const useStyles = makeStyles((theme) => ({
 export default function LandingPage(props) {
   const metaCtx = MetaInfo();
 
-  const { a } = props;
-  console.log(a);
   const classes = useStyles();
   const { dispatch } = useContext(AuthContext);
   const context = useContext(AuthContext);

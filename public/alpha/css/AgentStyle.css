@@ -350,21 +350,13 @@ img {
 
 .subscribe_btn {
   position: relative;
-
   font-size: 15px;
-
   font-weight: 500;
-
   color: #fff;
-
-  padding: 10px 23px;
-
+  padding: 7px 8px;
   background: #ffa12d;
-
   display: inline-block;
-
   text-transform: uppercase;
-
   transition: 0.5s;
 }
 
@@ -1341,22 +1333,14 @@ footer {
 }
 
 .gee_cross {
-  background: #fff;
-
+  background: #f48a24;
   padding: 0 10px;
-
-  color: #ffa12d;
-
+  color: #fffbf2;
   border: 0;
-
   height: 40px;
-
   font-size: 3em;
-
-  line-height: 57px;
-
+  line-height: 61px;
   width: 40px;
-
   border-radius: 5px;
 }
 
@@ -1760,12 +1744,11 @@ footer {
 .nav-tabs .nav-new-link.active,
 .tab_main .nav-tabs .nav-item.show .nav-new-link {
   background: #2d3e50;
-
   border-radius: 0 !important;
-
-  margin: 0;
+  border-bottom: 1px solid #fff;
 }
-
+.navbar-light .navbar-nav li:nth-last-child(1) .nav-new-link{border-bottom: 1px solid #fff;}
+nav-item{margin:0 !important;}
 .navbar-light .navbar-nav .nav-new-link {
   color: rgb(236, 233, 233);
 }
@@ -1775,7 +1758,7 @@ footer {
 .post_list p {
   margin: 0;
 }
-
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover{color: rgb(236, 233, 233);}
 .blog_left_inner_share ul li a:hover i,
 .image_service ul li p,
 .list_sec li a.active i,
@@ -2328,7 +2311,9 @@ footer {
 
   font-size: 16px;
 }
-
+.action_sec_right {
+  margin-top: 15px;
+}
 .action_sec_right li {
   color: #1d232d;
 
@@ -4772,6 +4757,10 @@ i.bigger-icon1 {
     text-align: center;
   }
 
+  .dropdown-menu.show ul.column-count-3 {
+    column-count: 1;
+}
+
   h1 {
     font-size: 40px;
   }
@@ -4820,7 +4809,7 @@ i.bigger-icon1 {
   .ftr_main_cont_top li a,
   .social_head,
   .subscribe_btn {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .acc_btn,
@@ -4840,7 +4829,7 @@ i.bigger-icon1 {
   .dash_logo_sec_right ul li,
   .filter_sec_single,
   .service_links_left {
-    margin: 0 0 10px;
+    margin: 0 10px 0px 0;
   }
 
   .acc_btn {
@@ -4879,8 +4868,7 @@ i.bigger-icon1 {
 
   .getting_started_single {
     padding: 15px 5px;
-
-    margin: 0 0 15px;
+    margin: 16px 0px 0px;
   }
 
   .getting_started_single_cont h5 {
@@ -5635,9 +5623,11 @@ input[type="text"]:disabled {
 .action_sec .nav-link {
   display: block;
   padding: 8px 5px;
-  margin-left: 12px !important;
+  margin-left: 0;
 }
-
+li.nav-item {
+  margin: 0 !important;
+}
 
 .toggle_sec .navbar-light .navbar-toggler-icon {
   filter: invert(1) hue-rotate(96deg) saturate(38);

@@ -19,6 +19,7 @@ import svg1 from "../../../images/43.svg";
 import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
+import AgentViewFlyer from "./AgentViewFlyer";
 const APIGetUserData = APIURL() + "user-details";
 const APIGetTourDetails = APIURL() + "tour-details";
 const APIGetTourInfo = APIURL() + "get-Tourinfo";
@@ -86,7 +87,7 @@ export default function AgentViewSelectedVideo(props) {
 
   const classes = useStyles();
   const TourId = props.match.params.videoid;
-  const AgentId = props.match.params.agentid;
+  // const AgentId = props.match.params.agentid;
   //console.log(props);
   let history = useHistory();
   const [color, setcolor] = useState({});
@@ -96,6 +97,8 @@ export default function AgentViewSelectedVideo(props) {
   const [activeImageListData, setActiveImageListData] = useState([]);
   const [facebookLink, setFacebookLink] = useState("");
   const [TwitterLink, setTwitterLink] = useState("");
+  const [AgentId, setAgentId] = useState();
+  const [isActive, setIsActive] = useState(0);
   const [youTubeLink, setYoutubeLink] = useState("");
   const [tourDetailsData, setTourDetailsData] = useState({});
   const [imageData, setImageData] = useState([]);
@@ -133,27 +136,32 @@ export default function AgentViewSelectedVideo(props) {
   const [openGallery, setOpenGallery] = useState(false);
   const [photoIndex, setPhotoIndex] = useState(0);
   const [category, setCategory] = useState("");
+  console.log(isActive,"isActive",AgentId,tourDetailsData);
 
   useEffect(() => {
     const objusr = { authenticate_key: "abcd123XYZ", agent_id: AgentId };
-    postRecord(APIGetUserData, objusr).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setCurrentUser(res.data[0].response.data.agent_profile);
-        setCompanyInformation(
-          res.data[0].response.data.agent_profile.company_details
-        );
-        setAgentProfile(res.data[0].response.data.agent_profile.profile_img);
-      }
-    });
+    if (AgentId && AgentId != "") {
+      postRecord(APIGetUserData, objusr).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setCurrentUser(res.data[0].response.data.agent_profile);
+          setCompanyInformation(
+            res.data[0].response.data.agent_profile.company_details
+          );
+          setAgentProfile(res.data[0].response.data.agent_profile.profile_img);
+        }
+      });
+    }
   }, [AgentId]);
   useEffect(() => {
     const objusr = { authenticate_key: "abcd123XYZ", agent_id: AgentId };
-    postRecord(APIGetActiveImagesetList, objusr).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setBanner(res.data[0].response.bannerurl);
-        setActiveImageListData(res.data[0].response.data);
-      }
-    });
+    if (AgentId && AgentId != "") {
+      postRecord(APIGetActiveImagesetList, objusr).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setBanner(res.data[0].response.bannerurl);
+          setActiveImageListData(res.data[0].response.data);
+        }
+      });
+    }
   }, [AgentId]);
   useEffect(() => {
     const obj = { authenticate_key: "abcd123XYZ" };
@@ -171,18 +179,18 @@ export default function AgentViewSelectedVideo(props) {
       agentId: AgentId,
       tourid: TourId,
     };
-    console.log(objusr);
-    postRecord(APIGetTourInfo, objusr).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setTourDetailsData(res.data[0].response.dataDetails.tourdetails);
-      }
-    });
+    if (AgentId && AgentId != "") {
+      postRecord(APIGetTourInfo, objusr).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setTourDetailsData(res.data[0].response.dataDetails.tourdetails);         
+        }
+      });
+    }
   }, [AgentId, TourId]);
 
   useEffect(() => {
     const objusr = {
       authenticate_key: "abcd123XYZ",
-      agentId: AgentId,
       tourid: TourId,
     };
     postRecord(APIGetTourDetails, objusr).then((res) => {
@@ -193,6 +201,8 @@ export default function AgentViewSelectedVideo(props) {
         setAmenities(res.data[0].response.amenities);
         setAgentData(res.data[0].response.agentDetails);
         setCategory(res.data[0].response.category);
+        setAgentId(res.data[0].response.tourdetails.userid);
+        setIsActive(res.data[0].response.tourdetails.isactive);
         if (res.data[0].response.dataProvider2.length > 0) {
           setAllVideos(res.data[0].response.dataProvider2[0]);
         }
@@ -215,15 +225,17 @@ export default function AgentViewSelectedVideo(props) {
       agent_id: AgentId,
       tourId: TourId,
     };
-    postRecord(APIOtherLink, obj).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setOtherLink(res.data[0].response.data);
-        setMlsLink(res.data[0].response.data.mis_link);
-      } else {
-        setMessage(res.data[0].response.message);
-        setOpenError(true);
-      }
-    });
+    if (AgentId && AgentId != "") {
+      postRecord(APIOtherLink, obj).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setOtherLink(res.data[0].response.data);
+          setMlsLink(res.data[0].response.data.mis_link);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+        }
+      });
+    }
   }, [AgentId, TourId]);
   useEffect(() => {
     const obj = {
@@ -231,14 +243,16 @@ export default function AgentViewSelectedVideo(props) {
       agent_id: AgentId,
       tourId: TourId,
     };
-    postRecord(APITourService, obj).then((res) => {
-      if (res.data[0].response.status === "success") {
-        setServiceLinks(res.data[0].response.data);
-      } else {
-        setMessage(res.data[0].response.message);
-        setOpenError(true);
-      }
-    });
+    if (AgentId && AgentId != "") {
+      postRecord(APITourService, obj).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setServiceLinks(res.data[0].response.data);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+        }
+      });
+    }
   }, [AgentId, TourId]);
 
   const handleClose = (event, reason) => {
@@ -423,232 +437,235 @@ export default function AgentViewSelectedVideo(props) {
   };
   return (
     <>
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-12 p-0">
-            {Object.keys(agentData).length > 0 ? (
-              <img
-                src={agentData.company_details.companybanner}
-                alt=""
-                style={{
-                  width: "100%",
-                  backgroundSize: "cover",
-                  height: "200px",
-                  paddingLeft: "15px",
-                  paddingRight: "15px",
-                  paddingBottom: "20px",
-                }}
-              />
-            ) : (
-              ""
-            )}
+      {isActive == "1" ? (
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-12 p-0">
+              {Object.keys(agentData).length > 0 ? (
+                <img
+                  src={agentData.company_details.companybanner}
+                  alt=""
+                  style={{
+                    width: "100%",
+                    backgroundSize: "cover",
+                    height: "200px",
+                    paddingLeft: "15px",
+                    paddingRight: "15px",
+                    paddingBottom: "20px",
+                  }}
+                />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
-        </div>
-        <div class="wrapper theme4 theme5" id="home">
-          {/* <!--=========================== Menu ===========================--> */}
-          <div>
-            <header class="blacknew" style={color}>
-              <div class="header_inner clearfix">
-                <div class="header_bottom clearfix">
-                  <div class="container">
-                    <div class="header-boxfull">
-                      <div class="topmenu">
-                        <nav id="cssmenu" class="head_btm_menu">
-                          <ul>
-                            <li>
-                              <a href="#">
-                                <i class="far fa-home"></i>
-                                <br />
-                                VIRTUAL TOUR
-                              </a>
-                              <ul>
-                                <li>
-                                  <a href="#">Click here to see VIRTUAL tour</a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-images"></i>
-                                <br />
-                                GALLERY
-                              </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => setOpenGallery(true)}
-                                  >
-                                    Click Here to see Theater
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-copy"></i>
-                                <br />
-                                DETAILS
-                              </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() =>
-                                      setOpenProertyInfromation(true)
-                                    }
-                                  >
-                                    Property Information
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => {
-                                      setOpenAmenties(true);
-                                    }}
-                                  >
-                                    Amenities
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={viewFlyer}
-                                  >
-                                    Printable Flyer
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-id-badge"></i>
-                                <br />
-                                CONTACT
-                              </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => setopenAgentInfo(true)}
-                                  >
-                                    Agent Info
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => setopenAppointment(true)}
-                                  >
-                                    Schedule Appointment
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={ListingPage}
-                                  >
-                                    My Listings
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href={facebookLink} target="_blank">
-                                    Facebook Link
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href={TwitterLink} target="_blank">
-                                    Twitter Link
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href={youTubeLink} target="_blank">
-                                    Youtube Link
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-tools"></i>
-                                <br />
-                                TOOLS
-                              </a>
-                              <ul>
-                                <li>
-                                  <a href="#">Map View</a>
-                                </li>
-                                <li>
-                                  <a href="#">Arial View</a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => setOpenMortgage(true)}
-                                  >
-                                    Mortgage Calculator
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => setOpenWalkScore(true)}
-                                  >
-                                    Walk Score
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={AreaSchool}
-                                  >
-                                    Area Schools
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                            <li>
-                              <a href="#">
-                                <i class="fas fa-share-alt"></i>
-                                <br />
-                                SHARE
-                              </a>
-                              <ul>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => {
-                                      setOpenEmailModal(true);
-                                    }}
-                                  >
-                                    Send To Friend
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={SaveToDesktop}
-                                  >
-                                    Save Tour To Desktop
-                                  </a>
-                                </li>
-                                <li>
-                                  <a
-                                    href="javascript:void()"
-                                    onClick={() => {
-                                      setOpenLink(true);
-                                    }}
-                                  >
-                                    Service Links
-                                  </a>
-                                </li>
-                              </ul>
-                            </li>
-                          </ul>
-                        </nav>
-                      </div>
-                      {/* <div class="Music-player-holder">
+          <div class="wrapper theme4 theme5" id="home">
+            {/* <!--=========================== Menu ===========================--> */}
+            <div>
+              <header class="blacknew" style={color}>
+                <div class="header_inner clearfix">
+                  <div class="header_bottom clearfix">
+                    <div class="container">
+                      <div class="header-boxfull">
+                        <div class="topmenu">
+                          <nav id="cssmenu" class="head_btm_menu">
+                            <ul>
+                              <li>
+                                <a href="#">
+                                  <i class="far fa-home"></i>
+                                  <br />
+                                  VIRTUAL TOUR
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a href="#">
+                                      Click here to see VIRTUAL tour
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i class="fas fa-images"></i>
+                                  <br />
+                                  GALLERY
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => setOpenGallery(true)}
+                                    >
+                                      Click Here to see Theater
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i class="fas fa-copy"></i>
+                                  <br />
+                                  DETAILS
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() =>
+                                        setOpenProertyInfromation(true)
+                                      }
+                                    >
+                                      Property Information
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => {
+                                        setOpenAmenties(true);
+                                      }}
+                                    >
+                                      Amenities
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={viewFlyer}
+                                    >
+                                      Printable Flyer
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i class="fas fa-id-badge"></i>
+                                  <br />
+                                  CONTACT
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => setopenAgentInfo(true)}
+                                    >
+                                      Agent Info
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => setopenAppointment(true)}
+                                    >
+                                      Schedule Appointment
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={ListingPage}
+                                    >
+                                      My Listings
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href={facebookLink} target="_blank">
+                                      Facebook Link
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href={TwitterLink} target="_blank">
+                                      Twitter Link
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a href={youTubeLink} target="_blank">
+                                      Youtube Link
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i class="fas fa-tools"></i>
+                                  <br />
+                                  TOOLS
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a href="#">Map View</a>
+                                  </li>
+                                  <li>
+                                    <a href="#">Arial View</a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => setOpenMortgage(true)}
+                                    >
+                                      Mortgage Calculator
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => setOpenWalkScore(true)}
+                                    >
+                                      Walk Score
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={AreaSchool}
+                                    >
+                                      Area Schools
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                              <li>
+                                <a href="#">
+                                  <i class="fas fa-share-alt"></i>
+                                  <br />
+                                  SHARE
+                                </a>
+                                <ul>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => {
+                                        setOpenEmailModal(true);
+                                      }}
+                                    >
+                                      Send To Friend
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={SaveToDesktop}
+                                    >
+                                      Save Tour To Desktop
+                                    </a>
+                                  </li>
+                                  <li>
+                                    <a
+                                      href="javascript:void()"
+                                      onClick={() => {
+                                        setOpenLink(true);
+                                      }}
+                                    >
+                                      Service Links
+                                    </a>
+                                  </li>
+                                </ul>
+                              </li>
+                            </ul>
+                          </nav>
+                        </div>
+                        {/* <div class="Music-player-holder">
                                                 <div class="player">
                                                     <img id="button" onClick={togglePlay} src={playbtn} />
                                                     <audio>
@@ -664,108 +681,54 @@ export default function AgentViewSelectedVideo(props) {
                                                     <div id="bar-6" class="bar noAnim"></div>
                                                 </div>
                                             </div> */}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </header>
-          </div>
-          {Object.keys(allVideos).length > 0 ? (
-            <iframe
-              width="100%"
-              height="440"
-              autoplay={true}
-              src={allVideos.videourl}
-              title="YouTube video player"
-              frameborder="0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowfullscreen
-            ></iframe>
-          ) : allImages.length > 0 ? (
-            <OwlCarousel margin={10} {...options2}>
-              {allImages.map((res) => (
-                <div class="carousel-item active">
-                  <img src={res.imageurl} />                 
-                </div>
-              ))}
-            </OwlCarousel>
-          ) : (
-            ""
-          )}
-          <div class="bodycontent pt-0">
-            <div class="containerextra">
-              <div class="body-mid-work">
-                <div class="row">
-                  <div class="col-lg-4">
-                    <div class="profile-blue-main">
-                      <div class="profile-blue" style={color}>
-                        <div class="profile-blue-left">
-                          {Object.keys(agentData).length > 0 ? (
-                            <img
-                              src={agentData.agent_profile.profile_img}
-                              alt=""
-                            />
-                          ) : (
-                            ""
-                          )}
-                        </div>
-                        <div class="profile-blue-right">
-                          {Object.keys(agentData).length > 0 ? (
-                            <h3>{agentData.agent_profile.name}</h3>
-                          ) : (
-                            <Skeleton
-                              variant="text"
-                              width={150}
-                              height={20}
-                              style={{ background: "#bbbbbb" }}
-                            />
-                          )}
-                          {/* <p>Test New Company
-                                                        <br />
-                                                        maastest3@gmail.com</p> */}
-                          {Object.keys(agentData).length > 0 ? (
-                            <p>{agentData.company_details.company}</p>
-                          ) : (
-                            <Skeleton
-                              variant="text"
-                              width={150}
-                              height={20}
-                              style={{ background: "#bbbbbb" }}
-                            />
-                          )}
-                          {Object.keys(agentData).length > 0 ? (
-                            <p style={{ fontSize: "13px" }}>
-                              {agentData.email}
-                            </p>
-                          ) : (
-                            <Skeleton
-                              variant="text"
-                              width={150}
-                              height={20}
-                              style={{ background: "#bbbbbb" }}
-                            />
-                          )}
-                        </div>
-                      </div>
-                      <div class="profile-greybg">
-                        <ul>
-                          <li>
-                            <label>Mobile</label>
+              </header>
+            </div>
+            {Object.keys(allVideos).length > 0 ? (
+              <iframe
+                width="100%"
+                height="440"
+                autoplay={true}
+                src={allVideos.videourl}
+                title="YouTube video player"
+                frameborder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+              ></iframe>
+            ) : allImages.length > 0 ? (
+              <OwlCarousel margin={10} {...options2}>
+                {allImages.map((res) => (
+                  <div class="carousel-item active">
+                    <img src={res.imageurl} />
+                  </div>
+                ))}
+              </OwlCarousel>
+            ) : (
+              ""
+            )}
+            <div class="bodycontent pt-0">
+              <div class="containerextra">
+                <div class="body-mid-work">
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="profile-blue-main">
+                        <div class="profile-blue" style={color}>
+                          <div class="profile-blue-left">
                             {Object.keys(agentData).length > 0 ? (
-                              <p>{agentData.mobile}</p>
-                            ) : (
-                              <Skeleton
-                                variant="text"
-                                width={150}
-                                height={20}
-                                style={{ background: "#bbbbbb" }}
+                              <img
+                                src={agentData.agent_profile.profile_img}
+                                alt=""
                               />
-                            )}{" "}
-                          </li>
-                          <li>
-                            <label>Office</label>
+                            ) : (
+                              ""
+                            )}
+                          </div>
+                          <div class="profile-blue-right">
                             {Object.keys(agentData).length > 0 ? (
-                              <p>{agentData.company_details.officephone}</p>
+                              <h3>{agentData.agent_profile.name}</h3>
                             ) : (
                               <Skeleton
                                 variant="text"
@@ -774,11 +737,11 @@ export default function AgentViewSelectedVideo(props) {
                                 style={{ background: "#bbbbbb" }}
                               />
                             )}
-                          </li>
-                          <li>
-                            <label>Agent Lic#</label>{" "}
+                            {/* <p>Test New Company
+                                                        <br />
+                                                        maastest3@gmail.com</p> */}
                             {Object.keys(agentData).length > 0 ? (
-                              <p>{agentData.licenceno}</p>
+                              <p>{agentData.company_details.company}</p>
                             ) : (
                               <Skeleton
                                 variant="text"
@@ -786,34 +749,88 @@ export default function AgentViewSelectedVideo(props) {
                                 height={20}
                                 style={{ background: "#bbbbbb" }}
                               />
-                            )}{" "}
-                          </li>
-                        </ul>
-                      </div>
-                      <div class="profile-propertyinfo">Property Info</div>
-                      <div class="profile-greybg">
-                        <h6>
-                          Price : ${" "}
-                          {Object.keys(tourData).length > 0
-                            ? tourData.price
-                            : ""}
-                        </h6>
+                            )}
+                            {Object.keys(agentData).length > 0 ? (
+                              <p style={{ fontSize: "13px" }}>
+                                {agentData.email}
+                              </p>
+                            ) : (
+                              <Skeleton
+                                variant="text"
+                                width={150}
+                                height={20}
+                                style={{ background: "#bbbbbb" }}
+                              />
+                            )}
+                          </div>
+                        </div>
+                        <div class="profile-greybg">
+                          <ul>
+                            <li>
+                              <label>Mobile</label>
+                              {Object.keys(agentData).length > 0 ? (
+                                <p>{agentData.mobile}</p>
+                              ) : (
+                                <Skeleton
+                                  variant="text"
+                                  width={150}
+                                  height={20}
+                                  style={{ background: "#bbbbbb" }}
+                                />
+                              )}{" "}
+                            </li>
+                            <li>
+                              <label>Office</label>
+                              {Object.keys(agentData).length > 0 ? (
+                                <p>{agentData.company_details.officephone}</p>
+                              ) : (
+                                <Skeleton
+                                  variant="text"
+                                  width={150}
+                                  height={20}
+                                  style={{ background: "#bbbbbb" }}
+                                />
+                              )}
+                            </li>
+                            <li>
+                              <label>Agent Lic#</label>{" "}
+                              {Object.keys(agentData).length > 0 ? (
+                                <p>{agentData.licenceno}</p>
+                              ) : (
+                                <Skeleton
+                                  variant="text"
+                                  width={150}
+                                  height={20}
+                                  style={{ background: "#bbbbbb" }}
+                                />
+                              )}{" "}
+                            </li>
+                          </ul>
+                        </div>
+                        <div class="profile-propertyinfo">Property Info</div>
+                        <div class="profile-greybg">
+                          <h6>
+                            Price : ${" "}
+                            {Object.keys(tourData).length > 0
+                              ? tourData.price
+                              : ""}
+                          </h6>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div class="col-lg-8">
-                    <div class="social-media" style={color}>
-                      <a href={TwitterLink}>
-                        <i class="fab fa-twitter"></i>
-                      </a>
-                      <a href={facebookLink}>
-                        <i class="fab fa-facebook-f"></i>
-                      </a>
-                      <a href="#">
-                        <i class="fab fa-instagram"></i>
-                      </a>
-                    </div>
-                    {/* <div style={{ height: '100vh', width: '100%' }}>
+                    <div class="col-lg-8">
+                      <div class="social-media" style={color}>
+                        <a href={TwitterLink}>
+                          <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href={facebookLink}>
+                          <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#">
+                          <i class="fab fa-instagram"></i>
+                        </a>
+                      </div>
+                      {/* <div style={{ height: '100vh', width: '100%' }}>
                                             <GoogleMapReact
                                                 yesIWantToUseGoogleMapApiInternals
                                                 bootstrapURLKeys={{ key: "AIzaSyASaIio-R74aUvP2e2DWt-sNRllHPsdoX0" }}
@@ -827,36 +844,40 @@ export default function AgentViewSelectedVideo(props) {
                                                 />
                                             </GoogleMapReact>
                                         </div> */}
-                    <div class="theme5  googlemap">
-                      <iframe
-                        src="https://maps.google.com/maps?q=California&t=&z=13&ie=UTF8&iwloc=&output=embed"
-                        width="100%"
-                        height="450"
-                        style={{ border: "0" }}
-                        allowfullscreen=""
-                        loading="lazy"
-                        referrerpolicy="no-referrer-when-downgrade"
-                      ></iframe>
+                      <div class="theme5  googlemap">
+                        <iframe
+                          src="https://maps.google.com/maps?q=California&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                          width="100%"
+                          height="450"
+                          style={{ border: "0" }}
+                          allowfullscreen=""
+                          loading="lazy"
+                          referrerpolicy="no-referrer-when-downgrade"
+                        ></iframe>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-              <hr class="spacer30px" />
-              <div class="footer-grey">
-                <div class="row align-items-center">
-                  <div class="col-md-6">
-                    <img src={Footer} alt="" />
-                  </div>
-                  <div class="col-md-6 text-right">
-                    {" "}
-                    Copyrights Reserved 2021
+                <hr class="spacer30px" />
+                <div class="footer-grey">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <img src={Footer} alt="" />
+                    </div>
+                    <div class="col-md-6 text-right">
+                      {" "}
+                      Copyrights Reserved 2021
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        <AgentViewFlyer pageName={"video"} />
+      )}
+
       <Dialog
         maxWidth={maxWidth}
         fullWidth={true}

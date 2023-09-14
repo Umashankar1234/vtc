@@ -9,7 +9,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import Backdrop from "@material-ui/core/Backdrop";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Title from "../../../CommonMethods/Title";
 
@@ -33,10 +33,10 @@ export default function AgentOrderList(props) {
   const [allData, setAllData] = useState([]);
   const useStyles = makeStyles((theme) => ({
     backdrop: {
-        zIndex: theme.zIndex.drawer + 9999,
-        color: '#fff',
+      zIndex: theme.zIndex.drawer + 9999,
+      color: "#fff",
     },
-}));
+  }));
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -108,6 +108,23 @@ export default function AgentOrderList(props) {
   };
   const [open, setOpen] = useState(false);
   const classes = useStyles();
+  useEffect(() => {
+    if (packages) {
+      localStorage.setItem("Sub_Package", JSON.stringify(packages));
+    }
+    if (cartePackages) {
+      localStorage.setItem("Carte_Package", JSON.stringify(cartePackages));
+    }
+    if (miscPackages) {
+      localStorage.setItem("Misc_Package", JSON.stringify(miscPackages));
+    }
+    if (propertyInfo) {
+      localStorage.setItem("Property_Info", JSON.stringify(propertyInfo));
+    }
+    if (basicInfo) {
+      localStorage.setItem("Basic_Info", JSON.stringify(basicInfo));
+    }
+  }, [packages, miscPackages, propertyInfo, basicInfo]);
 
   const completeOrder = (id) => {
     localStorage.setItem("checkout", "yes");
@@ -161,7 +178,7 @@ export default function AgentOrderList(props) {
   };
   return (
     <div>
-    <Title title="Agent Order List"/>
+      <Title title="Agent Order List" />
       <AgentHeader path={props.location.pathname} />
       <section
         class="vtc_agent_banner"
@@ -171,14 +188,14 @@ export default function AgentOrderList(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-              <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
+                <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
 
                 <div class="gee_menu">
                   <ul>
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                   
+
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -239,33 +256,36 @@ export default function AgentOrderList(props) {
                             {res.order_no}
                           </td>
                           <td style={{ textAlign: "center" }}>
-                            {res.transaction_id}
+                            {res.transaction_id ? res.transaction_id : "N/A"}
                           </td>
                           <td style={{ textAlign: "center" }}>{res.refid}</td>
                           <td style={{ textAlign: "center" }}>
-                            {res.payment_status}
+                            {res.payment_status == 1 ? "Complete" : "Pending"}
                           </td>
                           <td style={{ textAlign: "center" }}>{res.amount}</td>
                           <td style={{ textAlign: "center" }}>
                             {res.payment_date}
                           </td>
                           <td style={{ textAlign: "center" }}>
-                          {res.payment_status == 1 ?<a
-                              style={{ marginRight: "20px" }}
-                              onClick={() => handleDetails(res.id)}
-                              class="btn btn-warning"
-                              title="View Details"
-                            >
-                              View Details
-                            </a>:<a
-                              style={{ marginRight: "20px" }}
-                              onClick={() => completeOrder(res.id)}
-                              class="btn btn-info"
-                              title="View Details"
-                            >
-                              Complete payment
-                            </a>}
-                            
+                            {res.payment_status == 1 ? (
+                              <a
+                                style={{ marginRight: "20px" }}
+                                onClick={() => handleDetails(res.id)}
+                                class="btn btn-warning"
+                                title="View Details"
+                              >
+                                View Details
+                              </a>
+                            ) : (
+                              <a
+                                style={{ marginRight: "20px" }}
+                                onClick={() => completeOrder(res.id)}
+                                class="btn btn-info"
+                                title="View Details"
+                              >
+                                Complete payment
+                              </a>
+                            )}
                           </td>
                         </tr>
                       ))

@@ -1853,12 +1853,12 @@ footer {
 }
 .gee_menu {
   z-index: 101;
-  font-size: 0.8em;
-  width: 100%;
-  background: #002052;
-  text-align: center;
-  top: 75px;
-  border-top: 1px solid #f48a24;
+    font-size: 0.8em;
+    width: 100%;
+    background: #002052;
+    text-align: center;
+    top: 58px;
+    border-top: 1px solid #f48a24;
 }
 .gee_menu ul {
   margin: 0;
@@ -5659,6 +5659,9 @@ text-align: center;
   float: left;
   position: relative;
 }
+.agent_dashboard_right {
+  display: flex;
+}
 .thank-you-text-box h1 {
   color: #242325;
   font-weight: 600;
@@ -7188,7 +7191,7 @@ a.booknowbtn {
     font-size: 16px;
   }
   .dropdown-menu.dropdown-menu-right.navbar-dropdown.profile-top {
-    transform: translate3d(-160px, 50px, 0) !important;
+    transform: translate3d(-6px, 50px, 0) !important;
   }
   .step_progress .progress {
     width: 100% !important;

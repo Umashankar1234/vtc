@@ -290,17 +290,17 @@ export default function AppRoutes() {
             path={APIPath() + "broker-edit-agent/:agentid?"}
             component={BrokerEditAgent}
           />
-          <PrivateRoute
+          {/* <PrivateRoute
             path={APIPath() + "agent-view-flyer/:flyerid?"}
             component={AgentViewFlyer}
-          />
+          /> */}
           <PrivateRoute
             path={APIPath() + "my-cafe-gellary/:agentId"}
             component={MyCafeGellary}
           />
           <PrivateRoute
             exact
-            path={APIPath() + "agent-view-flyer-active/:flyerid?"}
+            path={APIPath() + "site/flyer/:flyerid?"}
             component={AgentViewFlyerActive}
           />
           <PrivateRoute
@@ -309,7 +309,7 @@ export default function AppRoutes() {
             component={AgentDownloadFlyer}
           />
           <PrivateRoute
-            path={APIPath() + "agent-video-selected/:videoid/:agentid?"}
+            path={APIPath() + "video/:videoid/"}
             component={AgentVideoSelected}
           />
           <PrivateRoute

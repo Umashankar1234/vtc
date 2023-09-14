@@ -129,7 +129,7 @@ export default function AgentEditTour(props) {
   const [previoussepiaValue, setpreviousSepiaValue] = useState(0);
   const [previousrotatevalue, setpreviousRotateValue] = useState(0);
   const [croppedImage, setCroppedImage] = useState([]);
-  
+
   const [hover, setHover] = useState(false);
   const [crop, setCrop] = useState({
     unit: "px", // Can be 'px' or '%'
@@ -663,11 +663,25 @@ export default function AgentEditTour(props) {
     }
   };
   const savePropertyFeatures = () => {
-    if (propertyData.totalbedrooms == "" || propertyData.totalbedrooms == null || propertyData.totalbathrooms == "" || propertyData.totalbathrooms == null || propertyData.parkingspaces == "" || propertyData.parkingspaces == null || propertyData.yearbuilt == "" || propertyData.yearbuilt == null || propertyData.subdivision == "" || propertyData.subdivision == null || propertyData.lotsize == "" || propertyData.lotsize == null || propertyData.garagesize == "" || propertyData.garagesize == null) {
+    if (
+      propertyData.totalbedrooms == "" ||
+      propertyData.totalbedrooms == null ||
+      propertyData.totalbathrooms == "" ||
+      propertyData.totalbathrooms == null ||
+      propertyData.parkingspaces == "" ||
+      propertyData.parkingspaces == null ||
+      propertyData.yearbuilt == "" ||
+      propertyData.yearbuilt == null ||
+      propertyData.subdivision == "" ||
+      propertyData.subdivision == null ||
+      propertyData.lotsize == "" ||
+      propertyData.lotsize == null ||
+      propertyData.garagesize == "" ||
+      propertyData.garagesize == null
+    ) {
       setMessage("Please fill all the mandatory fields...");
       setOpenError(true);
-    }
-    else {
+    } else {
       setOpen(true);
       propertyData.authenticate_key = "abcd123XYZ";
       propertyData.agent_id = JSON.parse(context.state.user).agentId;
@@ -693,11 +707,14 @@ export default function AgentEditTour(props) {
   };
   console.log(propertyData);
   const savePropertyPrice = () => {
-    if (propertyData.price == "" || propertyData.priceflexibility == "" || propertyData.priceinfo == "") {
+    if (
+      propertyData.price == "" ||
+      propertyData.priceflexibility == "" ||
+      propertyData.priceinfo == ""
+    ) {
       setMessage("Please Fill all the Mandatory Columns..");
       setOpenError(true);
-    }
-    else {
+    } else {
       setOpen(true);
       propertyData.authenticate_key = "abcd123XYZ";
       propertyData.agent_id = JSON.parse(context.state.user).agentId;
@@ -721,15 +738,29 @@ export default function AgentEditTour(props) {
         });
     }
   };
-  console.log('====================================');
+  console.log("====================================");
   console.log("propertyData", propertyData);
-  console.log('====================================');
+  console.log("====================================");
   const savePropertyLocation = () => {
-    if (propertyData.address == "" || propertyData.address == null || propertyData.typeid == "" || propertyData.typeid == null || propertyData.categoryid == "" || propertyData.categoryid == null || propertyData.countryid == "" || propertyData.countryid == null || propertyData.stateid == "" || propertyData.stateid == null || propertyData.city == "" || propertyData.city == null || propertyData.zipcode == "" || propertyData.zipcode == null) {
+    if (
+      propertyData.address == "" ||
+      propertyData.address == null ||
+      propertyData.typeid == "" ||
+      propertyData.typeid == null ||
+      propertyData.categoryid == "" ||
+      propertyData.categoryid == null ||
+      propertyData.countryid == "" ||
+      propertyData.countryid == null ||
+      propertyData.stateid == "" ||
+      propertyData.stateid == null ||
+      propertyData.city == "" ||
+      propertyData.city == null ||
+      propertyData.zipcode == "" ||
+      propertyData.zipcode == null
+    ) {
       setMessage("Please fill all the mandatory fields...");
       setOpenError(true);
-    }
-    else {
+    } else {
       setOpen(true);
       propertyData.authenticate_key = "abcd123XYZ";
       propertyData.agent_id = JSON.parse(context.state.user).agentId;
@@ -844,12 +875,13 @@ export default function AgentEditTour(props) {
     postRecord(APIGetTourDetails, objusr)
       .then((res) => {
         if (res.data[0].response.status === "success") {
-          if (res.data[0].response.tourdetails.isactive === 0) {
-            history.push(APIPath() + "agent-view-flyer/" + imageset_id);
-          } else {
-            // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
-            history.push(APIPath() + "agent-view-flyer-active/" + imageset_id);
-          }
+          // if (res.data[0].response.tourdetails.isactive === 0) {
+          //   history.push(APIPath() + "agent-view-flyer/" + imageset_id);
+          // } else {
+          //   // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
+          //   history.push(APIPath() + "site/flyer/" + imageset_id);
+          // }
+          history.push(APIPath() + "site/flyer/" + imageset_id);
         }
       })
       .catch((err) => {
@@ -1211,7 +1243,6 @@ export default function AgentEditTour(props) {
     },
   };
   function changeHover(e) {
-    
     setHover(true);
   }
   return (
@@ -1225,7 +1256,11 @@ export default function AgentEditTour(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-                <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} imagesetId={imageset_id} />
+                <AgentDashBoardHeader
+                  ShowMenu={ShowMenu}
+                  HideMenu={HideMenu}
+                  imagesetId={imageset_id}
+                />
 
                 <div class="gee_menu">
                   <ul>
@@ -1274,76 +1309,112 @@ export default function AgentEditTour(props) {
             <div class="col-lg-12 col-md-12">
               {/* Navigation Menu */}
               <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
                   <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a class="nav-link nav-new-link dropdown-toggle"  id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-cog"></i> Flyer Tools
                       </a>
-                      <div  className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-2">
                           <li>
-                            <a class="dropdown-item"  onClick={handleEditImageset}>
-                            <i class="far fa-image"></i>  Go to related Tour</a>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleEditImageset}
+                            >
+                              <i class="far fa-image"></i> Go to related Tour
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="modal"
                               data-target="#add_img"
                             >
-                             <i class="fas fa-eye"></i> Send to friend</a>
+                              <i class="fas fa-eye"></i> Send to friend
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" 
-                             onClick={() =>  {
-                              handleEditTheme();
-                            }}
-                          >
-                             <i class="fas fa-magic"></i> Themes</a>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                handleEditTheme();
+                              }}
+                            >
+                              <i class="fas fa-magic"></i> Themes
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" 
-                             onClick={() => {
-                              handleViewModal();
-                            }}
-                          
-                          >
-                              <i class="fas fa-eye"></i> View Flyer</a>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                handleViewModal();
+                              }}
+                            >
+                              <i class="fas fa-eye"></i> View Flyer
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" 
-                             onClick={() => {
-                              printFlyerModal();
-                            }}
-                          
-                          >
-                              <i class="fas fa-print"></i> Print Flyer</a>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                printFlyerModal();
+                              }}
+                            >
+                              <i class="fas fa-print"></i> Print Flyer
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" 
+                            <a
+                              class="dropdown-item"
                               href={`#${craigeListOpen}`}
                               data-toggle="modal"
                               onClick={() => PostCraigeList()}
-                            
-                          >
-                               <i class="fas fa-sticky-note"></i> Post To Craigslist</a>
+                            >
+                              <i class="fas fa-sticky-note"></i> Post To
+                              Craigslist
+                            </a>
                           </li>
 
                           <li>
-                            <a class="dropdown-item" 
-                              
+                            <a
+                              class="dropdown-item"
                               data-toggle="modal"
                               data-target="#Property"
-                            
-                            
-                          >
-                               <i class="fas fa-home"></i> Property Information{" "}</a>
+                            >
+                              <i class="fas fa-home"></i> Property Information{" "}
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -1352,7 +1423,7 @@ export default function AgentEditTour(props) {
                 </div>
               </nav>
               {/* Navigation Menu */}
-               {/*<div class="action_sec_main">
+              {/*<div class="action_sec_main">
                 <div class="action_sec_left action_sec_tab">
                   <ul class="nav nav-tabs list_sec" role="tablist">
                     <li class="nav-item">
@@ -1511,8 +1582,8 @@ export default function AgentEditTour(props) {
                           }
                           checked={
                             Object.keys(currentImagesetData).length > 0 &&
-                              currentImagesetData.image_set_services
-                                .virtualtourservice === 1
+                            currentImagesetData.image_set_services
+                              .virtualtourservice === 1
                               ? true
                               : false
                           }
@@ -1541,8 +1612,8 @@ export default function AgentEditTour(props) {
                           }
                           checked={
                             Object.keys(currentImagesetData).length > 0 &&
-                              currentImagesetData.image_set_services
-                                .flyerservice === 1
+                            currentImagesetData.image_set_services
+                              .flyerservice === 1
                               ? true
                               : false
                           }
@@ -1571,8 +1642,8 @@ export default function AgentEditTour(props) {
                           }
                           checked={
                             Object.keys(currentImagesetData).length > 0 &&
-                              currentImagesetData.image_set_services
-                                .videoservice === 1
+                            currentImagesetData.image_set_services
+                              .videoservice === 1
                               ? true
                               : false
                           }
@@ -5082,9 +5153,7 @@ export default function AgentEditTour(props) {
                                   />
                                 </div>
                                 <div class="col-md-6 formbox1">
-                                  <label>
-                                    FLEXIBILITY{" "}
-                                  </label>
+                                  <label>FLEXIBILITY </label>
                                   <select
                                     type="text"
                                     onChange={handleInputChange}
@@ -5094,7 +5163,9 @@ export default function AgentEditTour(props) {
                                   >
                                     <option>Select option</option>
                                     <option value="FIRM">FIRM</option>
-                                    <option value="Negotiable">Negotiable</option>
+                                    <option value="Negotiable">
+                                      Negotiable
+                                    </option>
                                   </select>
                                 </div>
                               </div>
@@ -5464,39 +5535,39 @@ export default function AgentEditTour(props) {
                                 <tbody>
                                   {documentData.length > 0
                                     ? documentData.map((res, index) => (
-                                      <tr>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {index + 1}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.leadcapture === 1
-                                            ? "true"
-                                            : "false"}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.docname}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.filename}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          {res.pwd}
-                                        </td>
-                                        <td style={{ fontSize: "12px" }}>
-                                          <Button
-                                            style={{ background: "red" }}
-                                            onClick={() =>
-                                              removeDocData(res.id)
-                                            }
-                                            startIcon={<CancelIcon />}
-                                            variant="contained"
-                                            color="primary"
-                                          >
-                                            Remove
-                                          </Button>
-                                        </td>
-                                      </tr>
-                                    ))
+                                        <tr>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {index + 1}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.leadcapture === 1
+                                              ? "true"
+                                              : "false"}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.docname}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.filename}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            {res.pwd}
+                                          </td>
+                                          <td style={{ fontSize: "12px" }}>
+                                            <Button
+                                              style={{ background: "red" }}
+                                              onClick={() =>
+                                                removeDocData(res.id)
+                                              }
+                                              startIcon={<CancelIcon />}
+                                              variant="contained"
+                                              color="primary"
+                                            >
+                                              Remove
+                                            </Button>
+                                          </td>
+                                        </tr>
+                                      ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -5604,7 +5675,7 @@ export default function AgentEditTour(props) {
                                       name={"documentPassword" + index}
                                       value={
                                         documentPwdData[
-                                        "documentPassword" + index
+                                          "documentPassword" + index
                                         ]
                                       }
                                       onChange={(evt) =>

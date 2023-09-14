@@ -728,7 +728,7 @@ export default function AgentDashboard(props) {
                     </li>
                    
                     <li>
-                      <NavLink to={APIPath() + "agent-tour-list"}>Toursss</NavLink>
+                      <NavLink to={APIPath() + "agent-tour-list"}>Tours</NavLink>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-flyer"}>Flyers</Link>

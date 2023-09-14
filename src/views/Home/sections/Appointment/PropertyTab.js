@@ -55,7 +55,10 @@ export default function PropertyTab(props) {
   const [data, setData] = useState(
     JSON.parse(localStorage.getItem("Property_Info")) === null
       ? initialState
-      : JSON.parse(localStorage.getItem("Property_Info"))
+      : {
+          ...initialState,
+          ...JSON.parse(localStorage.getItem("Property_Info")),
+        }
   );
   const [openError, setOpenError] = useState(false);
   const [openWarning, setOpenWarning] = useState(false);
@@ -107,23 +110,24 @@ export default function PropertyTab(props) {
     const { name, value } = event.target;
     setData({ ...data, [name]: value });
   };
+  console.log(data, "data");
   const saveThisToLocal = () => {
     if (data.caption === "") {
-      setMessage("please add caption");
+      setMessage("Please Add Caption");
       setOpenError(true);
     } else if (data.first_choice === "") {
-      setMessage("please select 1st choice");
+      setMessage("Please Select 1st choice");
       setOpenError(true);
     } else if (data.second_choice === "") {
-      setMessage("please select 2nd choice");
+      setMessage("Please Select 2nd choice");
       setOpenError(true);
     } else if (data.third_choice === "") {
-      setMessage("please select 3rd choice");
+      setMessage("Please Select 3rd choice");
       setOpenError(true);
     } else {
       localStorage.setItem("Property_Info", JSON.stringify(data));
-        setPropertyTab(false);
-        setFinalPreviewtab(true);
+      setPropertyTab(false);
+      setFinalPreviewtab(true);
     }
   };
   const selectHandleChange = (event) => {

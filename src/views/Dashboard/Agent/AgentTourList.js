@@ -203,13 +203,13 @@ export default function AgentTourList(props) {
         agent_id: JSON.parse(context.state.user).agentId,
         pageNumber: pageNumber,
         address: propertyData.address,
-      city: propertyData.city,
-      state: propertyData.countryid,
-      zipcode: propertyData.zipcode,
-      category: categoryInfo.category,
-      property: propertyDataType.property,
-      tourid: propertyData.tourid,
-      mls: propertyData.mls,
+        city: propertyData.city,
+        state: propertyData.countryid,
+        zipcode: propertyData.zipcode,
+        category: categoryInfo.category,
+        property: propertyDataType.property,
+        tourid: propertyData.tourid,
+        mls: propertyData.mls,
       };
       postRecord(APIGetImagesetList, objusr).then((res) => {
         if (res.data[0].response.status === "success") {
@@ -267,39 +267,19 @@ export default function AgentTourList(props) {
     if (context.state.user) {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (themeId === 1 && isPremium === 1) {
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setThemeId("");
       } else if (themeId === 2 && isPremium === 1) {
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setThemeId("");
       } else if (themeId === 3 && isPremium === 1) {
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setThemeId("");
       } else if (themeId === 4 && isPremium === 1) {
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setThemeId("");
       } else if (themeId === 5) {
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setThemeId("");
       }
     }
@@ -310,11 +290,7 @@ export default function AgentTourList(props) {
       if (defaultsThemeId && isPremium === 0) {
         // window.location.href = "http://localhost:3001/theme-template5/" + id + APIPath() + agent_id + APIPath() + defaultsThemeId;
         // window.location.href = "https://virtualtourcafe.com/tour/theme-template5/" + id + "/" + agent_id;
-        window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            id,
-          "_blank"
-        );
+        window.open("https://virtualtourcafe.com/alpha/tour/" + id, "_blank");
         setDefaultsThemeId("");
       }
     }
@@ -637,7 +613,6 @@ export default function AgentTourList(props) {
       property: propertyDataType.property,
       tourid: propertyData.tourid,
       mls: propertyData.mls,
-
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -690,7 +665,6 @@ export default function AgentTourList(props) {
       tourid: propertyData.tourid,
       mls: propertyData.mls,
       pageNumber: pageNumber,
-
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -700,7 +674,7 @@ export default function AgentTourList(props) {
             setPageCount(res.data[0].response.datacount);
 
             setRefresh(false);
-          setLoading(false);
+            setLoading(false);
           } else {
             setImagesetList([]);
           }
@@ -1374,12 +1348,14 @@ export default function AgentTourList(props) {
   }
   return (
     <>
-    {loading && <div class="load-bar">
-        <div class="bar"></div>
-        <div class="bar"></div>
-        <div class="bar"></div>
-      </div>}
-      
+      {loading && (
+        <div class="load-bar">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      )}
+
       <Title title="Agent Tour List" />
       <AgentHeader />
       <section
@@ -1399,7 +1375,9 @@ export default function AgentTourList(props) {
                     </li>
 
                     <li class="active">
-                      <Link class="active" to={APIPath() + "agent-tour-list"}>Tours</Link>
+                      <Link class="active" to={APIPath() + "agent-tour-list"}>
+                        Tours
+                      </Link>
                     </li>
                     <li class="">
                       <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
@@ -5158,17 +5136,39 @@ export default function AgentTourList(props) {
                 </div>
               </div>
             </div>
-            {/* <div class="agent_pop_main_head" style={{ paddingTop: "15px" }}>
-                            <h5>MLS Links</h5>
-                            <div class="row" style={{ paddingLeft: "20px" }}>
-                                <div class="agent_info_sec_cont">
-                                    <ul>
-                                        <li><span>Standard :</span> <a href={Object.keys(serviceLinks).length > 0 && serviceLinks.mls_link.standard_link}>{Object.keys(serviceLinks).length > 0 && serviceLinks.mls_link.standard_link}</a> </li>
-                                        <li><span>Strict :</span>  <a href={Object.keys(serviceLinks).length > 0 && serviceLinks.mls_link.strict_link}>{Object.keys(serviceLinks).length > 0 && serviceLinks.mls_link.strict_link}</a> </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div> */}
+            <div class="agent_pop_main_head" style={{ paddingTop: "15px" }}>
+              <h5>MLS Links</h5>
+              <div class="row" style={{ paddingLeft: "20px" }}>
+                <div class="agent_info_sec_cont">
+                  <ul>
+                    <li>
+                      <span>Standard :</span>{" "}
+                      <a
+                        href={
+                          Object.keys(serviceLinks).length > 0 &&
+                          serviceLinks.mls_link.standard_link
+                        }
+                      >
+                        {Object.keys(serviceLinks).length > 0 &&
+                          serviceLinks.mls_link.standard_link}
+                      </a>{" "}
+                    </li>
+                    <li>
+                      <span>Strict :</span>{" "}
+                      <a
+                        href={
+                          Object.keys(serviceLinks).length > 0 &&
+                          serviceLinks.mls_link.strict_link
+                        }
+                      >
+                        {Object.keys(serviceLinks).length > 0 &&
+                          serviceLinks.mls_link.strict_link}
+                      </a>{" "}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             <div class="agent_pop_main_head" style={{ paddingTop: "15px" }}>
               <h5>Email Links</h5>
               <p style={{ paddingTop: "10px" }}>
