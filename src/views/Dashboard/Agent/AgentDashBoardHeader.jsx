@@ -16,8 +16,8 @@ function AgentDashBoardHeader({ ShowMenu, HideMenu, imagesetId }) {
           <NavLink
             isActive={() =>
               [
-                `/agent-edit-tour/${imagesetId}`,
-                "/agent-tour-list",
+                `/alpha/agent-edit-tour/${imagesetId}`,
+                "/alpha/agent-tour-list",
               ].includes(pathname)
             }
             activeClassName="active"
@@ -30,9 +30,9 @@ function AgentDashBoardHeader({ ShowMenu, HideMenu, imagesetId }) {
           <NavLink
             isActive={() =>
               [
-                `/edit-flyer-theme/${imagesetId}`,
-                `/agent-edit-flyer/${imagesetId}`,
-                "/agent-flyer",
+                `/alpha/edit-flyer-theme/${imagesetId}`,
+                `/alpha/agent-edit-flyer/${imagesetId}`,
+                "/alpha/agent-flyer",
               ].includes(pathname)
             }
             activeClassName="active"
@@ -45,8 +45,8 @@ function AgentDashBoardHeader({ ShowMenu, HideMenu, imagesetId }) {
           <NavLink
             isActive={() =>
               [
-                `/agent-edit-video/${imagesetId}`,
-                "/agent-video-list",
+                `/alpha/agent-edit-video/${imagesetId}`,
+                "/alpha/agent-video-list",
               ].includes(pathname)
             }
             activeClassName="active"

@@ -16,7 +16,7 @@ import axios from "axios";
 import Dialog from "@material-ui/core/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent";
-// import banner from "../../../images/vtc-banner.jpg";
+import banner from "../../../images/vtc-banner.jpg";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import { CopyToClipboard } from "react-copy-to-clipboard";
@@ -790,46 +790,36 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (themeId === 1) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template/" +
-            tour_id +
-            "/" +
-            agent_id,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id ,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 2) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template1/" +
-            tour_id +
-            "/" +
-            agent_id,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id ,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 3) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template2/" +
-            tour_id +
-            "/" +
-            agent_id,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id ,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 4) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template3/" +
-            tour_id +
-            "/" +
-            agent_id,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id ,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template4/" +
-            tour_id +
-            "/" +
-            agent_id,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id ,
           "_blank"
         );
         setThemeId("");
@@ -841,12 +831,8 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (defaultsThemeId && isPremium === 0) {
         window.open(
-          "https://virtualtourcafe.com/tour/theme-template5/" +
-            tour_id +
-            "/" +
-            agent_id +
-            "/" +
-            defaultsThemeId,
+          "https://virtualtourcafe.com/alpha/tour/" +
+            tour_id,
           "_blank"
         );
         setDefaultsThemeId("");
@@ -3014,7 +3000,6 @@ const AgentEditTour = React.memo((props) => {
     });
     setTourList(new_tourList);
   };
-  console.log("booyah");
   function changeHover(e) {
     setHover(true);
   }
@@ -3029,7 +3014,7 @@ const AgentEditTour = React.memo((props) => {
       <AgentHeader />
       <section
         class="vtc_agent_banner"
-        style={{ backgroundImage: "https://virtualtourcafe.com/static/media/vtc-banner.eee05fbf.jpg" }}
+        style={{ backgroundImage: "url(" + banner + ")" }}
       >
         <div class="vtc_top_menu">
           <div class="container-fluid">
