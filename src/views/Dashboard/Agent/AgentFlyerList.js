@@ -447,7 +447,7 @@ export default function AgentFlyerList(props) {
             } else {
               // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
               window.open(
-                APIPath() + "agent-view-flyer-active/" + id,
+                APIPath() + "site/flyer/" + id,
                 "_blank"
               );
             }

@@ -1413,7 +1413,7 @@ export default function AgentTourList(props) {
       </section>
       <section class="action_sec">
         <div class="container-fluid">
-          {allData.length > 0 && (
+        
             <div class="row">
               <div class="col-lg-12 col-md-12">
                 <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
@@ -1678,7 +1678,6 @@ export default function AgentTourList(props) {
                 </div>
               </div>
             </div>
-          )}
           {allData.length > 0 && (
             <div class="row">
               <div class="col-lg-12 col-md-12">

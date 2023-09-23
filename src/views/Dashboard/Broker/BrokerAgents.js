@@ -84,50 +84,50 @@ export default function BrokerAgensts(props) {
   function validateinp() {
     agentData.fname == "" || !agentData.fname
       ? setinputErrors((prevState) => ({
-        ...prevState,
-        fname: "error",
-        fname_error: "First name cannot be blank",
-      }))
+          ...prevState,
+          fname: "error",
+          fname_error: "First name cannot be blank",
+        }))
       : setinputErrors((prevState) => ({
-        ...prevState,
-        fname: "",
-        fname_error: "",
-      }));
+          ...prevState,
+          fname: "",
+          fname_error: "",
+        }));
     agentData.lname == "" || !agentData.lname
       ? setinputErrors((prevState) => ({
-        ...prevState,
-        lname: "error",
-        lname_error: "Last name cannot be blank",
-      }))
+          ...prevState,
+          lname: "error",
+          lname_error: "Last name cannot be blank",
+        }))
       : setinputErrors((prevState) => ({
-        ...prevState,
-        lname: "",
-        lname_error: "",
-      }));
+          ...prevState,
+          lname: "",
+          lname_error: "",
+        }));
     agentData.email == "" || !agentData.email
       ? setinputErrors((prevState) => ({
-        ...prevState,
-        email: "error",
-        email_error: "E-Mail Id cannot be blank",
-      }))
+          ...prevState,
+          email: "error",
+          email_error: "E-Mail Id cannot be blank",
+        }))
       : setinputErrors((prevState) => ({
-        ...prevState,
-        email: "",
-        email_error: "",
-      }));
+          ...prevState,
+          email: "",
+          email_error: "",
+        }));
     agentData.cnfemail == "" ||
-      agentData.cnfemail != agentData.email ||
-      !agentData.cnfemail
+    agentData.cnfemail != agentData.email ||
+    !agentData.cnfemail
       ? setinputErrors((prevState) => ({
-        ...prevState,
-        cnfemail: "error",
-        cnfemail_error: "E-Mail Confirmation does not match",
-      }))
+          ...prevState,
+          cnfemail: "error",
+          cnfemail_error: "E-Mail Confirmation does not match",
+        }))
       : setinputErrors((prevState) => ({
-        ...prevState,
-        cnfemail: "",
-        cnfemail_error: "",
-      }));
+          ...prevState,
+          cnfemail: "",
+          cnfemail_error: "",
+        }));
   }
   useEffect(() => {
     $(".gee_cross").hide();
@@ -246,6 +246,8 @@ export default function BrokerAgensts(props) {
       email: agentData.email,
       emailChk: agentData.emailChk,
     };
+    setOpen(true);
+
     postRecord(APISaveAgentCreate, objusr).then((res) => {
       setOpen(false);
       if (res.data[0].response.status === "success") {
@@ -323,7 +325,7 @@ export default function BrokerAgensts(props) {
         },
         {
           label: "No",
-          onClick: () => { },
+          onClick: () => {},
         },
       ],
     });
@@ -426,7 +428,6 @@ export default function BrokerAgensts(props) {
     }
   };
   function changeHover(e) {
-    
     setHover(true);
   }
   return (
@@ -533,27 +534,52 @@ export default function BrokerAgensts(props) {
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
                   <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-image"></i> Agents Tools
                       </a>
-                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
-
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-2">
                           <li>
                             <a
                               class="dropdown-item"
                               onClick={() => setOpenCreateAgents(true)}
                             >
-                              <i class="fa fa-plus" aria-hidden="true"></i> Create Agents
+                              <i class="fa fa-plus" aria-hidden="true"></i>{" "}
+                              Create Agents
                             </a>
                           </li>
                           <li>
@@ -562,18 +588,30 @@ export default function BrokerAgensts(props) {
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" onClick={handleDeleteModal}>
-                              <i class="fas fa-trash-alt"></i> Delete Selected Agents
-                            </a>
-                          </li>
-                          <li >
-                            <a class="dropdown-item" onClick={() => LoginSelectedAgent()}>
-                              <i class="fa fa-sign-in" aria-hidden="true"></i> Login Selected Agents
+                            <a
+                              class="dropdown-item"
+                              onClick={handleDeleteModal}
+                            >
+                              <i class="fas fa-trash-alt"></i> Delete Selected
+                              Agents
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" onClick={() => reSendMail()}>
-                              <i class="fa fa-repeat" aria-hidden="true"></i> Resend Welcome Email
+                            <a
+                              class="dropdown-item"
+                              onClick={() => LoginSelectedAgent()}
+                            >
+                              <i class="fa fa-sign-in" aria-hidden="true"></i>{" "}
+                              Login Selected Agents
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => reSendMail()}
+                            >
+                              <i class="fa fa-repeat" aria-hidden="true"></i>{" "}
+                              Resend Welcome Email
                             </a>
                           </li>
                         </ul>
@@ -838,84 +876,84 @@ export default function BrokerAgensts(props) {
                 <div class="row">
                   {Object.keys(allData).length > 0
                     ? allData.map((res) => (
-                      // <h2>{res.username}</h2>
-                      <div
-                        onClick={() => {
-                          setId(res.id);
-                          handleImageSetId(res);
-                        }}
-                        class="col-lg-4 col-md-4"
-                      >
+                        // <h2>{res.username}</h2>
                         <div
-                          id={"myDiv" + res.id}
-                          class="profile_listing_single"
-                          style={{ cursor: "pointer" }}
+                          onClick={() => {
+                            setId(res.id);
+                            handleImageSetId(res);
+                          }}
+                          class="col-lg-4 col-md-4"
                         >
-                          <div class="profile_listing_single_inner">
-                            <div class="socila_avatar">
-                              <div class="socila_avatar_img">
-                                <img class="" alt="image" src={res.src} />
+                          <div
+                            id={"myDiv" + res.id}
+                            class="profile_listing_single"
+                            style={{ cursor: "pointer" }}
+                          >
+                            <div class="profile_listing_single_inner">
+                              <div class="socila_avatar">
+                                <div class="socila_avatar_img">
+                                  <img class="" alt="image" src={res.src} />
+                                </div>
+                                <div class="socila_avatar_cont">
+                                  <h6>
+                                    {res.fname} {res.lname}
+                                  </h6>
+                                  <p>Active Tour:{res.is_autotour}</p>
+                                  <p>Company Name :{res.company}</p>
+                                  <p class="">{res.address} </p>
+                                  <p>Email:{res.email}</p>
+                                </div>
                               </div>
-                              <div class="socila_avatar_cont">
-                                <h6>
-                                  {res.fname} {res.lname}
-                                </h6>
-                                <p>Active Tour:{res.is_autotour}</p>
-                                <p>Company Name :{res.company}</p>
-                                <p class="">{res.address} </p>
-                                <p>Email:{res.email}</p>
+                              <div class="socila_body">
+                                <div class="socila_body_btn">
+                                  <button onClick={() => handleEditAgent(res)}>
+                                    <i class="far fa-edit"></i>Edit
+                                  </button>
+                                  <button onClick={() => handleDelete(res.id)}>
+                                    <i class="far fa-trash-alt"></i>Delete
+                                  </button>
+                                </div>
+                                <div class="socila_body_icn">
+                                  <ul>
+                                    <li>
+                                      <label>Share:</label>
+                                      <a href="#">
+                                        <i class="fab fa-facebook-square fb"></i>
+                                      </a>
+                                    </li>
+                                    <li>
+                                      <a href="#">
+                                        <i class="fab fa-twitter-square tw"></i>
+                                      </a>
+                                    </li>
+                                  </ul>
+                                </div>
                               </div>
-                            </div>
-                            <div class="socila_body">
-                              <div class="socila_body_btn">
-                                <button onClick={() => handleEditAgent(res)}>
-                                  <i class="far fa-edit"></i>Edit
-                                </button>
-                                <button onClick={() => handleDelete(res.id)}>
-                                  <i class="far fa-trash-alt"></i>Delete
-                                </button>
-                              </div>
-                              <div class="socila_body_icn">
-                                <ul>
-                                  <li>
-                                    <label>Share:</label>
-                                    <a href="#">
-                                      <i class="fab fa-facebook-square fb"></i>
-                                    </a>
-                                  </li>
-                                  <li>
-                                    <a href="#">
-                                      <i class="fab fa-twitter-square tw"></i>
-                                    </a>
-                                  </li>
-                                </ul>
-                              </div>
-                            </div>
-                            <div class="row">
-                              <div class="col-lg-6 col-md-6">
-                                <Button
-                                  style={{ backgroundColor: "#ffa12d" }}
-                                >
-                                  <i
-                                    class="fa fa-sign-out"
-                                    aria-hidden="true"
-                                  ></i>
-                                  Agent Has not Logged In
-                                </Button>
-                              </div>
-                              <div class="col-lg-6 col-md-6">
-                                <Button onClick={() => LoginSelectedAgent()}>
-                                  <span>
-                                    <i class="fa fa-sign-in"></i>
-                                  </span>
-                                  Login For This Agent
-                                </Button>
+                              <div class="row">
+                                <div class="col-lg-6 col-md-6">
+                                  <Button
+                                    style={{ backgroundColor: "#ffa12d" }}
+                                  >
+                                    <i
+                                      class="fa fa-sign-out"
+                                      aria-hidden="true"
+                                    ></i>
+                                    Agent Has not Logged In
+                                  </Button>
+                                </div>
+                                <div class="col-lg-6 col-md-6">
+                                  <Button onClick={() => LoginSelectedAgent()}>
+                                    <span>
+                                      <i class="fa fa-sign-in"></i>
+                                    </span>
+                                    Login For This Agent
+                                  </Button>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                    ))
+                      ))
                     : ""}
                 </div>
               </div>
@@ -923,30 +961,33 @@ export default function BrokerAgensts(props) {
           </div>
           <hr class="spacer10px"></hr>
           <hr class="spacer10px"></hr>
-          {allData.length > 0 ? <div class="row">
-            <div class="col-lg-12">
-              <ReactPaginate
-                previousLabel={"«"}
-                nextLabel={"»"}
-                breakLabel={"..."}
-                pageCount={pageCount}
-                marginPagesDisplayed={3}
-                ageRangeDisplayed={3}
-                onPageChange={handlePageClick}
-                containerClassName="pagination justify-content-center"
-                pageClassName="page-item"
-                pageLinkClassName="page-link"
-                previousClassName="page-item"
-                previousLinkClassName="page-link"
-                nextClassName="page-item"
-                nextLinkClassName="page-link"
-                breakClassName="page-item"
-                breakLinkClassName="page-link"
-                activeClassName="active"
-              />
+          {allData.length > 0 ? (
+            <div class="row">
+              <div class="col-lg-12">
+                <ReactPaginate
+                  previousLabel={"«"}
+                  nextLabel={"»"}
+                  breakLabel={"..."}
+                  pageCount={pageCount}
+                  marginPagesDisplayed={3}
+                  ageRangeDisplayed={3}
+                  onPageChange={handlePageClick}
+                  containerClassName="pagination justify-content-center"
+                  pageClassName="page-item"
+                  pageLinkClassName="page-link"
+                  previousClassName="page-item"
+                  previousLinkClassName="page-link"
+                  nextClassName="page-item"
+                  nextLinkClassName="page-link"
+                  breakClassName="page-item"
+                  breakLinkClassName="page-link"
+                  activeClassName="active"
+                />
+              </div>
             </div>
-          </div> : ""}
-
+          ) : (
+            ""
+          )}
         </div>
       </section>
       <BrokerFooter />

@@ -4506,15 +4506,13 @@ i.bigger-icon1 {
   }
 
   .getting_started {
-    padding: 0 0 40px;
+    padding: 50px 0 40px;
   }
 
   .getting_started_single_img {
-    margin: 0 auto 20px;
-
-    height: 80px;
-
-    width: 80px;
+    margin: -70px auto 20px;
+    height: 60px;
+    width: 60px;
   }
 
   .no_sec {
@@ -4522,9 +4520,8 @@ i.bigger-icon1 {
   }
 
   .getting_started_single_img i {
-    font-size: 35px;
-
-    line-height: 80px;
+    font-size: 26px;
+    line-height: 60px;
   }
 
   .getting_started_single_cont h5 {
@@ -4757,9 +4754,6 @@ i.bigger-icon1 {
     text-align: center;
   }
 
-  .dropdown-menu.show ul.column-count-3 {
-    column-count: 1;
-}
 
   h1 {
     font-size: 40px;
@@ -4809,7 +4803,8 @@ i.bigger-icon1 {
   .ftr_main_cont_top li a,
   .social_head,
   .subscribe_btn {
-    font-size: 12px;
+    font-size: 7px;
+    
   }
 
   .acc_btn,
@@ -4818,6 +4813,7 @@ i.bigger-icon1 {
   .virtual_stagging_main p,
   .vtc_btm_menu_sec ul li {
     font-size: 14px;
+    padding: 8px 7px;
   }
 
   .dash_logo_sec_logo {
@@ -4829,7 +4825,7 @@ i.bigger-icon1 {
   .dash_logo_sec_right ul li,
   .filter_sec_single,
   .service_links_left {
-    margin: 0 10px 0px 0;
+    margin: 0 10px 10px 0;
   }
 
   .acc_btn {
@@ -5519,7 +5515,12 @@ select {
 input[type="text"]:disabled {
   background: #dddddd;
 }
-
+.dropdown-menu.show ul.column-count-3{
+  column-count: 3;
+}
+.dropdown-menu.show ul.column-count-2{
+  column-count: 2;
+}
 @media only screen and (max-width: 767px) {
   .category {
     height: 0px;
@@ -5534,7 +5535,7 @@ input[type="text"]:disabled {
   }
 
   .property_info.toggle_sec .browse_img {
-    padding: 0px 20px 20px;
+    padding: 90px 14px 18px;
   }
 
   .gee_menu ul li:hover {
@@ -5550,6 +5551,14 @@ input[type="text"]:disabled {
     text-align: left;
     padding-top: 20px;
   }
+  .uwy.userway_p1 .uai {
+    top: 74px !important;}
+  .dropdown-menu.show ul.column-count-3{
+      column-count: 1;
+    }
+    .dropdown-menu.show ul.column-count-2{
+      column-count: 1;
+    }
 }
 
 .select_img_set_box {
@@ -5579,12 +5588,7 @@ input[type="text"]:disabled {
 .navbar-blue {
   background:#2d3e50;
 }
-.dropdown-menu.show ul.column-count-3{
-  column-count: 3;
-}
-.dropdown-menu.show ul.column-count-2{
-  column-count: 2;
-}
+
 .dropdown-toggle{
   position: relative;
 }
@@ -5622,7 +5626,7 @@ input[type="text"]:disabled {
 }
 .action_sec .nav-link {
   display: block;
-  padding: 8px 5px;
+  padding: 15px;
   margin-left: 0;
 }
 li.nav-item {

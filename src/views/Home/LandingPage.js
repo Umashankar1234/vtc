@@ -30,7 +30,6 @@ import Footer1 from "../../components/Footer/Footer1";
 import "./Landingpage.css";
 import Title from "../../CommonMethods/Title";
 import { MetaInfo } from "../../CommonMethods/MetaTagsContext";
-import axios from "axios";
 const APIGetSiteSetting = APIURL() + "sitesetting";
 const APIGetUserData = APIURL() + "user-details";
 const APIHomeData = APIURL() + "homecontent";

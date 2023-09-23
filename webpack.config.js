@@ -47,7 +47,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    new BundleAnalyzerPlugin({}),
     new HtmlWebPackPlugin({
       template: path.resolve(__dirname, "public/index.html"),
       filename: "index.html",
@@ -66,5 +66,10 @@ module.exports = {
         threshold: 10240,
         minRatio: 0.8
       })
-  ]
+  ],
+  optimization: {
+    splitChunks:{
+      chunks: "all",
+    }
+  },
 };

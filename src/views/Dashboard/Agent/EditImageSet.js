@@ -860,7 +860,7 @@ export default function EditImageSet(props) {
         toDataURL(imageUrl, function (dataUrl) {
           var link = document.createElement("a");
           link.href = dataUrl;
-          link.replace(/\s/g, '%');
+          link.replace(/\s/g, "%");
           link.setAttribute("download", "image.jpg");
           document.body.appendChild(link);
           link.click();
@@ -1613,6 +1613,7 @@ export default function EditImageSet(props) {
     setOpen(true);
     trafficData.authenticate_key = "abcd123XYZ";
     trafficData.agent_id = JSON.parse(context.state.user).agentId;
+    trafficData.tour_id = imageset_id;
     postRecord(APIAgentTrafficOption, trafficData)
       .then((res) => {
         //console.log(res);
@@ -1795,7 +1796,7 @@ export default function EditImageSet(props) {
           <div class="container-fluid">
             <div class="row">
               <div class="col-lg-12 col-md-12">
-              <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
+                <AgentDashBoardHeader ShowMenu={ShowMenu} HideMenu={HideMenu} />
 
                 <div class="gee_menu">
                   <ul>

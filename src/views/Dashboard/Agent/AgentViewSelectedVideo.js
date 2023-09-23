@@ -265,7 +265,7 @@ export default function AgentViewSelectedVideo(props) {
   const viewFlyer = () => {
     // history.push(APIPath() + "agent-view-flyer-active/" + TourId + "/" + AgentId);
     window.open(
-      APIPath() + "agent-view-flyer-active/" + TourId + "/" + AgentId,
+      APIPath() + "site/flyer/" + TourId + "/" + AgentId,
       "_blank"
     );
   };

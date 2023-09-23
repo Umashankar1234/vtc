@@ -592,6 +592,7 @@ export default function EditFlyerTheme(props) {
     const { name, value } = event.target;
     setCustomEditFlythemeData({ ...customEditFlyThemeData, [name]: value });
   };
+
   const handleFlyerChnage = (event) => {
     const name = event.target.name;
     setTempTheme(event.target.value);
@@ -767,7 +768,6 @@ export default function EditFlyerTheme(props) {
       ],
     });
   };
-  console.log("themeData", themeData);
   const saveSelectFlyerTheme = () => {
     setOpen(true);
     themeData.authenticate_key = "abcd123XYZ";
@@ -778,7 +778,6 @@ export default function EditFlyerTheme(props) {
     themeData.list2 = list2Data;
     themeData.themeName = themeData.themeId;
     postRecord(APISaveFlyerTheme, themeData).then((res) => {
-      console.log(res.data[0].response);
       if (res.data[0].response.status === "success") {
         setMessage(res.data[0].response.message);
         setOpenSuccess(true);
@@ -829,7 +828,7 @@ export default function EditFlyerTheme(props) {
           history.push(APIPath() + "agent-view-flyer/" + imageset_id);
         } else {
           // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
-          history.push(APIPath() + "agent-view-flyer-active/" + imageset_id);
+          history.push(APIPath() + "site/flyer/" + imageset_id);
         }
       }
     });
@@ -1043,7 +1042,7 @@ export default function EditFlyerTheme(props) {
     setDocumentData(filter_data);
   };
   function changeHover(e) {
-    
+
     setHover(true);
   }
   return (
@@ -1122,69 +1121,69 @@ export default function EditFlyerTheme(props) {
                       <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fas fa-cog"></i> Flyer Tools
                       </a>
-                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                      <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
                         <ul class="column-count-2">
-                            <li>
-                              <a class="dropdown-item" onClick={handleEditImageset}>
-                                <i class="far fa-image"></i> Go to related ImageSet
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                href="#"
-                                data-toggle="modal"
-                                data-target="#add_img"
-                              >
-                                <i class="fas fa-eye"></i> Send to friend
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                onClick={() => {
-                                  handleEditTheme();
-                                }}
-                              >
-                                <i class="fas fa-magic"></i> Themes{" "}
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                onClick={() => {
-                                  handleViewModal();
-                                }}
-                              >
-                                <i class="fas fa-eye"></i> View Flyer
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                onClick={() => {
-                                  printFlyerModal();
-                                }}
-                                data-toggle="modal"
-                                data-target="#Distributetour"
-                              >
-                                <i class="fas fa-print"></i> Print Flyer
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                href={`#${craigeListOpen}`}
-                                data-toggle="modal"
-                                onClick={() => PostCraigeList()}
-                              >
-                                <i class="fas fa-sticky-note"></i> Post To Craigslist
-                              </a>
-                            </li>
-                            <li>
-                              <a  class="dropdown-item"
-                                href="#"
-                                data-toggle="modal"
-                                data-target="#Property"
-                              >
-                                <i class="fas fa-home"></i> Property Information{" "}
-                              </a>
-                            </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleEditImageset}>
+                              <i class="far fa-image"></i> Go to related ImageSet
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#add_img"
+                            >
+                              <i class="fas fa-eye"></i> Send to friend
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              onClick={() => {
+                                handleEditTheme();
+                              }}
+                            >
+                              <i class="fas fa-magic"></i> Themes{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              onClick={() => {
+                                handleViewModal();
+                              }}
+                            >
+                              <i class="fas fa-eye"></i> View Flyer
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              onClick={() => {
+                                printFlyerModal();
+                              }}
+                              data-toggle="modal"
+                              data-target="#Distributetour"
+                            >
+                              <i class="fas fa-print"></i> Print Flyer
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              href={`#${craigeListOpen}`}
+                              data-toggle="modal"
+                              onClick={() => PostCraigeList()}
+                            >
+                              <i class="fas fa-sticky-note"></i> Post To Craigslist
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item"
+                              href="#"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              <i class="fas fa-home"></i> Property Information{" "}
+                            </a>
+                          </li>
                         </ul>
                       </div>
                     </li>
@@ -1424,8 +1423,8 @@ export default function EditFlyerTheme(props) {
                           <img src="" alt="" style={{}} />
                         ) : (
                           <div>
-                            <img src={offeredThemeImage}></img>
-                            <img src={offeredThemeImage1}></img>
+                            <img src={offeredThemeImage} alt=""></img>
+                            <img src={offeredThemeImage1} alt=""></img>
                           </div>
                         )}
                       </div>

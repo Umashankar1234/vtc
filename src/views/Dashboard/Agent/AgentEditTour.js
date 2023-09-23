@@ -2968,6 +2968,7 @@ const AgentEditTour = React.memo((props) => {
     setOpen(true);
     trafficData.authenticate_key = "abcd123XYZ";
     trafficData.agent_id = JSON.parse(context.state.user).agentId;
+    trafficData.tour_id  = tour_id;
     postRecord(APIAgentTrafficOption, trafficData)
       .then((res) => {
         //console.log(res);
