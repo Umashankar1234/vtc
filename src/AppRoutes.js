@@ -164,7 +164,14 @@ export default function AppRoutes() {
           />
           <PrivateRoute
             path={APIPath() + "view-floor-plans/:tourid?"}
-            component={AgentFloorPlan}
+            componentWithProps={
+              <AgentFloorPlan
+                setLoading={setLoading}
+                setMessage={setMessage}
+                setAlertType={setAlertType}
+                setOpenPopUp={setOpenPopUp}
+              />
+            }
           />
           <PrivateRoute
             path={APIPath() + "site/trafficreport/:tourid?"}
@@ -318,7 +325,7 @@ export default function AppRoutes() {
           />
           <PrivateRoute
             path={APIPath() + "agent-flyer-active-print/:printids?"}
-            component={AgentFlyerPrint}
+            component={AgentViewFlyerActive}
           />
           <PrivateRoute
             path={APIPath() + "agent-flyer-print/:printids?"}

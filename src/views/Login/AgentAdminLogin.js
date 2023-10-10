@@ -61,11 +61,9 @@ export default function AgentAdminLogin(props) {
     });
     if (order_id) {
       history.push(APIPath() + `order-details/${order_id}`);
-    } else if (videoId) history.push(APIPath() + `agent-video-selected/${videoId}/${AgentId}`);
+    } else if (videoId) history.push(APIPath() + `video/${videoId}`);
     else history.push(APIPath() + "agent-dashboard/admin");
   }, [AgentId, order_id]);
-  console.log("AgentId", AgentId);
-  console.log("order_id", order_id);
 
   return <div></div>;
 }

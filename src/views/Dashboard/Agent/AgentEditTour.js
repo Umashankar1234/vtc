@@ -45,6 +45,7 @@ import { confirmAlert } from "react-confirm-alert";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
 import { useParams } from "react-router-dom";
 import DragAndDrop from "./DragAndDrop";
+const APITourService = APIURL() + "tourservicelink";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetAmenities = APIURL() + "get-amenities";
@@ -92,6 +93,7 @@ const APIDeleteImage = APIURL() + "delete-image-editimageset";
 const APIOtherMail = APIURL() + "other-link-send-email";
 const APIServiceMail = APIURL() + "tour-send-mail";
 const APIAgentTrafficOption = APIURL() + "agent-update-traffic";
+const APIOtherLink = APIURL() + "tourotherlink";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -114,6 +116,7 @@ const AgentEditTour = React.memo((props) => {
   const initialMusicState = {
     musicid: "",
   };
+
   const initialAnnouncementState = {
     authenticate_key: "abcd123XYZ",
     agent_id: "",
@@ -287,6 +290,43 @@ const AgentEditTour = React.memo((props) => {
   const [hover, setHover] = useState(false);
   const [hover1, setHover1] = useState(false);
   const [hover2, setHover2] = useState(false);
+  useEffect(() => {
+    if (context.state.user) {
+      const obj = {
+        authenticate_key: "abcd123XYZ",
+        agent_id: JSON.parse(context.state.user)?.agentId,
+        tourId: tour_id,
+      };
+      postRecord(APIOtherLink, obj).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setOtherLink(res.data[0].response.data);
+        }
+      });
+    }
+  }, [context.state.user, tour_id]);
+  useEffect(() => {
+    const obj = {
+      authenticate_key: "abcd123XYZ",
+      agent_id: JSON.parse(context.state.user)?.agentId,
+      tourId: tour_id,
+    };
+    postRecord(APITourService, obj)
+      .then((res) => {
+        if (res.data[0].response.status === "success") {
+          setServiceLinks(res.data[0].response.data);
+        } else {
+          //setSync(false);
+        }
+        //setSync(true);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+      });
+  }, [context.state.user, tour_id]);
+  useEffect(() => {
+    if (!propertyData.widgetcaption || propertyData.widgetcaption == "")
+      setPropertyData({ ...propertyData, widgetcaption: propertyData.caption });
+  }, [propertyData.caption, propertyData.widgetcaption]);
   useEffect(() => {
     if ($) {
       $(".gee_cross").hide();
@@ -790,36 +830,31 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (themeId === 1) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id ,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 2) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id ,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 3) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id ,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 4) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id ,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setThemeId("");
       } else if (themeId === 5) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id ,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setThemeId("");
@@ -831,8 +866,7 @@ const AgentEditTour = React.memo((props) => {
       const agent_id = JSON.parse(context.state.user).agentId;
       if (defaultsThemeId && isPremium === 0) {
         window.open(
-          "https://virtualtourcafe.com/alpha/tour/" +
-            tour_id,
+          "https://virtualtourcafe.com/alpha/tour/" + tour_id,
           "_blank"
         );
         setDefaultsThemeId("");
@@ -1881,6 +1915,7 @@ const AgentEditTour = React.memo((props) => {
     propertyData.tourid = tour_id;
     propertyData.tab_index = "5";
     const formData = new FormData();
+    // console.log(propertyData,"propertyData");
     for (let i in propertyData) {
       if (i === "leadcapture") {
         for (let file of propertyData[i]) {
@@ -1906,6 +1941,7 @@ const AgentEditTour = React.memo((props) => {
         formData.append(i, propertyData[i]);
       }
     }
+
     postRecord(APIUpdateProperty, formData, {})
       .then((res) => {
         setOpen(false);
@@ -2968,7 +3004,7 @@ const AgentEditTour = React.memo((props) => {
     setOpen(true);
     trafficData.authenticate_key = "abcd123XYZ";
     trafficData.agent_id = JSON.parse(context.state.user).agentId;
-    trafficData.tour_id  = tour_id;
+    trafficData.tour_id = tour_id;
     postRecord(APIAgentTrafficOption, trafficData)
       .then((res) => {
         //console.log(res);
@@ -4812,15 +4848,16 @@ const AgentEditTour = React.memo((props) => {
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <Button
+                      <button
                         onClick={updateAppliancesAmenity}
                         startIcon={<SaveIcon />}
                         style={{ float: "right" }}
-                        variant="outlined"
-                        color="secondary"
+                        variant="contained"
+                        color="#ffa12d"
+                        className="next_btn"
                       >
                         Update
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -4934,15 +4971,16 @@ const AgentEditTour = React.memo((props) => {
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <Button
+                      <button
                         onClick={updateInteriorAmenity}
                         startIcon={<SaveIcon />}
                         style={{ float: "right" }}
                         variant="outlined"
                         color="secondary"
+                        className="next_btn"
                       >
                         Update
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -5056,15 +5094,16 @@ const AgentEditTour = React.memo((props) => {
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <Button
+                      <button
                         onClick={updateExteriorAmenity}
                         startIcon={<SaveIcon />}
                         style={{ float: "right" }}
                         variant="outlined"
                         color="secondary"
+                        className="next_btn"
                       >
                         Update
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -5178,15 +5217,16 @@ const AgentEditTour = React.memo((props) => {
                   </div>
                   <div class="row">
                     <div class="col-md-12">
-                      <Button
+                      <button
                         onClick={updateCommunityAmenity}
                         startIcon={<SaveIcon />}
                         style={{ float: "right" }}
                         variant="outlined"
                         color="secondary"
+                        className="next_btn"
                       >
                         Update
-                      </Button>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -7253,7 +7293,7 @@ const AgentEditTour = React.memo((props) => {
                                                                     </select> */}
                                 </div>
                               </div>
-                              <label>Required For Mls Posting *</label>
+                              <label>Required For MLS Posting *</label>
                               <div class="row">
                                 <div class="col-md-12">
                                   <button
@@ -7710,6 +7750,7 @@ const AgentEditTour = React.memo((props) => {
                                   <div class="col-md-2 formbox1">
                                     <label>
                                       Name{" "}
+                                      <span style={{ color: "red" }}>*</span>
                                       <span style={{ color: "#ffa12d" }}></span>
                                     </label>
                                     <input
@@ -7730,6 +7771,7 @@ const AgentEditTour = React.memo((props) => {
                                   >
                                     <label style={{ marginRight: "15px" }}>
                                       File
+                                      <span style={{ color: "red" }}>*</span>
                                       <span style={{ color: "#ffa12d" }}></span>
                                     </label>
                                     <input
@@ -7744,6 +7786,7 @@ const AgentEditTour = React.memo((props) => {
                                   <div class="col-md-2 formbox1">
                                     <label>
                                       Password{" "}
+                                      <span style={{ color: "red" }}>*</span>
                                       <span style={{ color: "#ffa12d" }}></span>
                                     </label>
                                     <input

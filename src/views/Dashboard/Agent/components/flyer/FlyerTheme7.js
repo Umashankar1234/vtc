@@ -374,14 +374,10 @@ export default function FlyerTheme7(props) {
                                       }}
                                     >
                                       <a
-                                        href="#"
-                                        style={{
-                                          color: "#FFFFFF",
-                                          textDecoration: "none",
-                                        }}
+                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                                        target="_blank"
                                       >
-                                        https://virtualtourcafe.com/tour/theme-template/
-                                        {link}/{tourData.userid}
+                                        Click Here!
                                       </a>
                                     </p>
                                   </td>

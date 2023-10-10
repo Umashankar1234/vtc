@@ -88,8 +88,7 @@ export default function FlyerTheme7(props) {
                     href="#"
                     style={{ color: "#FFFFFF", textDecoration: "none" }}
                   >
-                    https://virtualtourcafe.com/tour/theme-template/{link}/
-                    {tourData.userid}
+                   https://virtualtourcafe.com/alpha/tour/{link}
                   </a>
                 </td>
               </tr>
@@ -308,12 +307,10 @@ export default function FlyerTheme7(props) {
                         style={{ color: "#FFFFFF" }}
                       >
                         <a
-                          href="#"
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
                           style={{ color: "#FFFFFF", textDecoration: "none" }}
                         >
-                          {" "}
-                          https://virtualtourcafe.com/tour/theme-template/{link}
-                          /{tourData.userid}
+                          https://virtualtourcafe.com/alpha/tour/{link}
                         </a>
                       </td>
                       <td
@@ -493,14 +490,10 @@ export default function FlyerTheme7(props) {
                                       }}
                                     >
                                       <a
-                                        href="#"
-                                        style={{
-                                          color: "#FFFFFF",
-                                          textDecoration: "none",
-                                        }}
+                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                                        target="_blank"
                                       >
-                                        https://virtualtourcafe.com/tour/theme-template/
-                                        {link}/{tourData.userid}
+                                        Click Here!
                                       </a>
                                     </p>
                                   </td>

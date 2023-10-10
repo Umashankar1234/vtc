@@ -398,10 +398,9 @@ export default function FlyerTheme3(props) {
                         <a
                           style={{ textDecoration: "none", color: "#FFF" }}
                           target="_blank"
-                          href="https://virtualtourcafe.com/beta/tour/6139332"
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
                         >
-                          https://virtualtourcafe.com/tour/theme-template/{link}
-                          /{tourData.userid}
+                         https://virtualtourcafe.com/alpha/tour/{link}
                         </a>
                         <br />
                         <span style={{ color: "#fff" }}>

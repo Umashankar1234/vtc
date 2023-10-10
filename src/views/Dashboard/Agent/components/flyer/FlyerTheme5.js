@@ -145,7 +145,8 @@ export default function FlyerTheme5(props) {
                   height="30"
                   align="left"
                   valign="middle"
-                  bgcolor={bgColor2}                  style={{ padding: "10px" }}
+                  bgcolor={bgColor2}
+                  style={{ padding: "10px" }}
                 >
                   <table
                     width="100%"
@@ -153,15 +154,14 @@ export default function FlyerTheme5(props) {
                     cellspacing="0"
                     cellpadding="0"
                   >
-                    <tr style={{ background: bgColor2}}>
+                    <tr style={{ background: bgColor2 }}>
                       <td
                         width="50%"
                         align="left"
                         valign="top"
                         style={{ color: "#FFFFFF" }}
                       >
-                        https://virtualtourcafe.com/tour/theme-template/{link}/
-                        {tourData.userid}
+                       https://virtualtourcafe.com/alpha/tour/{link}
                       </td>
                       <td
                         width="50%"
@@ -524,18 +524,13 @@ export default function FlyerTheme5(props) {
                               >
                                 <tr style={{ background: "#FFFFFF" }}>
                                   <td align="center" valign="top">
-                                    {" "}
                                     Visit the virtual tour
                                     <br />
                                     <a
-                                      href="#"
-                                      style={{
-                                        color: "#606060",
-                                        textDecoration: "none",
-                                      }}
+                                      href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                                      target="_blank"                                      
                                     >
-                                      https://virtualtourcafe.com/tour/theme-template/
-                                      {link}/{tourData.userid}
+                                      Click Here!
                                     </a>
                                   </td>
                                 </tr>
@@ -558,7 +553,7 @@ export default function FlyerTheme5(props) {
                   height="30"
                   align="left"
                   valign="middle"
-                  bgcolor={bgColor2} 
+                  bgcolor={bgColor2}
                   style={{ padding: "15px" }}
                 >
                   <table
@@ -567,7 +562,7 @@ export default function FlyerTheme5(props) {
                     cellspacing="0"
                     cellpadding="0"
                   >
-                    <tr style={{ background: bgColor2}}>
+                    <tr style={{ background: bgColor2 }}>
                       <td
                         align="right"
                         valign="top"

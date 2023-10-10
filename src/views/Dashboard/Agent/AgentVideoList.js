@@ -408,14 +408,7 @@ export default function AgentFlashVideo() {
             if (res.data[0].response.tourdetails.isactive === 0) {
               window.open(APIPath() + "agent-video-non-active/" + id, "_blank");
             } else {
-              window.open(
-                APIPath() +
-                  "agent-video-selected/" +
-                  id +
-                  "/" +
-                  JSON.parse(context.state.user).agentId,
-                "_blank"
-              );
+              window.open(APIPath() + "video/" + id, "_blank");
             }
           }
         })
@@ -459,7 +452,6 @@ export default function AgentFlashVideo() {
       property: propertyDataType.property,
       tourid: propertyData.tourid,
       mls: propertyData.mls,
-
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -471,7 +463,6 @@ export default function AgentFlashVideo() {
 
           setRefresh(false);
           setLoading(false);
-          
         } else {
           setMessage(res.data[0].response.status);
           setOpenError(true);
@@ -507,7 +498,6 @@ export default function AgentFlashVideo() {
       tourid: propertyData.tourid,
       mls: propertyData.mls,
       pageNumber: pageNumber,
-
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -517,7 +507,7 @@ export default function AgentFlashVideo() {
             setPageCount(res.data[0].response.datacount);
 
             setRefresh(false);
-          setLoading(false);
+            setLoading(false);
           } else {
             setImagesetList([]);
           }

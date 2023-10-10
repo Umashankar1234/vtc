@@ -4130,7 +4130,7 @@ export default function AgentSlideShow(props) {
                                                                     </select> */}
                                                                 </div>
                                                             </div>
-                                                            <label>Required For Mls Posting *</label>
+                                                            <label>Required For MLS Posting *</label>
                                                             <div class="row">
                                                                 <div class="col-md-12">
                                                                     <button type="submit" class="next_btn border-0">SAVE</button>

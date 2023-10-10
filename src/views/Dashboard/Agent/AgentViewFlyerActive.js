@@ -49,13 +49,15 @@ function Alert(props) {
 }
 
 export default function AgentViewFlyerActive(props) {
-  const flyerId = props.match.params.flyerid;
+  let flyerId = props.match.params.flyerid;
+  const printids = props.match.params.printids;
+  if (printids) flyerId = printids;
   const { dispatch } = useContext(AuthContext);
   const context = useContext(AuthContext);
   let history = useHistory();
   const [sync, setSync] = useState(true);
   const [loading, setLoading] = useState(true);
-  
+
   const [openError, setOpenError] = useState(false);
   const [openSuccess, setOpenSuccess] = useState(false);
   const [message, setMessage] = useState("");
@@ -77,7 +79,7 @@ export default function AgentViewFlyerActive(props) {
         tourId: flyerId,
         agent_id: JSON.parse(context.state.user).agentId,
       };
-      
+      setLoading(true);
       postRecord(APIGetViewFlyerData, objusr).then((res) => {
         setLoading(false);
         if (res.data[0].response.status === "success") {
@@ -91,273 +93,291 @@ export default function AgentViewFlyerActive(props) {
     }
   }, [sync, context.state.user, flyerId]);
   const handleViewFlyerActiveLink = () => {
-    window.location.href = APIPath() + "agent-flyer-tour/" + flyerId;
+    window.location.href = APIPath() + "tour/" + flyerId;
   };
+  useEffect(() => {
+    if (printids && !loading && Object.keys(tourData).length > 0) {
+      //let print = document.getElementById("print");
+      window.print();
+    }
+  }, [tourData]);
+  if (loading) {
+    return (
+      <div className="showcase">
+        <span class="loader"></span>
+      </div>
+    );
+  }
+
   return (
     <>
-    {!openAlertModal ? <div class="container">
-        {allData && allData.flyerId === "flyer01" ? (
-          <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer02" ? (
-          <FlyerTheme2 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer03" ? (
-          <FlyerTheme3 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer04" ? (
-          <FlyerTheme4 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer05" ? (
-          <FlyerTheme5 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer06" ? (
-          <FlyerTheme6 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer07" ? (
-          <FlyerTheme7 tourData={tourData} allData={allData} link={link} />
-        ) : allData && allData.flyerId === "flyer08" ? (
-          <FlyerTheme8 tourData={tourData} allData={allData} link={link} />
-        ) : (
-          <div class="container-fluid">
-            <div
-              class="row"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItem: "center",
-                width: "100%",
-                height: "auto",
-              }}
-            >
+      {!openAlertModal ? (
+        <div class="container">
+          {allData && allData.flyerId === "flyer01" ? (
+            <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer02" ? (
+            <FlyerTheme2 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer03" ? (
+            <FlyerTheme3 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer04" ? (
+            <FlyerTheme4 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer05" ? (
+            <FlyerTheme5 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer06" ? (
+            <FlyerTheme6 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer07" ? (
+            <FlyerTheme7 tourData={tourData} allData={allData} link={link} />
+          ) : allData && allData.flyerId === "flyer08" ? (
+            <FlyerTheme8 tourData={tourData} allData={allData} link={link} />
+          ) : (
+            <div class="container-fluid">
               <div
-                class="col-lg-7 col-md-7"
+                class="row"
                 style={{
-                  backgroundColor: "rgb(0, 174, 229)",
-                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItem: "center",
+                  width: "100%",
+                  height: "auto",
                 }}
               >
-                <p
-                  style={{
-                    color: "white",
-                    textAlign: "center",
-                    width: "100%",
-                    lineHeight: "80px",
-                  }}
-                >
-                  TEST<br></br>
-                  {Object.keys(tourData).length > 0 ? (
-                    <span style={{ textTransform: "uppercase" }}>
-                      {tourData.city} {tourData.countryname}
-                    </span>
-                  ) : (
-                    <Skeleton
-                      variant="text"
-                      width={250}
-                      height={100}
-                      style={{ background: "#bbbbbb", margin: "0 auto" }}
-                    />
-                  )}
-                </p>
-              </div>
-              <div
-                class="col-lg-4 col-md-4"
-                style={{
-                  backgroundColor: "rgb(52, 52, 52)",
-                  marginLeft: "10px",
-                }}
-              >
-                <div class="row">
-                  <div
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      width: "100%",
-                    }}
-                  >
-                    {Object.keys(allData).length > 0 ? (
-                      <img
-                        src={allData.agentphoto}
-                        width="80px"
-                        height="80px"
-                        style={{ border: "2px solid white", margin: "5px" }}
-                      ></img>
-                    ) : (
-                      <img
-                        src={photo}
-                        width="80px"
-                        height="80px"
-                        style={{ border: "2px solid white", margin: "5px" }}
-                      ></img>
-                    )}
-                    {Object.keys(allData).length > 0 ? (
-                      <img
-                        src={allData.companylogo}
-                        width="80px"
-                        height="80px"
-                        style={{ border: "2px solid white", margin: "5px" }}
-                      ></img>
-                    ) : (
-                      <img
-                        src={logo1}
-                        width="80px"
-                        height="80px"
-                        style={{ border: "2px solid white", margin: "5px" }}
-                      ></img>
-                    )}
-                  </div>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      width: "100%",
-                      color: "white",
-                    }}
-                  >
-                    <p style={{ color: "white", marginBottom: "0px" }}>
-                      {Object.keys(tourData).length > 0 ? (
-                        <span style={{ textTransform: "capitalize" }}>
-                          {tourData.caption} {tourData.countryname}
-                        </span>
-                      ) : (
-                        <Skeleton
-                          variant="text"
-                          width={250}
-                          height={60}
-                          style={{ background: "#bbbbbb", margin: "0 auto" }}
-                        />
-                      )}
-                    </p>
-                    <p style={{ color: "white", marginBottom: "0px" }}>
-                      {allData.companyname}
-                    </p>
-                    <p style={{ color: "white" }}></p>
-                  </div>
-                  <div
-                    style={{
-                      textAlign: "center",
-                      width: "100%",
-                      color: "white",
-                    }}
-                  >
-                    <p style={{ color: "white" }}></p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div
-              class="row"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItem: "center",
-                width: "100%",
-                marginTop: "05px",
-              }}
-            >
-              <div class="col-lg-7 col-md-7" style={{ marginLeft: "10px" }}>
-                {Object.keys(allData).length > 0
-                  ? allData.image_url.map((res) => (
-                      <div
-                        class="col-lg-6 col-md-6"
-                        style={{ display: "block", float: "left" }}
-                      >
-                        <img src={res} />
-                      </div>
-                    ))
-                  : ""}
-              </div>
-              <div
-                class="col-lg-4 col-md-4"
-                style={{
-                  backgroundColor: "rgb(0, 174, 229)",
-                  marginLeft: "10px",
-                }}
-              >
-                <h5></h5>
-              </div>
-            </div>
-            <div
-              class="row"
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItem: "center",
-                width: "100%",
-                height: "250px",
-                marginTop: "05px",
-              }}
-            >
-              <div
-                class="col-lg-7 col-md-7"
-                style={{
-                  backgroundColor: "rgb(0, 174, 229)",
-                  marginLeft: "10px",
-                }}
-              >
-                <h5>Offered At: c$36,587,648</h5>
-                <h6>Features</h6>
                 <div
+                  class="col-lg-7 col-md-7"
                   style={{
-                    display: "flex",
-                    justifyContent: "space-around",
-                    alignItem: "center",
-                    width: "100%",
+                    backgroundColor: "rgb(0, 174, 229)",
+                    marginLeft: "10px",
                   }}
                 >
-                  <div>
-                    <p style={{ color: "white" }}> BEDROOMS :</p>
-                    <p style={{ color: "white" }}>BATHROOMS :</p>
-                    <p style={{ color: "white" }}>GARAGE</p>
-                  </div>
-                  <div>
-                    <p style={{ color: "white" }}>YEAR BUILT :</p>
-                    <p style={{ color: "white" }}>LOT SIZE:</p>
-                    <p style={{ color: "white" }}>INTERIOR SQ. FT :</p>
+                  <p
+                    style={{
+                      color: "white",
+                      textAlign: "center",
+                      width: "100%",
+                      lineHeight: "80px",
+                    }}
+                  >
+                    {Object.keys(tourData).length > 0 ? (
+                      <span style={{ textTransform: "uppercase" }}>
+                        {tourData.city} {tourData.countryname}
+                      </span>
+                    ) : (
+                      <Skeleton
+                        variant="text"
+                        width={250}
+                        height={100}
+                        style={{ background: "#bbbbbb", margin: "0 auto" }}
+                      />
+                    )}
+                  </p>
+                </div>
+                <div
+                  class="col-lg-4 col-md-4"
+                  style={{
+                    backgroundColor: "rgb(52, 52, 52)",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <div class="row">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        width: "100%",
+                      }}
+                    >
+                      {Object.keys(allData).length > 0 ? (
+                        <img
+                          src={allData.agentphoto}
+                          width="80px"
+                          height="80px"
+                          style={{ border: "2px solid white", margin: "5px" }}
+                        ></img>
+                      ) : (
+                        <img
+                          src={photo}
+                          width="80px"
+                          height="80px"
+                          style={{ border: "2px solid white", margin: "5px" }}
+                        ></img>
+                      )}
+                      {Object.keys(allData).length > 0 ? (
+                        <img
+                          src={allData.companylogo}
+                          width="80px"
+                          height="80px"
+                          style={{ border: "2px solid white", margin: "5px" }}
+                        ></img>
+                      ) : (
+                        <img
+                          src={logo1}
+                          width="80px"
+                          height="80px"
+                          style={{ border: "2px solid white", margin: "5px" }}
+                        ></img>
+                      )}
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "center",
+                        width: "100%",
+                        color: "white",
+                      }}
+                    >
+                      <p style={{ color: "white", marginBottom: "0px" }}>
+                        {Object.keys(tourData).length > 0 ? (
+                          <span style={{ textTransform: "capitalize" }}>
+                            {tourData.caption} {tourData.countryname}
+                          </span>
+                        ) : (
+                          <Skeleton
+                            variant="text"
+                            width={250}
+                            height={60}
+                            style={{ background: "#bbbbbb", margin: "0 auto" }}
+                          />
+                        )}
+                      </p>
+                      <p style={{ color: "white", marginBottom: "0px" }}>
+                        {allData.companyname}
+                      </p>
+                      <p style={{ color: "white" }}></p>
+                    </div>
+                    <div
+                      style={{
+                        textAlign: "center",
+                        width: "100%",
+                        color: "white",
+                      }}
+                    >
+                      <p style={{ color: "white" }}></p>
+                    </div>
                   </div>
                 </div>
               </div>
               <div
-                class="col-lg-4 col-md-4"
+                class="row"
                 style={{
-                  backgroundColor: "rgb(52, 52, 52)",
-                  marginLeft: "10px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItem: "center",
+                  width: "100%",
+                  marginTop: "05px",
                 }}
               >
-                <div class="row">
+                <div class="col-lg-7 col-md-7" style={{ marginLeft: "10px" }}>
+                  {Object.keys(allData).length > 0
+                    ? allData.image_url.map((res) => (
+                        <div
+                          class="col-lg-6 col-md-6"
+                          style={{ display: "block", float: "left" }}
+                        >
+                          <img src={res} />
+                        </div>
+                      ))
+                    : ""}
+                </div>
+                <div
+                  class="col-lg-4 col-md-4"
+                  style={{
+                    backgroundColor: "rgb(0, 174, 229)",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <h5></h5>
+                </div>
+              </div>
+              <div
+                class="row"
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItem: "center",
+                  width: "100%",
+                  height: "250px",
+                  marginTop: "05px",
+                }}
+              >
+                <div
+                  class="col-lg-7 col-md-7"
+                  style={{
+                    backgroundColor: "rgb(0, 174, 229)",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <h5>
+                    Offered At: {tourData.pricetype} {tourData.price}
+                  </h5>
+                  <h6>Features</h6>
                   <div
                     style={{
-                      textAlign: "center",
                       display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      marginTop: "80px",
+                      justifyContent: "space-around",
+                      alignItem: "center",
+                      width: "100%",
                     }}
                   >
-                    <p class="img_set_para">
-                      <a
-                        onClick={handleViewFlyerActiveLink}
-                        style={{ color: "black" }}
-                      >
-                        <span
-                          style={{
-                            color: "",
-                            textDecoration: "underline",
-                            fontStyle: "italic",
-                            marginBottom: "5px",
-                          }}
+                    <div>
+                      <p style={{ color: "white" }}> BEDROOMS :</p>
+                      <p style={{ color: "white" }}>BATHROOMS :</p>
+                      <p style={{ color: "white" }}>GARAGE</p>
+                    </div>
+                    <div>
+                      <p style={{ color: "white" }}>YEAR BUILT :</p>
+                      <p style={{ color: "white" }}>LOT SIZE:</p>
+                      <p style={{ color: "white" }}>INTERIOR SQ. FT :</p>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="col-lg-4 col-md-4"
+                  style={{
+                    backgroundColor: "rgb(52, 52, 52)",
+                    marginLeft: "10px",
+                  }}
+                >
+                  <div class="row">
+                    <div
+                      style={{
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        marginTop: "80px",
+                      }}
+                    >
+                      <p class="img_set_para">
+                        <a
+                          onClick={handleViewFlyerActiveLink}
+                          style={{ color: "black" }}
                         >
-                          https://virtualtourcafe.com/agent-flyer-tour/{link}
-                        </span>
-                      </a>
-                    </p>
-                    <p style={{ color: "white" }}>
-                      All information deemed reliable, but not guaranteed.
-                    </p>
+                          <span
+                            style={{
+                              color: "",
+                              textDecoration: "underline",
+                              fontStyle: "italic",
+                              marginBottom: "5px",
+                            }}
+                          >
+                            https://virtualtourcafe.com/tour/{link}
+                          </span>
+                        </a>
+                      </p>
+                      <p style={{ color: "white" }}>
+                        All information deemed reliable, but not guaranteed.
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>:<AgentViewFlyer />}
+          )}
+        </div>
+      ) : (
+        <AgentViewFlyer />
+      )}
 
-      
       {/* <Dialog
         disableBackdropClick={true}
         disableEscapeKeyDown={true}
