@@ -191,6 +191,7 @@ export default function AgentViewFlyerActive(props) {
                           src={allData.agentphoto}
                           width="80px"
                           height="80px"
+                          alt="qwe"
                           style={{ border: "2px solid white", margin: "5px" }}
                         ></img>
                       ) : (
@@ -198,6 +199,7 @@ export default function AgentViewFlyerActive(props) {
                           src={photo}
                           width="80px"
                           height="80px"
+                          alt="qwe"
                           style={{ border: "2px solid white", margin: "5px" }}
                         ></img>
                       )}
@@ -206,12 +208,14 @@ export default function AgentViewFlyerActive(props) {
                           src={allData.companylogo}
                           width="80px"
                           height="80px"
+                          alt="qwe"
                           style={{ border: "2px solid white", margin: "5px" }}
                         ></img>
                       ) : (
                         <img
                           src={logo1}
                           width="80px"
+                          alt="qwe"
                           height="80px"
                           style={{ border: "2px solid white", margin: "5px" }}
                         ></img>

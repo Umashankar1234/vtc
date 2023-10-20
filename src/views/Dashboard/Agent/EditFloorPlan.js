@@ -1986,11 +1986,7 @@ export default function EditFloorPlan(props) {
                     <li>
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                   
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -2031,11 +2027,7 @@ export default function EditFloorPlan(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                    
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -2122,15 +2114,7 @@ export default function EditFloorPlan(props) {
                               <i class="far fa-image"></i> Back to Tour Images
                             </a>
                           </li>
-                          <li>
-                            <a
-                              class="dropdown-item"
-                              onClick={() => handleEditImageset()}
-                            >
-                              <i class="far fa-image"></i> Go to related
-                              ImageSet
-                            </a>
-                          </li>
+                          
                           <li>
                             <a
                               class="dropdown-item"

@@ -61,9 +61,7 @@ export default function AgentFlyerList() {
                     <li>
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
-                    </li>
+                   
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -96,9 +94,7 @@ export default function AgentFlyerList() {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
-                    </li>
+                   
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>

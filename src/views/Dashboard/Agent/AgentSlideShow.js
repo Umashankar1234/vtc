@@ -1896,9 +1896,7 @@ export default function AgentSlideShow(props) {
                                         <li>
                                             <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                                         </li>
-                                        <li>
-                                            <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
-                                        </li>
+                                       
                                         <li>
                                             <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                                         </li>
@@ -1931,9 +1929,7 @@ export default function AgentSlideShow(props) {
                                         <li class="">
                                             <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                                         </li>
-                                        <li>
-                                            <Link to={APIPath() + "agent-image-sets"}>Image Sets</Link>
-                                        </li>
+                                        
                                         <li>
                                             <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                                         </li>
@@ -1982,7 +1978,7 @@ export default function AgentSlideShow(props) {
                                             </a>
                                             <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
                                                 <ul class="column-count-2">
-                                                    <li><a class="dropdown-item" onClick={handleEditImageset}><i class="far fa-image"></i>  Go to related ImageSet</a></li>
+                                                    
 
                                                     <li><a class="dropdown-item" onClick={() => viewtour()}><i class="fas fa-eye"></i>  View Tour</a></li>
 

@@ -755,17 +755,24 @@ export default function AgentEditVideo(props) {
       tourId: tour_id,
       videoId: imageId,
     };
+  
     postRecord(APIPreviewVideo, obj)
       .then((res) => {
         if (res.data[0].response.status === "success") {
-          // setVideoUrl(res.data[0].response.data.filePath);
-          toDataURL(res.data[0].response.data.filePath, function (dataUrl) {
-            var link = document.createElement("a");
-            link.href = dataUrl;
-            link.setAttribute("download", "video.mp4");
-            document.body.appendChild(link);
-            link.click();
-          });
+          const videoUrl = res.data[0].response.data.filePath;
+  
+          // Create an anchor element and simulate a click to download the video
+          const link = document.createElement("a");
+          link.href = videoUrl;
+          link.setAttribute("target", "_blank");
+          link.setAttribute("download", "video.mp4");
+          link.style.display = "none"; // Hide the anchor element
+          document.body.appendChild(link);
+  
+          link.click();
+  
+          // Remove the anchor element after the download
+          document.body.removeChild(link);
         }
       })
       .catch((err) => {
@@ -774,6 +781,7 @@ export default function AgentEditVideo(props) {
         setOpen(false);
       });
   };
+  
   const [dragImages, setDragImages] = useState([]);
   useEffect(() => {
     if (allData.length > 0) {
@@ -1320,7 +1328,7 @@ export default function AgentEditVideo(props) {
                             aria-labelledby={"nav-home-tab" + res.id}
                           >
                             <div class="row">
-                              <div class="col-lg-4 col-md-4">
+                              <div class="col-12">
                                 <div class="select_img_set_box_img">
                                   <img src={res.filepath} alt="" />
                                   {res.image_type === "panoramas" ? (
@@ -1334,6 +1342,8 @@ export default function AgentEditVideo(props) {
                                         border: "none",
                                         boxShadow: "none",
                                       }}
+                                      draggable={false}
+                                    
                                       alt=""
                                     />
                                   ) : (
@@ -1348,7 +1358,7 @@ export default function AgentEditVideo(props) {
                                   )}
                                 </div>
                               </div>
-                              <div class="col-lg-8 col-md-8">
+                              <div class="col-12 mt-2">
                                 <div class="select_img_set_box_cont">
                                   <input
                                     type="text"
@@ -1424,7 +1434,6 @@ export default function AgentEditVideo(props) {
                                 />
                               </div>
                             </div>
-                            <hr class="brdr" />
                           </div>
                           <div
                             class="tab-pane fade"
@@ -1433,7 +1442,7 @@ export default function AgentEditVideo(props) {
                             aria-labelledby={"nav-profile-tab" + res.id}
                           >
                             <div class="row">
-                              <div class="col-lg-4 col-md-4">
+                              <div class="col-12">
                                 <div class="select_img_set_box_img">
                                   <img src={res.filepath} alt="" />
                                   {res.image_type === "image" ? (
@@ -1453,6 +1462,7 @@ export default function AgentEditVideo(props) {
                                         border: "none",
                                         boxShadow: "none",
                                       }}
+                                      draggable={false}
                                       alt=""
                                     />
                                   ) : (
@@ -1460,7 +1470,7 @@ export default function AgentEditVideo(props) {
                                   )}
                                 </div>
                               </div>
-                              <div class="col-lg-8 col-md-8">
+                              <div class="col-12 mt-2">
                                 <div class="caption_setting">
                                   <h6>Caption Setting</h6>
                                 </div>
@@ -1757,7 +1767,6 @@ export default function AgentEditVideo(props) {
                                 <i class="far fa-dot-circle"></i>
                               </a>
                               <a
-                                style={{ marginRight: "-120px" }}
                                 class="nav-item middle"
                                 id={"nav-profile-tab" + res.id}
                                 data-toggle="tab"

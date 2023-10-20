@@ -2024,7 +2024,7 @@ export default function AgentTourList(props) {
                                   marginBottom: "1rem",
                                   marginRight: "1rem",
                                   height: "157px",
-                                  width: "355px",
+                                  width: "100%",
                                 }}
                               />
                             )}

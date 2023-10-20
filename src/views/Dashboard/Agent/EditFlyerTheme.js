@@ -1147,15 +1147,7 @@ export default function EditFlyerTheme(props) {
                         aria-labelledby="navbarDropdown"
                       >
                         <ul class="column-count-2">
-                          <li>
-                            <a
-                              class="dropdown-item"
-                              onClick={handleEditImageset}
-                            >
-                              <i class="far fa-image"></i> Go to related
-                              ImageSet
-                            </a>
-                          </li>
+                          
                           <li>
                             <a
                               class="dropdown-item"

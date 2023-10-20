@@ -87,6 +87,7 @@ const APIGetTourAudio = APIURL() + "get-AudioFile";
 const APISaveDistributSetting = APIURL() + "get-SaveDistributeSettings";
 const APIDistributeTour = APIURL() + "distribute-tour";
 const APIGetDocumentDatas = APIURL() + "edit-property";
+const APIDeleteDocument = APIURL() + "delete-document";
 const APIUpdateOrder = APIURL() + "change-order";
 const APIcropImage = APIURL() + "save-cropper-image-tour";
 const APIDeleteImage = APIURL() + "delete-image-editimageset";
@@ -1345,6 +1346,32 @@ const AgentEditTour = React.memo((props) => {
     }
     //setBlurValue(10);
   };
+  const handleChangeMls = (event, id) => {
+    tourList.forEach((res) => {
+      if (res.id === id) {
+        if (event === true) {
+          res.enable_on_mls = 1;
+        } else {
+          res.enable_on_mls = 0;
+        }
+      }
+    });
+    // setTourList([]);
+    setTourList(tourList);
+  };
+  const handleTourVideoSound = (event, id) => {
+    tourList.forEach((res) => {
+      if (res.id === id) {
+        if (event === true) {
+          res.video_music_type = 1;
+        } else {
+          res.video_music_type = 0;
+        }
+      }
+    });
+    // setTourList([]);
+    setTourList(tourList);
+  };
   const handleImageTourChange = (event, id) => {
     tourList.forEach((res) => {
       if (res.id === id) {
@@ -1489,11 +1516,18 @@ const AgentEditTour = React.memo((props) => {
 
     //setBannerData({ ...bannerData, "header": 0 });
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
+  const removeDocData = async (docid) => {    
+    const data = {
+      authenticate_key:"abcd123XYZ",
+      docId:docid
+    }
+    const res = await axios.post(`${APIDeleteDocument}`,data);
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
+    }
   };
   const handleBannerChange = (event) => {
     setHeaderImageId(event.target.value);
@@ -4244,7 +4278,20 @@ const AgentEditTour = React.memo((props) => {
                       <div class="row">
                         <div class="col-lg-12 col-md-12 mb-3">
                           <div class="select_img_set_box_img">
-                            <img draggable="false" src={res.imageurl} alt="" />
+                            {res.image_type === "image" && (
+                              <img
+                                draggable="false"
+                                src={res.imageurl}
+                                alt=""
+                              />
+                            )}
+                            {res.image_type === "video" && (
+                              <img
+                                draggable="false"
+                                src="https://virtualtourcafe.com/images/video-default.jpg"
+                                alt=""
+                              />
+                            )}
                             {res.image_type === "panoramas" ? (
                               <img
                                 src={res.flag_img}
@@ -4258,7 +4305,7 @@ const AgentEditTour = React.memo((props) => {
                                 alt=""
                                 draggable="false"
                               />
-                            ) : (
+                            ) : res.image_type != "video" ? (
                               <i
                                 onClick={() => {
                                   setOpenEditImageModal(true);
@@ -4267,6 +4314,8 @@ const AgentEditTour = React.memo((props) => {
                                 class="far fa-edit new_edit_btn"
                                 style={{ top: "20px" }}
                               ></i>
+                            ) : (
+                              ""
                             )}
                           </div>
                         </div>
@@ -4344,6 +4393,128 @@ const AgentEditTour = React.memo((props) => {
                             className="react-switch"
                           />
                         </div>
+                        {res.image_type === "video" && (
+                          <>
+                            <div
+                              class="col-md-9 formbox1"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <label style={{ marginRight: "35px" }}>
+                                Sound ?
+                                <span style={{ color: "#ffa12d" }}></span>
+                              </label>
+                            </div>
+                            <div
+                              class="col-md-3 formbox1"
+                              style={{ marginTop: "7px" }}
+                            >
+                              <Switch
+                                onChange={(event) =>
+                                  handleTourVideoSound(event, res.id)
+                                }
+                                checked={res.video_music_type}
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
+                            </div>
+                            <div
+                              class="col-md-9 formbox1"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <label style={{ marginRight: "35px" }}>
+                                Include in MLS Tour ?
+                                <span style={{ color: "#ffa12d" }}></span>
+                              </label>
+                            </div>
+                            <div
+                              class="col-md-3 formbox1"
+                              style={{ marginTop: "7px" }}
+                            >
+                              <Switch
+                                onChange={(event) =>
+                                  handleChangeMls(event, res.id)
+                                }
+                                checked={res.enable_on_mls}
+                                handleDiameter={28}
+                                offColor="#5D5D5D"
+                                onColor="#F6AD17"
+                                offHandleColor="#fff"
+                                onHandleColor="#fff"
+                                height={35}
+                                width={60}
+                                borderRadius={6}
+                                uncheckedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    No
+                                  </div>
+                                }
+                                checkedIcon={
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      justifyContent: "center",
+                                      alignItems: "center",
+                                      height: "100%",
+                                      fontSize: 15,
+                                      color: "white",
+                                      paddingRight: 2,
+                                    }}
+                                  >
+                                    Yes
+                                  </div>
+                                }
+                                className="react-switch"
+                              />
+                            </div>
+                          </>
+                        )}
                       </div>
                     </div>
                     <div

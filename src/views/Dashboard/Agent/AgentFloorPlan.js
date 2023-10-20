@@ -2267,11 +2267,7 @@ export default function AgentFloorPlan(props) {
                     <li class="">
                       <Link to={APIPath() + "agent-dashboard"}>My Cafe</Link>
                     </li>
-                    <li>
-                      <Link to={APIPath() + "agent-image-sets"}>
-                        Image Sets
-                      </Link>
-                    </li>
+                    
                     <li>
                       <Link to={APIPath() + "agent-tour-list"}>Tours</Link>
                     </li>
@@ -2357,16 +2353,7 @@ export default function AgentFloorPlan(props) {
                             >
                               <i class="far fa-image"></i> Back to Tour Images
                             </a>
-                          </li>
-                          <li>
-                            <a
-                              class="dropdown-item"
-                              onClick={() => handleEditImageset()}
-                            >
-                              <i class="far fa-image"></i> Go to related
-                              ImageSet
-                            </a>
-                          </li>
+                          </li>                          
                           <li>
                             <a
                               class="dropdown-item"
@@ -2881,7 +2868,7 @@ export default function AgentFloorPlan(props) {
                           aria-labelledby={"nav-home-tab" + res.id}
                         >
                           <div class="row">
-                            <div class="col-12">
+                            <div class="col-12 mb-3">
                               <div class="select_img_set_box_img">
                                 <img src={res.imageurl} alt="" />
                                 {/* <i data-toggle="modal" data-target="#edit_img" class="far fa-edit edit-btn"></i> */}
@@ -2961,7 +2948,6 @@ export default function AgentFloorPlan(props) {
                               />
                             </div>
                           </div>
-                          <hr class="brdr" />
                         </div>
                         <div
                           class="tab-pane fade"
@@ -3147,7 +3133,6 @@ export default function AgentFloorPlan(props) {
                               <i class="far fa-dot-circle"></i>
                             </a>
                             <a
-                              style={{ marginRight: "-120px" }}
                               class="nav-item middle"
                               id={"nav-profile-tab" + res.id}
                               data-toggle="tab"
