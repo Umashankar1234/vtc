@@ -66,14 +66,58 @@ export default function FlyerTheme5(props) {
           <td height="1121" align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td align="left" valign="top">
+                <td
+                  align="left"
+                  valign="top"
+                  style={{
+                    position: "relative",
+                  }}
+                  bgcolor={bgColor}
+                >
                   {Object.keys(allData).length > 0 && (
-                    <img
-                      src={allData.image_url[4]}
-                      alt=""
-                      width="816"
-                      height="600"
-                    />
+                    <>
+                      <img
+                        src={allData.image_url[0]}
+                        alt=""
+                        width="816"
+                        height="600"
+                      />
+                      <div
+                        style={{
+                          width: 200,
+                          backgroundColor: bgColor,
+                          position: "absolute",
+                          zIndex: 99,
+                          top: 0,
+                          right: 0,
+                          padding: "10px 10px 20px 10px",
+                          textAlign: "center",
+                          color: "#fff",
+                        }}
+                      >
+                        <h3
+                          style={{
+                            margin: "0 0 10px 0",
+                            fontSize: 18,
+                            fontWeight: 500,
+                            textTransform: "uppercase",
+                            color: "#fff",
+                          }}
+                        >
+                          Offered At:
+                        </h3>
+                        <h4
+                          style={{
+                            margin: "0 0 0 0",
+                            fontSize: 26,
+                            fontWeight: 500,
+                            color: "#fff",
+                          }}
+                        >
+                          $ {Object.keys(tourData).length > 0 && tourData.price}
+                        </h4>
+                      </div>
+                    </>
                   )}
                 </td>
               </tr>
@@ -118,25 +162,8 @@ export default function FlyerTheme5(props) {
                   bgcolor="#f0f0f0"
                   style={{ padding: "15px" }}
                 >
-                  <p>
-                    As the manager of two leading real estate offices in the Bay
-                    Area, I am always looking for ways to differentiate our
-                    agents and be more competitive in the local market.
-                    VirtualTourCafe has been a great tool in helping our agents
-                    get more exposure and leads. We have been using
-                    VirtualTourCafe since they launched in 2010 and they just
-                    keep getting better. The product is excellent and the
-                    support is even better. As the manager of two leading real
-                    estate offices in the Bay Area, I am always looking for ways
-                    to differentiate our agents and be more competitive in the
-                    local market. VirtualTourCafe has been a great tool in
-                    helping our agents get more exposure and leads. We have been
-                    using VirtualTourCafe since they launched in 2010 and they
-                    just keep getting better. The product is excellent and the
-                    support is even better.VirtualTourCafe has been a great tool
-                    in helping our agents get more exposure and leads.The
-                    product is excellent and the support is even
-                    better.VirtualTourCafe has been a great
+                  <p style={{ fontSize: "14px" }}>
+                    {Object.keys(tourData).length > 0 && tourData.description}
                   </p>
                 </td>
               </tr>
@@ -161,7 +188,12 @@ export default function FlyerTheme5(props) {
                         valign="top"
                         style={{ color: "#FFFFFF" }}
                       >
-                       https://virtualtourcafe.com/alpha/tour/{link}
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{ color: "#FFFFFF", textDecoration: "none" }}
+                        >
+                          https://virtualtourcafe.com/alpha/tour/{link}
+                        </a>
                       </td>
                       <td
                         width="50%"
@@ -463,6 +495,11 @@ export default function FlyerTheme5(props) {
                                       {Object.keys(allData).length > 0 &&
                                         allData.companyname}
                                     </strong>
+                                    <br />
+                                    <strong>
+                                      {Object.keys(allData).length > 0 &&
+                                        `Lic# ${allData.licenceno}`}
+                                    </strong>
                                   </td>
                                 </tr>
                               </table>
@@ -505,7 +542,7 @@ export default function FlyerTheme5(props) {
                                   textTransform: "uppercase",
                                 }}
                               >
-                                Price $
+                                OFFERED AT: $
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.price}{" "}
                               </h6>
@@ -528,7 +565,7 @@ export default function FlyerTheme5(props) {
                                     <br />
                                     <a
                                       href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                      target="_blank"                                      
+                                      target="_blank"
                                     >
                                       Click Here!
                                     </a>

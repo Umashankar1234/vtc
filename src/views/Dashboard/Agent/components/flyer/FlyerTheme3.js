@@ -4,62 +4,49 @@ import company_img from "../../../../../images/company.png";
 export default function FlyerTheme3(props) {
   const { tourData, allData, link } = props;
   const [bgColor, setBgColor] = useState("#bd1e1e");
-  const [bgColor2,setBgColor2]=useState("#bd1e1e");
+  const [bgColor2, setBgColor2] = useState("#bd1e1e");
   useEffect(() => {
-    if(allData.themeId == 5){
-        setBgColor("#5776a4")
-        setBgColor2("#022974")
-    }        
-    else if(allData.themeId == 6){
-        setBgColor("#acacac")
-        setBgColor2("#b8040f")
+    if (allData.themeId == 5) {
+      setBgColor("#5776a4");
+      setBgColor2("#022974");
+    } else if (allData.themeId == 6) {
+      setBgColor("#acacac");
+      setBgColor2("#b8040f");
+    } else if (allData.themeId == 7) {
+      setBgColor("#17317d");
+      setBgColor2("#e91837");
+    } else if (allData.themeId == 4) {
+      setBgColor("#1d1916");
+      setBgColor2("#ee9101");
+    } else if (allData.themeId == 257) {
+      setBgColor("#000000");
+      setBgColor2("#020202");
+    } else if (allData.themeId == 258) {
+      setBgColor("#989898");
+      setBgColor2("#020202");
+    } else if (allData.themeId == 130) {
+      setBgColor("#000000");
+      setBgColor2("#314c73");
+    } else if (allData.themeId == 141) {
+      setBgColor("#e12334");
+      setBgColor2("#051933");
+    } else if (allData.themeId == 237) {
+      setBgColor("#8e8e8e");
+      setBgColor2("#8d3d7b");
+    } else if (allData.themeId == 84) {
+      setBgColor("#3e3e3e");
+      setBgColor2("#3f8d37");
+    } else if (allData.themeId == 75) {
+      setBgColor("#7a7a7a");
+      setBgColor2("#b68748");
+    } else if (allData.themeId == 3) {
+      setBgColor("#990134");
+      setBgColor2("#015a6a");
+    } else if (allData.themeId == 145) {
+      setBgColor("#1d1916");
+      setBgColor2("#da1029");
     }
-    else if(allData.themeId == 7){
-        setBgColor("#17317d")
-        setBgColor2("#e91837")
-    }
-    else if(allData.themeId == 4){
-        setBgColor("#1d1916")
-        setBgColor2("#ee9101")
-    }
-    else if(allData.themeId == 257){
-        setBgColor("#000000")
-        setBgColor2("#020202")
-    }
-    else if(allData.themeId == 258){
-        setBgColor("#989898")
-        setBgColor2("#020202")
-    }
-    else if(allData.themeId == 130){
-        setBgColor("#000000")
-        setBgColor2("#314c73")
-    }
-    else if(allData.themeId == 141){
-        setBgColor("#e12334")
-        setBgColor2("#051933")
-    }
-    else if(allData.themeId == 237){
-        setBgColor("#8e8e8e")
-        setBgColor2("#8d3d7b")
-    }
-    else if(allData.themeId == 84){
-        setBgColor("#3e3e3e")
-        setBgColor2("#3f8d37")
-    }
-    else if(allData.themeId == 75){
-        setBgColor("#7a7a7a")
-        setBgColor2("#b68748")
-    }
-    
-    else if(allData.themeId == 3){
-        setBgColor("#990134")
-        setBgColor2("#015a6a")
-    }
-    else if(allData.themeId == 145){
-        setBgColor("#1d1916")
-        setBgColor2("#da1029")
-    }
-}, [allData])
+  }, [allData]);
   return (
     <React.Fragment>
       <table
@@ -241,16 +228,22 @@ export default function FlyerTheme3(props) {
                       color: "#fff",
                       fontSize: "16px",
                       margin: "0px",
-                      padding: "0px",
+                      padding: "10px",
                       textTransform: "uppercase",
                     }}
                   >
-                    {" "}
-                    Price : $
+                    OFFERED AT : $
                     {Object.keys(tourData).length > 0 && tourData.price}
                   </h6>
                 </td>
-                <td width="70%" align="right" valign="middle">
+                <td
+                  width="70%"
+                  align="right"
+                  valign="middle"
+                  style={{
+                    padding: "10px",
+                  }}
+                >
                   {Object.keys(tourData).length > 0 &&
                     tourData.city + " , " + tourData.countryname}
                 </td>
@@ -275,27 +268,15 @@ export default function FlyerTheme3(props) {
                   >
                     <tr style={{ background: bgColor }}>
                       <td valign="top" style={{ padding: "10px" }}>
-                        <p style={{ margin: "0px", color: "white" }}>
-                          As the manager of two leading real estate offices in
-                          the Bay Area, I am always looking for ways to
-                          differentiate our agents and be more competitive in
-                          the local market. VirtualTourCafe has been a great
-                          tool in helping our agents get more exposure and
-                          leads. We have been using VirtualTourCafe since they
-                          launched in 2010 and they just keep getting better.
-                          The product is excellent and the support is even
-                          better. As the manager of two leading real estate
-                          offices in the Bay Area, I am always looking for ways
-                          to differentiate our agents and be more competitive in
-                          the local market. VirtualTourCafe has been a great
-                          tool in helping our agents get more exposure and
-                          leads. We have been using VirtualTourCafe since they
-                          launched in 2010 and they just keep getting better.
-                          The product is excellent and the support is even
-                          better.VirtualTourCafe has been a great tool in
-                          helping our agents get more exposure and leads.The
-                          product is excellent and the support is even
-                          better.VirtualTourCafe has been a great
+                        <p
+                          style={{
+                            margin: "0px",
+                            color: "white",
+                            fontSize: "14px",
+                          }}
+                        >
+                          {Object.keys(tourData).length > 0 &&
+                            tourData.description}
                         </p>
                       </td>
                     </tr>
@@ -383,6 +364,10 @@ export default function FlyerTheme3(props) {
                                   allData.companyname}
                               </strong>
                               <br />
+                              <strong>
+                                {Object.keys(allData).length > 0 &&
+                                  `Lic# ${allData.licenceno}`}
+                              </strong>
                             </td>
                           </tr>
                         </table>
@@ -400,7 +385,7 @@ export default function FlyerTheme3(props) {
                           target="_blank"
                           href={`https://virtualtourcafe.com/alpha/tour/${link}`}
                         >
-                         https://virtualtourcafe.com/alpha/tour/{link}
+                          Click to view tour
                         </a>
                         <br />
                         <span style={{ color: "#fff" }}>

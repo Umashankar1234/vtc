@@ -1516,12 +1516,12 @@ const AgentEditTour = React.memo((props) => {
 
     //setBannerData({ ...bannerData, "header": 0 });
   };
-  const removeDocData = async (docid) => {    
+  const removeDocData = async (docid) => {
     const data = {
-      authenticate_key:"abcd123XYZ",
-      docId:docid
-    }
-    const res = await axios.post(`${APIDeleteDocument}`,data);
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    const res = await axios.post(`${APIDeleteDocument}`, data);
     if (res.data[0].response.status === "success") {
       var filter_data = documentData.filter((res) => {
         return res.id !== docid;

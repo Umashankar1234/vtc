@@ -69,7 +69,7 @@ export default function FlyerTheme7(props) {
                 <td align="left" valign="top">
                   {Object.keys(allData).length > 0 && (
                     <img
-                      src={allData.image_url[4]}
+                      src={allData.image_url[0]}
                       alt=""
                       width="816"
                       height="500"
@@ -88,7 +88,7 @@ export default function FlyerTheme7(props) {
                     href="#"
                     style={{ color: "#FFFFFF", textDecoration: "none" }}
                   >
-                   https://virtualtourcafe.com/alpha/tour/{link}
+                    https://virtualtourcafe.com/alpha/tour/{link}
                   </a>
                 </td>
               </tr>
@@ -107,7 +107,7 @@ export default function FlyerTheme7(props) {
                       <td width="55%" align="left" valign="top">
                         {Object.keys(allData).length > 0 && (
                           <img
-                            src={allData.image_url[0]}
+                            src={allData.image_url[1]}
                             alt=""
                             width="440"
                             height="365"
@@ -207,6 +207,7 @@ export default function FlyerTheme7(props) {
                             margin: "0px",
                             padding: "0px",
                             textTransform: "uppercase",
+                            color: "white",
                           }}
                         >
                           FEATURES
@@ -329,7 +330,7 @@ export default function FlyerTheme7(props) {
           </td>
         </tr>
         <tr>
-          <td height="1121" align="left" valign="top">
+          <td height="100%" align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="left" valign="top">
@@ -416,6 +417,11 @@ export default function FlyerTheme7(props) {
                                     <strong>
                                       {Object.keys(allData).length > 0 &&
                                         allData.companyname}
+                                    </strong>
+                                    <br />
+                                    <strong>
+                                      {Object.keys(allData).length > 0 &&
+                                        `Lic# ${allData.licenceno}`}
                                     </strong>
                                   </td>
                                 </tr>
@@ -544,29 +550,9 @@ export default function FlyerTheme7(props) {
                               valign="top"
                               style={{ padding: "15px" }}
                             >
-                              <p style={{ color: "#FFFFFF" }}>
-                                As the manager of two leading real estate
-                                offices in the Bay Area, I am always looking for
-                                ways to differentiate our agents and be more
-                                competitive in the local market. VirtualTourCafe
-                                has been a great tool in helping our agents get
-                                more exposure and leads. We have been using
-                                VirtualTourCafe since they launched in 2010 and
-                                they just keep getting better. The product is
-                                excellent and the support is even better. As the
-                                manager of two leading real estate offices in
-                                the Bay Area, I am always looking for ways to
-                                differentiate our agents and be more competitive
-                                in the local market. VirtualTourCafe has been a
-                                great tool in helping our agents get more
-                                exposure and leads. We have been using
-                                VirtualTourCafe since they launched in 2010 and
-                                they just keep getting better. The product is
-                                excellent and the support is even
-                                better.VirtualTourCafe has been a great tool in
-                                helping our agents get more exposure and
-                                leads.The product is excellent and the support
-                                is even better.VirtualTourCafe has been a great
+                              <p style={{ fontSize: "14px", color: "white" }}>
+                                {Object.keys(tourData).length > 0 &&
+                                  tourData.description}
                               </p>
                             </td>
                           </tr>
@@ -591,7 +577,7 @@ export default function FlyerTheme7(props) {
                             <td align="left" valign="top">
                               {Object.keys(allData).length > 0 && (
                                 <img
-                                  src={allData.image_url[1]}
+                                  src={allData.image_url[2]}
                                   alt=""
                                   width="490"
                                   height="390"
@@ -606,7 +592,7 @@ export default function FlyerTheme7(props) {
                             <td align="left" valign="top">
                               {Object.keys(allData).length > 0 && (
                                 <img
-                                  src={allData.image_url[2]}
+                                  src={allData.image_url[3]}
                                   alt=""
                                   width="490"
                                   height="390"

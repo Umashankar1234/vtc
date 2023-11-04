@@ -152,7 +152,7 @@ export default function FlyerTheme4(props) {
                       <td align="left" valign="top" height="150">
                         {Object.keys(allData).length > 0 && (
                           <img
-                            src={allData.image_url[0]}
+                            src={allData.image_url[5]}
                             alt=""
                             width="250"
                             height="150"
@@ -179,7 +179,7 @@ export default function FlyerTheme4(props) {
                       <td align="right" valign="top">
                         {Object.keys(allData).length > 0 && (
                           <img
-                            src={allData.image_url[4]}
+                            src={allData.image_url[0]}
                             alt=""
                             width="556"
                             height="365"
@@ -203,7 +203,7 @@ export default function FlyerTheme4(props) {
                             href={`https://virtualtourcafe.com/alpha/tour/${link}`}
                             style={{ color: "#FFFFFF", textDecoration: "none" }}
                           >
-                            https://virtualtourcafe.com/alpha/tour/{link}
+                            Click here to view the tour
                           </a>
                         </p>{" "}
                       </td>
@@ -420,6 +420,9 @@ export default function FlyerTheme4(props) {
                                       {Object.keys(allData).length > 0 &&
                                         allData.companyname}
                                     </strong>
+                                    <br />
+                                    Lic# {Object.keys(allData).length > 0 &&
+                                        allData.licenceno}
                                   </td>
                                 </tr>
                               </table>
@@ -445,7 +448,7 @@ export default function FlyerTheme4(props) {
           >
             <h6
               style={{
-                color: "#333",
+                color: "#ffffff",
                 fontSize: "16px",
                 margin: "0px 0px 10px 0px",
                 padding: "0px",
@@ -455,24 +458,9 @@ export default function FlyerTheme4(props) {
               DESCRIPTION
             </h6>
 
-            <p>
-              As the manager of two leading real estate offices in the Bay Area,
-              I am always looking for ways to differentiate our agents and be
-              more competitive in the local market. VirtualTourCafe has been a
-              great tool in helping our agents get more exposure and leads. We
-              have been using VirtualTourCafe since they launched in 2010 and
-              they just keep getting better. The product is excellent and the
-              support is even better. As the manager of two leading real estate
-              offices in the Bay Area, I am always looking for ways to
-              differentiate our agents and be more competitive in the local
-              market. VirtualTourCafe has been a great tool in helping our
-              agents get more exposure and leads. We have been using
-              VirtualTourCafe since they launched in 2010 and they just keep
-              getting better. The product is excellent and the support is even
-              better.VirtualTourCafe has been a great tool in helping our agents
-              get more exposure and leads.The product is excellent and the
-              support is even better.VirtualTourCafe has been a great
-            </p>
+            <p style={{ margin: "0px", color:"white",fontSize:"14px" }}>
+                    {Object.keys(tourData).length > 0 && tourData.description}
+                  </p>
           </td>
         </tr>
         <tr>
@@ -483,9 +471,9 @@ export default function FlyerTheme4(props) {
             align="center"
             valign="middle"
             bgcolor={bgColor2}
-            style={{ padding: "10px", color: "#333333" }}
+            style={{ padding: "10px", color: "#ffffff" }}
           >
-            <p style={{ margin: "0px" }}>
+            <p style={{ margin: "0px",color: "#ffffff" }}>
               All information deemed reliable, but not guaranteed.
             </p>
           </td>

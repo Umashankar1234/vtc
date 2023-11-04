@@ -881,7 +881,8 @@ export default function AgentEditTour(props) {
           //   // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
           //   history.push(APIPath() + "site/flyer/" + imageset_id);
           // }
-          history.push(APIPath() + "site/flyer/" + imageset_id);
+          // history.push(APIPath() + "site/flyer/" + imageset_id,'_blank');
+          window.open(APIPath() + "site/flyer/" + imageset_id, '_blank');
         }
       })
       .catch((err) => {
@@ -900,7 +901,7 @@ export default function AgentEditTour(props) {
         if (res.data[0].response.status === "success") {
           if (res.data[0].response.tourdetails.isactive === 0) {
             //window.location.href = APIPath() + "agent-flyer-print/" + id;
-            history.push(APIPath() + "agent-view-flyer/" + imageset_id);
+            history.push(APIPath() + "site/flyer/" + imageset_id);
           } else {
             window.location.href =
               APIPath() + "agent-flyer-active-print/" + imageset_id;

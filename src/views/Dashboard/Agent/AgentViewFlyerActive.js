@@ -288,7 +288,9 @@ export default function AgentViewFlyerActive(props) {
                     marginLeft: "10px",
                   }}
                 >
-                  <h5></h5>
+                  <p>
+                    {Object.keys(tourData).length > 0 && tourData.description}
+                  </p>
                 </div>
               </div>
               <div
@@ -310,7 +312,8 @@ export default function AgentViewFlyerActive(props) {
                   }}
                 >
                   <h5>
-                    Offered At: {tourData.pricetype} {tourData.price}
+                    Offered At: $
+                    {Object.keys(tourData).length > 0 && tourData.price}
                   </h5>
                   <h6>Features</h6>
                   <div
@@ -322,14 +325,36 @@ export default function AgentViewFlyerActive(props) {
                     }}
                   >
                     <div>
-                      <p style={{ color: "white" }}> BEDROOMS :</p>
-                      <p style={{ color: "white" }}>BATHROOMS :</p>
-                      <p style={{ color: "white" }}>GARAGE</p>
+                      <p style={{ color: "white" }}>
+                        {" "}
+                        BEDROOMS :{" "}
+                        {Object.keys(tourData).length > 0 &&
+                          tourData.totalbedrooms}
+                      </p>
+                      <p style={{ color: "white" }}>
+                        BATHROOMS :{" "}
+                        {Object.keys(tourData).length > 0 &&
+                          tourData.totalbathrooms}
+                      </p>
+                      <p style={{ color: "white" }}>
+                        GARAGE :{" "}
+                        {Object.keys(tourData).length > 0 &&
+                          tourData.garagesize}
+                      </p>
                     </div>
                     <div>
-                      <p style={{ color: "white" }}>YEAR BUILT :</p>
-                      <p style={{ color: "white" }}>LOT SIZE:</p>
-                      <p style={{ color: "white" }}>INTERIOR SQ. FT :</p>
+                      <p style={{ color: "white" }}>
+                        YEAR BUILT :{" "}
+                        {Object.keys(tourData).length > 0 && tourData.yearbuilt}
+                      </p>
+                      <p style={{ color: "white" }}>
+                        LOT SIZE:{" "}
+                        {Object.keys(tourData).length > 0 && tourData.lotsize}
+                      </p>
+                      <p style={{ color: "white" }}>
+                        INTERIOR SQ. FT :{" "}
+                        {Object.keys(tourData).length > 0 && tourData.sqfootage}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -364,7 +389,7 @@ export default function AgentViewFlyerActive(props) {
                               marginBottom: "5px",
                             }}
                           >
-                            https://virtualtourcafe.com/tour/{link}
+                            Click to view Tour
                           </span>
                         </a>
                       </p>

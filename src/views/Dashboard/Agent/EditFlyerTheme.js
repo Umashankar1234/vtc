@@ -825,10 +825,11 @@ export default function EditFlyerTheme(props) {
       //console.log(res);
       if (res.data[0].response.status === "success") {
         if (res.data[0].response.tourdetails.isactive === 0) {
-          history.push(APIPath() + "agent-view-flyer/" + imageset_id);
+          // history.push(APIPath() + "site/flyer/" + imageset_id, "_blank");
+          window.open(APIPath() + "site/flyer/" + imageset_id, "_blank");
         } else {
           // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
-          history.push(APIPath() + "site/flyer/" + imageset_id);
+          history.push(APIPath() + "site/flyer/" + imageset_id, "_blank");
         }
       }
     });
@@ -844,10 +845,9 @@ export default function EditFlyerTheme(props) {
       if (res.data[0].response.status === "success") {
         if (res.data[0].response.tourdetails.isactive === 0) {
           //window.location.href = APIPath() + "agent-flyer-print/" + id;
-          history.push(APIPath() + "agent-view-flyer/" + imageset_id);
+          history.push(APIPath() + "site/flyer/" + imageset_id);
         } else {
-          window.location.href =
-            APIPath() + "agent-flyer-active-print/" + imageset_id;
+          window.location.href = APIPath() + "site/flyer/" + imageset_id;
           //history.push(APIPath() + "agent-flyer-active-print/" + id);
         }
       }
@@ -1147,7 +1147,6 @@ export default function EditFlyerTheme(props) {
                         aria-labelledby="navbarDropdown"
                       >
                         <ul class="column-count-2">
-                          
                           <li>
                             <a
                               class="dropdown-item"
@@ -1434,7 +1433,9 @@ export default function EditFlyerTheme(props) {
                             className="custom-select"
                             style={{ height: "45px" }}
                           >
-                            <option value="" selected>Select a theme</option>
+                            <option value="" selected>
+                              Select a theme
+                            </option>
                             {secondThemeData.map((res) => (
                               <option value={JSON.stringify(res)}>
                                 {res.title}

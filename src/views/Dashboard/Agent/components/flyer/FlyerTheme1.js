@@ -104,42 +104,8 @@ export default function FlyerTheme1(props) {
         <tr>
           <td align="center" style={{ position: "relative" }}>
             {Object.keys(allData).length > 0 && (
-              <img src={allData.image_url[4]} alt="" width="816" height="410" />
+              <img src={allData.image_url[0]} alt="" width="816" height="410" />
             )}
-            <div
-              style={{
-                width: "300px",
-                background: bgColor2,
-                position: "absolute",
-                zIndex: "99",
-                top: "0px",
-                right: "0px",
-                padding: "10px 10px 20px 10px",
-              }}
-            >
-              <h3
-                style={{
-                  margin: "0 0 0 0",
-                  color: "#fff",
-                  fontFamily: "Roboto",
-                  fontSize: "16px",
-                  fontWeight: "500",
-                }}
-              >
-                Property
-              </h3>
-              <h4
-                style={{
-                  margin: "0 0 0 0",
-                  color: "#fff",
-                  fontFamily: "Roboto",
-                  fontSize: "16px",
-                  fontWeight: "500",
-                }}
-              >
-                Property
-              </h4>
-            </div>
           </td>
         </tr>
         <tr>
@@ -198,7 +164,7 @@ export default function FlyerTheme1(props) {
           <td bgcolor="#eeeeee" style={{ padding: "15px" }}>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
-                <td width="30%" align="left" valign="top">
+                <td width="30%" align="left" valign="top" style={{ padding: "10px" }}>
                   <table width="98%" border="0" cellspacing="0" cellpadding="0">
                     <tr>
                       <td align="left" valign="top">
@@ -215,7 +181,7 @@ export default function FlyerTheme1(props) {
                           style={{ fontSize: "16px" }}
                         >
                           <tr>
-                            <td colspan="2" align="left" valign="middle">
+                            <td colspan="2" align="left" valign="middle"  >
                               <h4
                                 style={{
                                   margin: "0 0 0",
@@ -224,8 +190,7 @@ export default function FlyerTheme1(props) {
                                   fontWeight: "500",
                                 }}
                               >
-                                {" "}
-                                Price: $
+                                Offered At: $
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.price}
                               </h4>
@@ -349,13 +314,13 @@ export default function FlyerTheme1(props) {
                   align="left"
                   valign="top"
                   bgcolor="#fff"
-                  style={{ border: "1px solid #dddddd" }}
+                  style={{ border: "1px solid #dddddd", padding: "10px" }}
                 >
                   <table
                     width="95%"
                     border="0"
                     align="center"
-                    cellpadding="0"
+                    cellpadding="10"
                     cellspacing="0"
                   >
                     <tr>
@@ -383,7 +348,7 @@ export default function FlyerTheme1(props) {
                       alt=""
                       width="90"
                       height="90"
-                      style={{ width: "100%" }}
+                      style={{ objectFit: "cover" }}
                     />
                   )}
                 </td>
@@ -409,16 +374,39 @@ export default function FlyerTheme1(props) {
                       fontSize: "16px",
                       display: "block",
                       margin: "0 0",
+                    }}
+                  >
+                    <span id="agentInfo" style={{ fontSize: "14px" }}>
+                      Lic#{" "}
+                      {Object.keys(allData).length > 0 && allData.licenceno}
+                    </span>
+                  </h6>
+                </td>
+                <td width="12%" align="left" valign="middle">
+                  {Object.keys(allData).length > 0 && (
+                    <img
+                      src={allData.companylogo}
+                      alt=""
+                      width="90"
+                      height="90"
+                      style={{ objectFit: "cover" }}
+                    />
+                  )}
+                </td>
+                <td width="44%" align="right" valign="bottom">
+                  <h6
+                    style={{
+                      color: "#fff",
+                      fontSize: "16px",
+                      display: "block",
+                      margin: "0 0",
                       fontFamily: "'Roboto'",
                     }}
                   >
                     <span id="agentInfo" style={{ fontSize: "14px" }}>
                       {Object.keys(allData).length > 0 && allData.companyname}
                     </span>
-                  </h6>{" "}
-                </td>
-                <td width="12%" align="left" valign="middle"></td>
-                <td width="44%" align="right" valign="bottom">
+                  </h6>
                   <table
                     width="100%"
                     border="0"
@@ -433,9 +421,16 @@ export default function FlyerTheme1(props) {
                     <tr style={{ background: bgColor }}>
                       <td align="right" valign="bottom">
                         <a
-                          style={{ textDecoration: "none", color: "#FFF" }}
-                          target="_blank"
-                        ></a>
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                        >
+                          View Tour
+                        </a>
                         <br />
                         <span style={{ color: "#fff" }}>
                           All information deemed reliable, but not guaranteed.

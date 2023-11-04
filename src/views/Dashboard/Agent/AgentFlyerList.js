@@ -152,7 +152,7 @@ export default function AgentFlyerList(props) {
         setAllStates(res.data[0].response.data);
       }
     });
-  }, [propertyData.countryid]);
+  }, [propertyData?.countryid]);
   useEffect(() => {
     const objusr = { authenticate_key: "abcd123XYZ" };
     postRecord(APIGetPropertyType, objusr).then((res) => {
@@ -443,13 +443,11 @@ export default function AgentFlyerList(props) {
         .then((res) => {
           if (res.data[0].response.status === "success") {
             if (res.data[0].response.tourdetails.isactive === 0) {
-              history.push(APIPath() + "agent-view-flyer/" + id);
+              // history.push(APIPath() + "site/flyer/" + id,'_blank');
+              window.open(APIPath() + "site/flyer/" + id, "_blank");
             } else {
-              // window.location.href = APIPath() + "agent-view-flyer-active/" + id;
-              window.open(
-                APIPath() + "site/flyer/" + id,
-                "_blank"
-              );
+              // window.location.href = APIPath() + "site/flyer-active/" + id;
+              window.open(APIPath() + "site/flyer/" + id, "_blank");
             }
           }
         })
@@ -466,9 +464,9 @@ export default function AgentFlyerList(props) {
   //         .then(res => {
   //             if(res.data[0].response.status === "success"){
   //                 if(res.data[0].response.tourdetails.isactive===0){
-  //                     window.location.href = APIPath() + "agent-view-flyer/" + tid;
+  //                     window.location.href = APIPath() + "site/flyer/" + tid;
   //                 }else{
-  //                     window.location.href = APIPath() + "agent-view-flyer-active/" + tid;
+  //                     window.location.href = APIPath() + "site/flyer-active/" + tid;
   //                 }
   //                 //setActive(res.data[0].response.tourdetails.isactive);
   //             }
@@ -502,7 +500,7 @@ export default function AgentFlyerList(props) {
           if (res.data[0].response.status === "success") {
             if (res.data[0].response.tourdetails.isactive === 0) {
               //window.location.href = APIPath() + "agent-flyer-print/" + id;
-              history.push(APIPath() + "agent-view-flyer/" + id);
+              history.push(APIPath() + "site/flyer/" + id);
             } else {
               window.location.href =
                 APIPath() + "agent-flyer-active-print/" + id;
@@ -574,7 +572,6 @@ export default function AgentFlyerList(props) {
       property: propertyDataType.property,
       tourid: propertyData.flyerid,
       mls: propertyData.mls,
-
     };
     postRecord(APIGetImagesetList, objusr)
       .then((res) => {
@@ -623,7 +620,7 @@ export default function AgentFlyerList(props) {
           if (res.data[0].response.status === "success") {
             if (res.data[0].response.tourdetails.isactive === 0) {
               //window.location.href = APIPath() + "agent-flyer-print/" + id;
-              history.push(APIPath() + "agent-view-flyer/" + id);
+              history.push(APIPath() + "site/flyer/" + id);
             } else {
               history.push(APIPath() + "agent-download-flyer/" + id);
               //  window.location.href = APIPath() + "agent-download-flyer/" + id;
@@ -644,7 +641,7 @@ export default function AgentFlyerList(props) {
   };
   const filterTourData = () => {
     setOpen(true);
-          setLoading(true);
+    setLoading(true);
 
     const objusr = {
       authenticate_key: "abcd123XYZ",
@@ -667,7 +664,7 @@ export default function AgentFlyerList(props) {
             setPageCount(res.data[0].response.datacount);
 
             setRefresh(false);
-          setLoading(false);
+            setLoading(false);
           } else {
             setImagesetList([]);
           }
@@ -1155,7 +1152,7 @@ export default function AgentFlyerList(props) {
             <div class="col-lg-12 col-md-12">
               <div class="profile_listing_main">
                 <div class="row">
-                  {allData.length > 0 && !loading? (
+                  {allData.length > 0 && !loading ? (
                     allData.map((res) => (
                       <div
                         onClick={() => {

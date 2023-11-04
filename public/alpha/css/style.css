@@ -1853,12 +1853,12 @@ footer {
 }
 .gee_menu {
   z-index: 101;
-    font-size: 0.8em;
-    width: 100%;
-    background: #002052;
-    text-align: center;
-    top: 58px;
-    border-top: 1px solid #f48a24;
+  font-size: 0.8em;
+  width: 100%;
+  background: #002052;
+  text-align: center;
+  top: 58px;
+  border-top: 1px solid #f48a24;
 }
 .gee_menu ul {
   margin: 0;
@@ -9652,7 +9652,6 @@ table {
 }
 td,
 th {
-  text-align: center;
   padding: 8px;
 }
 tr:nth-child(2n) {
@@ -10121,7 +10120,8 @@ h3.fwMedium.mb-6 {
   border-bottom: 2px dashed #ffa124;
 }
 .ineedphotos-sec-left {
-  background: url("../../images/dashed-shape.png") no-repeat center bottom #001c47;
+  background: url("../../images/dashed-shape.png") no-repeat center bottom
+    #001c47;
   position: relative;
   padding: 140px 40px;
   border-radius: 5px;
@@ -11496,9 +11496,9 @@ a.dropdown-item {
   cursor: pointer;
 }
 body .uwy.userway_p1 .uai {
-  top : 104px !important;
+  top: 104px !important;
 }
-.showcase  {
+.showcase {
   width: 100%;
   height: 100vh;
   padding: 10px;
@@ -11514,13 +11514,13 @@ body .uwy.userway_p1 .uai {
   display: inline-block;
   position: relative;
   border: 3px solid;
-  border-color: #FFF #FFF transparent transparent;
+  border-color: #fff #fff transparent transparent;
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
 .loader::after,
 .loader::before {
-  content: '';  
+  content: "";
   box-sizing: border-box;
   position: absolute;
   left: 0;
@@ -11529,7 +11529,7 @@ body .uwy.userway_p1 .uai {
   bottom: 0;
   margin: auto;
   border: 3px solid;
-  border-color: transparent transparent #FF3D00 #FF3D00;
+  border-color: transparent transparent #ff3d00 #ff3d00;
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -11540,10 +11540,10 @@ body .uwy.userway_p1 .uai {
 .loader::before {
   width: 32px;
   height: 32px;
-  border-color: #FFF #FFF transparent transparent;
+  border-color: #fff #fff transparent transparent;
   animation: rotation 1.5s linear infinite;
 }
-    
+
 @keyframes rotation {
   0% {
     transform: rotate(0deg);
@@ -11551,7 +11551,7 @@ body .uwy.userway_p1 .uai {
   100% {
     transform: rotate(360deg);
   }
-} 
+}
 @keyframes rotationBack {
   0% {
     transform: rotate(0deg);
@@ -11559,4 +11559,15 @@ body .uwy.userway_p1 .uai {
   100% {
     transform: rotate(-360deg);
   }
+}
+@media print and (color) {
+  * {
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+  }
+} 
+.test_sec_left.row{
+  flex: 1;
+  justify-content: flex-start;
+  align-items: center;
 }
