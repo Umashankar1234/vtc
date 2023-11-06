@@ -11571,3 +11571,9 @@ body .uwy.userway_p1 .uai {
   justify-content: flex-start;
   align-items: center;
 }
+.test_sec_left span{
+  background: #2d3e50;
+  color: white;
+  padding: 7px;
+  border-radius: 5px;
+}

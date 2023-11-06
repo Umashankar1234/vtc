@@ -317,7 +317,7 @@ export default function AgentEditVideo(props) {
         if (res.data[0].response.status === "success") {
           setCurrentTourData(res.data[0].response.tourdetails);
           setDistributeVideoChecked(!!res.data[0].response.createVideo);
-          setCreateVideoStatus(res.data[0].response.createVideoStatus)
+          setCreateVideoStatus(res.data[0].response.createVideoStatus);
         }
       });
     }
@@ -776,6 +776,10 @@ export default function AgentEditVideo(props) {
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
+        } else {
+          setMessage(res.data[0].response.message);
+          setOpenError(true);
+          setOpen(false);
         }
       })
       .catch((err) => {
@@ -792,7 +796,6 @@ export default function AgentEditVideo(props) {
       setDragImages(allData);
     }
   }, [allData]);
-  console.log("dragImages", dragImages);
 
   const handleOnDragEnd = async (result) => {
     if (!result.destination) return;
