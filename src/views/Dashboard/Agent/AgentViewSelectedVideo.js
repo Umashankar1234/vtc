@@ -2044,6 +2044,7 @@ export default function AgentViewSelectedVideo(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.tour_link
                         }
+                        target="_blank"
                         style={{ color: "#ffa12d", fontSize: "16px" }}
                       >
                         {Object.keys(serviceLinks).length > 0 &&
@@ -2061,6 +2062,7 @@ export default function AgentViewSelectedVideo(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.flyer_link
                         }
+                        target="_blank"
                         style={{ color: "#ffa12d", fontSize: "16px" }}
                       >
                         {Object.keys(serviceLinks).length > 0 &&
@@ -2078,6 +2080,7 @@ export default function AgentViewSelectedVideo(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.video_link
                         }
+                        target="_blank"
                         style={{ color: "#ffa12d", fontSize: "16px" }}
                       >
                         {Object.keys(serviceLinks).length > 0 &&

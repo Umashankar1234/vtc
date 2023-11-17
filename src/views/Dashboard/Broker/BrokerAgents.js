@@ -450,8 +450,10 @@ export default function BrokerAgensts(props) {
                         My Cafe Office
                       </Link>
                     </li>
-                    <li class="active">
-                      <Link to={APIPath() + "broker-agent"}>Agents</Link>
+                    <li>
+                      <Link class="active" to={APIPath() + "broker-agent"}>
+                        Agents
+                      </Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>
@@ -932,17 +934,21 @@ export default function BrokerAgensts(props) {
                               <div class="row">
                                 <div class="col-lg-6 col-md-6">
                                   <Button
-                                    style={{ backgroundColor: "#ffa12d" }}
+                                    className="brokerAgentBtn notLoggedIn" 
+                                    disabled                             
                                   >
                                     <i
-                                      class="fa fa-sign-out"
+                                      class="fa fa-user"
                                       aria-hidden="true"
                                     ></i>
                                     Agent Has not Logged In
                                   </Button>
                                 </div>
                                 <div class="col-lg-6 col-md-6">
-                                  <Button onClick={() => LoginSelectedAgent()}>
+                                  <Button
+                                    className="brokerAgentBtn loginAgent"
+                                    onClick={() => LoginSelectedAgent()}
+                                  >
                                     <span>
                                       <i class="fa fa-sign-in"></i>
                                     </span>

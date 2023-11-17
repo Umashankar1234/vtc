@@ -1137,18 +1137,7 @@ export default function AgentEditVideo(props) {
                             <a class="dropdown-item" onClick={downloadImage}>
                               <i class="fas fa-print"></i> Download Video
                             </a>
-                          </li>
-                          <li>
-                            <a
-                              class="dropdown-item"
-                              onClick={() => BackToTourImage()}
-                              data-toggle="modal"
-                              data-target="#"
-                            >
-                              <i class="fas fa-mail-bulk"></i> Back to Tour
-                              Images
-                            </a>
-                          </li>
+                          </li>                          
                           <li>
                             <a
                               class="dropdown-item"

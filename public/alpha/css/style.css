@@ -14,6 +14,14 @@ h6 {
 .abc {
   margin-top: 16px;
 }
+@font-face {
+  font-family: "Helvetica";
+  src: url("../fonts/Helvetica.woff") format("woff2"),
+    url("../fonts/Helvetica.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
 
 body,
 html {
@@ -11560,20 +11568,92 @@ body .uwy.userway_p1 .uai {
     transform: rotate(-360deg);
   }
 }
-@media print and (color) {
-  * {
-  -webkit-print-color-adjust: exact;
-  print-color-adjust: exact;
-  }
-} 
-.test_sec_left.row{
+
+.test_sec_left.row {
   flex: 1;
   justify-content: flex-start;
   align-items: center;
 }
-.test_sec_left span{
+.test_sec_left span {
   background: #2d3e50;
   color: white;
   padding: 7px;
   border-radius: 5px;
+}
+img.panaromaRibbon {
+  position: absolute;
+  top: -36px;
+  right: -21px;
+  height: 55px;
+  width: 62px;
+  object-fit: cover;
+  background: transparent;
+  border: unset;
+  box-shadow: unset;
+}
+.customFont * {
+  font-family: Helvetica !important;
+}
+.companyNameFlyer {
+  float: left;
+  height: 20px;
+}
+@media print {
+  body,
+  html {
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+  }
+
+  .table-container {
+    height: auto;
+  }
+
+  .custom-table {
+    width: 100%;
+  }
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
+@media print {
+  .customTable table {
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100vh !important;
+    margin: 0px;
+    padding: 0px;
+  }
+}
+.customTable table {
+  max-width: 816px;
+}
+.broker_dashboard {
+  height: 40px;
+}
+.brokerAgentBtn {
+  color: white !important;
+  border: 1px solid transparent !important;
+}
+.notLoggedIn {
+  background-color: #ffa12d !important;
+}
+.loginAgent {
+  background-color: #1b2a4e !important;
+}
+.brokerAgentBtn:hover {
+  color: black !important;
+  border: 1px solid black !important;
+  background-color: white !important;
+}
+.bannerImg {
+  margin-bottom: 10px;
+  object-fit: cover;
+  width: 100%;
+  height: 94px;
 }

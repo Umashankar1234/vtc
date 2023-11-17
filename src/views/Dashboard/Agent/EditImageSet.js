@@ -69,6 +69,9 @@ const APIUpdateOrder = APIURL() + "change-order";
 const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIAgentTrafficOption = APIURL() + "agent-update-traffic";
 const APIcropImage = APIURL() + "save-cropper-image-tour";
+const APIDeleteDocument = APIURL() + "delete-document";
+
+
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -537,11 +540,22 @@ export default function EditImageSet(props) {
       setSrcImg(new_data[0].file_url);
     }
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
+  const removeDocData = async (docid) => {
+    const data = {
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    setOpen(true);
+
+    const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
+    }
   };
   const getUploadParams = ({ meta }) => {
     return { url: "https://httpbin.org/post" };

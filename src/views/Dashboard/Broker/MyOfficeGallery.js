@@ -18,7 +18,7 @@ import MuiAlert from '@material-ui/lab/Alert';
 import Skeleton from '@material-ui/lab/Skeleton';
 import { makeStyles } from '@material-ui/core/styles';
 const APIGetTourInfo = APIURL() + "broker-agent-tours";
-const APIContactAgent = APIURL() + "contact-Agent";
+const APIContactAgent = APIURL() + "get-Contact-Agent";
 
 
 export default function MyOfficeGallery(props) {

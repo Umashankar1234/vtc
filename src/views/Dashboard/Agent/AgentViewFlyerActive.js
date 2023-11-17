@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Recorder } from "react-voice-recorder";
 import Snackbar from "@material-ui/core/Snackbar";
 import MuiAlert from "@material-ui/lab/Alert";
@@ -51,7 +51,9 @@ function Alert(props) {
 export default function AgentViewFlyerActive(props) {
   let flyerId = props.match.params.flyerid;
   const printids = props.match.params.printids;
+  const downladids = props.match.params.downladids;
   if (printids) flyerId = printids;
+  if (downladids) flyerId = downladids;
   const { dispatch } = useContext(AuthContext);
   const context = useContext(AuthContext);
   let history = useHistory();
@@ -72,6 +74,34 @@ export default function AgentViewFlyerActive(props) {
     setOpenSuccess(false);
     setOpenError(false);
   };
+  useEffect(() => {
+    const handleDOMContentLoaded = () => {
+      setTimeout(() => {
+        const element = document.querySelector('.uwy.userway_p1');
+
+        if (element) {
+          console.log('Element found:', element);
+          element.style.display = 'none';
+        } else {
+          console.log('Element not found');
+        }
+      }, 1000); // Adjust the delay as needed
+    };
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
+    } else {
+      handleDOMContentLoaded();
+    }
+
+    return () => {
+      const element = document.querySelector('.uwy.userway_p1');
+      if (element) {
+        element.style.display = '';
+      }
+    };
+  }, []);
+  
   useEffect(() => {
     if (context.state.user) {
       const objusr = {
@@ -95,12 +125,53 @@ export default function AgentViewFlyerActive(props) {
   const handleViewFlyerActiveLink = () => {
     window.location.href = APIPath() + "tour/" + flyerId;
   };
+  const allImagesLoaded = useRef(false);
+
   useEffect(() => {
-    if (printids && !loading && Object.keys(tourData).length > 0) {
-      //let print = document.getElementById("print");
-      window.print();
+    const handlePrint = () => {
+      if (allImagesLoaded.current) {
+        console.log("All images are loaded. Ready to print.");
+        window.print();
+      }
+    };
+
+    if (
+      (printids || downladids) &&
+      !loading &&
+      Object.keys(tourData).length > 0
+    ) {
+      // Select all images on the page
+      const images = document.querySelectorAll("img");
+
+      // Check if all images are loaded
+      const areAllImagesLoaded = () => {
+        for (const image of images) {
+          if (!image.complete) {
+            return false;
+          }
+        }
+        return true;
+      };
+
+      // Set a flag when all images are loaded
+      const checkImagesLoaded = () => {
+        if (areAllImagesLoaded()) {
+          allImagesLoaded.current = true;
+          handlePrint();
+        } else {
+          // Set a timeout to recheck until all images are loaded
+          setTimeout(checkImagesLoaded, 100);
+        }
+      };
+
+      checkImagesLoaded();
+
+      // Cleanup: Remove the event listener when the component is unmounted
+      return () => {
+        window.onload = null;
+      };
     }
-  }, [tourData]);
+  }, [tourData, printids, loading]);
   if (loading) {
     return (
       <div className="showcase">
@@ -110,9 +181,9 @@ export default function AgentViewFlyerActive(props) {
   }
 
   return (
-    <>
+    <div className="customTable">
       {!openAlertModal ? (
-        <div class="container">
+        <>
           {allData && allData.flyerId === "flyer01" ? (
             <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
           ) : allData && allData.flyerId === "flyer02" ? (
@@ -402,7 +473,7 @@ export default function AgentViewFlyerActive(props) {
               </div>
             </div>
           )}
-        </div>
+        </>
       ) : (
         <AgentViewFlyer />
       )}
@@ -456,6 +527,6 @@ export default function AgentViewFlyerActive(props) {
           {message}
         </Alert>
       </Snackbar>
-    </>
+    </div>
   );
 }

@@ -95,6 +95,7 @@ const APIOtherMail = APIURL() + "other-link-send-email";
 const APIServiceMail = APIURL() + "tour-send-mail";
 const APIAgentTrafficOption = APIURL() + "agent-update-traffic";
 const APIOtherLink = APIURL() + "tourotherlink";
+const APIGetNewsLetter = APIURL() + "get-newsletter";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -1342,7 +1343,8 @@ const AgentEditTour = React.memo((props) => {
     } else {
       div.classList.add("active");
       setElement(div);
-      setImageId(data.id);
+      if (data.image_type == "video") setImageId("");
+      else setImageId(data.id);
     }
     //setBlurValue(10);
   };
@@ -1521,7 +1523,11 @@ const AgentEditTour = React.memo((props) => {
       authenticate_key: "abcd123XYZ",
       docId: docid,
     };
+    setOpen(true);
+
     const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
     if (res.data[0].response.status === "success") {
       var filter_data = documentData.filter((res) => {
         return res.id !== docid;
@@ -2163,6 +2169,27 @@ const AgentEditTour = React.memo((props) => {
         setOpen(false);
       });
   };
+  const getNewsLetter = () => {
+    newsLetterData.authenticate_key = "abcd123XYZ";
+    newsLetterData.agent_id = JSON.parse(context.state.user).agentId;
+    newsLetterData.tourId = tour_id;
+    postRecord(APIGetNewsLetter, newsLetterData)
+      .then((res) => {
+        if (res.data[0].response.status == "success") {
+          setNewsLetterData({
+            ...res.data[0].response.data,
+            text: res.data[0].response.data.formcode,
+          });
+          setSync(false);
+        } else {
+        }
+        setSync(true);
+      })
+      .catch((err) => {
+        setMessage("Something Went Wrong. Please try again later...");
+        setOpenError(true);
+      });
+  };
   const saveNewsLetter = () => {
     setOpen(true);
     newsLetterData.authenticate_key = "abcd123XYZ";
@@ -2530,7 +2557,7 @@ const AgentEditTour = React.memo((props) => {
           setMessage(res.data[0].response.message);
           setOpenSuccess(true);
           setSync(false);
-          setWalkthroughData(initialWalkthroughData);
+          // setWalkthroughData(initialWalkthroughData);
         } else {
           setMessage(res.data[0].response.message);
           setOpenError(true);
@@ -2837,38 +2864,57 @@ const AgentEditTour = React.memo((props) => {
         setOpen(false);
       });
   };
-  const downloadImage = () => {
-    if (imageUrl !== "") {
-      if (imageId === "") {
-        setMessage("Please select one image");
-        setOpenError(true);
-      } else {
-        toDataURL(imageUrl, function (dataUrl) {
-          var link = document.createElement("a");
-          link.href = dataUrl;
-          link.replace(/\s/g, "%");
-          link.setAttribute("download", "image.jpg");
-          document.body.appendChild(link);
-          link.click();
-        });
-        setImageUrl("");
-      }
-    } else {
-      if (imageId === "") {
-        setMessage("Please select one image or video");
-        setOpenError(true);
-      } else {
-        toDataURL(videoUrl, function (dataUrl) {
-          var link = document.createElement("a");
-          link.href = dataUrl;
-          link.setAttribute("download", "image.jpg");
-          document.body.appendChild(link);
-          link.click();
-        });
-        setVideoUrl("");
-      }
+  const downloadImage = async () => {
+    try {
+      const response = await fetch(imageUrl);
+      const blob = await response.blob();
+      const src = URL.createObjectURL(blob);
+      var link = document.createElement("a");
+      link.href = src;
+      // link.replace(/\s/g, "%");
+      link.href = link.href.replace(/\s/g, "%20");
+      if (imageId === "") link.setAttribute("download", "video.mp4");
+      else link.setAttribute("download", "image.jpg");
+      document.body.appendChild(link);
+      link.click();
+    } catch (error) {
+      console.error("Error downloading image:", error);
     }
   };
+  // const downloadImage = () => {
+  //   if (imageUrl !== "") {
+  //     if (imageId === "") {
+  //       setMessage("Please select one image");
+  //       setOpenError(true);
+  //     } else {
+  //       toDataURL(imageUrl, function (dataUrl) {
+  //         var link = document.createElement("a");
+  //         link.href = dataUrl;
+  //         // link.replace(/\s/g, "%");
+  //         link.href = link.href.replace(/\s/g, "%");
+  //         link.setAttribute("download", "image.jpg");
+  //         document.body.appendChild(link);
+  //         link.click();
+  //       });
+  //       setImageUrl("");
+  //     }
+  //   } else {
+  //     if (imageId === "") {
+  //       setMessage("Please select one image or video");
+  //       setOpenError(true);
+  //     } else {
+  //       toDataURL(videoUrl, function (dataUrl) {
+  //         var link = document.createElement("a");
+  //         link.href = dataUrl;
+  //         link.href = link.href.replace(/\s/g, "%");
+  //         link.setAttribute("download", "image.jpg");
+  //         document.body.appendChild(link);
+  //         link.click();
+  //       });
+  //       setVideoUrl("");
+  //     }
+  //   }
+  // };
   function toDataURL(url, callback) {
     var xhr = new XMLHttpRequest();
     xhr.onload = function () {
@@ -3080,6 +3126,7 @@ const AgentEditTour = React.memo((props) => {
   function changeHover2(e) {
     setHover2(true);
   }
+
   return (
     <>
       <AgentHeader />
@@ -3445,8 +3492,8 @@ const AgentEditTour = React.memo((props) => {
                               href="#"
                               data-toggle="modal"
                               data-target="#Newsletter"
+                              onClick={getNewsLetter}
                             >
-                              {" "}
                               <i class="fab fa-wpforms"></i> Add Newsletter Form
                             </a>
                           </li>
@@ -4293,18 +4340,25 @@ const AgentEditTour = React.memo((props) => {
                               />
                             )}
                             {res.image_type === "panoramas" ? (
-                              <img
-                                src={res.flag_img}
-                                style={{
-                                  width: "80px",
-                                  right: "5px",
-                                  top: "5px",
-                                  border: "none",
-                                  boxShadow: "none",
-                                }}
-                                alt=""
-                                draggable="false"
-                              />
+                              <>
+                                <img
+                                  src={res.imageurl}
+                                  style={{
+                                    right: "5px",
+                                    top: "5px",
+                                    border: "none",
+                                    boxShadow: "none",
+                                  }}
+                                  alt=""
+                                  draggable="false"
+                                />
+                                <img
+                                  src={res.flag_img}
+                                  className="panaromaRibbon"
+                                  alt=""
+                                  draggable="false"
+                                />
+                              </>
                             ) : res.image_type != "video" ? (
                               <i
                                 onClick={() => {
@@ -6142,7 +6196,6 @@ const AgentEditTour = React.memo((props) => {
           </div>
         </DialogContent>
       </Dialog>
-      order
       <Dialog
         maxWidth={maxWidth}
         fullWidth={true}
@@ -6208,7 +6261,6 @@ const AgentEditTour = React.memo((props) => {
                   <div class="col-lg-12 col-md-12">
                     <Dropzone
                       onDrop={(acceptedFiles) => {
-                        console.log(acceptedFiles);
                         acceptedFiles.map((res) => {
                           if (res.type == "video/mp4") {
                             setUploadedVideos((oldArray) => [...oldArray, res]);
@@ -8297,11 +8349,13 @@ const AgentEditTour = React.memo((props) => {
                           </label>
                           <textarea
                             onChange={handleNewsChange}
-                            value={newsLetterData.text}
                             name="text"
                             class="form-control"
                             rows="5"
-                          ></textarea>
+                            value={newsLetterData.text}
+                          >
+                            {newsLetterData.text}
+                          </textarea>
                         </div>
                       </div>
                       <div class="row">
@@ -9540,6 +9594,7 @@ const AgentEditTour = React.memo((props) => {
                                 Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.tour_link
                               }
+                              target="_blank"
                             >
                               {Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.tour_link}
@@ -9552,6 +9607,7 @@ const AgentEditTour = React.memo((props) => {
                                 Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.flyer_link
                               }
+                              target="_blank"
                             >
                               {Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.flyer_link}
@@ -9564,6 +9620,7 @@ const AgentEditTour = React.memo((props) => {
                                 Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.video_link
                               }
+                              target="_blank"
                             >
                               {Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.branded_link.video_link}
@@ -9588,6 +9645,7 @@ const AgentEditTour = React.memo((props) => {
                                 Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.mls_link.standard_link
                               }
+                              target="_blank"
                             >
                               {Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.mls_link.standard_link}
@@ -9600,6 +9658,7 @@ const AgentEditTour = React.memo((props) => {
                                 Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.mls_link.strict_link
                               }
+                              target="_blank"
                             >
                               {Object.keys(serviceLinks).length > 0 &&
                                 serviceLinks.mls_link.strict_link}

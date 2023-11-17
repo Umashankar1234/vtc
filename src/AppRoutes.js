@@ -312,8 +312,8 @@ export default function AppRoutes() {
           />
           <PrivateRoute
             exact
-            path={APIPath() + "agent-download-flyer/:flyerid?"}
-            component={AgentDownloadFlyer}
+            path={APIPath() + "agent-download-flyer/:downladids?"}
+            component={AgentViewFlyerActive}
           />
           <PrivateRoute
             path={APIPath() + "video/:videoid/"}

@@ -278,7 +278,6 @@ export default function BrokerReports() {
       setId(data.id);
     }
   };
-  console.log("trafficEmail", trafficEmail);
   const handleTrafficChange = (nextChecked) => {
     setTrafficData({ ...trafficData, ["emailtrafficreport"]: nextChecked });
   };
@@ -399,7 +398,6 @@ export default function BrokerReports() {
     };
     postRecord(APISaveTrafficReport, obj)
       .then((res) => {
-        console.log(res);
         if (res.data[0].response.status === "success") {
           setMessage("Traffic Report Data updated successfully");
           setOpenSuccess(true);
@@ -416,7 +414,6 @@ export default function BrokerReports() {
       });
   };
   function changeHover(e) {
-    
     setHover(true);
   }
   return (
@@ -445,7 +442,7 @@ export default function BrokerReports() {
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>
                     </li>
                     <li className="active">
-                      <Link to={APIPath() + "broker-reports"}>
+                      <Link class="active" to={APIPath() + "broker-reports"}>
                         Broker Reports
                       </Link>
                     </li>
@@ -461,7 +458,10 @@ export default function BrokerReports() {
                   </ul>
 
                   <div className="gee_mobile">
-                    <button onClick={() => ShowMenu()} className="gee_hamburger">
+                    <button
+                      onClick={() => ShowMenu()}
+                      className="gee_hamburger"
+                    >
                       &#9776;
                     </button>
                     <button onClick={() => HideMenu()} className="gee_cross">
@@ -482,8 +482,8 @@ export default function BrokerReports() {
                     <li>
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>
                     </li>
-                    <li className="active">
-                      <Link to={APIPath() + "broker-reports"}>
+                    <li>
+                      <Link class="active" to={APIPath() + "broker-reports"}>
                         Broker Reports
                       </Link>
                     </li>
@@ -520,7 +520,10 @@ export default function BrokerReports() {
           <h2>Office Reports</h2>
         </div>
       </section>
-      <section className="property_info toggle_sec" style={{ display: "block" }}>
+      <section
+        className="property_info toggle_sec"
+        style={{ display: "block" }}
+      >
         <div className="container">
           <div className="row">
             <div className="col-lg-12 col-md-12 mx-auto">
@@ -528,20 +531,44 @@ export default function BrokerReports() {
                 <h2>Office Report</h2>
               </div>
               <nav className="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  className="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div
+                  className="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
                   <ul className="navbar-nav mr-auto">
-
-                    <li className="nav-item dropdown"   onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a className="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <li
+                      className="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        className="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i className="fas fa-image"></i> Office Report
                       </a>
-                      <div   className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
-
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul className="column-count-2">
                           <li>
                             <a
@@ -550,56 +577,58 @@ export default function BrokerReports() {
                               href="#AgentList"
                               role="tab1"
                             >
-                                <i className="fas fa-user"></i> Agent List
+                              <i className="fas fa-user"></i> Agent List
                             </a>
                           </li>
-                          <li >
+                          <li>
                             <a
                               className="dropdown-item"
                               data-toggle="tab"
                               href="#AgentNeverSignIn"
                               role="tab1"
                             >
-                                <i className="fas fa-mail-bulk"></i> Agent List Never Signed in
+                              <i className="fas fa-mail-bulk"></i> Agent List
+                              Never Signed in
                             </a>
                           </li>
-                          <li >
+                          <li>
                             <a
                               className="dropdown-item"
                               data-toggle="tab"
                               href="#Tourlist"
                               role="tab1"
                             >
-                                <i className="far fa-credit-card"></i> Tour List
+                              <i className="far fa-credit-card"></i> Tour List
                             </a>
                           </li>
-                          <li >
+                          <li>
                             <a
                               className="dropdown-item"
                               data-toggle="tab"
                               href="#TourServices"
                               role="tab1"
                             >
-                                <i className="fas fa-video"></i> Tour Services
+                              <i className="fas fa-video"></i> Tour Services
                             </a>
                           </li>
-                          <li >
+                          <li>
                             <a
                               className="dropdown-item"
                               onClick={() => setOpenTrafficReport(true)}
                               role="tab1"
                             >
-                                <i className="fas fa-paste"></i> Traffic Report{" "}
+                              <i className="fas fa-paste"></i> Traffic Report{" "}
                             </a>
                           </li>
-                          <li >
+                          <li>
                             <a
                               className="dropdown-item"
                               data-toggle="tab"
                               href="#DistributeYoutube"
                               role="tab1"
                             >
-                                <i className="fab fa-youtube"></i> Distributed to Youtube
+                              <i className="fab fa-youtube"></i> Distributed to
+                              Youtube
                             </a>
                           </li>
                         </ul>
@@ -743,41 +772,41 @@ export default function BrokerReports() {
                               <div className="row">
                                 {Object.keys(agentData).length > 0
                                   ? agentGetData.map((res) => (
-                                    <div
-                                      onClick={() => {
-                                        setId(res.id);
-                                        handleImageSetId(res);
-                                      }}
-                                      className="col-lg-4 col-md-4"
-                                    >
                                       <div
-                                        id={"myDiv" + res.id}
-                                        className="profile_listing_single"
-                                        style={{ cursor: "pointer" }}
+                                        onClick={() => {
+                                          setId(res.id);
+                                          handleImageSetId(res);
+                                        }}
+                                        className="col-lg-4 col-md-4"
                                       >
-                                        <div className="profile_listing_single_inner">
-                                          <div className="socila_avatar">
-                                            <div className="socila_avatar_img">
-                                              <img
-                                                className=""
-                                                alt="image"
-                                                src={res.src}
-                                              />
-                                            </div>
-                                            <div className="socila_avatar_cont">
-                                              <h6>
-                                                {res.fname} {res.lname}
-                                              </h6>
-                                              <p>
-                                                Active Tour:{res.is_autotour}
-                                              </p>
-                                              <p>Email:{res.email}</p>
+                                        <div
+                                          id={"myDiv" + res.id}
+                                          className="profile_listing_single"
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <div className="profile_listing_single_inner">
+                                            <div className="socila_avatar">
+                                              <div className="socila_avatar_img">
+                                                <img
+                                                  className=""
+                                                  alt="image"
+                                                  src={res.src}
+                                                />
+                                              </div>
+                                              <div className="socila_avatar_cont">
+                                                <h6>
+                                                  {res.fname} {res.lname}
+                                                </h6>
+                                                <p>
+                                                  Active Tour:{res.is_autotour}
+                                                </p>
+                                                <p>Email:{res.email}</p>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  ))
+                                    ))
                                   : ""}
                               </div>
                             </div>
@@ -785,7 +814,11 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div className="tab-pane" id="AgentNeverSignIn" role="tabpanel">
+                    <div
+                      className="tab-pane"
+                      id="AgentNeverSignIn"
+                      role="tabpanel"
+                    >
                       <div className="filter_sec">
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
@@ -805,41 +838,41 @@ export default function BrokerReports() {
                               <div className="row">
                                 {agentNeverSignIn.length > 0
                                   ? agentNeverSignIn.map((res) => (
-                                    <div
-                                      onClick={() => {
-                                        setId(res.id);
-                                        handleImageSetId(res);
-                                      }}
-                                      className="col-lg-4 col-md-4"
-                                    >
                                       <div
-                                        id={"myDiv" + res.id}
-                                        className="profile_listing_single"
-                                        style={{ cursor: "pointer" }}
+                                        onClick={() => {
+                                          setId(res.id);
+                                          handleImageSetId(res);
+                                        }}
+                                        className="col-lg-4 col-md-4"
                                       >
-                                        <div className="profile_listing_single_inner">
-                                          <div className="socila_avatar">
-                                            <div className="socila_avatar_img">
-                                              <img
-                                                className=""
-                                                alt="image"
-                                                src={res.src}
-                                              />
-                                            </div>
-                                            <div className="socila_avatar_cont">
-                                              <h6>
-                                                {res.fname} {res.lname}
-                                              </h6>
-                                              <p>
-                                                Active Tour:{res.is_autotour}
-                                              </p>
-                                              <p>Email:{res.email}</p>
+                                        <div
+                                          id={"myDiv" + res.id}
+                                          className="profile_listing_single"
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <div className="profile_listing_single_inner">
+                                            <div className="socila_avatar">
+                                              <div className="socila_avatar_img">
+                                                <img
+                                                  className=""
+                                                  alt="image"
+                                                  src={res.src}
+                                                />
+                                              </div>
+                                              <div className="socila_avatar_cont">
+                                                <h6>
+                                                  {res.fname} {res.lname}
+                                                </h6>
+                                                <p>
+                                                  Active Tour:{res.is_autotour}
+                                                </p>
+                                                <p>Email:{res.email}</p>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  ))
+                                    ))
                                   : ""}
                               </div>
                             </div>
@@ -847,7 +880,11 @@ export default function BrokerReports() {
                         </div>
                       </div>
                     </div>
-                    <div className="tab-pane" id="AgentNeverSignIn" role="tabpanel">
+                    <div
+                      className="tab-pane"
+                      id="AgentNeverSignIn"
+                      role="tabpanel"
+                    >
                       <div className="filter_sec">
                         <div className="row">
                           <div className="col-lg-12 col-md-12">
@@ -855,41 +892,41 @@ export default function BrokerReports() {
                               <div className="row">
                                 {Object.keys(agentData).length > 0
                                   ? agentGetData.map((res) => (
-                                    <div
-                                      onClick={() => {
-                                        setId(res.id);
-                                        handleImageSetId(res);
-                                      }}
-                                      className="col-lg-4 col-md-4"
-                                    >
                                       <div
-                                        id={"myDiv" + res.id}
-                                        className="profile_listing_single"
-                                        style={{ cursor: "pointer" }}
+                                        onClick={() => {
+                                          setId(res.id);
+                                          handleImageSetId(res);
+                                        }}
+                                        className="col-lg-4 col-md-4"
                                       >
-                                        <div className="profile_listing_single_inner">
-                                          <div className="socila_avatar">
-                                            <div className="socila_avatar_img">
-                                              <img
-                                                className=""
-                                                alt="image"
-                                                src={res.src}
-                                              />
-                                            </div>
-                                            <div className="socila_avatar_cont">
-                                              <h6>
-                                                {res.fname} {res.lname}
-                                              </h6>
-                                              <p>
-                                                Active Tour:{res.is_autotour}
-                                              </p>
-                                              <p>Email:{res.email}</p>
+                                        <div
+                                          id={"myDiv" + res.id}
+                                          className="profile_listing_single"
+                                          style={{ cursor: "pointer" }}
+                                        >
+                                          <div className="profile_listing_single_inner">
+                                            <div className="socila_avatar">
+                                              <div className="socila_avatar_img">
+                                                <img
+                                                  className=""
+                                                  alt="image"
+                                                  src={res.src}
+                                                />
+                                              </div>
+                                              <div className="socila_avatar_cont">
+                                                <h6>
+                                                  {res.fname} {res.lname}
+                                                </h6>
+                                                <p>
+                                                  Active Tour:{res.is_autotour}
+                                                </p>
+                                                <p>Email:{res.email}</p>
+                                              </div>
                                             </div>
                                           </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  ))
+                                    ))
                                   : ""}
                               </div>
                             </div>
@@ -947,29 +984,29 @@ export default function BrokerReports() {
                               <tbody>
                                 {loadTourListDat.length > 0
                                   ? loadTourListDat.map((res, index) => (
-                                    <tr>
-                                      <td style={{ textAlign: "center" }}>
-                                        {index + 1}
-                                      </td>
-                                      <td style={{ textAlign: "center" }}>
-                                        {res.id}
-                                      </td>
-                                      <td style={{ textAlign: "center" }}>
-                                        {res.address}
-                                      </td>
-                                      <td style={{ textAlign: "center" }}>
-                                        {res.fname} {res.lname}
-                                      </td>
-                                      <td style={{ textAlign: "center" }}>
-                                        {res.isactive == 0
-                                          ? "in Active"
-                                          : "Active"}
-                                      </td>
-                                      <td style={{ textAlign: "center" }}>
-                                        N/A
-                                      </td>
-                                    </tr>
-                                  ))
+                                      <tr>
+                                        <td style={{ textAlign: "center" }}>
+                                          {index + 1}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.id}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.address}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.fname} {res.lname}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          {res.isactive == 0
+                                            ? "in Active"
+                                            : "Active"}
+                                        </td>
+                                        <td style={{ textAlign: "center" }}>
+                                          N/A
+                                        </td>
+                                      </tr>
+                                    ))
                                   : ""}
                               </tbody>
                             </table>
@@ -1030,37 +1067,37 @@ export default function BrokerReports() {
                                 <tbody>
                                   {loadTourListDat.length > 0
                                     ? loadTourListDat.map((res, index) => (
-                                      <tr>
-                                        <td style={{ textAlign: "center" }}>
-                                          {index + 1}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.id}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.fname} {res.lname}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.address}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.videoservice == 0
-                                            ? ""
-                                            : "Video"}
-                                          ,
-                                          {res.virtualtourservice == 0
-                                            ? ""
-                                            : "Tour"}
-                                          ,
-                                          {res.flyerservice == 0
-                                            ? ""
-                                            : "Flyer"}
-                                        </td>
-                                        <td style={{ textAlign: "center" }}>
-                                          {res.creationdate}
-                                        </td>
-                                      </tr>
-                                    ))
+                                        <tr>
+                                          <td style={{ textAlign: "center" }}>
+                                            {index + 1}
+                                          </td>
+                                          <td style={{ textAlign: "center" }}>
+                                            {res.id}
+                                          </td>
+                                          <td style={{ textAlign: "center" }}>
+                                            {res.fname} {res.lname}
+                                          </td>
+                                          <td style={{ textAlign: "center" }}>
+                                            {res.address}
+                                          </td>
+                                          <td style={{ textAlign: "center" }}>
+                                            {res.videoservice == 0
+                                              ? ""
+                                              : "Video"}
+                                            ,
+                                            {res.virtualtourservice == 0
+                                              ? ""
+                                              : "Tour"}
+                                            ,
+                                            {res.flyerservice == 0
+                                              ? ""
+                                              : "Flyer"}
+                                          </td>
+                                          <td style={{ textAlign: "center" }}>
+                                            {res.creationdate}
+                                          </td>
+                                        </tr>
+                                      ))
                                     : ""}
                                 </tbody>
                               </table>
@@ -1453,18 +1490,18 @@ export default function BrokerReports() {
                         </tr>
                         {agentGetData.length > 0
                           ? agentGetData.map((res) => (
-                            <tr>
-                              <td>
-                                <h3>{res.fname}</h3>
-                              </td>
-                              <td>
-                                <h3>{res.email}</h3>
-                              </td>
-                              <td>
-                                <h3>{res.address}</h3>
-                              </td>
-                            </tr>
-                          ))
+                              <tr>
+                                <td>
+                                  <h3>{res.fname}</h3>
+                                </td>
+                                <td>
+                                  <h3>{res.email}</h3>
+                                </td>
+                                <td>
+                                  <h3>{res.address}</h3>
+                                </td>
+                              </tr>
+                            ))
                           : ""}
                       </table>
                     </div>
@@ -1573,18 +1610,18 @@ export default function BrokerReports() {
                         </tr>
                         {agentNeverSignIn.length > 0
                           ? agentNeverSignIn.map((res) => (
-                            <tr>
-                              <td>
-                                <h3>{res.fname}</h3>
-                              </td>
-                              <td>
-                                <h3>{res.email}</h3>
-                              </td>
-                              <td>
-                                <h3>{res.address}</h3>
-                              </td>
-                            </tr>
-                          ))
+                              <tr>
+                                <td>
+                                  <h3>{res.fname}</h3>
+                                </td>
+                                <td>
+                                  <h3>{res.email}</h3>
+                                </td>
+                                <td>
+                                  <h3>{res.address}</h3>
+                                </td>
+                              </tr>
+                            ))
                           : ""}
                       </table>
                     </div>

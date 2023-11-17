@@ -2490,6 +2490,7 @@ nav-item{margin:0 !important;}
   align-items: center;
 
   justify-content: space-between;
+  padding-top: 15px;
 }
 
 .socila_body_btn {
@@ -5655,5 +5656,23 @@ li.nav-item {
 .dropdown-menu.show ul.column-count-3 {
   column-count: 3;
 } */
+
+
+.custom-table{max-width: 816px;}
+
+@media print {
+  body, html {height: auto;margin: 0px;padding:0px;}
+  .fullheightTable{height: 100vh;}
+  .custom-table{max-width: 100% !important;}
+  td.td-height{height: 700rem !important;}
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }  
+  td.td-height{height: 700em !important;}
+}
 
 

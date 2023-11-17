@@ -355,7 +355,7 @@ export default function AgentSetting(props) {
   const [twitterAccessToken, setTwitterAccessToken] = useState({});
   const [pinterestAccessToken, setPinterestAccessToken] = useState({});
   const [linkedinAccessToken, setLinkedInAccessToken] = useState({});
-  
+
   const [hover, setHover] = useState(false);
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -502,7 +502,7 @@ export default function AgentSetting(props) {
       agentId: JSON.parse(context.state.user).agentId,
       setting_type: type,
     };
-    postRecord(APIRemoveSocialAuth, obj).then((res) => { });
+    postRecord(APIRemoveSocialAuth, obj).then((res) => {});
   };
   useEffect(() => {
     if (context.state.user) {
@@ -1901,7 +1901,7 @@ export default function AgentSetting(props) {
     alert("logout success");
   }, []);
 
-  const onLogout = useCallback(() => { }, []);
+  const onLogout = useCallback(() => {}, []);
   const authenticate = (response) => {
     // console.log(response);
     // Api call to server so we can validate the token
@@ -2197,10 +2197,41 @@ export default function AgentSetting(props) {
     },
   };
   function changeHover(e) {
-    
     setHover(true);
-  }
+  }  
+  const handleItemClick = (event) => {
+    // Remove 'active' class from all tabs
+    const tabs = document.querySelectorAll('.mainMenu .dropdown-item');
+    tabs.forEach(tab => {
+      tab.classList.remove('active');
+    });
 
+    // Remove 'active' class from all tab-pane elements
+    const tabPanes = document.querySelectorAll('.innerMenu > .tab-pane');
+    tabPanes.forEach(tabPane => {
+      tabPane.classList.remove('active');
+    });
+
+    // Add 'active' class to the clicked tab
+    event.target.classList.add('active');
+
+    // Manually activate the tab
+    const targetTab = event.target.getAttribute('href').substring(1);
+    const targetTabElement = document.getElementById(targetTab);
+
+    const tabEvent = new CustomEvent('shown.bs.tab', { relatedTarget: targetTabElement });
+    targetTabElement.classList.add('active');
+    targetTabElement.dispatchEvent(tabEvent);
+
+    // Update the dropdown menu if needed
+    // ...
+
+    // Handle any additional logic
+    // ...
+
+    // Optionally, scroll to the tab content
+    targetTabElement.scrollIntoView({ behavior: 'smooth' });
+  };
   return (
     <div>
       <Title title="Agent Setting" />
@@ -2276,131 +2307,231 @@ export default function AgentSetting(props) {
               </div>
               {/* Navigation Menu */}
               <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown" onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav mr-auto mainMenu">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-cog"></i> Settings Menu
                       </a>
-                      <div className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-3">
                           <li>
-                            <a id="profile"
+                            <a
+                              id="profile"
                               data-toggle="tab"
                               href="#Images"
-                              class={companyTab ? "dropdown-item" : "dropdown-item"}>
-                              <i class="fas fa-user"></i> Agent Profile</a>
+                              class="dropdown-item"
+                              onClick={handleItemClick}
+                            >
+                              <i class="fas fa-user"></i> Agent Profile
+                            </a>
                           </li>
                           <li>
-                            <a id="comp"
+                            <a
+                              id="comp"
                               data-toggle="tab"
                               href="#Description"
-                              class={companyTab ? "dropdown-item" : "dropdown-item"}>
-                              <i class="fas fa-info-circle"></i> Company Information{" "}</a>
+                              class="dropdown-item"
+                              onClick={handleItemClick}
+
+                            >
+                              <i class="fas fa-info-circle"></i> Company
+                              Information{" "}
+                            </a>
                           </li>
                           <li>
-                            <a id="comp"
+                            <a
+                              id="comp"
                               data-toggle="tab"
                               href="#Email"
-                              class="dropdown-item">
-                              <i class="fas fa-mail-bulk"></i>  Default Email/phone Options</a>
+                              class="dropdown-item"
+                              onClick={handleItemClick}
+
+
+                            >
+                              <i class="fas fa-mail-bulk"></i> Default
+                              Email/phone Options
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
+                              onClick={handleItemClick}
+
                               data-toggle="tab"
                               href="#Preferences"
-                              >
-                              <i class="fab fa-angellist"></i> Preferences{" "}</a>
+                            >
+                              <i class="fab fa-angellist"></i> Preferences{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
+                              onClick={handleItemClick}
+
                               data-toggle="tab"
                               href="#Video"
-                              >
-                              <i class="fas fa-video"></i> Video Options{" "}</a>
+                            >
+                              <i class="fas fa-video"></i> Video Options{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Tour"
-                              >
-                              <i class="fas fa-directions"></i> Tour Options{" "}</a>
+                            >
+                              <i class="fas fa-directions"></i> Tour Options{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Flyer"
-                              >
-                              <i class="fas fa-book-open"></i> Flyer Options{" "}</a>
+                            >
+                              <i class="fas fa-book-open"></i> Flyer Options{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Traffic"
-                              >
-                              <i class="fas fa-paste"></i> Traffic Reports{" "}</a>
+                            >
+                              <i class="fas fa-paste"></i> Traffic Reports{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Slide"
-                              >
-                              <i class="fab fa-slideshare"></i> Slide Show Defaults{" "}</a>
+                            >
+                              <i class="fab fa-slideshare"></i> Slide Show
+                              Defaults{" "}
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Panorama"
-                              >
-                              <i class="fas fa-vr-cardboard"></i> Panorama Defaults</a>
+                            >
+                              <i class="fas fa-vr-cardboard"></i> Panorama
+                              Defaults
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Theme"
-                              >
-                              <i class="fas fa-sliders-h"></i> Themes Defaults</a>
+                            >
+                              <i class="fas fa-sliders-h"></i> Themes Defaults
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Bg_Music"
-                              >
-                              <i class="fas fa-music"></i> Background Music Defaults</a>
+                            >
+                              <i class="fas fa-music"></i> Background Music
+                              Defaults
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Payments"
-                              >
-                              <i class="far fa-credit-card"></i> Payment Profiles</a>
+                            >
+                              <i class="far fa-credit-card"></i> Payment
+                              Profiles
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Social"
-                              >
-                              <i class="fa fa-angellist"></i> Setup Social Networking</a>
+                            >
+                              <i class="fa fa-angellist"></i> Setup Social
+                              Networking
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#Youtube"
-                              >
-                              <i class="fab fa-youtube"></i> Youtube Channel</a>
+                            >
+                              <i class="fab fa-youtube"></i> Youtube Channel
+                            </a>
                           </li>
                           <li>
-                            <a class="dropdown-item"
+                            <a
+                              class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
+
                               href="#News"
-                              >
-                              <i class="fas fa-envelope-open-text"></i> Add Newsletter Form</a>
+                            >
+                              <i class="fas fa-envelope-open-text"></i> Add
+                              Newsletter Form
+                            </a>
                           </li>
                         </ul>
                       </div>
@@ -2625,7 +2756,7 @@ export default function AgentSetting(props) {
                       </div>
                     </OwlCarousel>
                   </div>*/}
-                  <div class="tab-content">
+                  <div class="tab-content innerMenu">
                     <div
                       class={
                         companyTab
@@ -4165,7 +4296,7 @@ export default function AgentSetting(props) {
                               <div class="row">
                                 <div class="col-md-3 formbox1">
                                   <label style={{ marginRight: "35px" }}>
-                                    Phone to Use ?
+                                    Use agent photo?
                                     <span style={{ color: "#ffa12d" }}></span>
                                   </label>
                                 </div>
@@ -4256,7 +4387,7 @@ export default function AgentSetting(props) {
                                 </h5>
                                 <div class="col-md-3 formbox1">
                                   <label style={{ marginRight: "35px" }}>
-                                    Phone to Use?
+                                    Agent Photo to Use?
                                     <span style={{ color: "#ffa12d" }}></span>
                                   </label>
                                 </div>
@@ -4374,7 +4505,7 @@ export default function AgentSetting(props) {
                                 </h5>
                                 <div class="col-md-3 formbox1">
                                   <label style={{ marginRight: "35px" }}>
-                                    Phone to Use ?
+                                    Use agent photo ?
                                     <span style={{ color: "#ffa12d" }}></span>
                                   </label>
                                 </div>
@@ -5430,7 +5561,7 @@ export default function AgentSetting(props) {
                                               name="tourtheme"
                                               checked={
                                                 flyerTourThemeData.tourtheme ===
-                                                  res.themeId
+                                                res.themeId
                                                   ? true
                                                   : false
                                               }
@@ -5529,7 +5660,7 @@ export default function AgentSetting(props) {
                                               value={res.key}
                                               checked={
                                                 flyerPremiumThemeData.premium_tour_theme ===
-                                                  res.key
+                                                res.key
                                                   ? true
                                                   : false
                                               }
@@ -5630,27 +5761,27 @@ export default function AgentSetting(props) {
                                     </li>
                                     {musicData && musicData.all_music
                                       ? musicData.all_music.map((res) => (
-                                        <li style={{ margin: "10px" }}>
-                                          <input
-                                            type="radio"
-                                            onClick={() =>
-                                              handleMusicChange(res)
-                                            }
-                                            name="mus"
-                                            value="Above_and_Beyond_full_mix"
-                                            checked={
-                                              musicData.musicid ===
-                                              res.musicid
-                                            }
-                                          />
-                                          <label
-                                            style={{ marginLeft: "20px" }}
-                                            for="Above_and_Beyond_full_mix.mp3"
-                                          >
-                                            {res.caption}
-                                          </label>
-                                        </li>
-                                      ))
+                                          <li style={{ margin: "10px" }}>
+                                            <input
+                                              type="radio"
+                                              onClick={() =>
+                                                handleMusicChange(res)
+                                              }
+                                              name="mus"
+                                              value="Above_and_Beyond_full_mix"
+                                              checked={
+                                                musicData.musicid ===
+                                                res.musicid
+                                              }
+                                            />
+                                            <label
+                                              style={{ marginLeft: "20px" }}
+                                              for="Above_and_Beyond_full_mix.mp3"
+                                            >
+                                              {res.caption}
+                                            </label>
+                                          </li>
+                                        ))
                                       : ""}
                                   </ul>
                                 </div>
@@ -5888,8 +6019,8 @@ export default function AgentSetting(props) {
                                   <div class="align_center">
                                     <select
                                       name="countryid"
-                                    // value={paymentData.countryid}
-                                    // onChange={handleInputChange}
+                                      // value={paymentData.countryid}
+                                      // onChange={handleInputChange}
                                     >
                                       <option value="0">default</option>
                                     </select>

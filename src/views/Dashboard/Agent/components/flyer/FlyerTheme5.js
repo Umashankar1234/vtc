@@ -3,8 +3,8 @@ import company_img from "../../../../../images/company.png";
 
 export default function FlyerTheme5(props) {
   const { tourData, allData, link } = props;
-  const [bgColor, setBgColor] = useState("#bd1e1e");
-  const [bgColor2, setBgColor2] = useState("#bd1e1e");
+  const [bgColor, setBgColor] = useState("#6DBF41");
+  const [bgColor2, setBgColor2] = useState("#58546f");
   useEffect(() => {
     if (allData.themeId == 5) {
       setBgColor("#042878");
@@ -56,564 +56,570 @@ export default function FlyerTheme5(props) {
         cellpadding="0"
         cellspacing="0"
         style={{
-          maxWidth: "816px",
           color: "#606060",
           fontFamily: "'Roboto', sans-serif",
           fontSize: "14px",
         }}
+        className="customFont"
       >
-        <tr>
-          <td height="1121" align="left" valign="top">
-            <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
-                <td
-                  align="left"
-                  valign="top"
-                  style={{
-                    position: "relative",
-                  }}
-                  bgcolor={bgColor}
-                >
-                  {Object.keys(allData).length > 0 && (
-                    <>
-                      <img
-                        src={allData.image_url[0]}
-                        alt=""
-                        width="816"
-                        height="600"
-                      />
-                      <div
-                        style={{
-                          width: 200,
-                          backgroundColor: bgColor,
-                          position: "absolute",
-                          zIndex: 99,
-                          top: 0,
-                          right: 0,
-                          padding: "10px 10px 20px 10px",
-                          textAlign: "center",
-                          color: "#fff",
-                        }}
-                      >
-                        <h3
+        <tbody>
+          <tr className="fullheightTable">
+            <td height="100%" align="left" valign="top">
+              <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td
+                    align="left"
+                    valign="top"
+                    style={{
+                      position: "relative",
+                    }}
+                    bgcolor={bgColor}
+                  >
+                    {Object.keys(allData).length > 0 && (
+                      <>
+                        <img
+                          src={allData.image_url[0]}
+                          alt=""
+                          width="100%"
+                          height="600"
+                        />
+                        <div
                           style={{
-                            margin: "0 0 10px 0",
-                            fontSize: 18,
-                            fontWeight: 500,
-                            textTransform: "uppercase",
+                            width: 200,
+                            backgroundColor: bgColor,
+                            position: "absolute",
+                            zIndex: 99,
+                            top: 0,
+                            right: 0,
+                            padding: "10px 10px 20px 10px",
+                            textAlign: "center",
                             color: "#fff",
                           }}
                         >
-                          Offered At:
-                        </h3>
-                        <h4
-                          style={{
-                            margin: "0 0 0 0",
-                            fontSize: 26,
-                            fontWeight: 500,
-                            color: "#fff",
-                          }}
-                        >
-                          $ {Object.keys(tourData).length > 0 && tourData.price}
-                        </h4>
-                      </div>
-                    </>
-                  )}
-                </td>
-              </tr>
-              <tr>
-                <td
-                  height="120"
-                  align="center"
-                  valign="middle"
-                  bgcolor={bgColor}
-                  style={{ padding: "10px" }}
-                >
-                  <h1
-                    style={{
-                      color: "#fff",
-                      fontSize: "32px",
-                      margin: "0px 0px 20px 0px",
-                      padding: "0px",
-                      textTransform: "uppercase",
-                    }}
+                          <h3
+                            style={{
+                              margin: "0 0 10px 0",
+                              fontSize: 18,
+                              fontWeight: 500,
+                              color: "#fff",
+                            }}
+                          >
+                            <b>Offered at</b> :
+                          </h3>
+                          <h4
+                            style={{
+                              margin: "0 0 0 0",
+                              fontSize: 26,
+                              fontWeight: 500,
+                              color: "#fff",
+                            }}
+                          >
+                            ${" "}
+                            {Object.keys(tourData).length > 0 && tourData.price}
+                          </h4>
+                        </div>
+                      </>
+                    )}
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    height="120"
+                    align="center"
+                    valign="middle"
+                    bgcolor={bgColor}
+                    style={{ padding: "10px" }}
                   >
-                    {Object.keys(tourData).length > 0 && tourData.caption}
-                  </h1>
-                  <h6
-                    style={{
-                      color: "#fff",
-                      fontSize: "16px",
-                      margin: "0px",
-                      padding: "0px",
-                      textTransform: "uppercase",
-                    }}
+                    <h1
+                      style={{
+                        color: "#fff",
+                        fontSize: "32px",
+                        margin: "0px 0px 20px 0px",
+                        padding: "0px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {Object.keys(tourData).length > 0 && tourData.caption}
+                    </h1>
+                    <h6
+                      style={{
+                        color: "#fff",
+                        fontSize: "16px",
+                        margin: "0px",
+                        padding: "0px",
+                        textTransform: "uppercase",
+                      }}
+                    >
+                      {Object.keys(tourData).length > 0 &&
+                        tourData.city + " , " + tourData.countryname}
+                    </h6>
+                  </td>
+                </tr>
+                <tr>
+                  <td 
+                    align="left"
+                    valign="top"
+                    bgcolor="#f0f0f0"
+                    style={{ padding: "15px"}}
+                    height={300}
                   >
-                    {Object.keys(tourData).length > 0 &&
-                      tourData.city + " , " + tourData.countryname}
-                  </h6>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  height="323"
-                  align="left"
-                  valign="top"
-                  bgcolor="#f0f0f0"
-                  style={{ padding: "15px" }}
-                >
-                  <p style={{ fontSize: "14px" }}>
-                    {Object.keys(tourData).length > 0 && tourData.description}
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  height="30"
-                  align="left"
-                  valign="middle"
-                  bgcolor={bgColor2}
-                  style={{ padding: "10px" }}
-                >
-                  <table
-                    width="100%"
-                    border="0"
-                    cellspacing="0"
-                    cellpadding="0"
+                    <p style={{ fontSize: "14px" }}>
+                      {Object.keys(tourData).length > 0 && tourData.description}
+                    </p>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    height="30"
+                    align="left"
+                    valign="middle"
+                    bgcolor={bgColor2}
+                    style={{ padding: "10px" }}
                   >
-                    <tr style={{ background: bgColor2 }}>
-                      <td
-                        width="50%"
-                        align="left"
-                        valign="top"
-                        style={{ color: "#FFFFFF" }}
-                      >
-                        <a
-                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                          style={{ color: "#FFFFFF", textDecoration: "none" }}
+                    <table
+                      width="100%"
+                      border="0"
+                      cellspacing="0"
+                      cellpadding="0"
+                    >
+                      <tr style={{ background: bgColor2 }}>
+                        <td
+                          width="50%"
+                          align="left"
+                          valign="top"
+                          style={{ color: "#FFFFFF" }}
                         >
-                          https://virtualtourcafe.com/alpha/tour/{link}
-                        </a>
-                      </td>
-                      <td
-                        width="50%"
-                        align="right"
-                        valign="top"
-                        style={{ color: "#FFFFFF" }}
-                      >
-                        All information deemed reliable, but not guaranteed.
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
-        <tr>
-          <td height="1121" align="left" valign="top">
-            <table
-              width="100%"
-              border="0"
-              align="center"
-              cellpadding="0"
-              cellspacing="0"
-            >
-              <tr>
-                <td align="left" valign="top">
-                  <table
-                    width="100%"
-                    border="0"
-                    cellspacing="0"
-                    cellpadding="0"
+                          <a
+                            href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                            style={{ color: "#FFFFFF", textDecoration: "none" }}
+                          >
+                            https://virtualtourcafe.com/alpha/tour/{link}
+                          </a>
+                        </td>
+                        <td
+                          width="50%"
+                          align="right"
+                          valign="top"
+                          style={{ color: "#FFFFFF" }}
+                        >
+                          All information deemed reliable, but not guaranteed.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          <tr>
+            <td height="100%" align="left" valign="top">
+              <table
+                width="100%"
+                border="0"
+                align="center"
+                cellpadding="0"
+                cellspacing="0"
+              >
+                <tr>
+                  <td align="left" valign="top">
+                    <table
+                      width="100%"
+                      border="0"
+                      cellspacing="0"
+                      cellpadding="0"
+                    >
+                      <tr>
+                        <td width="49%" align="left" valign="top">
+                          {Object.keys(allData).length > 0 && (
+                            <img
+                              src={allData.image_url[0]}
+                              alt=""
+                              width="400"
+                              height="300"
+                            />
+                          )}
+                        </td>
+                        <td align="left" valign="top">
+                          &nbsp;
+                        </td>
+                        <td width="49%" align="left" valign="top">
+                          {Object.keys(allData).length > 0 && (
+                            <img
+                              src={allData.image_url[1]}
+                              alt=""
+                              width="400"
+                              height="300"
+                            />
+                          )}
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="left" valign="top">
+                          &nbsp;
+                        </td>
+                        <td align="left" valign="top">
+                          &nbsp;
+                        </td>
+                        <td align="left" valign="top">
+                          &nbsp;
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="49%" align="left" valign="top">
+                          {Object.keys(allData).length > 0 && (
+                            <img
+                              src={allData.image_url[2]}
+                              alt=""
+                              width="400"
+                              height="300"
+                            />
+                          )}
+                        </td>
+                        <td align="left" valign="top">
+                          &nbsp;
+                        </td>
+                        <td width="49%" align="left" valign="top">
+                          {Object.keys(allData).length > 0 && (
+                            <img
+                              src={allData.image_url[3]}
+                              alt=""
+                              width="400"
+                              height="300"
+                            />
+                          )}
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    height="141"
+                    align="left"
+                    valign="top"
+                    bgcolor="eff1ee"
+                    style={{ padding: "15px" }}
                   >
-                    <tr>
-                      <td width="49%" align="left" valign="top">
-                        {Object.keys(allData).length > 0 && (
-                          <img
-                            src={allData.image_url[0]}
-                            alt=""
-                            width="400"
-                            height="300"
-                          />
-                        )}
-                      </td>
-                      <td align="left" valign="top">
-                        &nbsp;
-                      </td>
-                      <td width="49%" align="left" valign="top">
-                        {Object.keys(allData).length > 0 && (
-                          <img
-                            src={allData.image_url[1]}
-                            alt=""
-                            width="400"
-                            height="300"
-                          />
-                        )}
-                      </td>
-                    </tr>
-                    <tr>
-                      <td align="left" valign="top">
-                        &nbsp;
-                      </td>
-                      <td align="left" valign="top">
-                        &nbsp;
-                      </td>
-                      <td align="left" valign="top">
-                        &nbsp;
-                      </td>
-                    </tr>
-                    <tr>
-                      <td width="49%" align="left" valign="top">
-                        {Object.keys(allData).length > 0 && (
-                          <img
-                            src={allData.image_url[2]}
-                            alt=""
-                            width="400"
-                            height="300"
-                          />
-                        )}
-                      </td>
-                      <td align="left" valign="top">
-                        &nbsp;
-                      </td>
-                      <td width="49%" align="left" valign="top">
-                        {Object.keys(allData).length > 0 && (
-                          <img
-                            src={allData.image_url[3]}
-                            alt=""
-                            width="400"
-                            height="300"
-                          />
-                        )}
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td align="left" valign="top">
-                  &nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td
-                  height="141"
-                  align="left"
-                  valign="top"
-                  bgcolor="eff1ee"
-                  style={{ padding: "15px" }}
-                >
-                  <table
-                    width="100%"
-                    border="0"
-                    cellspacing="0"
-                    cellpadding="0"
+                    <table
+                      width="100%"
+                      border="0"
+                      cellspacing="0"
+                      cellpadding="0"
+                    >
+                      <tr style={{ background: "unset" }}>
+                        <td
+                          colspan="2"
+                          align="left"
+                          valign="top"
+                          style={{ paddingBottom: "10px" }}
+                        >
+                          <h6
+                            style={{
+                              fontSize: "20px",
+                              margin: "0px",
+                              padding: "0px",
+                              textTransform: "uppercase",
+                            }}
+                          >
+                            FEATURES
+                          </h6>
+                        </td>
+                      </tr>
+                      <tr style={{ background: "unset" }}>
+                        <td width="50%" align="left" valign="top">
+                          <table
+                            width="100%"
+                            cellspacing="0"
+                            cellpadding="3"
+                            border="0"
+                          >
+                            <tbody>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Bedrooms</b> :
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.totalbedrooms}
+                                </td>
+                              </tr>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Bathrooms</b> :{" "}
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.totalbathrooms}
+                                </td>
+                              </tr>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Garage</b> :{" "}
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.garagesize}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                        <td width="50%" align="left" valign="top">
+                          <table
+                            width="100%"
+                            cellspacing="0"
+                            cellpadding="3"
+                            border="0"
+                          >
+                            <tbody>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Year built</b> :{" "}
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.yearbuilt}
+                                </td>
+                              </tr>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Lot size</b>:{" "}
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.lotsize}{" "}
+                                </td>
+                              </tr>
+                              <tr style={{ background: "unset" }}>
+                                <td valign="top" align="left">
+                                  <b>Interior Sq. Ft</b> :{" "}
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.sqfootage}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left" valign="top">
+                    &nbsp;
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    align="left"
+                    valign="top"
+                    bgcolor="#eff1ee"
+                    style={{ padding: "15px" }}
                   >
-                    <tr style={{ background: "eff1ee" }}>
-                      <td
-                        colspan="2"
-                        align="left"
-                        valign="top"
-                        style={{ paddingBottom: "10px" }}
-                      >
-                        <h6
-                          style={{
-                            fontSize: "20px",
-                            margin: "0px",
-                            padding: "0px",
-                            textTransform: "uppercase",
-                          }}
-                        >
-                          FEATURES
-                        </h6>
-                      </td>
-                    </tr>
-                    <tr style={{ background: "eff1ee" }}>
-                      <td width="50%" align="left" valign="top">
-                        <table
-                          width="100%"
-                          cellspacing="0"
-                          cellpadding="3"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                BEDROOMS :
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.totalbedrooms}
-                              </td>
+                    <table
+                      width="100%"
+                      border="0"
+                      cellspacing="0"
+                      cellpadding="0"
+                    >
+                      <tr style={{ background: "unset" }}>
+                        <td width="49%" align="left" valign="top">
+                          <table
+                            width="100%"
+                            border="0"
+                            cellspacing="0"
+                            cellpadding="0"
+                          >
+                            <tr style={{ background: "#FFFFFF" }}>
+                              <td
+                                height="6"
+                                align="left"
+                                valign="top"
+                                bgcolor={bgColor}
+                              ></td>
                             </tr>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                BATHROOMS :{" "}
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.totalbathrooms}
-                              </td>
-                            </tr>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                GARAGE :{" "}
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.garagesize}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                      <td width="50%" align="left" valign="top">
-                        <table
-                          width="100%"
-                          cellspacing="0"
-                          cellpadding="3"
-                          border="0"
-                        >
-                          <tbody>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                YEAR BUILT :{" "}
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.yearbuilt}
-                              </td>
-                            </tr>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                LOT SIZE:{" "}
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.lotsize}{" "}
-                              </td>
-                            </tr>
-                            <tr style={{ background: "eff1ee" }}>
-                              <td valign="top" align="left">
-                                INTERIOR SQ. FT :{" "}
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.sqfootage}
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td align="left" valign="top">
-                  &nbsp;
-                </td>
-              </tr>
-              <tr>
-                <td
-                  align="left"
-                  valign="top"
-                  bgcolor="#eff1ee"
-                  style={{ padding: "15px" }}
-                >
-                  <table
-                    width="100%"
-                    border="0"
-                    cellspacing="0"
-                    cellpadding="0"
-                  >
-                    <tr>
-                      <td width="49%" align="left" valign="top">
-                        <table
-                          width="100%"
-                          border="0"
-                          cellspacing="0"
-                          cellpadding="0"
-                        >
-                          <tr style={{ background: "#FFFFFF" }}>
-                            <td
-                              height="6"
-                              align="left"
-                              valign="top"
-                              bgcolor={bgColor}
-                            ></td>
-                          </tr>
-                          <tr>
-                            <td
-                              height="200"
-                              align="left"
-                              valign="top"
-                              bgcolor="#FFFFFF"
-                              style={{ padding: "15px" }}
-                            >
-                              <table
-                                width="100%"
-                                border="0"
-                                cellspacing="0"
-                                cellpadding="0"
+                            <tr>
+                              <td
+                                height="200"
+                                align="left"
+                                valign="top"
+                                bgcolor="#FFFFFF"
+                                style={{ padding: "25px" }}
                               >
-                                <tr style={{ background: "#FFFFFF" }}>
-                                  <td align="center">
-                                    {Object.keys(allData).length > 0 && (
-                                      <img
-                                        src={allData.agentphoto}
-                                        alt=""
-                                        width="90"
-                                        height="90"
-                                        style={{ border: "2px solid #fff" }}
-                                      />
-                                    )}
-                                    &nbsp;
-                                    {Object.keys(allData).length > 0 &&
-                                    allData.companylogo ? (
-                                      <img
-                                        src={allData.companylogo}
-                                        alt=""
-                                        width="90"
-                                        height="90"
-                                        style={{ border: "2px solid #fff" }}
-                                      />
-                                    ) : (
-                                      <img
-                                        src={company_img}
-                                        alt=""
-                                        width="90"
-                                        height="90"
-                                        style={{ border: "2px solid #fff" }}
-                                      />
-                                    )}
-                                  </td>
-                                </tr>
-                                <tr style={{ background: "#FFFFFF" }}>
-                                  <td height="10"></td>
-                                </tr>
-                                <tr style={{ background: "#FFFFFF" }}>
-                                  <td align="center" valign="top">
-                                    <strong>
+                                <table
+                                  width="100%"
+                                  border="0"
+                                  cellspacing="0"
+                                  cellpadding="0"
+                                >
+                                  <tr style={{ background: "#FFFFFF" }}>
+                                    <td align="center">
                                       {Object.keys(allData).length > 0 &&
-                                        allData.agentname}
-                                    </strong>
-                                    <br />
-                                    {Object.keys(allData).length > 0 &&
-                                      allData.agentemail}
-                                    <br />
-                                    <strong>
+                                        allData.getProperty
+                                          ?.is_flyer_agent_photo == 1 && (
+                                          <img
+                                            src={allData.agentphoto}
+                                            alt=""
+                                            width="90"
+                                            height="90"
+                                            style={{ border: "2px solid #fff" }}
+                                          />
+                                        )}
+                                      &nbsp;
                                       {Object.keys(allData).length > 0 &&
-                                        allData.companyname}
-                                    </strong>
-                                    <br />
-                                    <strong>
+                                      allData.companylogo &&
+                                      allData.getProperty
+                                        ?.is_flyer_agent_company_photo == 1 ? (
+                                        <img
+                                          src={allData.companylogo}
+                                          alt=""
+                                          width="90"
+                                          height="90"
+                                          style={{ border: "2px solid #fff" }}
+                                        />
+                                      ) : (
+                                        <img
+                                          src={company_img}
+                                          alt=""
+                                          width="90"
+                                          height="90"
+                                          style={{ border: "2px solid #fff" }}
+                                        />
+                                      )}
+                                    </td>
+                                  </tr>
+                                  <tr style={{ background: "#FFFFFF" }}>
+                                    <td height="10"></td>
+                                  </tr>
+                                  <tr style={{ background: "#FFFFFF" }}>
+                                    <td align="center" valign="top">
+                                      <strong>
+                                        {Object.keys(allData).length > 0 &&
+                                          allData.agentname}
+                                      </strong>
+                                      <br />
                                       {Object.keys(allData).length > 0 &&
-                                        `Lic# ${allData.licenceno}`}
-                                    </strong>
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                          <tr>
-                            <td
-                              height="6"
-                              align="left"
-                              valign="top"
-                              bgcolor={bgColor}
-                            ></td>
-                          </tr>
-                        </table>
-                      </td>
-                      <td width="2%" align="left" valign="top">
-                        &nbsp;
-                      </td>
-                      <td width="49%" align="left" valign="top">
-                        <table
-                          width="100%"
-                          border="0"
-                          cellpadding="0"
-                          cellspacing="0"
-                          bgcolor="#FFFFFF"
-                        >
-                          <tr style={{ background: "#FFFFFF" }}>
-                            <td
-                              height="50"
-                              align="center"
-                              valign="middle"
-                              bgcolor={bgColor}
-                            >
-                              <h6
-                                style={{
-                                  color: "#fff",
-                                  fontSize: "22px",
-                                  margin: "0px",
-                                  padding: "0px",
-                                  textTransform: "uppercase",
-                                }}
+                                        allData.agentemail}
+                                      <br />
+                                      <strong>
+                                        {Object.keys(allData).length > 0 &&
+                                          allData.companyname}
+                                      </strong>
+                                      <br />
+                                      <strong>
+                                        {Object.keys(allData).length > 0 &&
+                                          `Lic# ${allData.licenceno}`}
+                                      </strong>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td
+                                height="6"
+                                align="left"
+                                valign="top"
+                                bgcolor={bgColor}
+                              ></td>
+                            </tr>
+                          </table>
+                        </td>
+                        <td width="2%" align="left" valign="top">
+                          &nbsp;
+                        </td>
+                        <td width="49%" align="left" valign="top">
+                          <table
+                            width="100%"
+                            border="0"
+                            cellpadding="0"
+                            cellspacing="0"
+                            bgcolor="#FFFFFF"
+                          >
+                            <tr style={{ background: "#FFFFFF" }}>
+                              <td
+                                height="50"
+                                align="center"
+                                valign="middle"
+                                bgcolor={bgColor}
                               >
-                                OFFERED AT: $
-                                {Object.keys(tourData).length > 0 &&
-                                  tourData.price}{" "}
-                              </h6>
-                            </td>
-                          </tr>
-                          <tr style={{ background: "#FFFFFF" }}>
-                            <td>&nbsp;</td>
-                          </tr>
-                          <tr style={{ background: "#FFFFFF" }}>
-                            <td height="175" valign="middle">
-                              <table
-                                width="100%"
-                                border="0"
-                                cellspacing="0"
-                                cellpadding="0"
-                              >
-                                <tr style={{ background: "#FFFFFF" }}>
-                                  <td align="center" valign="top">
-                                    Visit the virtual tour
-                                    <br />
-                                    <a
-                                      href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                      target="_blank"
-                                    >
-                                      Click Here!
-                                    </a>
-                                  </td>
-                                </tr>
-                                <tr style={{ background: "#FFFFFF" }}>
-                                  <td align="center" valign="top">
-                                    &nbsp;
-                                  </td>
-                                </tr>
-                              </table>
-                            </td>
-                          </tr>
-                        </table>
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-              <tr>
-                <td
-                  height="30"
-                  align="left"
-                  valign="middle"
-                  bgcolor={bgColor2}
-                  style={{ padding: "15px" }}
-                >
-                  <table
-                    width="100%"
-                    border="0"
-                    cellspacing="0"
-                    cellpadding="0"
+                                <h6
+                                  style={{
+                                    color: "#fff",
+                                    fontSize: "22px",
+                                    margin: "0px",
+                                    padding: "0px",
+                                    textTransform: "uppercase",
+                                  }}
+                                >
+                                  OFFERED AT: $
+                                  {Object.keys(tourData).length > 0 &&
+                                    tourData.price}{" "}
+                                </h6>
+                              </td>
+                            </tr>
+                            <tr style={{ background: "#FFFFFF" }}>
+                              <td>&nbsp;</td>
+                            </tr>
+                            <tr style={{ background: "#FFFFFF" }}>
+                              <td height="175" valign="middle">
+                                <table
+                                  width="100%"
+                                  border="0"
+                                  cellspacing="0"
+                                  cellpadding="0"
+                                >
+                                  <tr style={{ background: "#FFFFFF" }}>
+                                    <td align="center" valign="top">
+                                      Visit the virtual tour
+                                      <br />
+                                      <a
+                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                                        target="_blank"
+                                      >
+                                        Click Here!
+                                      </a>
+                                    </td>
+                                  </tr>
+                                  <tr style={{ background: "#FFFFFF" }}>
+                                    <td align="center" valign="top">
+                                      &nbsp;
+                                    </td>
+                                  </tr>
+                                </table>
+                              </td>
+                            </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                <tr>
+                  <td
+                    height="30"
+                    align="left"
+                    valign="middle"
+                    bgcolor={bgColor2}
+                    style={{ padding: "15px" }}
                   >
-                    <tr style={{ background: bgColor2 }}>
-                      <td
-                        align="right"
-                        valign="top"
-                        style={{ color: "#FFFFFF" }}
-                      >
-                        All information deemed reliable, but not guaranteed.
-                      </td>
-                    </tr>
-                  </table>
-                </td>
-              </tr>
-            </table>
-          </td>
-        </tr>
+                    <table
+                      width="100%"
+                      border="0"
+                      cellspacing="0"
+                      cellpadding="0"
+                    >
+                      <tr style={{ background: bgColor2 }}>
+                        <td
+                          align="right"
+                          valign="top"
+                          style={{ color: "#FFFFFF" }}
+                        >
+                          All information deemed reliable, but not guaranteed.
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </tbody>
       </table>
     </React.Fragment>
   );

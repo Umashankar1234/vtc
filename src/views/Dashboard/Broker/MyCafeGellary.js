@@ -19,7 +19,7 @@ import MuiAlert from "@material-ui/lab/Alert";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
 const APIGetAgentInfo = APIURL() + "agent-cafe-gallery";
-const APIContactAgent = APIURL() + "contact-Agent";
+const APIContactAgent = APIURL() + "get-Contact-Agent";
 
 export default function MyCafeGellary(props) {
   const link_name = props.match.params.link;
@@ -155,6 +155,7 @@ export default function MyCafeGellary(props) {
                     width: "100%",
                     backgroundSize: "cover",
                     height: "220px",
+                    objectFit: "cover",
                   }}
                 />
               ) : (
@@ -164,6 +165,7 @@ export default function MyCafeGellary(props) {
                     width: "100%",
                     backgroundSize: "cover",
                     height: "220px",
+                    objectFit: "cover",
                   }}
                 />
               )}

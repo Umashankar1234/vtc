@@ -75,6 +75,8 @@ const APIDistributeTour = APIURL() + "distribute-tour";
 const APIGetCountries = APIURL() + "get-countries";
 const APIGetStates = APIURL() + "get-states";
 const APIGetDocumentDatas = APIURL() + "edit-property";
+const APIDeleteDocument = APIURL() + "delete-document";
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -1079,11 +1081,22 @@ export default function AgentPanaroma(props) {
     //     }
     // });
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
+  const removeDocData = async (docid) => {
+    const data = {
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    setOpen(true);
+
+    const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
+    }
   };
   const handleDetailChange = (event, data) => {
     detailMenuData.forEach((res) => {
@@ -1172,6 +1185,20 @@ export default function AgentPanaroma(props) {
     setCurrentMusic(data);
     // musicData.musicid = data.musicid;
   };
+  useEffect(() => {
+    if (context.state.user) {
+      const obj = {
+        authenticate_key: "abcd123XYZ",
+        agent_id: JSON.parse(context.state.user).agentId,
+        tourId: tour_id,
+      };
+      postRecord(APIGetBgMusic, obj).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setCurrentMusic(res.data[0].response.data.audioScr);
+        }
+      });
+    }
+  }, [context.state.user, sync, tour_id]);
   const addNewDiv = () => {
     setTotalDivs([...totalDivs, "Div" + totalDivs.length]);
   };

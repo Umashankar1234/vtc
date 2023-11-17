@@ -262,6 +262,9 @@ export default function BrokerSetting(props) {
       });
     }
   }, [context.state.user, sync, tour_id]);
+  console.log('====================================');
+  console.log(offeredBannerImg);
+  console.log('====================================');
   useEffect(() => {
     if (context.state.user) {
       const obj = {
@@ -275,8 +278,8 @@ export default function BrokerSetting(props) {
           setDefaultBanner(res.data[0].response.bannerimg);
           setHeaderImageId(res.data[0].response.headerimageid);
           // setCustomBannerImg(res.data[0].response.bannerimg);
-          setOfferedBannerImg("");
-          //setOfferedBannerImg(res.data[0].response.bannerimg);
+          // setOfferedBannerImg("");
+          setOfferedBannerImg(res.data[0].response.bannerimg);
           setCustomBannerImg(res.data[0].response.logoimg);
         }
       });
@@ -791,9 +794,31 @@ export default function BrokerSetting(props) {
     event.preventDefault();
   };
   function changeHover(e) {
-    
     setHover(true);
   }
+  const handleItemClick = (event) => {
+    const tabs = document.querySelectorAll(".mainMenu .dropdown-item");
+    tabs.forEach((tab) => {
+      tab.classList.remove("active");
+    });
+
+    const tabPanes = document.querySelectorAll(".innerMenu > .tab-pane");
+    tabPanes.forEach((tabPane) => {
+      tabPane.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+
+    const targetTab = event.target.getAttribute("href").substring(1);
+    const targetTabElement = document.getElementById(targetTab);
+
+    const tabEvent = new CustomEvent("shown.bs.tab", {
+      relatedTarget: targetTabElement,
+    });
+    targetTabElement.classList.add("active");
+    targetTabElement.dispatchEvent(tabEvent);
+    targetTabElement.scrollIntoView({ behavior: "smooth" });
+  };
   return (
     <div>
       <Title title="Broker Setting" />
@@ -816,8 +841,10 @@ export default function BrokerSetting(props) {
                     <li>
                       <Link to={APIPath() + "broker-agent"}>Agents</Link>
                     </li>
-                    <li class="active">
-                      <Link to={APIPath() + "broker-setting"}>Settings</Link>
+                    <li>
+                      <Link class="active" to={APIPath() + "broker-setting"}>
+                        Settings
+                      </Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "broker-reports"}>
@@ -854,8 +881,10 @@ export default function BrokerSetting(props) {
                     <li>
                       <Link to={APIPath() + "broker-agent"}>Agents</Link>
                     </li>
-                    <li class="active">
-                      <Link to={APIPath() + "broker-setting"}>Settings</Link>
+                    <li>
+                      <Link class="active" to={APIPath() + "broker-setting"}>
+                        Settings
+                      </Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "broker-reports"}>
@@ -898,58 +927,108 @@ export default function BrokerSetting(props) {
                 <h2>Settings Menu</h2>
               </div>
               <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
                   <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                  <ul class="navbar-nav mr-auto">
-
-                    <li class="nav-item dropdown"  onMouseLeave={(e) => setHover(false)} onMouseEnter={changeHover}>
-                      <a class="nav-link nav-new-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav mr-auto mainMenu">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
                         <i class="fas fa-image"></i> Settings Menu
                       </a>
-                      <div  className={hover ? "show dropdown-menu" : "dropdown-menu"} aria-labelledby="navbarDropdown">
-
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
                         <ul class="column-count-2">
                           <li>
                             <a
                               class="dropdown-item"
                               data-toggle="tab"
+                              onClick={handleItemClick}
                               href="#Images"
                             >
-                              <i class="fas fa-user" aria-hidden="true"></i> Company Information
+                              <i class="fas fa-user" aria-hidden="true"></i>{" "}
+                              Company Information
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" data-toggle="tab"
-                              href="#Email">
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              onClick={handleItemClick}
+                              href="#Email"
+                            >
                               <i class="fas fa-mail-bulk"></i> Branding{" "}
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" data-toggle="tab"
-                              href="#Preferences">
-                              <i class="far fa-credit-card"></i> Payment Profiles{" "}
-                            </a>
-                          </li>
-                          <li >
-                            <a class="dropdown-item" data-toggle="tab"
-                              href="#Video">
-                              <i class="fas fa-video" aria-hidden="true"></i> All Tours Widget
-                            </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item" data-toggle="tab"
-                              href="#Tour">
-                              <i class="far fa-images" aria-hidden="true"></i> My Office Gallery{" "}
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              onClick={handleItemClick}
+                              href="#Preferences"
+                            >
+                              <i class="far fa-credit-card"></i> Payment
+                              Profiles{" "}
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" data-toggle="tab"
-                              href="#Youtube">
-                              <i class="fab fa-youtube" aria-hidden="true"></i> Youtube Setting
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              onClick={handleItemClick}
+                              href="#Video"
+                            >
+                              <i class="fas fa-video" aria-hidden="true"></i>{" "}
+                              All Tours Widget
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              onClick={handleItemClick}
+                              href="#Tour"
+                            >
+                              <i class="far fa-images" aria-hidden="true"></i>{" "}
+                              My Office Gallery{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="tab"
+                              onClick={handleItemClick}
+                              href="#Youtube"
+                            >
+                              <i class="fab fa-youtube" aria-hidden="true"></i>{" "}
+                              Youtube Setting
                             </a>
                           </li>
                         </ul>
@@ -1045,7 +1124,7 @@ export default function BrokerSetting(props) {
                       </li>
                     </ul>
                   </div> */}
-                  <div class="tab-content">
+                  <div class="tab-content innerMenu">
                     <div
                       class="browse_img tab-pane active"
                       id="Images"
@@ -1346,8 +1425,8 @@ export default function BrokerSetting(props) {
                                               fname_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                            "success"
-                                          ),
+                                              "success"
+                                            ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               fname: "error",
@@ -1382,8 +1461,8 @@ export default function BrokerSetting(props) {
                                               lname_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                            "success"
-                                          ),
+                                              "success"
+                                            ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               lname: "error",
@@ -1420,8 +1499,8 @@ export default function BrokerSetting(props) {
                                               email_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                            "success"
-                                          ),
+                                              "success"
+                                            ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               email_error:
@@ -1511,8 +1590,8 @@ export default function BrokerSetting(props) {
                                               password_error: "",
                                             })))
                                           : (e.target.classList.remove(
-                                            "success"
-                                          ),
+                                              "success"
+                                            ),
                                             setinputErrors((prevState) => ({
                                               ...prevState,
                                               password: "error",
@@ -1553,7 +1632,9 @@ export default function BrokerSetting(props) {
                                       class="form-control"
                                       onChange={handleCompanyInputChange}
                                       name="cnfpassword"
-                                      onMouseDown={(e) => console.log(e.target.type)}
+                                      onMouseDown={(e) =>
+                                        console.log(e.target.type)
+                                      }
                                       value={companyInfoData.cnfpassword}
                                     />
                                     <IconButton
@@ -1670,21 +1751,23 @@ export default function BrokerSetting(props) {
                                   </div>
                                   <div class="col-lg-6 col-md-6 formbox1">
                                     <h6>Offered Banners</h6>
-                                    {offeredBannerImg === "" ? (
+                                    {!offeredBannerImg || offeredBannerImg === "" ? (
                                       <img
                                         src={defaultBanner}
-                                        alt=""
+                                        alt="qqqq"
                                         style={{ marginBottom: "10px" }}
+                                        className="bannerImg"
                                       />
                                     ) : (
                                       <img
                                         src={offeredBannerImg}
-                                        alt=""
+                                        alt="wwww"
                                         style={{
                                           marginBottom: "40px",
                                           width: "100%",
                                           height: "80px",
                                         }}
+                                        className="bannerImg"
                                       />
                                     )}
 
@@ -1963,7 +2046,7 @@ export default function BrokerSetting(props) {
                                         name="countryid"
                                         className="form-control formbox1select"
                                         value={user.countryid}
-                                      // onChange={handleInputChange}
+                                        // onChange={handleInputChange}
                                       >
                                         <option value="0">default</option>
                                       </select>

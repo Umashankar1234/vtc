@@ -3,8 +3,8 @@ import company_img from "../../../../../images/company.png";
 
 export default function FlyerTheme7(props) {
   const { tourData, allData, link } = props;
-  const [bgColor, setBgColor] = useState("#bd1e1e");
-  const [bgColor2, setBgColor2] = useState("#bd1e1e");
+  const [bgColor, setBgColor] = useState("#198b72");
+  const [bgColor2, setBgColor2] = useState("#4e4644");
   useEffect(() => {
     if (allData.themeId == 5) {
       setBgColor("#022a72");
@@ -58,12 +58,12 @@ export default function FlyerTheme7(props) {
         style={{
           maxWidth: "816px",
           color: "#606060",
-          fontFamily: "'Roboto', sans-serif",
           fontSize: "14px",
         }}
+        className="customFont"
       >
         <tr>
-          <td height="1121" align="left" valign="top">
+          <td height="100%" align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="left" valign="top">
@@ -225,21 +225,21 @@ export default function FlyerTheme7(props) {
                           <tbody>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                BEDROOMS :{" "}
+                                <b>Bedrooms</b>:{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.totalbedrooms}
                               </td>
                             </tr>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                BATHROOMS :{" "}
+                                <b>Bathrooms</b> :{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.totalbathrooms}
                               </td>
                             </tr>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                GARAGE :{" "}
+                                <b>Garage</b> :{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.garagesize}
                               </td>
@@ -257,21 +257,21 @@ export default function FlyerTheme7(props) {
                           <tbody>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                YEAR BUILT :{" "}
+                                <b>Year built</b>:{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.yearbuilt}
                               </td>
                             </tr>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                LOT SIZE:{" "}
+                                <b>Lot size</b>:{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.lotsize}{" "}
                               </td>
                             </tr>
                             <tr style={{ background: bgColor }}>
                               <td valign="top" align="left">
-                                INTERIOR SQ. FT :{" "}
+                                <b>Interior Sq. Ft</b>:{" "}
                                 {Object.keys(tourData).length > 0 &&
                                   tourData.sqfootage}
                               </td>
@@ -368,17 +368,21 @@ export default function FlyerTheme7(props) {
                               >
                                 <tr style={{ background: bgColor }}>
                                   <td align="center">
-                                    {Object.keys(allData).length > 0 && (
-                                      <img
-                                        src={allData.agentphoto}
-                                        alt=""
-                                        width="90"
-                                        height="90"
-                                        style={{ border: "2px solid #fff" }}
-                                      />
-                                    )}
                                     {Object.keys(allData).length > 0 &&
-                                    allData.companylogo ? (
+                                      allData.getProperty
+                                        ?.is_flyer_agent_photo == 1 && (
+                                        <img
+                                          src={allData.agentphoto}
+                                          alt=""
+                                          width="90"
+                                          height="90"
+                                          style={{ border: "2px solid #fff" }}
+                                        />
+                                      )}
+                                    {Object.keys(allData).length > 0 &&
+                                    allData.companylogo &&
+                                    allData.getProperty
+                                      ?.is_flyer_agent_company_photo == 1 ? (
                                       <img
                                         src={allData.companylogo}
                                         alt=""
@@ -470,7 +474,7 @@ export default function FlyerTheme7(props) {
                                         textTransform: "uppercase",
                                       }}
                                     >
-                                      $
+                                      <b>Offered at</b> : $
                                       {Object.keys(tourData).length > 0 &&
                                         tourData.price}
                                     </h6>

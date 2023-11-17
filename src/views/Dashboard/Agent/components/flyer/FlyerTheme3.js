@@ -3,8 +3,8 @@ import company_img from "../../../../../images/company.png";
 
 export default function FlyerTheme3(props) {
   const { tourData, allData, link } = props;
-  const [bgColor, setBgColor] = useState("#bd1e1e");
-  const [bgColor2, setBgColor2] = useState("#bd1e1e");
+  const [bgColor, setBgColor] = useState("#3d3e75");
+  const [bgColor2, setBgColor2] = useState("#323136");
   useEffect(() => {
     if (allData.themeId == 5) {
       setBgColor("#5776a4");
@@ -56,11 +56,10 @@ export default function FlyerTheme3(props) {
         cellpadding="0"
         cellspacing="0"
         style={{
-          maxWidth: "816px",
           color: "#fff",
-          fontFamily: "'Roboto', sans-serif",
           fontSize: "14px",
         }}
+        className="customFont"
       >
         <tr>
           <td
@@ -103,21 +102,21 @@ export default function FlyerTheme3(props) {
                     <tbody>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          BEDROOMS :
+                          <b>Bedrooms</b>:
                           {Object.keys(tourData).length > 0 &&
                             tourData.totalbedrooms}
                         </td>
                       </tr>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          BATHROOMS :{" "}
+                          <b>Bathrooms</b> :
                           {Object.keys(tourData).length > 0 &&
                             tourData.totalbathrooms}
                         </td>
                       </tr>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          GARAGE :{" "}
+                          <b>Garage</b> :{" "}
                           {Object.keys(tourData).length > 0 &&
                             tourData.garagesize}
                         </td>
@@ -136,27 +135,27 @@ export default function FlyerTheme3(props) {
                       {" "}
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          YEAR BUILT :{" "}
+                          <b>Year built</b> :{" "}
                           {Object.keys(tourData).length > 0 &&
                             tourData.yearbuilt}
                         </td>
                       </tr>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          LOT SIZE{" "}
+                          <b>Lot size</b> :
                           {Object.keys(tourData).length > 0 && tourData.lotsize}
                         </td>
                       </tr>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          INTERIOR SQ. FT :{" "}
+                          <b>Interior Sq. Ft</b> :{" "}
                           {Object.keys(tourData).length > 0 &&
                             tourData.sqfootage}{" "}
                         </td>
                       </tr>
                       <tr style={{ background: bgColor }}>
                         <td align="left" valign="top">
-                          SUBDIVISION :{" "}
+                          <b>Subdivision</b> :{" "}
                           {Object.keys(tourData).length > 0 &&
                             tourData.subdivision}
                         </td>
@@ -232,7 +231,7 @@ export default function FlyerTheme3(props) {
                       textTransform: "uppercase",
                     }}
                   >
-                    OFFERED AT : $
+                    <b>Offered at </b> : $
                     {Object.keys(tourData).length > 0 && tourData.price}
                   </h6>
                 </td>
@@ -302,7 +301,8 @@ export default function FlyerTheme3(props) {
                         >
                           <tr style={{ background: bgColor2 }}>
                             <td align="center">
-                              {Object.keys(allData).length > 0 && (
+                              {Object.keys(allData).length > 0 &&
+                  allData.getProperty?.is_flyer_agent_photo == 1 && (
                                 <img
                                   src={allData.agentphoto}
                                   alt=""
@@ -313,11 +313,14 @@ export default function FlyerTheme3(props) {
                                     WebkitBorderRadius: "50%",
                                     MozBorderRadius: "50%",
                                     borderRadius: "50%",
+                                    margin: "2px",
                                   }}
                                 />
                               )}
                               {Object.keys(allData).length > 0 &&
-                              allData.companylogo ? (
+                              allData.companylogo &&
+                              allData.getProperty
+                                ?.is_flyer_agent_company_photo == 1 ? (
                                 <img
                                   src={allData.companylogo}
                                   alt=""
@@ -328,6 +331,7 @@ export default function FlyerTheme3(props) {
                                     WebkitBorderRadius: "50%",
                                     MozBorderRadius: "50%",
                                     borderRadius: "50%",
+                                    margin: "2px",
                                   }}
                                 />
                               ) : (

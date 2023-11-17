@@ -269,7 +269,7 @@ export default function BrokerDashboard() {
   };
   return (
     <div>
-    <Title title="Broker Dashboard"/>
+      <Title title="Broker Dashboard" />
       {/* <AgentHeader /> */}
       <BrokerHeader />
       <section
@@ -282,8 +282,8 @@ export default function BrokerDashboard() {
               <div class="col-lg-12 col-md-12">
                 <div class="vtc_agent_menu_top">
                   <ul>
-                    <li class="active">
-                      <Link to={APIPath() + "broker-dashboard"}>
+                    <li >
+                      <Link class="active" to={APIPath() + "broker-dashboard"}>
                         My Cafe Office
                       </Link>
                     </li>
@@ -564,7 +564,6 @@ export default function BrokerDashboard() {
                       ) : (
                         <Skeleton
                           variant="text"
-                          
                           height={20}
                           style={{ background: "#bbbbbb" }}
                         />

@@ -41,6 +41,15 @@ import Backdrop from "@material-ui/core/Backdrop";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import OwlCarousel from "react-owl-carousel";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
+import ReactDOMServer from "react-dom/server";
+import FlyerTheme1 from "./components/flyer/FlyerTheme1";
+import FlyerTheme2 from "./components/flyer/FlyerTheme2";
+import FlyerTheme3 from "./components/flyer/FlyerTheme3";
+import FlyerTheme4 from "./components/flyer/FlyerTheme4";
+import FlyerTheme5 from "./components/flyer/FlyerTheme5";
+import FlyerTheme6 from "./components/flyer/FlyerTheme6";
+import FlyerTheme7 from "./components/flyer/FlyerTheme7";
+import FlyerTheme8 from "./components/flyer/FlyerTheme8";
 
 const APIGetUserData = APIURL() + "user-details";
 const APIGetImagesetData = APIURL() + "get-edit-imageset-list";
@@ -58,6 +67,8 @@ const APIUpdateFlyer = APIURL() + "update-flyer";
 const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIUpdateOrder = APIURL() + "change-order";
 const APIcropImage = APIURL() + "save-cropper-image-tour";
+const APIDeleteDocument = APIURL() + "delete-document";
+const APIGetViewFlyerData = APIURL() + "view-flyer";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -129,6 +140,9 @@ export default function AgentEditTour(props) {
   const [previoussepiaValue, setpreviousSepiaValue] = useState(0);
   const [previousrotatevalue, setpreviousRotateValue] = useState(0);
   const [croppedImage, setCroppedImage] = useState([]);
+  const [tourData, setTourData] = useState({});
+  const [link, setLink] = useState("");
+  const [allData, setAllData] = useState({});
 
   const [hover, setHover] = useState(false);
   const [crop, setCrop] = useState({
@@ -705,7 +719,6 @@ export default function AgentEditTour(props) {
         });
     }
   };
-  console.log(propertyData);
   const savePropertyPrice = () => {
     if (
       propertyData.price == "" ||
@@ -738,9 +751,6 @@ export default function AgentEditTour(props) {
         });
     }
   };
-  console.log("====================================");
-  console.log("propertyData", propertyData);
-  console.log("====================================");
   const savePropertyLocation = () => {
     if (
       propertyData.address == "" ||
@@ -882,7 +892,7 @@ export default function AgentEditTour(props) {
           //   history.push(APIPath() + "site/flyer/" + imageset_id);
           // }
           // history.push(APIPath() + "site/flyer/" + imageset_id,'_blank');
-          window.open(APIPath() + "site/flyer/" + imageset_id, '_blank');
+          window.open(APIPath() + "site/flyer/" + imageset_id, "_blank");
         }
       })
       .catch((err) => {
@@ -914,23 +924,62 @@ export default function AgentEditTour(props) {
         setOpenError(true);
       });
   };
-  const PostCraigeList = () => {
+  const PostCraigeList = async () => {
     setCraigeListOpen("agent_pop_tab");
-    const objusr = {
-      authenticate_key: "abcd123XYZ",
-      agent_id: JSON.parse(context.state.user).agentId,
-      tourId: imageset_id,
-    };
-    postRecord(APILoadCraigList, objusr)
-      .then((res) => {
-        if (res.data[0].response.status === "success") {
-          setInputValue(res.data[0].response.data);
-        }
-      })
-      .catch((err) => {
-        setMessage("Something Went Wrong. Please try again later...");
-        setOpenError(true);
-      });
+    // const objusr = {
+    //   authenticate_key: "abcd123XYZ",
+    //   agent_id: JSON.parse(context.state.user).agentId,
+    //   tourId: imageset_id,
+    // };
+    let htmlString;
+    if (allData && allData.flyerId === "flyer01") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer02") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme2 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer03") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme3 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer04") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme4 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer05") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme5 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer06") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme6 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer07") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme7 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer08") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme8 tourData={tourData} allData={allData} link={link} />
+      );
+    } else {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
+      );
+    }
+    setInputValue(htmlString);
+    // postRecord(APILoadCraigList, objusr)
+    //   .then((res) => {
+    //     if (res.data[0].response.status === "success") {
+    //       setInputValue(htmlString);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     setMessage("Something Went Wrong. Please try again later...");
+    //     setOpenError(true);
+    //   });
   };
   const [editorState1, setEditorState1] = useState(() =>
     EditorState.createEmpty()
@@ -1030,11 +1079,22 @@ export default function AgentEditTour(props) {
     });
     setFlyerList(flyerList);
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
+  const removeDocData = async (docid) => {
+    const data = {
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    setOpen(true);
+
+    const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
+    }
   };
   const updateFlyerListData = () => {
     setOpen(true);
@@ -1246,6 +1306,23 @@ export default function AgentEditTour(props) {
   function changeHover(e) {
     setHover(true);
   }
+  useEffect(() => {
+    if (context.state.user) {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        tourId: imageset_id,
+        agent_id: JSON.parse(context.state.user).agentId,
+      };
+      postRecord(APIGetViewFlyerData, objusr).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setAllData(res.data[0].response);
+          setTourData(res.data[0].response.tourData);
+          setLink(res.data[0].response.tourData.tourid);
+        } else {
+        }
+      });
+    }
+  }, [sync, context.state.user, imageset_id]);
   return (
     <div>
       <AgentHeader />

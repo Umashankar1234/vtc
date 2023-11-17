@@ -3,8 +3,8 @@ import company_img from "../../../../../images/company.png";
 
 export default function FlyerTheme6(props) {
   const { tourData, allData, link } = props;
-  const [bgColor, setBgColor] = useState("#bd1e1e");
-  const [bgColor2, setBgColor2] = useState("#bd1e1e");
+  const [bgColor, setBgColor] = useState("#d260a9");
+  const [bgColor2, setBgColor2] = useState("#532853");
   useEffect(() => {
     if (allData.themeId == 5) {
       setBgColor("#052776");
@@ -58,12 +58,12 @@ export default function FlyerTheme6(props) {
         style={{
           maxWidth: "816px",
           color: "#606060",
-          fontFamily: "'Roboto', sans-serif",
           fontSize: "14px",
         }}
+        className="customFont"
       >
         <tr>
-          <td height="1121" align="left" valign="top">
+          <td height="100%" align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="left" valign="top">
@@ -113,10 +113,10 @@ export default function FlyerTheme6(props) {
                             fontSize: "22px",
                             margin: "0px",
                             padding: "0px",
-                            textTransform: "uppercase",
                           }}
                         >
-                          OFFERED AT : ${Object.keys(tourData).length > 0 && tourData.price}
+                          <b>Offered at</b> : $
+                          {Object.keys(tourData).length > 0 && tourData.price}
                         </h6>
                       </td>
                     </tr>
@@ -150,24 +150,28 @@ export default function FlyerTheme6(props) {
                         >
                           <tr style={{ background: bgColor }}>
                             <td align="center">
-                              {Object.keys(allData).length > 0 && (
-                                <img
-                                  src={allData.agentphoto}
-                                  alt=""
-                                  width="90"
-                                  height="90"
-                                  style={{ border: "2px solid #fff" }}
-                                />
-                              )}
+                              {Object.keys(allData).length > 0 &&
+                                allData.getProperty?.is_flyer_agent_photo ==
+                                  1 && (
+                                  <img
+                                    src={allData.agentphoto}
+                                    alt=""
+                                    width="90"
+                                    height="90"
+                                    style={{ border: "2px solid #fff",margin: "2px" }}
+                                  />
+                                )}
 
                               {Object.keys(allData).length > 0 &&
-                              allData.companylogo ? (
+                              allData.companylogo &&
+                              allData.getProperty
+                                ?.is_flyer_agent_company_photo == 1 ? (
                                 <img
                                   src={allData.companylogo}
                                   alt=""
                                   width="90"
                                   height="90"
-                                  style={{ border: "2px solid #fff" }}
+                                  style={{ border: "2px solid #fff",margin: "2px" }}
                                 />
                               ) : (
                                 <img
@@ -202,10 +206,10 @@ export default function FlyerTheme6(props) {
                                   allData.companyname}
                               </strong>
                               <br />
-                                    <strong>
-                                      {Object.keys(allData).length > 0 &&
-                                        `Lic# ${allData.licenceno}`}
-                                    </strong>
+                              <strong>
+                                {Object.keys(allData).length > 0 &&
+                                  `Lic# ${allData.licenceno}`}
+                              </strong>
                             </td>
                           </tr>
                         </table>
@@ -275,7 +279,7 @@ export default function FlyerTheme6(props) {
                                         margin: "0px",
                                         padding: "0px",
                                         textTransform: "uppercase",
-                                        color:"white",
+                                        color: "white",
                                       }}
                                     >
                                       FEATURES
@@ -293,21 +297,21 @@ export default function FlyerTheme6(props) {
                                       <tbody>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            BEDROOMS :{" "}
+                                            <b>Bedrooms</b> :{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.totalbedrooms}
                                           </td>
                                         </tr>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            BATHROOMS :{" "}
+                                            <b>Bathrooms</b> :{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.totalbathrooms}
                                           </td>
                                         </tr>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            GARAGE :{" "}
+                                            <b>Garage</b> :{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.garagesize}
                                           </td>
@@ -325,21 +329,21 @@ export default function FlyerTheme6(props) {
                                       <tbody>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            YEAR BUILT :{" "}
+                                            <b>Year built</b> :{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.yearbuilt}
                                           </td>
                                         </tr>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            LOT SIZE:{" "}
+                                            <b>Lot size</b>:{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.lotsize}{" "}
                                           </td>
                                         </tr>
                                         <tr style={{ background: bgColor }}>
                                           <td valign="top" align="left">
-                                            INTERIOR SQ. FT :{" "}
+                                            <b>Interior Sq.Ft</b>:{" "}
                                             {Object.keys(tourData).length > 0 &&
                                               tourData.sqfootage}
                                           </td>
@@ -499,7 +503,7 @@ export default function FlyerTheme6(props) {
                   bgcolor={bgColor}
                   style={{ padding: "10px" }}
                 >
-                  <p style={{ fontSize: "14px" ,color:"white"}}>
+                  <p style={{ fontSize: "14px", color: "white" }}>
                     {Object.keys(tourData).length > 0 && tourData.description}
                   </p>
                 </td>

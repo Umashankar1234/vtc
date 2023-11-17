@@ -718,8 +718,8 @@ export default function BrokerAgensts(props) {
                         My Cafe Office
                       </Link>
                     </li>
-                    <li class="active">
-                      <Link to={APIPath() + "broker-agent"}>Agents</Link>
+                    <li >
+                      <Link class="active" to={APIPath() + "broker-agent"}>Agents</Link>
                     </li>
                     <li>
                       <Link to={APIPath() + "broker-setting"}>Settings</Link>

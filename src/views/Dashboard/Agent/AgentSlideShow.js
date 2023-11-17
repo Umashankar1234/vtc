@@ -74,6 +74,8 @@ const APIDistributeTour = APIURL() + "distribute-tour";
 const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIGetCountries = APIURL() + "get-countries";
 const APIGetStates = APIURL() + "get-states";
+const APIDeleteDocument = APIURL() + "delete-document";
+
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -869,12 +871,23 @@ export default function AgentSlideShow(props) {
         setCurrentAudio(URL.createObjectURL(event.target.files[0]));
         setNarrationData({ ...narrationData, "file": event.target.files });
     }
-    const removeDocData = (docid) => {
-        var filter_data = documentData.filter(res => {
-            return res.id !== docid
-        });
-        setDocumentData(filter_data);
-    }
+    const removeDocData = async (docid) => {
+        const data = {
+          authenticate_key: "abcd123XYZ",
+          docId: docid,
+        };
+        setOpen(true);
+    
+        const res = await axios.post(`${APIDeleteDocument}`, data);
+        setOpen(false);
+    
+        if (res.data[0].response.status === "success") {
+          var filter_data = documentData.filter((res) => {
+            return res.id !== docid;
+          });
+          setDocumentData(filter_data);
+        }
+      };
     const UpdateTourAudio = () => {
         setOpen(true);
         narrationData.authenticate_key = "abcd123XYZ";

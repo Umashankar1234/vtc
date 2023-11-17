@@ -55,6 +55,7 @@ const APIDomainSearch = APIURL() + "domain-search";
 const APITourService = APIURL() + "tourservicelink";
 const APISendMail = APIURL() + "send-TrafficReport";
 const APISaveTrafficReport = APIURL() + "save-trafficReport";
+const APIDuplicate = APIURL() + "duplicateimageset";
 const initialDomainOrderState = {
   authenticate_key: "abcd123XYZ",
   agent_id: "",
@@ -904,7 +905,7 @@ export default function AgentTourList(props) {
     };
     postRecord(APIUpdateDistributeTour, obj)
       .then((res) => {
-        if (res.data[0].response.status === "success") {
+        if (res.data[0].response.status == "success") {
           setMessage(res.data[0].response.message);
           setOpenSuccess(true);
           setSync(false);
@@ -1346,6 +1347,39 @@ export default function AgentTourList(props) {
   function changeHover1(e) {
     setHover1(true);
   }
+  const handleDuplicate = () => {
+    if (id === "") {
+      setMessage("Please select one imageset");
+      setOpenError(true);
+    } else {
+      setOpen(true);
+      const obj = {
+        authenticate_key: "abcd123XYZ",
+        agent_id: JSON.parse(context.state.user).agentId,
+        tourId: id,
+      };
+      postRecord(APIDuplicate, obj)
+        .then((res) => {
+          if (res.data[0].response.status === "success") {
+            setMessage(res.data[0].response.message);
+            setOpenSuccess(true);
+            setSync(false);
+            setOpen(false);
+          } else {
+            setMessage(res.data[0].response.message);
+            setOpenError(true);
+            setSync(false);
+            setOpen(false);
+          }
+          setSync(true);
+        })
+        .catch((err) => {
+          setMessage("Something Went Wrong. Please try again later...");
+          setOpenError(true);
+          setOpen(false);
+        });
+    }
+  };
   return (
     <>
       {loading && (
@@ -1413,202 +1447,198 @@ export default function AgentTourList(props) {
       </section>
       <section class="action_sec">
         <div class="container-fluid">
-        
-            <div class="row">
-              <div class="col-lg-12 col-md-12">
-                <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
-                  <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-toggle="collapse"
-                    data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
-                  >
-                    <span class="navbar-toggler-icon"></span>
-                  </button>
-                  <div
-                    class="collapse navbar-collapse"
-                    id="navbarSupportedContent"
-                  >
-                    <ul class="navbar-nav mr-auto">
-                      <li
-                        class="nav-item dropdown"
-                        onMouseLeave={(e) => setHover(false)}
-                        onMouseEnter={changeHover}
+          <div class="row">
+            <div class="col-lg-12 col-md-12">
+              <nav class="navbar navbar-expand-lg navbar-light  navbar-blue">
+                <button
+                  class="navbar-toggler"
+                  type="button"
+                  data-toggle="collapse"
+                  data-target="#navbarSupportedContent"
+                  aria-controls="navbarSupportedContent"
+                  aria-expanded="false"
+                  aria-label="Toggle navigation"
+                >
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div
+                  class="collapse navbar-collapse"
+                  id="navbarSupportedContent"
+                >
+                  <ul class="navbar-nav mr-auto">
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover(false)}
+                      onMouseEnter={changeHover}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
                       >
-                        <a
-                          class="nav-link nav-new-link dropdown-toggle"
-                          id="navbarDropdown"
-                          role="button"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="fas fa-tasks"></i> Manage Tours
-                        </a>
-                        <div
-                          className={
-                            hover ? "show dropdown-menu" : "dropdown-menu"
-                          }
-                          aria-labelledby="navbarDropdown"
-                        >
-                          <ul class="column-count-3">
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={() => {
-                                  setOpenModal(true);
-                                }}
-                              >
-                                <i class="far fa-image"></i> Create a Virtual
-                                Tour
-                              </a>
-                            </li>
-                            <li>
-                              <a class="dropdown-item" onClick={editTour}>
-                                {" "}
-                                <i class="fas fa-pen"></i> Edit Tour
-                              </a>
-                            </li>
-
-                            <li>
-                              <a class="dropdown-item" onClick={viewtour}>
-                                {" "}
-                                <i class="far fa-eye"></i> View Tour
-                              </a>
-                            </li>
-
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleDeleteModal}
-                              >
-                                {" "}
-                                <i class="fas fa-trash-alt"></i> Delete Tour
-                              </a>
-                            </li>
-
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleServiceLink}
-                              >
-                                {" "}
-                                <i class="fas fa-link"></i> Service Links
-                              </a>
-                            </li>
-
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleSaveToDesktop}
-                              >
-                                {" "}
-                                <i class="fas fa-desktop"></i> Save To Desktop
-                              </a>
-                              <input type="hidden" id="desktopId" value="" />
-                            </li>
-
-                            <li>
-                              <a class="dropdown-item" onClick={handleTraffic}>
-                                {" "}
-                                <i class="far fa-file-chart-pie"></i> Traffic
-                                Report
-                              </a>
-                              <input type="hidden" id="desktopId" value="" />
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                      <li
-                        class="nav-item dropdown"
-                        onMouseLeave={(e) => setHover1(false)}
-                        onMouseEnter={changeHover1}
+                        <i class="fas fa-tasks"></i> Manage Tours
+                      </a>
+                      <div
+                        className={
+                          hover ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
                       >
-                        <a
-                          class="nav-link nav-new-link dropdown-toggle"
-                          id="navbarDropdown"
-                          role="button"
-                          data-toggle="dropdown"
-                          aria-haspopup="true"
-                          aria-expanded="false"
-                        >
-                          <i class="fas fa-globe"></i> Distribute
-                        </a>
-                        <div
-                          className={
-                            hover1 ? "show dropdown-menu" : "dropdown-menu"
-                          }
-                          aria-labelledby="navbarDropdown"
-                        >
-                          <ul class="column-count-2">
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleDistributeTour}
-                              >
-                                <i class="fad fa-chart-network"></i> Distribute
-                                Tour
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handlePostModal}
-                              >
-                                <i class="fas fa-paste"></i> Post to Craigslist
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleVideoPromo}
-                              >
-                                <i class="fas fa-video"></i> Video Promotion{" "}
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                onClick={handleVideoPromo}
-                              >
-                                <i class="fas fa-photo-video"></i> Distribute
-                                Video
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                data-toggle="modal"
-                                data-target="#Property"
-                              >
-                                {" "}
-                                <i class="fas fa-home"></i> Single Property
-                                Domain
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                class="dropdown-item"
-                                href={`#${craigeListOpen}`}
-                                data-toggle="modal"
-                                onClick={() => DomainManger()}
-                              >
-                                {" "}
-                                <i class="fas fa-user-tie"></i> Domain Manager
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                </nav>
-                <div class="action_sec_main">
-                  <div class="action_sec_left action_sec_tab">
-                    {/*<ul class="nav nav-tabs list_sec" role="tablist">
+                        <ul class="column-count-3">
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={() => {
+                                setOpenModal(true);
+                              }}
+                            >
+                              <i class="far fa-image"></i> Create a Virtual Tour
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={editTour}>
+                              {" "}
+                              <i class="fas fa-pen"></i> Edit Tour
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" onClick={viewtour}>
+                              {" "}
+                              <i class="far fa-eye"></i> View Tour
+                            </a>
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" onClick={handleDuplicate}>
+                              <span>
+                                <i class="far fa-clone"></i>
+                              </span>
+                              Duplicate Tour
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleDeleteModal}
+                            >
+                              {" "}
+                              <i class="fas fa-trash-alt"></i> Delete Tour
+                            </a>
+                          </li>
+
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleServiceLink}
+                            >
+                              {" "}
+                              <i class="fas fa-link"></i> Service Links
+                            </a>
+                          </li>
+
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleSaveToDesktop}
+                            >
+                              {" "}
+                              <i class="fas fa-desktop"></i> Save To Desktop
+                            </a>
+                            <input type="hidden" id="desktopId" value="" />
+                          </li>
+
+                          <li>
+                            <a class="dropdown-item" onClick={handleTraffic}>
+                              {" "}
+                              <i class="far fa-file-chart-pie"></i> Traffic
+                              Report
+                            </a>
+                            <input type="hidden" id="desktopId" value="" />
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                    <li
+                      class="nav-item dropdown"
+                      onMouseLeave={(e) => setHover1(false)}
+                      onMouseEnter={changeHover1}
+                    >
+                      <a
+                        class="nav-link nav-new-link dropdown-toggle"
+                        id="navbarDropdown"
+                        role="button"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        <i class="fas fa-globe"></i> Distribute
+                      </a>
+                      <div
+                        className={
+                          hover1 ? "show dropdown-menu" : "dropdown-menu"
+                        }
+                        aria-labelledby="navbarDropdown"
+                      >
+                        <ul class="column-count-2">
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              onClick={handleDistributeTour}
+                            >
+                              <i class="fad fa-chart-network"></i> Distribute
+                              Tour
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handlePostModal}>
+                              <i class="fas fa-paste"></i> Post to Craigslist
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleVideoPromo}>
+                              <i class="fas fa-video"></i> Video Promotion{" "}
+                            </a>
+                          </li>
+                          <li>
+                            <a class="dropdown-item" onClick={handleVideoPromo}>
+                              <i class="fas fa-photo-video"></i> Distribute
+                              Video
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              data-toggle="modal"
+                              data-target="#Property"
+                            >
+                              {" "}
+                              <i class="fas fa-home"></i> Single Property Domain
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href={`#${craigeListOpen}`}
+                              data-toggle="modal"
+                              onClick={() => DomainManger()}
+                            >
+                              {" "}
+                              <i class="fas fa-user-tie"></i> Domain Manager
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              <div class="action_sec_main">
+                <div class="action_sec_left action_sec_tab">
+                  {/*<ul class="nav nav-tabs list_sec" role="tablist">
                       <li class="nav-item">
                         <a
                           class="nav-link active"
@@ -1640,44 +1670,42 @@ export default function AgentTourList(props) {
                         </a>
                       </li>
                     </ul>*/}
-                  </div>
-                  <div class="action_sec_right">
-                    <ul>
-                      <li>
-                        <span>order By</span>
-                        <select
-                          data-size="5"
-                          name="value_order"
-                          value={orderByData.value_order}
-                          onChange={selectOrderbyChange}
-                        >
-                          <option value="isactive DESC">Active</option>
-                          <option value="isactive ASC">Inactive</option>
-                          <option value="creationdate ASC">
-                            Creation Date (asc)
-                          </option>
-                          <option value="creationdate DESC">
-                            Creation Date (desc)
-                          </option>
-                          <option value="tourid ASC">TourID (asc)</option>
-                          <option value="tourid DESC">TourID (desc)</option>
-                          <option value="caption ASC">Caption (asc)</option>
-                          <option value="caption DESC">Caption (desc)</option>
-                          <option value="price ASC">Price (asc)</option>
-                          <option value="price DESC">Price (desc)</option>
-                          <option value="statename ASC">State (asc)</option>
-                          <option value="statename DESC">State (desc)</option>
-                          <option value="categoryname ASC">Status (asc)</option>
-                          <option value="categoryname DESC">
-                            Status (desc)
-                          </option>
-                        </select>
-                      </li>
-                    </ul>
-                  </div>
+                </div>
+                <div class="action_sec_right">
+                  <ul>
+                    <li>
+                      <span>order By</span>
+                      <select
+                        data-size="5"
+                        name="value_order"
+                        value={orderByData.value_order}
+                        onChange={selectOrderbyChange}
+                      >
+                        <option value="isactive DESC">Active</option>
+                        <option value="isactive ASC">Inactive</option>
+                        <option value="creationdate ASC">
+                          Creation Date (asc)
+                        </option>
+                        <option value="creationdate DESC">
+                          Creation Date (desc)
+                        </option>
+                        <option value="tourid ASC">TourID (asc)</option>
+                        <option value="tourid DESC">TourID (desc)</option>
+                        <option value="caption ASC">Caption (asc)</option>
+                        <option value="caption DESC">Caption (desc)</option>
+                        <option value="price ASC">Price (asc)</option>
+                        <option value="price DESC">Price (desc)</option>
+                        <option value="statename ASC">State (asc)</option>
+                        <option value="statename DESC">State (desc)</option>
+                        <option value="categoryname ASC">Status (asc)</option>
+                        <option value="categoryname DESC">Status (desc)</option>
+                      </select>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
+          </div>
           {allData.length > 0 && (
             <div class="row">
               <div class="col-lg-12 col-md-12">
@@ -5102,6 +5130,7 @@ export default function AgentTourList(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.tour_link
                         }
+                        target="_blank"
                       >
                         {Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.tour_link}
@@ -5114,6 +5143,7 @@ export default function AgentTourList(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.flyer_link
                         }
+                        target="_blank"
                       >
                         {Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.flyer_link}
@@ -5126,6 +5156,7 @@ export default function AgentTourList(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.video_link
                         }
+                        target="_blank"
                       >
                         {Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.branded_link.video_link}
@@ -5147,6 +5178,7 @@ export default function AgentTourList(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.mls_link.standard_link
                         }
+                        target="_blank"
                       >
                         {Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.mls_link.standard_link}
@@ -5159,6 +5191,7 @@ export default function AgentTourList(props) {
                           Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.mls_link.strict_link
                         }
+                        target="_blank"
                       >
                         {Object.keys(serviceLinks).length > 0 &&
                           serviceLinks.mls_link.strict_link}

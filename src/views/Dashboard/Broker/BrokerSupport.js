@@ -263,8 +263,8 @@ export default function AgentSupport() {
                       </Link>
                     </li>
 
-                    <li class="active">
-                      <Link to={APIPath() + "broker-support"}>Support</Link>
+                    <li>
+                      <Link class="active" to={APIPath() + "broker-support"}>Support</Link>
                     </li>
                   </ul>
                   <div class="gee_mobile">

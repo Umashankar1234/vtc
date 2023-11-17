@@ -39,6 +39,7 @@ import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
 import CsvFiledownloader from "../../../components/CsvfileDownload/CsvFiledownloader";
 import AgentDashBoardHeader from "./AgentDashBoardHeader";
+import axios from "axios";
 const APIGetProperty = APIURL() + "edit-property";
 const APIUpdateProperty = APIURL() + "update-property-info";
 const APIGetCountries = APIURL() + "get-countries";
@@ -59,6 +60,8 @@ const APIgetCustomThemeFlyers = APIURL() + "get-Custom-Theme-Flyers";
 const APIUpdateCustomFlyerTemplate = APIURL() + "update-Custom-FlyerTemplate";
 const APISendFlyerMail = APIURL() + "send-flyer-mail";
 const APIGetDocumentDatas = APIURL() + "edit-property";
+const APIDeleteDocument = APIURL() + "delete-document";
+
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -1035,11 +1038,22 @@ export default function EditFlyerTheme(props) {
       ["documentPassword" + index]: event.target.value,
     });
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
+  const removeDocData = async (docid) => {
+    const data = {
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    setOpen(true);
+
+    const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
+    }
   };
   function changeHover(e) {
     setHover(true);

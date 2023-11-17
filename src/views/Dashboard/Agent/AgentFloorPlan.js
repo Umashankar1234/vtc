@@ -73,6 +73,10 @@ const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIDistributeTour = APIURL() + "distribute-tour";
 const APIGetCountries = APIURL() + "get-countries";
 const APIGetStates = APIURL() + "get-states";
+const APIGetBgMusic = APIURL() + "back-ground-music";
+const APIDeleteDocument = APIURL() + "delete-document";
+
+
 
 
 function Alert(props) {
@@ -205,6 +209,20 @@ export default function AgentFloorPlan(props) {
   const [hover1, setHover1] = useState(false);
   const [hover2, setHover2] = useState(false);
 
+  useEffect(() => {
+    if (context.state.user) {
+      const obj = {
+        authenticate_key: "abcd123XYZ",
+        agent_id: JSON.parse(context.state.user).agentId,
+        tourId: tour_id,
+      };
+      postRecord(APIGetBgMusic, obj).then((res) => {
+        if (res.data[0].response.status === "success") {
+          setCurrentMusic(res.data[0].response.data.audioScr);
+        }
+      });
+    }
+  }, [context.state.user, sync, tour_id]);
   useEffect(() => {
     $(".gee_cross").hide();
     $(".gee_menu").hide();
@@ -1617,12 +1635,12 @@ export default function AgentFloorPlan(props) {
         setOpen(false);
       });
   };
-  const removeDocData = (docid) => {
-    var filter_data = documentData.filter((res) => {
-      return res.id !== docid;
-    });
-    setDocumentData(filter_data);
-  };
+  // const removeDocData = (docid) => {
+  //   var filter_data = documentData.filter((res) => {
+  //     return res.id !== docid;
+  //   });
+  //   setDocumentData(filter_data);
+  // };
   const editAnnouncement = (data) => {
     //console.log(data);
     //console.log(new Date('07/29/2019 ' + data.fromtime+ " " + data.fromampm));
@@ -2208,6 +2226,23 @@ export default function AgentFloorPlan(props) {
     } catch (error) {
       setMessage("There was some error.Please try again.");
       setOpenError(true);
+    }
+  };
+  const removeDocData = async (docid) => {
+    const data = {
+      authenticate_key: "abcd123XYZ",
+      docId: docid,
+    };
+    setOpen(true);
+
+    const res = await axios.post(`${APIDeleteDocument}`, data);
+    setOpen(false);
+
+    if (res.data[0].response.status === "success") {
+      var filter_data = documentData.filter((res) => {
+        return res.id !== docid;
+      });
+      setDocumentData(filter_data);
     }
   };
   return (
