@@ -1155,7 +1155,7 @@ export default function AgentFlashVideo() {
                                 <div class="col-lg-6 col-md-6">
                                   <div class="socila_status_single">
                                     <label>Price</label>
-                                    <p>₹ 100</p>
+                                    <p>{res.price}</p>
                                   </div>
                                 </div>
                               </div>

@@ -3112,7 +3112,7 @@ export default function AgentEditVideo(props) {
                       Save
                     </button>
                     <div class="app_preview mar_top">
-                      <p>Use Premimum Theme</p>
+                      <p>Use Premium Theme</p>
                       <div class="switchToggle custom-control custom-switch">
                         <input
                           type="checkbox"

@@ -31,7 +31,7 @@ import { AuthContext } from "../../../CommonMethods/Authentication";
 import { APIURL, APIPath } from "../../../CommonMethods/Fetch";
 import { postRecord } from "../../../CommonMethods/Save";
 import { EditorState } from "draft-js";
-import { Editor } from "react-draft-wysiwyg";
+import { ContentState, Editor } from "react-draft-wysiwyg";
 import { convertToHTML } from "draft-convert";
 import DOMPurify from "dompurify";
 import "react-draft-wysiwyg/dist/react-draft-wysiwyg.css";
@@ -118,7 +118,9 @@ export default function AgentEditTour(props) {
   const [allStates, setAllStates] = useState([]);
   const [inputvalue, setInputValue] = useState("");
   const [craigeListOpen, setCraigeListOpen] = useState("");
-  const [convertedContent, setConvertedContent] = useState(null);
+  const [convertedContent1, setConverted1Content] = useState(null);
+  const [convertedContent2, setConverted2Content] = useState(null);
+  const [convertedContent3, setConverted3Content] = useState(null);
   const [csvFile, setCsvFile] = useState({});
   const [flyerList, setFlyerList] = useState([]);
   const [open, setOpen] = useState(false);
@@ -378,6 +380,13 @@ export default function AgentEditTour(props) {
       postRecord(APIGetProperty, objusr).then((res) => {
         if (res.data[0].response.status === "success") {
           setPropertyData(res.data[0].response.data.toData);
+          setEditorState1(
+            EditorState.createWithContent(
+              ContentState.createFromText(
+                res.data[0].response.data.toData.features
+              )
+            )
+          );
         }
       });
     }
@@ -619,7 +628,13 @@ export default function AgentEditTour(props) {
   };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setPropertyData({ ...propertyData, [name]: value });
+    if (name == "caption") {
+      setPropertyData({
+        ...propertyData,
+        caption: value,
+        widgetcaption: value,
+      });
+    } else setPropertyData({ ...propertyData, [name]: value });
   };
   const handleLeadChange = (nextChecked, index) => {
     setDocumentLeadData({
@@ -733,6 +748,9 @@ export default function AgentEditTour(props) {
       propertyData.agent_id = JSON.parse(context.state.user).agentId;
       propertyData.tourid = imageset_id;
       propertyData.tab_index = "3";
+      propertyData.features = convertedContent1;
+      propertyData.feature2 = convertedContent2;
+      propertyData.feature3 = convertedContent3;
       postRecord(APIUpdateProperty, propertyData)
         .then((res) => {
           if (res.data[0].response.status === "success") {
@@ -1005,15 +1023,16 @@ export default function AgentEditTour(props) {
   };
   const convertContentToHTML1 = () => {
     let currentContentAsHTML = convertToHTML(editorState1.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
+    console.log(currentContentAsHTML, "currentContentAsHTML");
+    setConverted1Content(currentContentAsHTML);
   };
   const convertContentToHTML2 = () => {
-    let currentContentAsHTML = convertToHTML(editorState1.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
+    let currentContentAsHTML = convertToHTML(editorState2.getCurrentContent());
+    setConverted2Content(currentContentAsHTML);
   };
   const convertContentToHTML3 = () => {
-    let currentContentAsHTML = convertToHTML(editorState1.getCurrentContent());
-    setConvertedContent(currentContentAsHTML);
+    let currentContentAsHTML = convertToHTML(editorState3.getCurrentContent());
+    setConverted3Content(currentContentAsHTML);
   };
   const createMarkup = (html) => {
     return {
@@ -1028,7 +1047,7 @@ export default function AgentEditTour(props) {
   const handleCsvfileUpload = (event) => {
     setCsvFile({ ...csvFile, email_file: event.target.files });
   };
-  const saveSendFlyerData = () => {
+  const saveSendFlyerData = async () => {
     console.log(csvFile);
     setOpen(true);
     if (currentEmail.emails == undefined) {
@@ -1038,7 +1057,46 @@ export default function AgentEditTour(props) {
     csvFile.agent_id = JSON.parse(context.state.user).agentId;
     csvFile.tourId = imageset_id;
     csvFile.emails = currentEmail.emails;
+    let htmlString;
+    if (allData && allData.flyerId === "flyer01") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer02") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme2 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer03") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme3 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer04") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme4 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer05") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme5 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer06") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme6 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer07") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme7 tourData={tourData} allData={allData} link={link} />
+      );
+    } else if (allData && allData.flyerId === "flyer08") {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme8 tourData={tourData} allData={allData} link={link} />
+      );
+    } else {
+      htmlString = await ReactDOMServer.renderToString(
+        <FlyerTheme1 tourData={tourData} allData={allData} link={link} />
+      );
+    }
     const formData = new FormData();
+    formData.append("htmlString", htmlString);
 
     for (let i in csvFile) {
       if (i === "email_file") {
@@ -1323,6 +1381,7 @@ export default function AgentEditTour(props) {
       });
     }
   }, [sync, context.state.user, imageset_id]);
+  console.log(propertyData, "propertyData");
   return (
     <div>
       <AgentHeader />
@@ -2550,7 +2609,7 @@ export default function AgentEditTour(props) {
                       Save
                     </button>
                     <div class="app_preview mar_top">
-                      <p>Use Premimum Theme</p>
+                      <p>Use Premium Theme</p>
                       <div class="switchToggle custom-control custom-switch">
                         <input
                           type="checkbox"
@@ -5337,6 +5396,22 @@ export default function AgentEditTour(props) {
                                     wrapperClassName="wrapper-class"
                                     editorClassName="editor-class"
                                     toolbarClassName="toolbar-class"
+                                  />
+                                </div>
+                                <div class="col-md-12 formbox1">
+                                  <div>
+                                    <label style={{ marginBottom: "15px" }}>
+                                      Web Address
+                                    </label>
+                                  </div>
+                                  {/* <textarea rows="8" style={{ width: "70%", border: "1px solid black" }}>
+
+                                                                    </textarea> */}
+                                  <input
+                                    name="web_address"
+                                    value={propertyData.web_address}
+                                    onChange={(e) => handleInputChange(e)}
+                                    className="form-control"
                                   />
                                 </div>
                               </div>

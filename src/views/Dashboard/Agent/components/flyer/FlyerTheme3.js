@@ -84,7 +84,7 @@ export default function FlyerTheme3(props) {
         <tr>
           <td align="center">
             {Object.keys(allData).length > 0 && (
-              <img src={allData.image_url[0]} alt="" width="816" height="450" />
+              <img src={allData.image_url[0]} alt="" width="100%" height="270" />
             )}
           </td>
         </tr>
@@ -173,14 +173,14 @@ export default function FlyerTheme3(props) {
         <tr>
           <td>
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
-              <tr>
+              <tr className="customTd">
                 <td width="33.333%" align="left" valign="top">
                   {Object.keys(allData).length > 0 && (
                     <img
                       src={allData.image_url[1]}
                       alt=""
-                      width="250"
-                      height="150"
+                      width="100%"
+                      height="200"
                     />
                   )}
                 </td>
@@ -189,8 +189,8 @@ export default function FlyerTheme3(props) {
                     <img
                       src={allData.image_url[2]}
                       alt=""
-                      width="250"
-                      height="150"
+                      width="100%"
+                      height="200"
                     />
                   )}
                 </td>
@@ -199,8 +199,8 @@ export default function FlyerTheme3(props) {
                     <img
                       src={allData.image_url[3]}
                       alt=""
-                      width="250"
-                      height="150"
+                      width="100%"
+                      height="200"
                     />
                   )}
                 </td>
@@ -302,21 +302,22 @@ export default function FlyerTheme3(props) {
                           <tr style={{ background: bgColor2 }}>
                             <td align="center">
                               {Object.keys(allData).length > 0 &&
-                  allData.getProperty?.is_flyer_agent_photo == 1 && (
-                                <img
-                                  src={allData.agentphoto}
-                                  alt=""
-                                  width="90"
-                                  height="90"
-                                  style={{
-                                    border: "2px solid #fff",
-                                    WebkitBorderRadius: "50%",
-                                    MozBorderRadius: "50%",
-                                    borderRadius: "50%",
-                                    margin: "2px",
-                                  }}
-                                />
-                              )}
+                                allData.getProperty?.is_flyer_agent_photo ==
+                                  1 && (
+                                  <img
+                                    src={allData.agentphoto}
+                                    alt=""
+                                    width="90"
+                                    height="90"
+                                    style={{
+                                      border: "2px solid #fff",
+                                      // WebkitBorderRadius: "50%",
+                                      // MozBorderRadius: "50%",
+                                      // borderRadius: "50%",
+                                      margin: "2px",
+                                    }}
+                                  />
+                                )}
                               {Object.keys(allData).length > 0 &&
                               allData.companylogo &&
                               allData.getProperty
@@ -328,9 +329,9 @@ export default function FlyerTheme3(props) {
                                   height="90"
                                   style={{
                                     border: "2px solid #fff",
-                                    WebkitBorderRadius: "50%",
-                                    MozBorderRadius: "50%",
-                                    borderRadius: "50%",
+                                    // WebkitBorderRadius: "50%",
+                                    // MozBorderRadius: "50%",
+                                    // borderRadius: "50%",
                                     margin: "2px",
                                   }}
                                 />
@@ -384,13 +385,35 @@ export default function FlyerTheme3(props) {
                         bgcolor={bgColor}
                         style={{ padding: "10px" }}
                       >
+                        {tourData.web_address ? (
                         <a
-                          style={{ textDecoration: "none", color: "#FFF" }}
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
                           target="_blank"
-                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          rel="noreferrer"
                         >
-                          Click to view tour
+                          {`${tourData.web_address}`}
                         </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                         <br />
                         <span style={{ color: "#fff" }}>
                           All information deemed reliable, but not guaranteed.

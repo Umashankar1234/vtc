@@ -62,7 +62,7 @@ export default function FlyerTheme1(props) {
     >
       <tr>
         <td
-          height="100%"
+          height="60"
           align="center"
           valign="middle"
           bgcolor={bgColor}
@@ -81,10 +81,10 @@ export default function FlyerTheme1(props) {
         </td>
       </tr>
       <tr>
-        <td height="100%" bgcolor="#fff"></td>
+        <td height="5" bgcolor="#fff"></td>
       </tr>
       <tr>
-        <td height="100%" align="center" valign="middle" bgcolor={bgColor2}>
+        <td height="30" align="center" valign="middle" bgcolor={bgColor2}>
           <h6
             style={{
               color: "#fff",
@@ -102,7 +102,7 @@ export default function FlyerTheme1(props) {
       <tr>
         <td align="center" style={{ position: "relative" }}>
           {Object.keys(allData).length > 0 && (
-            <img src={allData.image_url[0]} alt="" width="816" height="410" />
+            <img src={allData.image_url[0]} alt="" width="100%" height="250" />
           )}
         </td>
       </tr>
@@ -110,19 +110,19 @@ export default function FlyerTheme1(props) {
         <td height="100%" bgcolor="#fff"></td>
       </tr>
       <tr>
-        <td bgcolor="#eeeeee" style={{ padding: "8px" }}>
+        <td style={{ padding: "8px 0px", background: "#eeeeee" }}>
           <table width="100%" border="0" cellspacing="0" cellpadding="0">
             <tr>
-              <td style={{ border: "3px solid #fff" }}>
+              <td>
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
+                  <tr style={{ background: "#eeeeee" }}>
                     <td width="33%" align="center" valign="top">
                       {Object.keys(allData).length > 0 && (
                         <img
                           src={allData.image_url[1]}
                           alt=""
                           width="250"
-                          height="220"
+                          height="210"
                         />
                       )}
                     </td>
@@ -132,7 +132,7 @@ export default function FlyerTheme1(props) {
                           src={allData.image_url[2]}
                           alt=""
                           width="250"
-                          height="220"
+                          height="210"
                         />
                       )}
                     </td>
@@ -142,7 +142,7 @@ export default function FlyerTheme1(props) {
                           src={allData.image_url[3]}
                           alt=""
                           width="250"
-                          height="220"
+                          height="210"
                         />
                       )}
                     </td>
@@ -370,17 +370,35 @@ export default function FlyerTheme1(props) {
                 <table width="100%" border="0" cellspacing="0" cellpadding="0">
                   <tr style={{ background: bgColor }}>
                     <td align="right" valign="bottom">
-                      <a
-                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                        style={{
-                          margin: "5px 0px 5px 0px",
-                          fontSize: "14px",
-                          wordBreak: "break-all",
-                          color: "white",
-                        }}
-                      >
-                        View Tour
-                      </a>
+                      {tourData.web_address ? (
+                        <a
+                          href={tourData.web_address}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                       <br />
                       <span style={{ color: "#fff" }}>
                         All information deemed reliable, but not guaranteed.

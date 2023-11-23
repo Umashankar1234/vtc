@@ -81,7 +81,7 @@ export default function FlyerTheme5(props) {
                           src={allData.image_url[0]}
                           alt=""
                           width="100%"
-                          height="600"
+                          height="570"
                         />
                         <div
                           style={{
@@ -189,12 +189,35 @@ export default function FlyerTheme5(props) {
                           valign="top"
                           style={{ color: "#FFFFFF" }}
                         >
-                          <a
-                            href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                            style={{ color: "#FFFFFF", textDecoration: "none" }}
-                          >
-                            https://virtualtourcafe.com/alpha/tour/{link}
-                          </a>
+                          {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                         </td>
                         <td
                           width="50%"
@@ -221,6 +244,9 @@ export default function FlyerTheme5(props) {
                 cellspacing="0"
               >
                 <tr>
+                        <td height="10" align="left" valign="top"></td>
+                      </tr>
+                <tr>
                   <td align="left" valign="top">
                     <table
                       width="100%"
@@ -234,35 +260,25 @@ export default function FlyerTheme5(props) {
                             <img
                               src={allData.image_url[0]}
                               alt=""
-                              width="400"
-                              height="300"
+                              width="100%"
+                              height="250"
                             />
                           )}
                         </td>
-                        <td align="left" valign="top">
-                          &nbsp;
-                        </td>
+                        <td height="5" align="left" valign="top"></td>
                         <td width="49%" align="left" valign="top">
                           {Object.keys(allData).length > 0 && (
                             <img
                               src={allData.image_url[1]}
                               alt=""
-                              width="400"
-                              height="300"
+                              width="100%"
+                              height="250"
                             />
                           )}
                         </td>
                       </tr>
                       <tr>
-                        <td align="left" valign="top">
-                          &nbsp;
-                        </td>
-                        <td align="left" valign="top">
-                          &nbsp;
-                        </td>
-                        <td align="left" valign="top">
-                          &nbsp;
-                        </td>
+                        <td height="10" align="left" valign="top"></td>
                       </tr>
                       <tr>
                         <td width="49%" align="left" valign="top">
@@ -270,21 +286,19 @@ export default function FlyerTheme5(props) {
                             <img
                               src={allData.image_url[2]}
                               alt=""
-                              width="400"
-                              height="300"
+                              width="100%"
+                              height="250"
                             />
                           )}
                         </td>
-                        <td align="left" valign="top">
-                          &nbsp;
-                        </td>
+                        <td height="5" align="left" valign="top"></td>
                         <td width="49%" align="left" valign="top">
                           {Object.keys(allData).length > 0 && (
                             <img
                               src={allData.image_url[3]}
                               alt=""
-                              width="400"
-                              height="300"
+                              width="100%"
+                              height="250"
                             />
                           )}
                         </td>
@@ -568,12 +582,35 @@ export default function FlyerTheme5(props) {
                                     <td align="center" valign="top">
                                       Visit the virtual tour
                                       <br />
-                                      <a
-                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                        target="_blank"
-                                      >
-                                        Click Here!
-                                      </a>
+                                      {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                                     </td>
                                   </tr>
                                   <tr style={{ background: "#FFFFFF" }}>

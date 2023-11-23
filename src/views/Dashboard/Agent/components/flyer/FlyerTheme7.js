@@ -63,7 +63,7 @@ export default function FlyerTheme7(props) {
         className="customFont"
       >
         <tr>
-          <td height="1121" align="left" valign="top">
+          <td align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="left" valign="top">
@@ -71,8 +71,8 @@ export default function FlyerTheme7(props) {
                     <img
                       src={allData.image_url[0]}
                       alt=""
-                      width="816"
-                      height="450"
+                      width="100%"
+                      height="380"
                     />
                   )}
                 </td>
@@ -224,7 +224,7 @@ export default function FlyerTheme7(props) {
           </td>
         </tr>
         <tr>
-          <td height="1121" align="left" valign="top">
+          <td align="left" valign="top">
             <table width="100%" border="0" cellspacing="0" cellpadding="0">
               <tr>
                 <td align="left" valign="top">
@@ -381,12 +381,35 @@ export default function FlyerTheme7(props) {
                                         color: "#FFFFFF",
                                       }}
                                     >
-                                      <a
-                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                        target="_blank"
-                                      >
-                                        Click Here!
-                                      </a>
+                                      {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                                     </p>
                                   </td>
                                 </tr>
@@ -537,10 +560,10 @@ export default function FlyerTheme7(props) {
                       <td width="49%" align="left" valign="top">
                         {Object.keys(allData).length > 0 && (
                           <img
-                            src={allData.image_url[6]}
+                            src={allData.image_url[0]}
                             alt=""
                             width="400"
-                            height="350"
+                            height="250"
                           />
                         )}
                       </td>
@@ -550,10 +573,10 @@ export default function FlyerTheme7(props) {
                       <td width="49%" align="left" valign="top">
                         {Object.keys(allData).length > 0 && (
                           <img
-                            src={allData.image_url[7]}
+                            src={allData.image_url[1]}
                             alt=""
                             width="400"
-                            height="350"
+                            height="250"
                           />
                         )}
                       </td>
@@ -566,7 +589,7 @@ export default function FlyerTheme7(props) {
               </tr>
               <tr>
                 <td
-                  height="287"
+                  height="220"
                   align="left"
                   valign="top"
                   bgcolor={bgColor}

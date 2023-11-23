@@ -1918,7 +1918,7 @@ export default function EditImageSet(props) {
                         <span>
                           <i class="fas fa-download"></i>
                         </span>
-                        Download Image
+                        Download
                       </a>
                     </div>
                     <div className="asdf">
@@ -1926,7 +1926,7 @@ export default function EditImageSet(props) {
                         <span>
                           <i class="far fa-trash-alt"></i>
                         </span>
-                        Delete Image
+                        Delete
                       </a>
                     </div>
                     <div className="asdf">

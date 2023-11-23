@@ -11591,7 +11591,7 @@ img.panaromaRibbon {
   border: unset;
   box-shadow: unset;
 }
-.customFont * {
+.customFont {
   font-family: Helvetica !important;
 }
 .companyNameFlyer {
@@ -11615,6 +11615,7 @@ img.panaromaRibbon {
   }
 }
 
+
 @media print and (color) {
   * {
     -webkit-print-color-adjust: exact;
@@ -11622,12 +11623,18 @@ img.panaromaRibbon {
   }
 }
 @media print {
+  @page {
+    size: letter;
+  }
   .customTable table {
     max-width: 100% !important;
     width: 100% !important;
     height: 100vh !important;
     margin: 0px;
     padding: 0px;
+  }
+  body .uwy {
+    display: none !important;
   }
 }
 .customTable table {
@@ -11656,4 +11663,21 @@ img.panaromaRibbon {
   object-fit: cover;
   width: 100%;
   height: 94px;
+}
+/* .customTd td{
+  padding-right: 10px;
+}
+
+.customTd td:nth-last-child(1){
+  padding-right: 0px;
+} */
+.slideShowTourImages .active img{
+  border: 3px solid #28bf0c;
+  border-radius: 5px;
+}
+.profile-sec.nonBrand {
+  padding-top: 0px;
+}
+.nonBrand.profile-row-bg2 {
+  background: #000000;
 }

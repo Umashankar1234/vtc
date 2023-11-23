@@ -71,8 +71,8 @@ export default function FlyerTheme7(props) {
                     <img
                       src={allData.image_url[0]}
                       alt=""
-                      width="816"
-                      height="500"
+                      width="100%"
+                      height="380"
                     />
                   )}
                 </td>
@@ -84,12 +84,35 @@ export default function FlyerTheme7(props) {
                   valign="middle"
                   bgcolor={bgColor}
                 >
-                  <a
-                    href="#"
-                    style={{ color: "#FFFFFF", textDecoration: "none" }}
-                  >
-                    https://virtualtourcafe.com/alpha/tour/{link}
-                  </a>
+                  {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                 </td>
               </tr>
               <tr>
@@ -307,12 +330,35 @@ export default function FlyerTheme7(props) {
                         valign="middle"
                         style={{ color: "#FFFFFF" }}
                       >
+                        {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
                         <a
                           href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                          style={{ color: "#FFFFFF", textDecoration: "none" }}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
                         >
-                          https://virtualtourcafe.com/alpha/tour/{link}
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
                         </a>
+                      )}
                       </td>
                       <td
                         width="50%"
@@ -499,12 +545,35 @@ export default function FlyerTheme7(props) {
                                         color: "#FFFFFF",
                                       }}
                                     >
-                                      <a
-                                        href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                        target="_blank"
-                                      >
-                                        Click Here!
-                                      </a>
+                                      {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                                     </p>
                                   </td>
                                 </tr>
@@ -549,7 +618,7 @@ export default function FlyerTheme7(props) {
                         >
                           <tr style={{ background: bgColor }}>
                             <td
-                              height="601"
+                              height="400"
                               align="left"
                               valign="top"
                               style={{ padding: "15px" }}
@@ -584,7 +653,7 @@ export default function FlyerTheme7(props) {
                                   src={allData.image_url[2]}
                                   alt=""
                                   width="490"
-                                  height="390"
+                                  height="280"
                                 />
                               )}
                             </td>
@@ -599,7 +668,7 @@ export default function FlyerTheme7(props) {
                                   src={allData.image_url[3]}
                                   alt=""
                                   width="490"
-                                  height="390"
+                                  height="280"
                                 />
                               )}
                             </td>
@@ -619,7 +688,7 @@ export default function FlyerTheme7(props) {
                   align="left"
                   valign="middle"
                   bgcolor=""
-                  style={{ padding: "15px" }}
+                  
                 >
                   <table
                     width="100%"
@@ -631,7 +700,7 @@ export default function FlyerTheme7(props) {
                       <td
                         align="right"
                         valign="top"
-                        style={{ color: "#FFFFFF" }}
+                        style={{ color: "#FFFFFF", padding: "15px" }}
                       >
                         All information deemed reliable, but not guaranteed.
                       </td>

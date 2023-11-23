@@ -1462,6 +1462,10 @@ export default function AgentPanaroma(props) {
   };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
+    if(name == "caption"){
+      setPropertyData({ ...propertyData, caption: value,widgetcaption:value });
+    }
+    else
     setPropertyData({ ...propertyData, [name]: value });
   };
   const handleChange = (event, amenity) => {
@@ -3650,7 +3654,7 @@ export default function AgentPanaroma(props) {
                       Save
                     </button>
                     <div class="app_preview mar_top">
-                      <p>Use Premimum Theme</p>
+                      <p>Use Premium Theme</p>
                       <div class="switchToggle custom-control custom-switch">
                         <input
                           type="checkbox"

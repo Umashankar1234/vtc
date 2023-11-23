@@ -71,8 +71,8 @@ export default function FlyerTheme6(props) {
                     <img
                       src={allData.image_url[0]}
                       alt=""
-                      width="816"
-                      height="490"
+                      width="100%"
+                      height="600"
                     />
                   )}
                 </td>
@@ -431,12 +431,35 @@ export default function FlyerTheme6(props) {
                                   color: "#FFFFFF",
                                 }}
                               >
-                                <a
-                                  href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                                  target="_blank"
-                                >
-                                  Click Here!
-                                </a>
+                                {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                               </p>
                             </td>
                           </tr>
@@ -470,12 +493,35 @@ export default function FlyerTheme6(props) {
                         valign="top"
                         style={{ color: "#FFFFFF" }}
                       >
+                       {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
                         <a
                           href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
                           target="_blank"
+                          rel="noreferrer"
                         >
-                          https://virtualtourcafe.com/alpha/tour/{link}
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
                         </a>
+                      )}
                       </td>
                       <td
                         width="50%"
@@ -525,8 +571,8 @@ export default function FlyerTheme6(props) {
                           <img
                             src={allData.image_url[3]}
                             alt=""
-                            width="300"
-                            height="200"
+                            width="100%"
+                            height="170"
                           />
                         )}
                       </td>
@@ -538,8 +584,8 @@ export default function FlyerTheme6(props) {
                           <img
                             src={allData.image_url[4]}
                             alt=""
-                            width="300"
-                            height="200"
+                            width="100%"
+                            height="170"
                           />
                         )}
                       </td>
@@ -561,8 +607,8 @@ export default function FlyerTheme6(props) {
                           <img
                             src={allData.image_url[5]}
                             alt=""
-                            width="300"
-                            height="200"
+                            width="100%"
+                            height="170"
                           />
                         )}
                       </td>
@@ -574,8 +620,8 @@ export default function FlyerTheme6(props) {
                           <img
                             src={allData.image_url[6]}
                             alt=""
-                            width="300"
-                            height="200"
+                            width="100%"
+                            height="170"
                           />
                         )}
                       </td>

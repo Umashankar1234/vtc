@@ -89,7 +89,13 @@ export default function FlyerTheme2(props) {
               }}
             >
               {Object.keys(tourData).length > 0 &&
-                tourData.city + " , " + tourData.countryname}
+                tourData.address +
+                  " , " +
+                  tourData.city +
+                  " , " +
+                  tourData.state +
+                  " , " +
+                  tourData.zipcode}
             </h6>
           </td>
           <td width="1%" height="100%" align="center" valign="middle">
@@ -170,7 +176,7 @@ export default function FlyerTheme2(props) {
                 </td>
               </tr>
               <tr>
-                <td height="100%" colspan="3" align="left" valign="top"></td>
+                <td height="10" colspan="3" align="left" valign="top"></td>
               </tr>
               <tr>
                 <td colspan="3" align="left" valign="top">
@@ -178,7 +184,7 @@ export default function FlyerTheme2(props) {
                     style={{
                       float: "left",
                       width: "100%",
-                      height: "300px",
+                      height: "288px",
                       overflow: "hidden",
                     }}
                   >
@@ -189,27 +195,35 @@ export default function FlyerTheme2(props) {
                       cellpadding="0"
                     >
                       <tr>
-                        <td width="49%" align="left" valign="top">
+                        <td align="left" valign="top">
                           {Object.keys(allData).length > 0 && (
                             <img
                               src={allData.image_url[1]}
                               alt=""
-                              width="250"
+                              width="100%"
                               height="150"
                             />
                           )}
                         </td>
                         <td width="2%" align="left" valign="top"></td>
-                        <td height="49%" align="right" valign="top">
+                        <td align="right" valign="top">
                           {Object.keys(allData).length > 0 && (
                             <img
                               src={allData.image_url[2]}
                               alt=""
-                              width="250"
+                              width="100%"
                               height="150"
                             />
                           )}
                         </td>
+                      </tr>
+                      <tr>
+                        <td
+                          height="10"
+                          colspan="3"
+                          align="left"
+                          valign="top"
+                        ></td>
                       </tr>
                       <tr>
                         <td align="left" valign="top">
@@ -217,7 +231,7 @@ export default function FlyerTheme2(props) {
                             <img
                               src={allData.image_url[3]}
                               alt=""
-                              width="250"
+                              width="100%"
                               height="150"
                             />
                           )}
@@ -230,7 +244,7 @@ export default function FlyerTheme2(props) {
                             <img
                               src={allData.image_url[4]}
                               alt=""
-                              width="250"
+                              width="100%"
                               height="150"
                             />
                           )}
@@ -239,6 +253,9 @@ export default function FlyerTheme2(props) {
                     </table>
                   </div>
                 </td>
+              </tr>
+              <tr>
+                <td height="10" colspan="3" align="left" valign="top"></td>
               </tr>
             </table>
           </td>
@@ -256,7 +273,12 @@ export default function FlyerTheme2(props) {
               <tr>
                 <td valign="top" style={{ padding: "10px" }} bgcolor={bgColor}>
                   <p
-                    style={{ margin: "0px", color: "white", fontSize: "14px" }}
+                    style={{
+                      margin: "0px",
+                      color: "white",
+                      fontSize: "13px",
+                      lineHeight: "17px",
+                    }}
                   >
                     {Object.keys(tourData).length > 0 && tourData.description}
                   </p>
@@ -390,17 +412,35 @@ export default function FlyerTheme2(props) {
             <table width="80%" border="0" cellspacing="0" cellpadding="0">
               <tr style={{ background: bgColor2 }}>
                 <td align="center" valign="top">
-                  <a
-                    href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                    style={{
-                      margin: "5px 0px 5px 0px",
-                      fontSize: "14px",
-                      wordBreak: "break-all",
-                      color: "white",
-                    }}
-                  >
-                    View Tour
-                  </a>
+                  {tourData.web_address ? (
+                    <a
+                      href={`${tourData.web_address}`}
+                      style={{
+                        margin: "5px 0px 5px 0px",
+                        fontSize: "14px",
+                        wordBreak: "break-all",
+                        color: "white",
+                      }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {`${tourData.web_address}`}
+                    </a>
+                  ) : (
+                    <a
+                      href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                      style={{
+                        margin: "5px 0px 5px 0px",
+                        fontSize: "14px",
+                        wordBreak: "break-all",
+                        color: "white",
+                      }}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                    </a>
+                  )}
 
                   <p
                     style={{ margin: "0px", fontSize: "12px", color: "white" }}

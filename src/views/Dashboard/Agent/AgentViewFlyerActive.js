@@ -74,33 +74,6 @@ export default function AgentViewFlyerActive(props) {
     setOpenSuccess(false);
     setOpenError(false);
   };
-  useEffect(() => {
-    const handleDOMContentLoaded = () => {
-      setTimeout(() => {
-        const element = document.querySelector('.uwy.userway_p1');
-
-        if (element) {
-          console.log('Element found:', element);
-          element.style.display = 'none';
-        } else {
-          console.log('Element not found');
-        }
-      }, 1000); // Adjust the delay as needed
-    };
-
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', handleDOMContentLoaded);
-    } else {
-      handleDOMContentLoaded();
-    }
-
-    return () => {
-      const element = document.querySelector('.uwy.userway_p1');
-      if (element) {
-        element.style.display = '';
-      }
-    };
-  }, []);
   
   useEffect(() => {
     if (context.state.user) {

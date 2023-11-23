@@ -37,6 +37,7 @@ const APIVerifyAccount = APIURL() + "resend-verification-mail";
 const APIGetCountries = APIURL() + "get-countries";
 const APIGetStates = APIURL() + "get-states";
 const APIGetAmenities = APIURL() + "get-all-amenities";
+const APIGetActiveToursList = APIURL() + "get-active-tours-list";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -143,6 +144,170 @@ export default function AgentDashboard(props) {
   const [documentNameData, setDocumentNameData] = useState([]);
   const [documentImageData, setDocumentImageData] = useState([]);
   const [documentPwdData, setDocumentPwdData] = useState([]);
+  const [classType, setClassType] = useState("");
+  const [subscriptionType, setSubscriptionType] = useState("");
+  const [description, setDescription] = useState("");
+  const [creditData, setCreditData] = useState({});
+
+  useEffect(() => {
+    switch (creditData.subId) {
+      case 1:
+        setClassType("header_icon_silver");
+        setSubscriptionType("Monthly");
+        setDescription(
+          `Active Tours ${creditData.activeTours} of ${creditData.totalTours}`
+        );
+        break;
+
+      case 2:
+        setClassType("header_icon_gold");
+        setSubscriptionType("Monthly");
+        setDescription(
+          `Active Tours ${creditData.activeTours} of ${creditData.totalTours}`
+        );
+        break;
+
+      case 3:
+        setClassType("header_icon_platinum");
+        setSubscriptionType("Monthly");
+        setDescription("Unlimited Active Tours");
+        break;
+
+      case 4:
+        setClassType("header_icon_silver");
+        setSubscriptionType("Yearly");
+        setDescription(
+          `Active Tours ${creditData.activeTours} of ${creditData.totalTours}`
+        );
+        break;
+
+      case 5:
+        setClassType("header_icon_gold");
+        setSubscriptionType("Yearly");
+        setDescription(
+          `Active Tours ${creditData.activeTours} of ${creditData.totalTours}`
+        );
+        break;
+
+      case 6:
+        setClassType("header_icon_platinum");
+        setSubscriptionType("Yearly");
+        setDescription("Unlimited Active Tours");
+        break;
+
+      case 10:
+        setClassType("header_icon_trial");
+        setSubscriptionType("Monthly");
+        setDescription("7 Day Free Trial");
+        break;
+
+      case 11:
+        setClassType("header_icon_basic");
+        setSubscriptionType("Monthly");
+        setDescription("MLS Basic");
+        break;
+
+      case 12:
+        setClassType("header_icon_basic");
+        setSubscriptionType("Premium Monthly");
+        setDescription("");
+        break;
+
+      case 13:
+        setClassType("header_icon_basic");
+        setSubscriptionType("Premium Yearly");
+        setDescription("");
+        break;
+
+      default:
+        setClassType("");
+        setSubscriptionType("");
+        setDescription("");
+        break;
+    }
+  }, [creditData, creditData.activeTours, creditData.totalTours]);
+  const renderLinkText = () => {
+    if (creditData && creditData.linktype && creditData.linktype != "") {
+      let linktext =
+        creditData.linktype.charAt(0).toUpperCase() +
+        creditData.linktype.slice(1);
+
+      if (
+        creditData.linktype === "group" &&
+        creditData.totaltours !== undefined
+      ) {
+        linktext = creditData.totaltours
+          ? `Active Tours ${creditData.activetours} of ${creditData.totaltours}`
+          : "Broker subscription not found";
+      }
+
+      return (
+        <li>
+          Linked - {linktext}
+          <span
+            title={
+              creditData.linktype === "group" &&
+              creditData.subscriptionactive !== undefined &&
+              !creditData.subscriptionactive
+                ? "Subscription Expired"
+                : ""
+            }
+            className={
+              creditData.linktype === "group" &&
+              creditData.subscriptionactive !== undefined &&
+              !creditData.subscriptionactive
+                ? "header_icon_expired"
+                : "header_icon_linked"
+            }
+          ></span>
+        </li>
+      );
+    }
+    return null;
+  };
+
+  const renderSubscriptionInfo = () => {
+    if (
+      creditData.subscriptionid &&
+      creditData.linktype !== "group" &&
+      creditData.linktype !== "master" &&
+      creditData.subscriptionid !== 7 &&
+      creditData.subscriptionid !== 8 &&
+      creditData.subscriptionid !== 9
+    ) {
+      return (
+        <li>
+          {creditData.type !== "" ? `${creditData.type} - ` : ""}
+          {creditData.description}
+          <span
+            title={
+              creditData.class === "header_icon_expired"
+                ? "Subscription Expired"
+                : ""
+            }
+            className={creditData.class}
+          ></span>
+        </li>
+      );
+    }
+    return null;
+  };
+
+  const renderAlaCarteInfo = () => {
+    if (
+      creditData.linktype !== "group" &&
+      creditData.linktype !== "master" &&
+      (creditData.hasboughtalacarte || creditData.alacartecredits)
+    ) {
+      return (
+        <li>
+          Ala-Carte - Available Credits {creditData.alacartecredits}
+          <span className="header_icon_alacarte"> </span>
+        </li>
+      );
+    }
+    return null;
+  };
   const options = {
     title: {
       text: "",
@@ -362,7 +527,9 @@ export default function AgentDashboard(props) {
   };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setImagesetData({ ...imagesetData, [name]: value });
+    if (name == "caption") {
+      setImagesetData({ ...imagesetData, caption: value, widget_title: value });
+    } else setImagesetData({ ...imagesetData, [name]: value });
   };
   const handleNumberChange = (event) => {
     const { name, value } = event.target;
@@ -393,6 +560,20 @@ export default function AgentDashboard(props) {
         // console.log(res);
         if (res.data[0].response.status === "success") {
           setCurrentUser(res.data[0].response.data.agent_profile);
+        }
+      });
+    }
+  }, [context.state.user, sync]);
+  useEffect(() => {
+    if (context.state.user) {
+      const objusr = {
+        authenticate_key: "abcd123XYZ",
+        agentId: JSON.parse(context.state.user).agentId,
+      };
+      postRecord(APIGetActiveToursList, objusr).then((res) => {
+        // console.log(res);
+        if (res.data[0].response.status === "success") {
+          setCreditData(res.data[0].response);
         }
       });
     }
@@ -724,11 +905,15 @@ export default function AgentDashboard(props) {
                 <div class="gee_menu">
                   <ul>
                     <li>
-                      <NavLink to={APIPath() + "agent-dashboard"}>My Cafe</NavLink>
+                      <NavLink to={APIPath() + "agent-dashboard"}>
+                        My Cafe
+                      </NavLink>
                     </li>
-                   
+
                     <li>
-                      <NavLink to={APIPath() + "agent-tour-list"}>Tours</NavLink>
+                      <NavLink to={APIPath() + "agent-tour-list"}>
+                        Tours
+                      </NavLink>
                     </li>
                     <li>
                       <Link to={APIPath() + "agent-flyer"}>Flyers</Link>
@@ -764,8 +949,9 @@ export default function AgentDashboard(props) {
               <div class="col-lg-12 col-md-12">
                 <div class="vtc_btm_menu_sec">
                   <ul>
-                    <li>Yearly - Unlimited Active Tours</li>
-                    <li>Ala-Carte - Available Credits 1 </li>
+                    {creditData.linktype != "" && renderLinkText()} -{" "}
+                    {creditData.linktype != "" && renderSubscriptionInfo()}
+                    {renderAlaCarteInfo()}{" "}
                   </ul>
                 </div>
               </div>
@@ -2538,7 +2724,8 @@ export default function AgentDashboard(props) {
                         </h3>
                         <ul class="agent_docs">
                           {Object.keys(dashboardData).length > 0 ? (
-                            (dashboardData.mobile !== "" && dashboardData.mobile !== null) && (
+                            dashboardData.mobile !== "" &&
+                            dashboardData.mobile !== null && (
                               <React.Fragment>
                                 <i class="fas fa-phone-alt"></i>
                                 <span
@@ -2570,7 +2757,8 @@ export default function AgentDashboard(props) {
                       </div>
                       <div class="agent-code">
                         <span>
-                          <i class="far fa-id-card"></i>&nbsp;#{dashboardData?.licenceno}
+                          <i class="far fa-id-card"></i>&nbsp;#
+                          {dashboardData?.licenceno}
                         </span>
                       </div>
                     </div>
@@ -2837,9 +3025,16 @@ export default function AgentDashboard(props) {
                     <p>
                       <strong>Email Us :</strong> support@virtualtourcafe.com
                     </p>
-                    <button type="button" class="next_btn">
-                      Help Center
-                    </button>
+                    <a
+                      href="https://virtualtourcafe.zendesk.com/hc/en-us"
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <button type="button" class="next_btn">
+                        Help Center
+                      </button>
+                    </a>
+
                     <p class="padd_top">
                       Click <span>"PLAY"</span> to watch our short Getting
                       Started Video

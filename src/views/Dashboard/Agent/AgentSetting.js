@@ -1166,6 +1166,7 @@ export default function AgentSetting(props) {
         setOpen(false);
       });
   };
+  console.log(imageData);
   const forImage = (element) => {
     setImageData({
       ...imageData,

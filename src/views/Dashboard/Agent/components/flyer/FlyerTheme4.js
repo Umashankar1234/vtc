@@ -74,13 +74,13 @@ export default function FlyerTheme4(props) {
                     cellpadding="0"
                   >
                     <tr>
-                      <td align="left" valign="top" height="150">
+                      <td align="left" valign="top" height="110">
                         {Object.keys(allData).length > 0 && (
                           <img
                             src={allData.image_url[1]}
                             alt=""
                             width="250"
-                            height="150"
+                            height="110"
                           />
                         )}
                       </td>
@@ -89,13 +89,13 @@ export default function FlyerTheme4(props) {
                       <td align="left" valign="top" height="5"></td>
                     </tr>
                     <tr>
-                      <td align="left" valign="top" height="150">
+                      <td align="left" valign="top" height="110">
                         {Object.keys(allData).length > 0 && (
                           <img
                             src={allData.image_url[2]}
                             alt=""
                             width="250"
-                            height="150"
+                            height="110"
                           />
                         )}
                       </td>
@@ -104,13 +104,13 @@ export default function FlyerTheme4(props) {
                       <td align="left" valign="top" height="5"></td>
                     </tr>{" "}
                     <tr>
-                      <td align="left" valign="top" height="150">
+                      <td align="left" valign="top" height="110">
                         {Object.keys(allData).length > 0 && (
                           <img
                             src={allData.image_url[3]}
                             alt=""
                             width="250"
-                            height="150"
+                            height="110"
                           />
                         )}
                       </td>
@@ -119,13 +119,13 @@ export default function FlyerTheme4(props) {
                       <td align="left" valign="top" height="5"></td>
                     </tr>{" "}
                     <tr>
-                      <td align="left" valign="top" height="150">
+                      <td align="left" valign="top" height="110">
                         {Object.keys(allData).length > 0 && (
                           <img
                             src={allData.image_url[4]}
                             alt=""
                             width="250"
-                            height="150"
+                            height="110"
                           />
                         )}
                       </td>
@@ -134,13 +134,13 @@ export default function FlyerTheme4(props) {
                       <td align="left" valign="top" height="5"></td>
                     </tr>{" "}
                     <tr>
-                      <td align="left" valign="top" height="150">
+                      <td align="left" valign="top" height="110">
                         {Object.keys(allData).length > 0 && (
                           <img
                             src={allData.image_url[5]}
                             alt=""
                             width="250"
-                            height="150"
+                            height="110"
                           />
                         )}
                       </td>
@@ -166,8 +166,8 @@ export default function FlyerTheme4(props) {
                           <img
                             src={allData.image_url[0]}
                             alt=""
-                            width="556"
-                            height="365"
+                            width="100%"
+                            height="300"
                           />
                         )}
                       </td>
@@ -184,12 +184,35 @@ export default function FlyerTheme4(props) {
                             tourData.city + " , " + tourData.countryname}
                         </p>
                         <p style={{ color: "#FFFFFF", margin: "0px" }}>
-                          <a
-                            href={`https://virtualtourcafe.com/alpha/tour/${link}`}
-                            style={{ color: "#FFFFFF", textDecoration: "none" }}
-                          >
-                            Click here to view the tour
-                          </a>
+                        {tourData.web_address ? (
+                        <a
+                          href={`${tourData.web_address}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`${tourData.web_address}`}
+                        </a>
+                      ) : (
+                        <a
+                          href={`https://virtualtourcafe.com/alpha/tour/${link}`}
+                          style={{
+                            margin: "5px 0px 5px 0px",
+                            fontSize: "14px",
+                            wordBreak: "break-all",
+                            color: "white",
+                          }}
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {`https://virtualtourcafe.com/alpha/tour/${link}`}
+                        </a>
+                      )}
                         </p>{" "}
                       </td>
                     </tr>
@@ -438,7 +461,7 @@ export default function FlyerTheme4(props) {
           >
             <h6
               style={{
-                color: "#ffffff",
+                color: allData.themeId == 1 ?"black":"white",
                 fontSize: "16px",
                 margin: "0px 0px 10px 0px",
                 padding: "0px",
@@ -448,7 +471,7 @@ export default function FlyerTheme4(props) {
               DESCRIPTION
             </h6>
 
-            <p style={{ margin: "0px", color: "white", fontSize: "14px" }}>
+            <p style={{ margin: "0px", color: allData.themeId == 1 ?"black":"white", fontSize: "14px" }}>
               {Object.keys(tourData).length > 0 && tourData.description}
             </p>
           </td>
@@ -463,7 +486,7 @@ export default function FlyerTheme4(props) {
             bgcolor={bgColor2}
             style={{ padding: "10px", color: "#ffffff" }}
           >
-            <p style={{ margin: "0px", color: "#ffffff" }}>
+            <p style={{ margin: "0px", color: allData.themeId == 1 ?"black":"white" }}>
               All information deemed reliable, but not guaranteed.
             </p>
           </td>

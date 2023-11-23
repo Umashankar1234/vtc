@@ -62,7 +62,6 @@ const APISendFlyerMail = APIURL() + "send-flyer-mail";
 const APIGetDocumentDatas = APIURL() + "edit-property";
 const APIDeleteDocument = APIURL() + "delete-document";
 
-
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
 }
@@ -389,7 +388,13 @@ export default function EditFlyerTheme(props) {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setPropertyData({ ...propertyData, [name]: value });
+    if (name == "caption") {
+      setPropertyData({
+        ...propertyData,
+        caption: value,
+        widgetcaption: value,
+      });
+    } else setPropertyData({ ...propertyData, [name]: value });
   };
 
   const savePropertyDescription = () => {
@@ -633,7 +638,6 @@ export default function EditFlyerTheme(props) {
       setActiveSelcet(true);
     }
     setBannerData({ ...bannerData, image: "" });
-    //setActiveSelcet(false);
   };
   //console.log(offeredTheme);
   //console.log(offeredTheme1);
@@ -850,7 +854,8 @@ export default function EditFlyerTheme(props) {
           //window.location.href = APIPath() + "agent-flyer-print/" + id;
           history.push(APIPath() + "site/flyer/" + imageset_id);
         } else {
-          window.location.href = APIPath() + "site/flyer/" + imageset_id;
+          window.location.href =
+            APIPath() + "agent-flyer-active-print/" + imageset_id;
           //history.push(APIPath() + "agent-flyer-active-print/" + id);
         }
       }
@@ -1161,6 +1166,20 @@ export default function EditFlyerTheme(props) {
                         aria-labelledby="navbarDropdown"
                       >
                         <ul class="column-count-2">
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href="#"
+                              onClick={() =>
+                                history.push(
+                                  APIPath() + "agent-edit-flyer/" + imageset_id
+                                )
+                              }
+                            >
+                              <i class="far fa-image"></i> Go back to flyer
+                              settings
+                            </a>
+                          </li>
                           <li>
                             <a
                               class="dropdown-item"

@@ -202,6 +202,7 @@ const AgentEditTour = React.memo((props) => {
   const [editing, setEditing] = useState(false);
   const [tourList, setTourList] = useState([]);
   const [imageId, setImageId] = useState("");
+  const [videoSelected, setVideoSelected] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const [element, setElement] = useState("");
   const [currentTourData, setCurrentTourData] = useState([]);
@@ -632,6 +633,7 @@ const AgentEditTour = React.memo((props) => {
       postRecord(APIGetTourDetails, obj).then((res) => {
         if (res.data[0].response.status === "success") {
           setCurrentTourData(res.data[0].response.tourdetails);
+          setWalkthroughData(res.data[0].response.threeD);
         }
       });
     }
@@ -1175,7 +1177,13 @@ const AgentEditTour = React.memo((props) => {
   };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setPropertyData({ ...propertyData, [name]: value });
+    if (name == "caption") {
+      setPropertyData({
+        ...propertyData,
+        caption: value,
+        widgetcaption: value,
+      });
+    } else setPropertyData({ ...propertyData, [name]: value });
   };
   // const handleLeadChange = nextChecked => {
   //     setPropertyData({ ...propertyData, ["leadcapture"]: nextChecked });
@@ -1343,8 +1351,9 @@ const AgentEditTour = React.memo((props) => {
     } else {
       div.classList.add("active");
       setElement(div);
-      if (data.image_type == "video") setImageId("");
-      else setImageId(data.id);
+      if (data.image_type == "video") setVideoSelected(true);
+      else setVideoSelected(false);
+      setImageId(data.id);
     }
     //setBlurValue(10);
   };
@@ -2873,7 +2882,7 @@ const AgentEditTour = React.memo((props) => {
       link.href = src;
       // link.replace(/\s/g, "%");
       link.href = link.href.replace(/\s/g, "%20");
-      if (imageId === "") link.setAttribute("download", "video.mp4");
+      if (videoSelected) link.setAttribute("download", "video.mp4");
       else link.setAttribute("download", "image.jpg");
       document.body.appendChild(link);
       link.click();
@@ -3282,13 +3291,13 @@ const AgentEditTour = React.memo((props) => {
 
                           <li>
                             <a class="dropdown-item" onClick={downloadImage}>
-                              <i class="fas fa-download"></i> Download Image
+                              <i class="fas fa-download"></i> Download
                             </a>
                           </li>
 
                           <li>
                             <a class="dropdown-item" onClick={handleDelete}>
-                              <i class="far fa-trash-alt"></i> Delete Image
+                              <i class="far fa-trash-alt"></i> Delete
                             </a>
                           </li>
 
@@ -3992,7 +4001,7 @@ const AgentEditTour = React.memo((props) => {
                               <span>
                                 <i class="fas fa-download"></i>
                               </span>
-                              Download Image
+                              Download
                             </a>
                           </div>
                           <div className="asdf">
@@ -4000,7 +4009,7 @@ const AgentEditTour = React.memo((props) => {
                               <span>
                                 <i class="far fa-trash-alt"></i>
                               </span>
-                              Delete Image
+                              Delete
                             </a>
                           </div>
                           <div className="asdf">
@@ -6522,7 +6531,7 @@ const AgentEditTour = React.memo((props) => {
                       Save
                     </button>
                     <div class="app_preview mar_top">
-                      <p>Use Premimum Theme</p>
+                      <p>Use Premium Theme</p>
                       <div class="switchToggle custom-control custom-switch">
                         <input
                           type="checkbox"
@@ -6625,7 +6634,12 @@ const AgentEditTour = React.memo((props) => {
                 </div>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="">
+                <button
+                  onClick={updateThemes}
+                  type="button"
+                  class="next_btn"
+                  data-dismiss=""
+                >
                   Save
                 </button>
               </div>
@@ -8187,7 +8201,7 @@ const AgentEditTour = React.memo((props) => {
                             <KeyboardDatePicker
                               disableToolbar
                               variant="inline"
-                              format="dd/MM/yyyy"
+                              format="MM/dd/yyyy"
                               margin="normal"
                               id="date-picker-inline"
                               label="Date"
@@ -8212,6 +8226,8 @@ const AgentEditTour = React.memo((props) => {
                               KeyboardButtonProps={{
                                 "aria-label": "change time",
                               }}
+                              error={false}
+                              helperText=""
                             />
                           </Grid>
                         </MuiPickersUtilsProvider>
@@ -8228,6 +8244,8 @@ const AgentEditTour = React.memo((props) => {
                               KeyboardButtonProps={{
                                 "aria-label": "change time",
                               }}
+                              error={false}
+                              helperText=""
                             />
                           </Grid>
                         </MuiPickersUtilsProvider>

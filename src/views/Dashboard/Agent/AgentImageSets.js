@@ -1541,7 +1541,7 @@ export default function AgentImageSets() {
                                         <span>
                                           <i class="fas fa-trash-alt"></i>
                                         </span>
-                                        Delete ImageSet
+                                        DeleteSet
                                       </a>
                                     </div>
                                     <div className="asdf">
